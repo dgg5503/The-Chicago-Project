@@ -9,7 +9,7 @@ namespace TheChicagoProject.Entity
     class Player : Entity
     {
         public Weapon[] holster;
-        public int activeWeapon;
+        private int activeWeapon;
 
         /// <summary>
         /// Attacks
@@ -18,6 +18,23 @@ namespace TheChicagoProject.Entity
         public void Attack(int type)
         {
 
+        }
+
+        /// <summary>
+        /// Gets and sets the active weapon, if the incoming switch is invalid, it changes it to the first weapon
+        /// </summary>
+        public int ActiveWeapon
+        {
+            get
+            {
+                return activeWeapon;
+            }
+
+            set
+            {
+                if (holster[value] == null)
+                    activeWeapon = 1;
+            }
         }
     }
 }
