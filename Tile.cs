@@ -7,18 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject
 {
-    /// <summary>
-    /// The different types of tiles.
-    /// 
-    /// Each tiletype is also a filename!
-    /// </summary>
-    enum TileType
-    {
-        RoadTar,
-        RoadLine,
-        SideWalkBrick,
-        // More to come :D!
-    }
 
     /*
      * Tile Notes:
@@ -42,9 +30,6 @@ namespace TheChicagoProject
         // Bool for whether or not it can be walked on (ASHWIN'S HOLY GRAIL)
         private bool isWalkable;
 
-        // The TileType for easy identification.
-        private TileType tileType;
-
         // Const width/height
         //private const int SIDE_LENGTH = 64;
 
@@ -54,8 +39,6 @@ namespace TheChicagoProject
 
         public bool IsWalkable { get { return isWalkable; } set { isWalkable = value; } }
 
-        public TileType TileType { get { return tileType; } } // This cannot be changed.
-
 
         /// <summary>
         /// Creates a tile.
@@ -63,11 +46,9 @@ namespace TheChicagoProject
         /// <param name="texture">Texture of the tile.</param>
         /// <param name="tileType">The type of tile you wish to create.</param>
         /// <param name="isWalkable">Whether or not the tile can be walked on.</param>
-        public Tile(Texture2D texture, TileType tileType, bool isWalkable)
+        public Tile(bool isWalkable)
         {
             this.isWalkable = isWalkable;
-            this.texture = texture;
-            this.tileType = tileType;
         }
 
         /// <summary>
