@@ -29,6 +29,14 @@ namespace TheChicagoProject.Entity
         }
 
         /// <summary>
+        /// Interacts with the environment
+        /// </summary>
+        public void Interact()
+        {
+
+        }
+
+        /// <summary>
         /// Gets and sets the active weapon, if the incoming switch is invalid, it changes it to the first weapon
         /// </summary>
         public int ActiveWeapon

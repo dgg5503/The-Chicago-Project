@@ -39,7 +39,7 @@ namespace TheChicagoProject
 
             if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
             {
-                //Display weapon wheel over the screen, goes away when the key is released
+                WorldManager.player.Interact();
             }
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
