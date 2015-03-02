@@ -76,6 +76,7 @@ namespace TheChicagoProject
     {
         // Fields
 
+
         // The main SpriteBatch taken from Game1 which will
         // be used to execute the draw method, doing it
         // this way will require this class to be
@@ -89,6 +90,14 @@ namespace TheChicagoProject
         public RenderManager(SpriteBatch sb)
         {
             this.sb = sb;
+
+        }
+
+        // LOAD TEXTURES
+        // This will be called when rendermanager is constructed in LoadContent... (since we only want to load textures once!!!)s
+        public void LoadTextures()
+        {
+
         }
 
         /// <summary>

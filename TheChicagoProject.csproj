@@ -46,6 +46,7 @@
     <Compile Include="RenderManager.cs" />
     <Compile Include="SaveManager.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="Tiles.cs" />
     <Compile Include="WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
