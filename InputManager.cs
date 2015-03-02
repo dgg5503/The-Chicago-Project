@@ -43,7 +43,7 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
-                //TODO: add implementation of interaction
+                WorldManager.player.Interact();
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
