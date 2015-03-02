@@ -17,22 +17,23 @@ namespace TheChicagoProject
         /// </summary>
         public void HandleInput(KeyboardState keyState, MouseState mouseState)
         {
+            float speed = 5f;
             //The following statements check the movement keys
             if (keyState.IsKeyDown(Keys.W))    //Move up
             {
-
+                WorldManager.player.location.Y -= speed;
             }
             if (keyState.IsKeyDown(Keys.A))    //move down
             {
-
+                WorldManager.player.location.X -= speed;
             }
             if (keyState.IsKeyDown(Keys.S))    //move left
             {
-
+                WorldManager.player.location.Y += speed;
             }
             if (keyState.IsKeyDown(Keys.D))    //move right
             {
-
+                WorldManager.player.location.X += speed;
             }
 
 
@@ -100,11 +101,11 @@ namespace TheChicagoProject
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-
+                WorldManager.player.Attack(0);
             }
-            if (mouseState.RightButton == ButtonState.Pressed)  //grenade
+            else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {
-
+                WorldManager.player.Attack(1);
             }
         }
     }
