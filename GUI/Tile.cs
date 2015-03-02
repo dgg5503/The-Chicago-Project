@@ -15,7 +15,6 @@ namespace TheChicagoProject
      * 
      * 
      * TO-DO:
-     * - Custom tile colors (1)
      * - Base constructor with no location defined?
      * 
      */
@@ -30,8 +29,11 @@ namespace TheChicagoProject
         // Bool for whether or not it can be walked on (ASHWIN'S HOLY GRAIL)
         private bool isWalkable;
 
+        // File name with extension (blah.png)
+        private string fileName;
+
         // Const width/height
-        //private const int SIDE_LENGTH = 64;
+        private const int SIDE_LENGTH = 64;
 
         // Properties
         // These are self explanatory, I dont think I have to comment what each one of these do...
@@ -39,25 +41,41 @@ namespace TheChicagoProject
 
         public bool IsWalkable { get { return isWalkable; } set { isWalkable = value; } }
 
+        public string FileName { get { return fileName; } } // needed if we're doing a dictionary??? (?)
+
 
         /// <summary>
-        /// Creates a tile.
+        /// Creates a tile (texture not set yet!)
         /// </summary>
-        /// <param name="texture">Texture of the tile.</param>
-        /// <param name="tileType">The type of tile you wish to create.</param>
         /// <param name="isWalkable">Whether or not the tile can be walked on.</param>
-        public Tile(bool isWalkable)
+        /// <param name="fileName">The tiles file name with extension.</param>
+        public Tile(bool isWalkable, string fileName)
         {
             this.isWalkable = isWalkable;
+            this.fileName = fileName;
         }
 
         /// <summary>
         /// Basic draw method to draw the tile.
         /// </summary>
         /// <param name="sb">SpriteBatch from Game1.</param>
-        public void Draw(SpriteBatch sb, Rectangle sizeLoc)
+        /// <param name="x">X location in pixels.</param>
+        /// <param name="y">Y location in pixels.</param>
+        public void Draw(SpriteBatch sb, int x, int y)
         {
-            sb.Draw(texture, sizeLoc, Color.White); //(1)
+            sb.Draw(texture, new Rectangle(x, y, SIDE_LENGTH, SIDE_LENGTH), Color.White);
+        }
+
+        /// <summary>
+        /// Basic draw method to draw the tile (with a custom color).
+        /// </summary>
+        /// <param name="sb">SpriteBatch from Game1.</param>
+        /// <param name="x">X location in pixels.</param>
+        /// <param name="y">Y location in pixels.</param>
+        /// <param name="c">A color to overlay the image.</param>
+        public void Draw(SpriteBatch sb, int x, int y, Color c)
+        {
+            sb.Draw(texture, new Rectangle(x, y, SIDE_LENGTH, SIDE_LENGTH), c);
         }
 
     }

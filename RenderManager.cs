@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using Microsoft.Xna.Framework;
-//using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace TheChicagoProject
 {
@@ -83,20 +85,37 @@ namespace TheChicagoProject
         // constructed in LoadContent (which only happens once)
         private SpriteBatch sb;
 
+        // Main grapgicsDevice from Game1, required
+        // for loading textures
+        private GraphicsDevice g;
+
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
         /// <param name="sb">MonoGames SpriteBatch object.</param>
-        public RenderManager(SpriteBatch sb)
+        public RenderManager(SpriteBatch sb, GraphicsDevice g)
         {
             this.sb = sb;
+            this.g = g;
 
+            LoadTextures();
         }
 
         // LOAD TEXTURES
-        // This will be called when rendermanager is constructed in LoadContent... (since we only want to load textures once!!!)s
+        // This will be called when rendermanager is constructed in LoadContent... (since we only want to load textures once!!!)
         public void LoadTextures()
         {
+            // Image stream for basic texture loading
+            Stream imageStream;
+
+            //--------TILES--------
+            foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
+            {
+                imageStream = TitleContainer.OpenStream("./Content/Tiles/" + kvp.Value.FileName);
+                kvp.Value.Texture = Texture2D.FromStream(g, imageStream);
+                imageStream.Close();
+            }
+            //--------TILES--------
 
         }
 
@@ -104,24 +123,20 @@ namespace TheChicagoProject
         /// Draws shit.
         /// </summary>
         public void Draw() {
-
+            Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
+            Tiles.tilesDictionary["RoadTar"].Draw(sb, 64, 0);
+            Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.Green);
         }
 
-        // Sprite Drawing
-        // This will take loaded content from somewhere 
-        
+        // Sprite Sheets
 
-        // GUI Drawing
+        // GUI
 
 
         // World drawing
-        // takes 2x2 array with tile codes and draws their respective tile from 0,0
         public void DrawWorld()
         {
             // 2x2 
         }
-
-
-
     }
 }

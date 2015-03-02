@@ -20,7 +20,7 @@ namespace TheChicagoProject
      * Render
      */
 
-    enum GameState
+    public enum GameState
     {
         Menu,
         Game,
@@ -39,6 +39,7 @@ namespace TheChicagoProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        RenderManager renderManager;
 
         public static GameState state;
 
@@ -69,6 +70,10 @@ namespace TheChicagoProject
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // RenderManager is created here
+            // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
+            renderManager = new RenderManager(spriteBatch, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -102,7 +107,10 @@ namespace TheChicagoProject
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
+            spriteBatch.Begin();
+            renderManager.Draw();
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
