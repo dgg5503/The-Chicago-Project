@@ -10,6 +10,12 @@ namespace TheChicagoProject
     /// </summary>
     class RenderManager
     {
-        
+
+        /// <summary>
+        /// Draws shit.
+        /// </summary>
+        public void Draw() {
+
+        }
     }
 }
