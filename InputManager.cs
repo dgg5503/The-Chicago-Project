@@ -15,8 +15,97 @@ namespace TheChicagoProject
         /// <summary>
         /// What happens with Update?
         /// </summary>
-        public void HandleInput(KeyboardState state) {
+        public void HandleInput(KeyboardState keyState, MouseState mouseState)
+        {
+            //The following statements check the movement keys
+            if (keyState.IsKeyDown(Keys.W))    //Move up
+            {
 
+            }
+            if (keyState.IsKeyDown(Keys.A))    //move down
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.S))    //move left
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D))    //move right
+            {
+
+            }
+
+
+            if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
+            {
+                //Display weapon wheel over the screen, goes away when the key is released
+            }
+            if (keyState.IsKeyDown(Keys.E))    //Interact
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.R))    //Reload
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.I))    //Inventory
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.G))    //Quest log
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D1))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D2))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D3))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D4))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D5))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D6))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D7))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D8))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D9))    //Quick Weapon Select
+            {
+
+            }
+            if (keyState.IsKeyDown(Keys.D0))    //Quick Weapon Select
+            {
+
+            }
+
+            //handles mouse input
+            if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
+            {
+
+            }
+            if (mouseState.RightButton == ButtonState.Pressed)  //grenade
+            {
+
+            }
         }
     }
 }
