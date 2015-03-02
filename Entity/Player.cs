@@ -21,6 +21,14 @@ namespace TheChicagoProject.Entity
         }
 
         /// <summary>
+        /// Reloads the active weapon
+        /// </summary>
+        public void Reload()
+        {
+
+        }
+
+        /// <summary>
         /// Gets and sets the active weapon, if the incoming switch is invalid, it changes it to the first weapon
         /// </summary>
         public int ActiveWeapon
