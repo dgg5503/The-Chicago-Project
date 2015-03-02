@@ -11,5 +11,6 @@ namespace TheChicagoProject
     /// </summary>
     class InputManager
     {
+
     }
 }
