@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="EntityManager.cs" />
+    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Entity\Player.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Program.cs" />
