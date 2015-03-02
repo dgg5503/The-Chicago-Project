@@ -70,14 +70,12 @@ namespace TheChicagoProject
      * 
      */
 
-
     /// <summary>
     /// Handles the drawing. Any and all drawing. Ever.
     /// </summary>
     class RenderManager
     {
         // Fields
-
 
         // The main SpriteBatch taken from Game1 which will
         // be used to execute the draw method, doing it
@@ -93,11 +91,13 @@ namespace TheChicagoProject
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
         /// <param name="sb">MonoGames SpriteBatch object.</param>
+        /// <param name="g">MonoGames GraphicsDevice object.</param>
         public RenderManager(SpriteBatch sb, GraphicsDevice g)
         {
             this.sb = sb;
             this.g = g;
 
+            // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
         }
 
@@ -106,37 +106,66 @@ namespace TheChicagoProject
         public void LoadTextures()
         {
             // Image stream for basic texture loading
-            Stream imageStream;
 
-            //--------TILES--------
+            // USE USING OR NOT? (?)
+            
+            //Stream imageStream;
+
+            //--------TILES-------- DO WE TRY CATCH FOR ERRORS? (?)
             foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
             {
-                imageStream = TitleContainer.OpenStream("./Content/Tiles/" + kvp.Value.FileName);
-                kvp.Value.Texture = Texture2D.FromStream(g, imageStream);
-                imageStream.Close();
+                using (Stream imageStream = TitleContainer.OpenStream("./Content/Tiles/" + kvp.Value.FileName))
+                {
+                    //imageStream = 
+                    kvp.Value.Texture = Texture2D.FromStream(g, imageStream);
+                }
+                //imageStream.Close();
             }
             //--------TILES--------
 
         }
 
         /// <summary>
-        /// Draws shit.
+        /// Draws LEGITERALLY EVERYTHING!
         /// </summary>
-        public void Draw() {
+        public void Draw()
+        {
+            // DEBUG DRAWING
             Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
             Tiles.tilesDictionary["RoadTar"].Draw(sb, 64, 0);
             Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.Green);
+
+            // ORDER OF DRAWING:
+            // World (own method of drawing)
+            // Entities (items, players and what not) (list of entities and their locs (?))
+            // GUI (list of GUI elements and their locs (?))
+            // High Priority Menus (inventory, pause, etc...) (list of GUI elements and their locs (?))
         }
 
         // Sprite Sheets
+        // Loading/parsing/setup for animation.
 
         // GUI
-
+        /*
+         * Notes:
+         * - Requires mouse?
+         * - Dialog type?
+         * - Pauses game?
+         * 
+         * 
+         * - Another tool could be an external GUI builder? (no need to hand code stuff) (?)
+         */
 
         // World drawing
+        // @Ashwin
+        // What possible parameters would this take in? How are we creating our world?
+        // characters / numbers / etc...
+        // Perhaps the way in which we parse and construct the world should determine the keys in the dictionary? (?)
+        // i.e. maybe not strings but enum/identifying ints/character
+        // 
         public void DrawWorld()
         {
-            // 2x2 
+
         }
     }
 }

@@ -57,6 +57,7 @@ namespace TheChicagoProject
 
         /// <summary>
         /// Basic draw method to draw the tile.
+        /// NOTE: All tiles are 64x64, no need to specify a w and h
         /// </summary>
         /// <param name="sb">SpriteBatch from Game1.</param>
         /// <param name="x">X location in pixels.</param>
@@ -68,6 +69,7 @@ namespace TheChicagoProject
 
         /// <summary>
         /// Basic draw method to draw the tile (with a custom color).
+        /// NOTE: All tiles are 64x64, no need to specify a w and h
         /// </summary>
         /// <param name="sb">SpriteBatch from Game1.</param>
         /// <param name="x">X location in pixels.</param>

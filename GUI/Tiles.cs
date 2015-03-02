@@ -11,7 +11,7 @@ namespace TheChicagoProject
 {
     static class Tiles
     {
-        // Dicitionary of tiles and their file name.
+        // Dictionary of tiles and their file name.
         public static Dictionary<string, Tile> tilesDictionary = new Dictionary<string, Tile>
         {
             {"RoadTar", new Tile(true, "RoadTar.png")},
