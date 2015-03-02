@@ -11,6 +11,18 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace TheChicagoProject
 {
+    enum GameState
+    {
+        Menu,
+        Game,
+        Pause,
+        Inventory,
+        QuestLog,
+        WeaponWheel,
+        FastTravel,
+        Shop
+    }
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
