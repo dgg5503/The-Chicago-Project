@@ -10,5 +10,6 @@ namespace TheChicagoProject
     /// </summary>
     class RenderManager
     {
+        
     }
 }
