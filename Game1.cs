@@ -40,6 +40,8 @@ namespace TheChicagoProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static GameState state;
+
         public Game1()
             : base() {
             graphics = new GraphicsDeviceManager(this);
@@ -56,6 +58,8 @@ namespace TheChicagoProject
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            state = GameState.Menu;
         }
 
         /// <summary>
