@@ -11,6 +11,15 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace TheChicagoProject
 {
+    /*
+     * Update:
+     * Input
+     * Entity
+     * 
+     * Draw:
+     * Render
+     */
+
     enum GameState
     {
         Menu,
