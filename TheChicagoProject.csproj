@@ -44,9 +44,10 @@
     <Compile Include="Item\Weapon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quest.cs" />
+    <Compile Include="Quests\Quest.cs" />
     <Compile Include="RenderManager.cs" />
     <Compile Include="SaveManager.cs" />
+    <Compile Include="Tile.cs" />
     <Compile Include="WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
