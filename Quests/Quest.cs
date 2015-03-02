@@ -8,8 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using TheChicagoProject.Entity;
 
-namespace QuestNameSpace
+namespace TheChicagoProject.Quests
 {
     /// <summary>
     /// Represents a quest and stores information about the quest
@@ -17,9 +18,9 @@ namespace QuestNameSpace
     class Quest
     {
         //fields
-        private int status;
+        private int status;                 //0: Unavailable, 1: Unstarted, 2: In progress, 3: complete
         private string objective;
-        private string descrition;
+        private string description;
         private string name;
         private Vector2 startPoint;
         private int reward;
@@ -35,7 +36,7 @@ namespace QuestNameSpace
             }
         }
         public string Objective { get { return objective; } }
-        public string Description { get { return descrition; } }
+        public string Description { get { return description; } }
         public string Name { get { return name; } }
         public Vector2 StartPoint { get { return startPoint; } }
         public int Reward {get{return reward;}
@@ -54,9 +55,27 @@ namespace QuestNameSpace
         {
             this.name = name;
             this.objective = objective;
-            this.descrition = descrition;
+            this.description = description;
             this.startPoint = start;
             this.reward = reward;
         }
+
+        /// <summary>
+        /// Updates the player's quest log, gives them the reward and updates this quest object's status
+        /// </summary>
+        /// <param name="player">The player object</param>
+        public void Completed(Player player)
+        {
+            status = 3;
+            throw new NotImplementedException();
+        }
+
+        //sets the status equal to 2(in progress)
+        public void StartQuest()
+        {
+            status = 2;
+        }
+
+
     }
 }
