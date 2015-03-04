@@ -24,6 +24,7 @@ namespace TheChicagoProject.Quests
         private string name;
         private Vector2 startPoint;
         private int reward;
+        private int cashReward;
 
         //properties
         public int Status { get { return status; }
@@ -49,15 +50,26 @@ namespace TheChicagoProject.Quests
                     reward = value;
             }
         }
+        public int CashReward { get { return cashReward; }
+            set
+            {
+                if (value < 0)
+                    cashReward = 0;
+                else
+                    cashReward = value;
+            }
+        }
 
         //Constructor
-        public Quest(string name, string objective, string description, Vector2 start, int reward = 1)
+        public Quest(string name, string objective, string description, Vector2 start, int reward = 1, int cashReward = 10)
         {
             this.name = name;
             this.objective = objective;
             this.description = description;
             this.startPoint = start;
-            this.reward = reward;
+            this.Reward = reward;
+            this.CashReward = cashReward;
+            status = 0;
         }
 
         /// <summary>
@@ -67,14 +79,34 @@ namespace TheChicagoProject.Quests
         public void Completed(Player player)
         {
             status = 3;
-            throw new NotImplementedException();
+            player.Cash += cashReward;
+            player.QuestPoints += reward;
         }
 
-        //sets the status equal to 2(in progress)
+        /// <summary>
+        /// Sets the quest's status to in progress(2)
+        /// </summary>
         public void StartQuest()
         {
             status = 2;
         }
+
+        /// <summary>
+        /// makes the quest available
+        /// </summary>
+        public void SetAvailable()
+        {
+            status = 1;
+        }
+
+        /// <summary>
+        /// sets the status to be unavailable
+        /// </summary>
+        public void SetUnavailable()
+        {
+            status = 0;
+        }
+        
 
 
     }

@@ -2,16 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheChicagoProject.Entity;
 
 namespace TheChicagoProject.Math
 {
     /// <summary>
     /// It's not the mathematical DijkstraMap, but rather an AI construct.
     /// Premise will be explained here at a later date.
+    /// http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps
     /// </summary>
     class DijkstraMap
     {
-        private static int[][] generateMap(int mapSize, params int[][] goals) {
+        private int[][] goals;
+        private int[][] map;
+
+        /// <summary>
+        /// Returns the list of goal-points.
+        /// </summary>
+        public int[][] Goals {
+            get { return goals; }
+        }
+
+        /// <summary>
+        /// Returns the Dijkstra Map grid for Entities to use.
+        /// </summary>
+        public int[][] Map {
+            get { return map; }
+        }
+
+        public DijkstraMap(World world, params int[][] goals) {
+            this.goals = goals;
+            this.map = generateMap(world, goals);
+        }
+
+        private static int[][] generateMap(World world, params int[][] goals) {
+            int mapSize = world.size;
             int[][] grid = new int[mapSize][];
             //Initalizes the grid with 100
             for (int x = 0; x < grid.Length; x++) {
@@ -29,7 +54,8 @@ namespace TheChicagoProject.Math
                 b = true;
                 for (int x = 0; x < grid.Length; x++) {
                     for (int y = 0; y < grid[x].Length; y++) {
-                        //TODO: Check whether the tile is walkable, when Doug is done with his work.
+                        if (!world.tiles[x][y].IsWalkable)
+                            continue;
                         #region Grid Checking
                         if (x - 1 >= 0) {
                             if(y - 1 >= 0) //top left
@@ -80,7 +106,7 @@ namespace TheChicagoProject.Math
             }
             for (int x = 0; x < grid.Length; x++)
                 for (int y = 0; y < grid[x].Length; y++)
-                    if (grid.Length == 0/*Doug allows me to check walkableness!*/)
+                    if (!world.tiles[x][y].IsWalkable)
                         grid[x][y] = 100;
 
             return grid;
