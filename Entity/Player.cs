@@ -12,10 +12,21 @@ namespace TheChicagoProject.Entity
         private int activeWeapon;
         private int cash;
         private int questPoints;
+        private int lives;
 
         //properties
         public int Cash { get { return Cash; } set { cash = value;/*maybe implement rule that cash cannot be < 0*/} }
-        public int QuestPoints { get { return questPoints; } set { questPoints = value; } }
+        public int QuestPoints { get { return questPoints; } 
+            set 
+            { 
+                questPoints = value;
+                lives = QuestPointsToLives(questPoints);
+                /****************************************************
+                 *                                                  *
+                 *    Display Message About getting a new heart?    *
+                 *                                                  *
+                 ****************************************************/
+            } }
 
         /// <summary>
         /// Attacks
@@ -57,6 +68,18 @@ namespace TheChicagoProject.Entity
                 if (holster[value] == null)
                     activeWeapon = 1;
             }
+        }
+
+
+        /// <summary>
+        /// calculates the number of lives the player should have based on the number of quest points
+        /// </summary>
+        /// <param name="qPoints"></param>
+        /// <returns></returns>
+        private int QuestPointsToLives(int qPoints)
+        {
+            int newLives = 4 + (int)(2 * System.Math.Sqrt(qPoints));
+            return newLives;
         }
     }
 }

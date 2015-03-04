@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using TheChicagoProject.Quests;
 
 namespace TheChicagoProject
 {
@@ -11,5 +13,10 @@ namespace TheChicagoProject
     /// </summary>
     class SaveManager
     {
+
+        public void SaveQuests()
+        {
+
+        }
     }
 }

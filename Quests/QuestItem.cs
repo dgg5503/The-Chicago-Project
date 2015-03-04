@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheChicagoProject.Entity;
 
 namespace TheChicagoProject.Quests
 {
@@ -12,9 +13,11 @@ namespace TheChicagoProject.Quests
     {
         //fields
         private string name;
+        private Entity.Entity item;
 
         //properties
         public string Name { get { return name; } }
+        public Entity.Entity Item { get { return item; } set { item = value; } }
 
         //constructor
         public QuestItem(string name)
