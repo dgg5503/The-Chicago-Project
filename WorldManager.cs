@@ -13,6 +13,17 @@ namespace TheChicagoProject
     class WorldManager
     {
         public static Player player;
-        //test
+        public Dictionary<String, World> worlds;
+        private String current;
+
+        public World CurrentWorld {
+            get { return worlds[current]; }
+        }
+
+        public WorldManager() {
+            worlds = new Dictionary<String, World>();
+            //TODO: Load/Save worlds.
+            current = "main";
+        }
     }
 }
