@@ -70,11 +70,15 @@ namespace TheChicagoProject.Quests
             throw new NotImplementedException();
         }
 
-        //sets the status equal to 2(in progress)
+        /// <summary>
+        /// Sets the quest's status to in progress(2)
+        /// </summary>
         public void StartQuest()
         {
             status = 2;
         }
+
+        
 
 
     }
