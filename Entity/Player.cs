@@ -10,6 +10,12 @@ namespace TheChicagoProject.Entity
     {
         public Weapon[] holster;
         private int activeWeapon;
+        private int cash;
+        private int questPoints;
+
+        //properties
+        public int Cash { get { return Cash; } set { cash = value;/*maybe implement rule that cash cannot be < 0*/} }
+        public int QuestPoints { get { return questPoints; } set { questPoints = value; } }
 
         /// <summary>
         /// Attacks
