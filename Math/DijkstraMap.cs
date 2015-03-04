@@ -9,6 +9,7 @@ namespace TheChicagoProject.Math
     /// <summary>
     /// It's not the mathematical DijkstraMap, but rather an AI construct.
     /// Premise will be explained here at a later date.
+    /// http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps
     /// </summary>
     class DijkstraMap
     {
