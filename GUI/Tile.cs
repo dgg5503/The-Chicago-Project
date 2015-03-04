@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TheChicagoProject
+namespace TheChicagoProject.GUI
 {
 
     /*
@@ -34,6 +34,9 @@ namespace TheChicagoProject
 
         // Const width/height
         private const int SIDE_LENGTH = 64;
+
+        // Directory of tiles
+        public static readonly string Directory = "./Content/Tiles/";
 
         // Properties
         // These are self explanatory, I dont think I have to comment what each one of these do...

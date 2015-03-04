@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using TheChicagoProject.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -83,7 +84,7 @@ namespace TheChicagoProject
         // constructed in LoadContent (which only happens once)
         private SpriteBatch sb;
 
-        // Main grapgicsDevice from Game1, required
+        // Main graphicsDevice from Game1, required
         // for loading textures
         private GraphicsDevice g;
 
@@ -107,28 +108,28 @@ namespace TheChicagoProject
         {
             // Image stream for basic texture loading
 
-            // USE USING OR NOT? (?)
-            
-            //Stream imageStream;
-
-            //--------TILES-------- DO WE TRY CATCH FOR ERRORS? (?)
+            //--------TILES--------
             foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
             {
-                using (Stream imageStream = TitleContainer.OpenStream("./Content/Tiles/" + kvp.Value.FileName))
+                using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
                     //imageStream = 
                     kvp.Value.Texture = Texture2D.FromStream(g, imageStream);
                 }
-                //imageStream.Close();
             }
             //--------TILES--------
 
         }
 
+        public void Update(GameTime gameTime)
+        {
+            // DO THIS FOR SPRITES
+        }
+        
         /// <summary>
         /// Draws LEGITERALLY EVERYTHING!
         /// </summary>
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
             // DEBUG DRAWING
             Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
@@ -144,6 +145,7 @@ namespace TheChicagoProject
 
         // Sprite Sheets
         // Loading/parsing/setup for animation.
+
 
         // GUI
         /*

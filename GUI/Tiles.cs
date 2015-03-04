@@ -7,12 +7,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
-namespace TheChicagoProject
+namespace TheChicagoProject.GUI
 {
     static class Tiles
     {
         // Dictionary of tiles and their file name.
-        public static Dictionary<string, Tile> tilesDictionary = new Dictionary<string, Tile>
+        public readonly static Dictionary<string, Tile> tilesDictionary = new Dictionary<string, Tile>
         {
             {"RoadTar", new Tile(true, "RoadTar.png")},
 

@@ -109,7 +109,7 @@ namespace TheChicagoProject
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             spriteBatch.Begin();
-            renderManager.Draw();
+            renderManager.Draw(gameTime);
             spriteBatch.End();
 
             base.Draw(gameTime);
