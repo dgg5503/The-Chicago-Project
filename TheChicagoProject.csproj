@@ -52,6 +52,7 @@
     <Compile Include="SaveManager.cs" />
     <Compile Include="GUI\Tile.cs" />
     <Compile Include="GUI\Tiles.cs" />
+    <Compile Include="Entity\World.cs" />
     <Compile Include="WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
