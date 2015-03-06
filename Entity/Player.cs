@@ -87,7 +87,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         public void Reload()
         {
-
+            holster[activeWeapon].Reload(holster[activeWeapon].MaxClip);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         public void Interact()
         {
-
+            throw new NotImplementedException();
         }
 
         /// <summary>
