@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Entity
 {
-    class LivingEntity : Entity
+    public class LivingEntity : Entity
     {
         public List<Item.Item> inventory;
         public readonly AI.AI entityAI;

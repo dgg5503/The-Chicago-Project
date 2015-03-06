@@ -82,7 +82,7 @@ namespace TheChicagoProject
             renderManager = new RenderManager(spriteBatch, GraphicsDevice, this);
 
             //Load the data
-            saveManager.Load();//Currently Throws a not implemented exception
+            //saveManager.Load();//Currently Throws a not implemented exception
 
             // TODO: use this.Content to load your game content here
         }
