@@ -39,10 +39,10 @@ namespace TheChicagoProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        RenderManager renderManager;
-        WorldManager worldManager;
-        InputManager inputManager;
-        SaveManager saveManager;
+        public RenderManager renderManager;
+        public WorldManager worldManager;
+        public InputManager inputManager;
+        public SaveManager saveManager;
 
         public static GameState state;
 
