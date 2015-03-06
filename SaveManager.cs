@@ -33,6 +33,7 @@ namespace TheChicagoProject
         /// </summary>
         public void Load()
         {
+            LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
             throw new NotImplementedException();
         }
 
