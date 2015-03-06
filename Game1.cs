@@ -93,7 +93,7 @@ namespace TheChicagoProject
         /// </summary>
         protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
-            
+            saveManager.Save();
         }
 
         /// <summary>
@@ -107,6 +107,7 @@ namespace TheChicagoProject
 
             // TODO: Add your update logic here
             inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState());
+            worldManager.CurrentWorld.tick(gameTime);
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);

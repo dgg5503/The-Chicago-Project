@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
+using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject
 {
@@ -15,6 +16,7 @@ namespace TheChicagoProject
         private List<Entity.Entity> entities;
         private int playerLoc;
         protected Game1 mainGame;
+        public Quests.QuestLog quests;
 
         public List<Entity.Entity> EntityList {
             get { return entities; }
@@ -34,6 +36,11 @@ namespace TheChicagoProject
 
         public Player GetPlayer() {
             return entities[playerLoc] as Player;
+        }
+
+        public void Update(GameTime time) {
+            foreach (Entity.Entity e in entities)
+                e.Update(time);
         }
 
         /// <summary>
@@ -58,7 +65,7 @@ namespace TheChicagoProject
         /// <param name="y">The attacker y location</param>
         /// <param name="i">The i component of the direction vector</param>
         /// <param name="j">The j component of the direction vector</param>
-        public void FireBullet(float x, float y, double i, double j)
+        public static void FireBullet(float x, float y, double i, double j)
         {
             throw new NotImplementedException();
         }

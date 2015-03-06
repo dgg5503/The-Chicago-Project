@@ -27,6 +27,7 @@ namespace TheChicagoProject.Entity
         private int questPoints;
         private int lives;
         public Direction direction;
+        public Quests.QuestLog log;
 
         private double lastShot;    //The time of the last time the player shot
 
