@@ -9,7 +9,7 @@ using System.IO;
 
 namespace TheChicagoProject.GUI
 {
-    static class Tiles
+    public static class Tiles
     {
         // Dictionary of tiles and their file name.
         public readonly static Dictionary<string, Tile> tilesDictionary = new Dictionary<string, Tile>

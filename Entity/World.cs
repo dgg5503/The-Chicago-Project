@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Entity
 {
-    class World
+    public class World
     {
         public EntityManager manager;
         public Tile[][] tiles;

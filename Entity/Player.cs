@@ -7,7 +7,7 @@ using TheChicagoProject.Item;
 namespace TheChicagoProject.Entity
 {
 
-    enum Direction
+    public enum Direction
     {
         Up,
         UpRight,
@@ -19,7 +19,7 @@ namespace TheChicagoProject.Entity
         UpLeft
     }
 
-    class Player : Entity
+    public class Player : Entity
     {
         public Weapon[] holster;
         private int activeWeapon;

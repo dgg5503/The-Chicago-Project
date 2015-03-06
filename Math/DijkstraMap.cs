@@ -11,7 +11,7 @@ namespace TheChicagoProject.Math
     /// Premise will be explained here at a later date.
     /// http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps
     /// </summary>
-    class DijkstraMap
+    public class DijkstraMap
     {
         private int[][] goals;
         private int[][] map;

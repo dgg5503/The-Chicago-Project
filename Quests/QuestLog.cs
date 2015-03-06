@@ -8,7 +8,7 @@ namespace TheChicagoProject.Quests
     /// <summary>
     /// Holds a Dictionary of Quest objects and information about them
     /// </summary>
-    class QuestLog
+    public class QuestLog
     {
         //fields
         private Dictionary<String, Quest> log;
