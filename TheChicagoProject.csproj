@@ -41,6 +41,7 @@
     <Compile Include="Entity\LivingEntity.cs" />
     <Compile Include="Entity\Player.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GUI\IDrawable.cs" />
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="InputManager.cs" />

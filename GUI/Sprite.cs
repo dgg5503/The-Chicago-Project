@@ -15,7 +15,7 @@ namespace TheChicagoProject.GUI
     /// <summary>
     /// Holds information from sprites sheets and handles their animations.
     /// </summary>
-    class Sprite
+    class Sprite : IDrawable
     {
         // Animation information
         // The SpriteSheet

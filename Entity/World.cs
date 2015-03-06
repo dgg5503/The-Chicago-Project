@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using TheChicagoProject.GUI;
+using TheChicagoProject.GUI;
 using TheChicagoProject.Math;
 
 namespace TheChicagoProject.Entity
