@@ -11,6 +11,6 @@ namespace TheChicagoProject.Entity
     /// </summary>
     abstract class Entity
     {
-        public Vector2 location;
+        public Rectangle location;
     }
 }
