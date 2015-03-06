@@ -14,14 +14,16 @@ namespace TheChicagoProject
     {
         private List<Entity.Entity> entities;
         private int playerLoc;
+        protected Game1 mainGame;
 
         public List<Entity.Entity> EntityList {
             get { return entities; }
         }
 
-        public EntityManager() {
+        public EntityManager(Game1 game) {
             entities = new List<Entity.Entity>();
             playerLoc = -1;
+            this.mainGame = game;
         }
 
         public void AddEntity(Entity.Entity e) {

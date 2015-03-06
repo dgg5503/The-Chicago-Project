@@ -15,15 +15,17 @@ namespace TheChicagoProject
         public static Player player;
         public Dictionary<String, World> worlds;
         private String current;
+        protected Game1 mainGame;
 
         public World CurrentWorld {
             get { return worlds[current]; }
         }
 
-        public WorldManager() {
+        public WorldManager(Game1 game) {
             worlds = new Dictionary<String, World>();
             //TODO: Load/Save worlds.
             current = "main";
+            this.mainGame = game;
         }
     }
 }
