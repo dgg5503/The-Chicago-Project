@@ -64,7 +64,7 @@ namespace TheChicagoProject
         /// <param name="y">The attacker y location</param>
         /// <param name="i">The i component of the direction vector</param>
         /// <param name="j">The j component of the direction vector</param>
-        public void FireBullet(float x, float y, double i, double j)
+        public static void FireBullet(float x, float y, double i, double j)
         {
             throw new NotImplementedException();
         }
