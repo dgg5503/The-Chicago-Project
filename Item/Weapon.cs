@@ -13,6 +13,7 @@ namespace TheChicagoProject.Item
         private string name;
         private int maxClip;
         private int loadedAmmo;
+        private double accuracy;
 
         /// <summary>
         /// Creates a new Weapon Object
@@ -22,7 +23,8 @@ namespace TheChicagoProject.Item
         /// <param name="reload">The reload time, between 1 and 4 seconds</param>
         /// <param name="name">The name of the gun</param>
         /// <param name="maxClip">The amount of ammo in a fully loaded clip</param>
-        public Weapon(int rof, int dam, double reload, string name, int maxClip)
+        /// <param name="accuracy">The angle of the scan on the gun</param>
+        public Weapon(int rof, int dam, double reload, string name, int maxClip, double accuracy)
         {
             rateOfFire = rof;
             damage = dam;
@@ -30,6 +32,7 @@ namespace TheChicagoProject.Item
             this.name = name;
             this.maxClip = maxClip;
             loadedAmmo = maxClip;
+            this.accuracy = accuracy;
         }
 
         /// <summary>
@@ -73,6 +76,11 @@ namespace TheChicagoProject.Item
                 reloadTime = value;
             }
         }
+
+        /// <summary>
+        /// Gets the angle of the scan on this gun
+        /// </summary>
+        public double Accuracy { get { return accuracy; } }
 
         /// <summary>
         /// Gets the amount of ammo loaded into the gun
