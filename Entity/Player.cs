@@ -30,6 +30,7 @@ namespace TheChicagoProject.Entity
         public Direction direction;
         private Random rand;
         GameTime gameTime;
+        public Quests.QuestLog log;
 
         private double lastShot;    //The time of the last time the player shot
 

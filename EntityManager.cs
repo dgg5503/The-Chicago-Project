@@ -16,6 +16,7 @@ namespace TheChicagoProject
         private List<Entity.Entity> entities;
         private int playerLoc;
         protected Game1 mainGame;
+        public Quests.QuestLog quests;
 
         public List<Entity.Entity> EntityList {
             get { return entities; }
