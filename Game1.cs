@@ -106,6 +106,7 @@ namespace TheChicagoProject
 
             // TODO: Add your update logic here
             inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState());
+            worldManager.CurrentWorld.tick(gameTime);
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);

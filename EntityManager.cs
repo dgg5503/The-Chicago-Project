@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
+using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject
 {
@@ -34,6 +35,11 @@ namespace TheChicagoProject
 
         public Player GetPlayer() {
             return entities[playerLoc] as Player;
+        }
+
+        public void Update(GameTime time) {
+            foreach (Entity.Entity e in entities)
+                e.Update(time);
         }
 
         /// <summary>
