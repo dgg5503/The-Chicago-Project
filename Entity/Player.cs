@@ -6,6 +6,19 @@ using TheChicagoProject.Item;
 
 namespace TheChicagoProject.Entity
 {
+
+    enum Direction
+    {
+        Up,
+        UpRight,
+        Right,
+        DownRight,
+        Down,
+        DownLeft,
+        Left,
+        UpLeft
+    }
+
     class Player : Entity
     {
         public Weapon[] holster;
@@ -13,6 +26,19 @@ namespace TheChicagoProject.Entity
         private int cash;
         private int questPoints;
         private int lives;
+        public Direction direction;
+
+        private double lastShot;    //The time of the last time the player shot
+
+        public Player()
+        {
+            holster = new Weapon[10];
+            activeWeapon = 0;
+            cash = 40;
+            questPoints = 0;
+            lives = 4;
+            direction = Direction.Up;
+        }
 
         //properties
         public int Cash { get { return Cash; } set { cash = value;/*maybe implement rule that cash cannot be < 0*/} }
@@ -29,12 +55,15 @@ namespace TheChicagoProject.Entity
             } }
 
         /// <summary>
-        /// Attacks
+        /// The player attacks
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
         public void Attack(int type)
         {
+            if(type == 0)
+            {
 
+            }
         }
 
         /// <summary>

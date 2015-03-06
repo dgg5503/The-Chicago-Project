@@ -14,14 +14,16 @@ namespace TheChicagoProject
     {
         private List<Entity.Entity> entities;
         private int playerLoc;
+        protected Game1 mainGame;
 
         public List<Entity.Entity> EntityList {
             get { return entities; }
         }
 
-        public EntityManager() {
+        public EntityManager(Game1 game) {
             entities = new List<Entity.Entity>();
             playerLoc = -1;
+            this.mainGame = game;
         }
 
         public void AddEntity(Entity.Entity e) {
@@ -32,6 +34,21 @@ namespace TheChicagoProject
 
         public Player GetPlayer() {
             return entities[playerLoc] as Player;
+        }
+
+        /// <summary>
+        /// Check for collisions and return colliding entities.
+        /// </summary>
+        /// <returns></returns>
+        public List<Entity.Entity[]> DoCollisions() {
+            List<Entity.Entity[]> list = new List<Entity.Entity[]>();
+            foreach(Entity.Entity e1 in entities) {
+                foreach (Entity.Entity e2 in entities) {
+                    if (e1.location.Intersects(e2.location))
+                        list.Add(new Entity.Entity[] { e1, e2 });
+                }
+            }
+            return list;
         }
     }
 }

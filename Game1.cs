@@ -40,6 +40,9 @@ namespace TheChicagoProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         RenderManager renderManager;
+        WorldManager worldManager;
+        InputManager inputManager;
+        SaveManager saveManager;
 
         public static GameState state;
 
@@ -61,6 +64,9 @@ namespace TheChicagoProject
             base.Initialize();
 
             state = GameState.Menu;
+            saveManager = new SaveManager(this);
+            worldManager = new WorldManager(this);
+            inputManager = new InputManager();
         }
 
         /// <summary>
@@ -96,6 +102,7 @@ namespace TheChicagoProject
                 Exit();
 
             // TODO: Add your update logic here
+            inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState());
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);

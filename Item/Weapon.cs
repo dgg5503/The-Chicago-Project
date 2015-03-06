@@ -11,6 +11,9 @@ namespace TheChicagoProject.Item
         private int damage;
         private double reloadTime;
         private string name;
+        private int maxClip;
+        private int loadedAmmo;
+        private double accuracy;
 
         /// <summary>
         /// Creates a new Weapon Object
@@ -19,12 +22,17 @@ namespace TheChicagoProject.Item
         /// <param name="dam">The amount of damage the gun does</param>
         /// <param name="reload">The reload time, between 1 and 4 seconds</param>
         /// <param name="name">The name of the gun</param>
-        public Weapon(int rof, int dam, double reload, string name)
+        /// <param name="maxClip">The amount of ammo in a fully loaded clip</param>
+        /// <param name="accuracy">The angle of the scan on the gun</param>
+        public Weapon(int rof, int dam, double reload, string name, int maxClip, double accuracy)
         {
             rateOfFire = rof;
             damage = dam;
             reloadTime = reload;
             this.name = name;
+            this.maxClip = maxClip;
+            loadedAmmo = maxClip;
+            this.accuracy = accuracy;
         }
 
         /// <summary>
@@ -70,8 +78,46 @@ namespace TheChicagoProject.Item
         }
 
         /// <summary>
+        /// Gets the angle of the scan on this gun
+        /// </summary>
+        public double Accuracy { get { return accuracy; } }
+
+        /// <summary>
+        /// Gets the amount of ammo loaded into the gun
+        /// </summary>
+        public int LoadedAmmo { get { return loadedAmmo; } }
+
+        /// <summary>
+        /// Gets the amount of ammo in a loaded clip
+        /// </summary>
+        public int MaxClip { get { return maxClip; } }
+
+        /// <summary>
         /// Gets and sets the name of the string
         /// </summary>
         public string Name { get { return name; } set { name = value; } }
+
+        /// <summary>
+        /// Reloads the gun
+        /// </summary>
+        /// <param name="ammo"></param>
+        /// <returns>The amount of ammmo loaded into the gun</returns>
+        public int Reload(int ammo)
+        {
+            if(ammo >= maxClip)
+            {
+                loadedAmmo = maxClip;
+                return maxClip;
+            }
+            else if(ammo > 0)
+            {
+                loadedAmmo = ammo;
+                return ammo;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
