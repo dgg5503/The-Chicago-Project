@@ -20,6 +20,14 @@ namespace TheChicagoProject
     class SaveManager
     {
         public const string QUEST_DIRECTORY = "Quests/";
+        protected Game1 MainGame;
+
+        //Constructor
+        public SaveManager(Game1 mainGame)
+        {
+            MainGame = mainGame;
+        }
+
 
         /// <summary>
         /// Saves all of the quests in the quest log
