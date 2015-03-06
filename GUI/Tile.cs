@@ -33,10 +33,10 @@ namespace TheChicagoProject.GUI
         private string fileName;
 
         // Const width/height
-        private const int SIDE_LENGTH = 64;
+        public const int SIDE_LENGTH = 64;
 
         // Directory of tiles
-        public static readonly string Directory = "./Content/Tiles/";
+        public const string Directory = "./Content/Tiles/";
 
         // Properties
         // These are self explanatory, I dont think I have to comment what each one of these do...
