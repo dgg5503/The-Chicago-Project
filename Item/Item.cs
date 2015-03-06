@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject.Item
 {
-    class Item
+    public class Item
     {
         public string name;
         public Texture2D image;

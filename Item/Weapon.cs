@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TheChicagoProject.Item
 {
-    class Weapon : Item
+    public class Weapon : Item
     {
         private int rateOfFire;
         private int damage;

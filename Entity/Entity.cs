@@ -9,7 +9,7 @@ namespace TheChicagoProject.Entity
     /// <summary>
     /// The base entity class.
     /// </summary>
-    abstract class Entity
+    public abstract class Entity
     {
         public Rectangle location;
 

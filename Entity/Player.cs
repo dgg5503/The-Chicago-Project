@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 namespace TheChicagoProject.Entity
 {
 
-    enum Direction
+    public enum Direction
     {
         Up = 0,
         UpRight = 1,
@@ -20,7 +20,7 @@ namespace TheChicagoProject.Entity
         UpLeft = 7
     }
 
-    class Player : LivingEntity
+    public class Player : LivingEntity
     {
         public Weapon[] holster;
         private int activeWeapon;

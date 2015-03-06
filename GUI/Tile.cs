@@ -19,7 +19,7 @@ namespace TheChicagoProject.GUI
      * 
      */
 
-    class Tile : IDrawable
+    public class Tile : IDrawable
     {
         // Fields
 
