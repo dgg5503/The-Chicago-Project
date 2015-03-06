@@ -91,17 +91,19 @@ namespace TheChicagoProject
         private GraphicsDevice g;
 
         // The game1 class.
-        // private Game1 mainGame;
+        private Game1 mainGame;
 
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
         /// <param name="sb">MonoGames SpriteBatch object.</param>
         /// <param name="g">MonoGames GraphicsDevice object.</param>
-        public RenderManager(SpriteBatch sb, GraphicsDevice g)
+        /// <param name="mainGame">Game1 class to interact with other managers.</param>
+        public RenderManager(SpriteBatch sb, GraphicsDevice g, Game1 mainGame)
         {
             this.sb = sb;
             this.g = g;
+            this.mainGame = mainGame;
             
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
@@ -203,7 +205,7 @@ namespace TheChicagoProject
             for(int x = 0; x < g.Viewport.Width; x += Tile.SIDE_LENGTH)
                 for(int y = 0; y < g.Viewport.Height; y+= Tile.SIDE_LENGTH)
                 {
-                   // WorldManager.currentWorld
+                   //mainGame.
                 }
 
         }

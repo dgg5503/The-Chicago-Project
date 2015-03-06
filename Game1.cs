@@ -79,8 +79,8 @@ namespace TheChicagoProject
 
             // RenderManager is created here
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
-            renderManager = new RenderManager(spriteBatch, GraphicsDevice);
-
+            renderManager = new RenderManager(spriteBatch, GraphicsDevice, this);
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -90,6 +90,7 @@ namespace TheChicagoProject
         /// </summary>
         protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
