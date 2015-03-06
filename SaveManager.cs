@@ -17,7 +17,7 @@ namespace TheChicagoProject
     /// Anything and everything to do with file handling,
     /// aka reading or writing to the hard disk, goes here.
     /// </summary>
-    class SaveManager
+    public class SaveManager
     {
         public const string QUEST_DIRECTORY = "Quests/";
         protected Game1 MainGame;

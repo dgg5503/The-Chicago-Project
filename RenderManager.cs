@@ -76,7 +76,7 @@ namespace TheChicagoProject
     /// <summary>
     /// Handles the drawing. Any and all drawing. Ever.
     /// </summary>
-    class RenderManager
+    public class RenderManager
     {
         // Fields
 
@@ -91,17 +91,19 @@ namespace TheChicagoProject
         private GraphicsDevice g;
 
         // The game1 class.
-        // private Game1 mainGame;
+        private Game1 mainGame;
 
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
         /// <param name="sb">MonoGames SpriteBatch object.</param>
         /// <param name="g">MonoGames GraphicsDevice object.</param>
-        public RenderManager(SpriteBatch sb, GraphicsDevice g)
+        /// <param name="mainGame">Game1 class to interact with other managers.</param>
+        public RenderManager(SpriteBatch sb, GraphicsDevice g, Game1 mainGame)
         {
             this.sb = sb;
             this.g = g;
+            this.mainGame = mainGame;
             
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
@@ -143,9 +145,9 @@ namespace TheChicagoProject
         public void Draw(GameTime gameTime)
         {
             // DEBUG DRAWING
-            Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
-            Tiles.tilesDictionary["RoadTar"].Draw(sb, 64 * 100, 0);
-            Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.White);
+            //Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
+            //Tiles.tilesDictionary["RoadTar"].Draw(sb, 64 * 100, 0);
+            //Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.White);
 
             // ORDER OF DRAWING:
             // World (own method of drawing)
@@ -198,12 +200,13 @@ namespace TheChicagoProject
         {
             // We are taking in a 2D array of Tile and doing a simple double for loop
             // to draw all the tiles on the screen.
-
+            World w =  mainGame.worldManager.CurrentWorld;
+            
             // Off the screen technique
-            for(int x = 0; x < g.Viewport.Width; x += Tile.SIDE_LENGTH)
-                for(int y = 0; y < g.Viewport.Height; y+= Tile.SIDE_LENGTH)
+            for(int x = 0; x < w.size; x++)
+                for (int y = 0; y < w.size; y++)
                 {
-                   // WorldManager.currentWorld
+                    w.tiles[x][y].Draw(sb, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
         }
