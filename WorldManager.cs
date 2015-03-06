@@ -10,7 +10,7 @@ namespace TheChicagoProject
     /// <summary>
     /// Manages the worlds (maps) of the game.
     /// </summary>
-    class WorldManager
+    public class WorldManager
     {
         public static Player player;
         public Dictionary<String, World> worlds;

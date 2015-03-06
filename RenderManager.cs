@@ -76,7 +76,7 @@ namespace TheChicagoProject
     /// <summary>
     /// Handles the drawing. Any and all drawing. Ever.
     /// </summary>
-    class RenderManager
+    public class RenderManager
     {
         // Fields
 
