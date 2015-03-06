@@ -107,6 +107,9 @@ namespace TheChicagoProject
             // TODO: Add your update logic here
             inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState());
 
+            // For sprite and GUI animations
+            renderManager.Update(gameTime);
+
             base.Update(gameTime);
         }
 

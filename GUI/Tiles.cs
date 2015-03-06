@@ -26,6 +26,9 @@ namespace TheChicagoProject.GUI
         };
 
 
+        // TILE FILE FORMAT 
+        // IMAGE AND THEN TILE INFO SUCH AS WALKABLE
+
         // POSSIBLE IDEA BELOW?
 
         // Generate list of tiles from the Content/tiles folder

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using TheChicagoProject.GUI;
+using TheChicagoProject.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+
 
 namespace TheChicagoProject
 {
@@ -88,6 +90,9 @@ namespace TheChicagoProject
         // for loading textures
         private GraphicsDevice g;
 
+        // The game1 class.
+        // private Game1 mainGame;
+
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
@@ -97,7 +102,7 @@ namespace TheChicagoProject
         {
             this.sb = sb;
             this.g = g;
-
+            
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
         }
@@ -119,11 +124,17 @@ namespace TheChicagoProject
             }
             //--------TILES--------
 
+            //------ENTITIES-------
+            
+            //------ENTITIES-------
+
+
+
         }
 
         public void Update(GameTime gameTime)
         {
-            // DO THIS FOR SPRITES
+            // DO THIS FOR SPRITES AND OTHER MOVING THINGS
         }
         
         /// <summary>
@@ -133,18 +144,32 @@ namespace TheChicagoProject
         {
             // DEBUG DRAWING
             Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
-            Tiles.tilesDictionary["RoadTar"].Draw(sb, 64, 0);
+            Tiles.tilesDictionary["RoadTar"].Draw(sb, 64 * 100, 0);
             Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.White);
 
             // ORDER OF DRAWING:
             // World (own method of drawing)
+            DrawWorld();
+
             // Entities (items, players and what not) (list of entities and their locs (?))
+            DrawEntities();
+
             // GUI (list of GUI elements and their locs (?))
+            DrawGUI();
+
             // High Priority Menus (inventory, pause, etc...) (list of GUI elements and their locs (?))
+            // ????
         }
 
         // Sprite Sheets
         // Loading/parsing/setup for animation.
+
+
+        // Draws all entities
+        public void DrawEntities()
+        {
+
+        }
 
 
         // GUI
@@ -157,6 +182,10 @@ namespace TheChicagoProject
          * 
          * - Another tool could be an external GUI builder? (no need to hand code stuff) (?)
          */
+        public void DrawGUI()
+        {
+
+        }
 
         // World drawing
         // @Ashwin
@@ -171,7 +200,11 @@ namespace TheChicagoProject
             // to draw all the tiles on the screen.
 
             // Off the screen technique
-
+            for(int x = 0; x < g.Viewport.Width; x += Tile.SIDE_LENGTH)
+                for(int y = 0; y < g.Viewport.Height; y+= Tile.SIDE_LENGTH)
+                {
+                   // WorldManager.currentWorld
+                }
 
         }
     }
