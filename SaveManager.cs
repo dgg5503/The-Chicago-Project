@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using TheChicagoProject.Quests;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace TheChicagoProject
 {
@@ -14,6 +20,14 @@ namespace TheChicagoProject
     class SaveManager
     {
         public const string QUEST_DIRECTORY = "Quests/";
+        protected Game1 MainGame;
+
+        //Constructor
+        public SaveManager(Game1 mainGame)
+        {
+            MainGame = mainGame;
+        }
+
 
         /// <summary>
         /// Saves all of the quests in the quest log
@@ -54,5 +68,39 @@ namespace TheChicagoProject
             }
         }
 
+        public void LoadQuests(QuestLog log)
+        {
+            string[] files = Directory.GetFiles(QUEST_DIRECTORY);
+            foreach(string path in files)
+            {
+                using(StreamReader input = new StreamReader(path))
+                {
+                    //read input
+                    string name = input.ReadLine();
+                    string description = input.ReadLine();
+                    string objective = input.ReadLine();
+                    string position = input.ReadLine();
+                    int status = int.Parse(input.ReadLine());
+                    int reward = int.Parse(input.ReadLine());
+                    int cashReward = int.Parse(input.ReadLine());
+
+                    //parse position
+                    int X = int.Parse(position.Substring(0, position.Length - position.IndexOf(',')));
+                    int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
+                    Vector2 startPos = new Vector2(X, Y);
+
+                    //create new quest
+                    Quest loaded = new Quest(
+                        name,
+                        objective,
+                        description,
+                        startPos,
+                        reward,
+                        cashReward
+                        );
+                    log.Add(loaded);
+                }
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using TheChicagoProject.GUI;
+using TheChicagoProject.GUI;
 using TheChicagoProject.Math;
 
 namespace TheChicagoProject.Entity
@@ -14,11 +14,11 @@ namespace TheChicagoProject.Entity
         public readonly int size;
         protected DijkstraMap playerMap;
 
-        public World(int size) {
+        public World(Game1 game, int size) {
             tiles = new Tile[size][];
             for (int x = 0; x < size; x++)
                 tiles[x] = new Tile[size];
-            manager = new EntityManager();
+            manager = new EntityManager(game);
             this.size = size;
         }
 
