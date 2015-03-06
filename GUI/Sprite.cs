@@ -68,8 +68,6 @@ namespace TheChicagoProject.GUI
 
         public double TimePerFrame { get { return timePerFrame; } }
 
-
-        // Constructor
         /// <summary>
         /// Basic constructor that draws a static sprite from frame 0
         /// </summary>
@@ -152,6 +150,21 @@ namespace TheChicagoProject.GUI
 
                 timeCounter -= timePerFrame;	// Remove the time we "used"
             }
+        }
+
+        /// <summary>
+        /// Draw the entire texture as a "sprite".
+        /// </summary>
+        /// <param name="sb">Game1 SpriteBatch</param>
+        /// <param name="x">X location.</param>
+        /// <param name="y">Y location.</param>
+        public void Draw(SpriteBatch sb, int x, int y)
+        {
+            sb.Draw(
+                texture,					    // - The texture to draw
+                new Rectangle(x, y, texture.Width, texture.Height),		// - The location to draw on the screen
+                Color.White					// - The color
+            );								// - Layer depth (unused)
         }
 
         /// <summary>
