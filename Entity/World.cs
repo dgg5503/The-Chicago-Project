@@ -12,7 +12,7 @@ namespace TheChicagoProject.Entity
     {
         public EntityManager manager;
         public Tile[][] tiles;
-        public readonly int size;
+        public readonly int size; //Size in tiles, not pixels.
         protected DijkstraMap playerMap;
 
         public World(Game1 game, int size) {

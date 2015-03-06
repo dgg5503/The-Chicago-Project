@@ -93,6 +93,7 @@ namespace TheChicagoProject
         /// </summary>
         protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
+            saveManager.Save();
         }
 
         /// <summary>
