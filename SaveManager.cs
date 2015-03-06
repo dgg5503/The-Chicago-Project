@@ -28,6 +28,21 @@ namespace TheChicagoProject
             MainGame = mainGame;
         }
 
+        /// <summary>
+        /// loads the game
+        /// </summary>
+        public void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// saves the game
+        /// </summary>
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Saves all of the quests in the quest log
@@ -68,6 +83,10 @@ namespace TheChicagoProject
             }
         }
 
+        /// <summary>
+        /// Loads the quests in the quest folder
+        /// </summary>
+        /// <param name="log">the directory of the quests</param>
         public void LoadQuests(QuestLog log)
         {
             string[] files = Directory.GetFiles(QUEST_DIRECTORY);

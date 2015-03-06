@@ -21,19 +21,19 @@ namespace TheChicagoProject
             //The following statements check the movement keys
             if (keyState.IsKeyDown(Keys.W))    //Move up
             {
-                WorldManager.player.location.Y -= speed;
+                WorldManager.player.location.Y -= (int)speed;
             }
             if (keyState.IsKeyDown(Keys.A))    //move down
             {
-                WorldManager.player.location.X -= speed;
+                WorldManager.player.location.X -= (int)speed;
             }
             if (keyState.IsKeyDown(Keys.S))    //move left
             {
-                WorldManager.player.location.Y += speed;
+                WorldManager.player.location.Y += (int)speed;
             }
             if (keyState.IsKeyDown(Keys.D))    //move right
             {
-                WorldManager.player.location.X += speed;
+                WorldManager.player.location.X += (int)speed;
             }
 
 

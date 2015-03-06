@@ -81,6 +81,9 @@ namespace TheChicagoProject
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
             renderManager = new RenderManager(spriteBatch, GraphicsDevice);
 
+            //Load the data
+            saveManager.Load();//Currently Throws a not implemented exception
+
             // TODO: use this.Content to load your game content here
         }
 
