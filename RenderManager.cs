@@ -145,9 +145,9 @@ namespace TheChicagoProject
         public void Draw(GameTime gameTime)
         {
             // DEBUG DRAWING
-            Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
-            Tiles.tilesDictionary["RoadTar"].Draw(sb, 64 * 100, 0);
-            Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.White);
+            //Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
+            //Tiles.tilesDictionary["RoadTar"].Draw(sb, 64 * 100, 0);
+            //Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.White);
 
             // ORDER OF DRAWING:
             // World (own method of drawing)
@@ -200,12 +200,13 @@ namespace TheChicagoProject
         {
             // We are taking in a 2D array of Tile and doing a simple double for loop
             // to draw all the tiles on the screen.
-
+            World w =  mainGame.worldManager.CurrentWorld;
+            
             // Off the screen technique
-            for(int x = 0; x < g.Viewport.Width; x += Tile.SIDE_LENGTH)
-                for(int y = 0; y < g.Viewport.Height; y+= Tile.SIDE_LENGTH)
+            for(int x = 0; x < w.size; x++)
+                for (int y = 0; y < w.size; y++)
                 {
-                   //mainGame.
+                    w.tiles[x][y].Draw(sb, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
         }

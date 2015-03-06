@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
 
+// DEBUG
+using TheChicagoProject.GUI;
+
 namespace TheChicagoProject
 {
 
@@ -26,6 +29,18 @@ namespace TheChicagoProject
             //TODO: Load/Save worlds.
             current = "main";
             this.mainGame = game;
+
+            // DEBUG
+            World tmpWorld = new World(game, 10);
+            Random RNG = new Random();
+            for(int x = 0; x < tmpWorld.size; x++)
+                for (int y = 0; y < tmpWorld.size; y++)
+                {
+                    // get random tile from dict.
+                    tmpWorld.tiles[x][y] = Tiles.tilesDictionary.Values.ToArray()[RNG.Next(0, Tiles.tilesDictionary.Count)];
+                }
+
+            worlds["main"] = tmpWorld;
         }
     }
 }

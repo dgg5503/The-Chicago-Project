@@ -12,10 +12,11 @@ namespace TheChicagoProject.Entity
     {
         public List<Item.Item> inventory;
         public readonly AI.AI entityAI;
+        public int health;
 
-        public LivingEntity(AI.AI ai, int x, int y) {
+        public LivingEntity(AI.AI ai, Rectangle rect) {
             this.entityAI = ai;
-            this.location = new Vector2(x, y);
+            this.location = rect;
             inventory = new List<Item.Item>();
         }
     }

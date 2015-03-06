@@ -39,10 +39,10 @@ namespace TheChicagoProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        RenderManager renderManager;
-        WorldManager worldManager;
-        InputManager inputManager;
-        SaveManager saveManager;
+        public RenderManager renderManager;
+        public WorldManager worldManager;
+        public InputManager inputManager;
+        public SaveManager saveManager;
 
         public static GameState state;
 
@@ -80,7 +80,10 @@ namespace TheChicagoProject
             // RenderManager is created here
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
             renderManager = new RenderManager(spriteBatch, GraphicsDevice, this);
-            
+
+            //Load the data
+            saveManager.Load();//Currently Throws a not implemented exception
+
             // TODO: use this.Content to load your game content here
         }
 
