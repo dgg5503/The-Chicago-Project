@@ -27,7 +27,7 @@ namespace TheChicagoProject.Entity
         private int cash;
         private int questPoints;
         private int lives;
-        public Direction direction;
+        public static Direction direction;
         private Random rand;
         GameTime gameTime;
         public Quests.QuestLog log;
