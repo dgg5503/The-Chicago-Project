@@ -42,38 +42,48 @@ namespace TheChicagoProject
                 deltaX += speed;
             }
 
-            if (deltaX == 0 && deltaY < 0)
+            if(deltaX == 0)
             {
-                Entity.Player.direction = Entity.Direction.Up;
+                if(deltaY < 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Up;
+                }
+                else if(deltaY > 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Down;
+                }
             }
-            else if (deltaX > 0 && deltaY < 0)
+            else if(deltaX < 0)
             {
-                Entity.Player.direction = Entity.Direction.UpRight;
+                if (deltaY < 0)
+                {
+                    Entity.Player.direction = Entity.Direction.UpLeft;
+                }
+                else if(deltaY == 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Left;
+                }
+                else if (deltaY > 0)
+                {
+                    Entity.Player.direction = Entity.Direction.DownLeft;
+                }
             }
-            else if (deltaX > 0 && deltaY == 0)
+            else
             {
-                Entity.Player.direction = Entity.Direction.Right;
+                if (deltaY < 0)
+                {
+                    Entity.Player.direction = Entity.Direction.UpRight;
+                }
+                else if (deltaY == 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Right;
+                }
+                else if (deltaY > 0)
+                {
+                    Entity.Player.direction = Entity.Direction.DownRight;
+                }
             }
-            else if (deltaX > 0 && deltaY > 0)
-            {
-                Entity.Player.direction = Entity.Direction.DownRight;
-            }
-            else if (deltaX == 0 && deltaY > 0)
-            {
-                Entity.Player.direction = Entity.Direction.Down;
-            }
-            else if (deltaX < 0 && deltaY > 0)
-            {
-                Entity.Player.direction = Entity.Direction.DownLeft;
-            }
-            else if (deltaX < 0 && deltaY == 0)
-            {
-                Entity.Player.direction = Entity.Direction.Left;
-            }
-            else if (deltaX < 0 && deltaY < 0)
-            {
-                Entity.Player.direction = Entity.Direction.UpLeft;
-            }
+
 
             int x = WorldManager.player.location.X;
             int y = WorldManager.player.location.Y;
