@@ -131,13 +131,15 @@ namespace TheChicagoProject
 
             //------ENTITIES-------
             // FOREACH THROUGH EACH WORLD!!
-            foreach (Entity.Entity e in w.CurrentWorld.manager.EntityList)
-          
+            foreach (World z in w.worlds.Values)
             {
-                using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
+                foreach (Entity.Entity e in z.manager.EntityList)
                 {
-                    //imageStream = 
-                    e.sprite.Texture = Texture2D.FromStream(g, imageStream);
+                    using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
+                    {
+                        //imageStream = 
+                        e.sprite.Texture = Texture2D.FromStream(g, imageStream);
+                    }
                 }
             }
             //------ENTITIES-------
