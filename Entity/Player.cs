@@ -66,7 +66,8 @@ namespace TheChicagoProject.Entity
                  *    Display Message About getting a new heart?    *
                  *                                                  *
                  ****************************************************/
-            } }
+            }
+        }
 
         /// <summary>
         /// The player attacks
