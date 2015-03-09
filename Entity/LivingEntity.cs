@@ -20,10 +20,10 @@ namespace TheChicagoProject.Entity
             inventory = new List<Item.Item>();
         }
 
-        public override void Update(GameTime time) {
-            base.Update(time);
+        public override void Update(GameTime time, EntityManager manager) {
+            base.Update(time, manager);
             if (this.entityAI != null)
-                this.entityAI.Update(time);
+                this.entityAI.Update(time, manager);
         }
 
         /// <summary>
