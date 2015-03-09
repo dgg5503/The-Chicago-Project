@@ -13,15 +13,31 @@ namespace TheChicagoProject.AI
     /// Will attempt to shoot you / grenade you.
     /// Stays within 5-7 tiles, and moves away if you get close.
     /// </summary>
-    class MidAI : AI
+    public class MidAI : AI
     {
         public MidAI(LivingEntity entity)
             : base(entity) {
 
         }
 
-        public override void Update(GameTime time) {
-
+        public override void Update(GameTime time, EntityManager manager) {
+            DijkstraMap map = manager.world.playerMap;
+            int dist = map.Map[entity.location.X][entity.location.Y];
+            Direction furtherDir = findPos(map, -1);
+            Direction closerDir = findPos(map, 1);
+            if (dist < 3) {
+                entity.direction = furtherDir;
+                entity.Move();
+            } else if (dist < 8) {
+                entity.direction = closerDir;
+                if (time.ElapsedGameTime.Milliseconds % 2 == 0)
+                    entity.Attack(0);
+                else
+                    entity.Attack(1);
+            } else {
+                entity.direction = closerDir;
+                entity.Move();
+            }
         }
     }
 }

@@ -13,15 +13,25 @@ namespace TheChicagoProject.AI
     /// Will knife (?) / shoot you from ~1-3 tiles.
     /// Does not care if you get close, but will chase you.
     /// </summary>
-    class LowAI : AI
+    public class LowAI : AI
     {
         public LowAI(LivingEntity entity)
             : base(entity) {
 
         }
 
-        public override void Update(GameTime time) {
-
+        public override void Update(GameTime time, EntityManager manager) {
+            DijkstraMap map = manager.world.playerMap;
+            int dist = map.Map[entity.location.X][entity.location.Y];
+            Direction furtherDir = findPos(map, -1);
+            Direction closerDir = findPos(map, 1);
+            if (dist < 4) {
+                entity.direction = closerDir;
+                entity.Attack(0);
+            } else {
+                entity.direction = closerDir;
+                entity.Move();
+            }
         }
     }
 }
