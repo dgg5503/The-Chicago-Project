@@ -27,7 +27,7 @@ namespace TheChicagoProject.Entity
         private int cash;
         private int questPoints;
         private int lives;
-        public Direction direction;
+        public static Direction direction;
         private Random rand;
         GameTime gameTime;
         public Quests.QuestLog log;
@@ -66,18 +66,19 @@ namespace TheChicagoProject.Entity
                  *    Display Message About getting a new heart?    *
                  *                                                  *
                  ****************************************************/
-            } }
+            }
+        }
 
         /// <summary>
         /// The player attacks
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
-        public void Attack(int type)
+        public override void Attack(int type)
         {
             if(type == 0)
             {
                 double trajectory = rand.NextDouble() * holster[activeWeapon].Accuracy * (double)(rand.Next(2) - 1);
-                trajectory += (double)((int)direction * 45);
+                trajectory += (double)((int)direction * System.Math.PI / 8D);
                 EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
             }
         }

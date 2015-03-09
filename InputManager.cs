@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject
 {
@@ -15,31 +16,91 @@ namespace TheChicagoProject
         /// <summary>
         /// What happens with Update?
         /// </summary>
-        public void HandleInput(KeyboardState keyState, MouseState mouseState)
+        public void HandleInput(KeyboardState keyState, MouseState mouseState, GameTime time)
         {
-            float speed = 5f;
+            #region Movement Input
+            int speed = 5;
+
+            int deltaX = 0;
+            int deltaY = 0;
+
             //The following statements check the movement keys
             if (keyState.IsKeyDown(Keys.W))    //Move up
             {
-                WorldManager.player.location.Y -= (int)speed;
+                deltaY -= speed;
             }
             if (keyState.IsKeyDown(Keys.A))    //move down
             {
-                WorldManager.player.location.X -= (int)speed;
+                deltaX -= speed;
             }
             if (keyState.IsKeyDown(Keys.S))    //move left
             {
-                WorldManager.player.location.Y += (int)speed;
+                deltaY += speed;
             }
             if (keyState.IsKeyDown(Keys.D))    //move right
             {
-                WorldManager.player.location.X += (int)speed;
+                deltaX += speed;
+            }
+
+            if(deltaX == 0)
+            {
+                if(deltaY < 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Up;
+                }
+                else if(deltaY > 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Down;
+                }
+            }
+            else if(deltaX < 0)
+            {
+                if (deltaY < 0)
+                {
+                    Entity.Player.direction = Entity.Direction.UpLeft;
+                }
+                else if(deltaY == 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Left;
+                }
+                else if (deltaY > 0)
+                {
+                    Entity.Player.direction = Entity.Direction.DownLeft;
+                }
+            }
+            else
+            {
+                if (deltaY < 0)
+                {
+                    Entity.Player.direction = Entity.Direction.UpRight;
+                }
+                else if (deltaY == 0)
+                {
+                    Entity.Player.direction = Entity.Direction.Right;
+                }
+                else if (deltaY > 0)
+                {
+                    Entity.Player.direction = Entity.Direction.DownRight;
+                }
             }
 
 
+            int x = WorldManager.player.location.X;
+            int y = WorldManager.player.location.Y;
+
+            x += deltaX * time.ElapsedGameTime.Milliseconds;
+            y += deltaY * time.ElapsedGameTime.Milliseconds;
+
+            WorldManager.player.location.X = x;
+            WorldManager.player.location.Y = y;
+            #endregion
+
             if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
             {
-                WorldManager.player.Interact();
+                if(Game1.state == GameState.Game)
+                {
+                    Game1.state = GameState.WeaponWheel;
+                }
             }
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
@@ -57,14 +118,19 @@ namespace TheChicagoProject
             {
                 Game1.state = GameState.QuestLog;
             }
-            if (keyState.IsKeyDown(Keys.Escape))    //Quest log
+            if (keyState.IsKeyDown(Keys.Escape))    //Escape
             {
                 if (Game1.state == GameState.Game)
+                {
                     Game1.state = GameState.Pause;
-                else
+                }
+                else if (Game1.state != GameState.Menu && Game1.state != GameState.FastTravel && Game1.state != GameState.Shop)
+                {
                     Game1.state = GameState.Game;
+                }
             }
 
+            #region Quick Weapon Select
             if (keyState.IsKeyDown(Keys.D1))    //Quick Weapon Select
             {
                 WorldManager.player.ActiveWeapon = 1;
@@ -105,6 +171,7 @@ namespace TheChicagoProject
             {
                 WorldManager.player.ActiveWeapon = 0;
             }
+            #endregion
 
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire

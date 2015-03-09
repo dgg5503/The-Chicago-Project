@@ -19,5 +19,25 @@ namespace TheChicagoProject.Entity
             this.location = rect;
             inventory = new List<Item.Item>();
         }
+
+        public override void Update(GameTime time) {
+            base.Update(time);
+            if (this.entityAI != null)
+                this.entityAI.Update(time);
+        }
+
+        /// <summary>
+        /// The player attacks
+        /// </summary>
+        /// <param name="type">0 is primary fire, 1 is secondary</param>
+        public virtual void Attack(int type)
+        {
+            if (type == 0)
+            {
+                double trajectory = 0D;
+                trajectory += 0D;
+                EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
+            }
+        }
     }
 }
