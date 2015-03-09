@@ -12,6 +12,7 @@ namespace TheChicagoProject.Entity
     public abstract class Entity
     {
         public Rectangle location;
+        public Direction direction;
 
         public virtual void Update(GameTime time) { }
 
