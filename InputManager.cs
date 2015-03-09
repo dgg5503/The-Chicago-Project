@@ -46,41 +46,41 @@ namespace TheChicagoProject
             {
                 if(deltaY < 0)
                 {
-                    Entity.Player.direction = Entity.Direction.Up;
+                    WorldManager.player.direction = Entity.Direction.Up;
                 }
                 else if(deltaY > 0)
                 {
-                    Entity.Player.direction = Entity.Direction.Down;
+                    WorldManager.player.direction = Entity.Direction.Down;
                 }
             }
             else if(deltaX < 0)
             {
                 if (deltaY < 0)
                 {
-                    Entity.Player.direction = Entity.Direction.UpLeft;
+                    WorldManager.player.direction = Entity.Direction.UpLeft;
                 }
                 else if(deltaY == 0)
                 {
-                    Entity.Player.direction = Entity.Direction.Left;
+                    WorldManager.player.direction = Entity.Direction.Left;
                 }
                 else if (deltaY > 0)
                 {
-                    Entity.Player.direction = Entity.Direction.DownLeft;
+                    WorldManager.player.direction = Entity.Direction.DownLeft;
                 }
             }
             else
             {
                 if (deltaY < 0)
                 {
-                    Entity.Player.direction = Entity.Direction.UpRight;
+                    WorldManager.player.direction = Entity.Direction.UpRight;
                 }
                 else if (deltaY == 0)
                 {
-                    Entity.Player.direction = Entity.Direction.Right;
+                    WorldManager.player.direction = Entity.Direction.Right;
                 }
                 else if (deltaY > 0)
                 {
-                    Entity.Player.direction = Entity.Direction.DownRight;
+                    WorldManager.player.direction = Entity.Direction.DownRight;
                 }
             }
 

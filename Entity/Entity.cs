@@ -12,12 +12,13 @@ namespace TheChicagoProject.Entity
     public abstract class Entity
     {
         public Rectangle location;
+        public Direction direction;
 
-        public virtual void Update(GameTime time) { }
+        public virtual void Update(GameTime time, EntityManager manager) { }
 
         public virtual void Move()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
