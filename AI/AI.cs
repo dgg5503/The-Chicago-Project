@@ -14,7 +14,7 @@ namespace TheChicagoProject.AI
     /// Why? Because AI's have different "wants".
     /// Every Living Entity has an AI.
     /// </summary>
-    abstract class AI
+    public abstract class AI
     {
         protected LivingEntity entity;
 
