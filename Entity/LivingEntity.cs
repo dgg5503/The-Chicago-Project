@@ -39,11 +39,11 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
         /// <param name="weapon">The weapon with which they are attacking</param>
-        public virtual void Attack(int type, Weapon weapon)
+        public virtual void Attack(int type, Weapon weapon = null)
         {
             if (type == 0)
             {
-                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0.0)
+                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D)
                 {
                 double trajectory = 0D;
                 trajectory += 0D;
