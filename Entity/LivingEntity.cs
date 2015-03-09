@@ -35,7 +35,7 @@ namespace TheChicagoProject.Entity
         }
 
         /// <summary>
-        /// The player attacks
+        /// The Living Entity attacks
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
         /// <param name="weapon">The weapon with which they are attacking</param>
