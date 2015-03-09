@@ -27,7 +27,6 @@ namespace TheChicagoProject.Entity
         private int cash;
         private int questPoints;
         private int lives;
-        public static Direction direction;
         private Random rand;
         GameTime gameTime;
         public Quests.QuestLog log;
@@ -137,8 +136,9 @@ namespace TheChicagoProject.Entity
             Cash += amount;
         }
 
-        public override void Update(GameTime time)
+        public override void Update(GameTime time, EntityManager em)
         {
+            base.Update(time, em);
             gameTime = time;
         }
     }
