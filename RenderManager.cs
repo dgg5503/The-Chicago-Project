@@ -187,7 +187,7 @@ namespace TheChicagoProject
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in w.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(sb, e.location.X, e.location.Y);
+                e.sprite.Draw(sb, e.location.X, e.location.Y, e.direction);
             }
         }
 

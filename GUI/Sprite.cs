@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheChicagoProject.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +16,7 @@ namespace TheChicagoProject.GUI
     /// <summary>
     /// Holds information from sprites sheets and handles their animations.
     /// </summary>
-    class Sprite
+    public class Sprite
     {
         // Animation information
         // The SpriteSheet
@@ -169,6 +170,31 @@ namespace TheChicagoProject.GUI
             );								// - Layer depth (unused)
         }
 
+
+        /// <summary>
+        /// Draw the entire texture as a "sprite".
+        /// </summary>
+        /// <param name="sb">Game1 SpriteBatch</param>
+        /// <param name="x">X location.</param>
+        /// <param name="y">Y location.</param>
+        /// <param name="dir">Direction of the sprite to face.</param>
+        public void Draw(SpriteBatch sb, int x, int y, Direction dir)
+        {
+            sb.Draw(
+                 texture,					    // - The texture to draw
+                 new Rectangle(x, y, width, height),		// - The location to draw on the screen
+                 new Rectangle(					// - The "source" rectangle
+                     frame * width,	                    //   - This rectangle specifies
+                     yOffset,		            //	   where "inside" the texture
+                     width,			            //     to get pixels (We don't want to
+                     height),		        	//     draw the whole thing)
+                 Color.White,					// - The color
+                 DirectionToRadians(dir),								// - Rotation (none currently)
+                 Vector2.Zero,					// - Origin inside the image (top left)
+                 SpriteEffects.None,				        // - Can be used to flip the image
+                 0);								// - Layer depth (unused)
+        }
+
         /// <summary>
         /// Draw a sprite without rotation.
         /// </summary>
@@ -202,8 +228,8 @@ namespace TheChicagoProject.GUI
         /// <param name="y">Y location.</param>
         /// <param name="w">Desired width.</param>
         /// <param name="h">Desired height.</param>
-        /// <param name="r">Rotation in degrees.</param>
-        public void Draw(SpriteBatch sb, int x, int y, int w, int h, float r)
+        /// <param name="dir">A direction from the direction enum.</param>
+        public void Draw(SpriteBatch sb, int x, int y, int w, int h, Direction dir)
         {
             sb.Draw(
                 texture,					    // - The texture to draw
@@ -214,11 +240,42 @@ namespace TheChicagoProject.GUI
                     width,			            //     to get pixels (We don't want to
                     height),		        	//     draw the whole thing)
                 Color.White,					// - The color
-                r,								// - Rotation (none currently)
+                DirectionToRadians(dir),								// - Rotation (none currently)
                 Vector2.Zero,					// - Origin inside the image (top left)
                 SpriteEffects.None,				        // - Can be used to flip the image
                 0);								// - Layer depth (unused)
         }
 
+        /// <summary>
+        /// Converts given direction into radians for ease of use
+        /// by the draw function.
+        /// </summary>
+        /// <param name="d">A direction.</param>
+        /// <returns></returns>
+        public float DirectionToRadians(Direction d)
+        {
+            switch(d)
+            {
+                case Direction.Up:
+                    return (float)System.Math.PI / 2;
+                case Direction.UpRight:
+                    return (float)System.Math.PI / 4;
+                case Direction.Right:
+                    return 0;
+                case Direction.DownRight:
+                    return (float)(7 * System.Math.PI) / 4;
+                case Direction.Down:
+                    return (float)(3 * System.Math.PI) / 2;
+                case Direction.DownLeft:
+                    return (float)(5 * System.Math.PI) / 4;
+                case Direction.Left:
+                    return (float)System.Math.PI;
+                case Direction.UpLeft:
+                    return (float)(3 * System.Math.PI) / 4;
+            }
+
+            // Greater than 2 pi, shows that there was a major error!!
+            return 10;
+        }
     }
 }

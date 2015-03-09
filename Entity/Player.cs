@@ -31,7 +31,7 @@ namespace TheChicagoProject.Entity
         GameTime gameTime;
         public Quests.QuestLog log;
 
-        public Player(Rectangle location, string fileName) : base(null, location, fileName)
+        public Player(Rectangle location, string fileName) : base(location, fileName)
         {
             holster = new Weapon[10];
             activeWeapon = 0;
