@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using TheChicagoProject.Entity;
+using TheChicagoProject.Math;
 
 namespace TheChicagoProject.AI
 {
@@ -15,11 +16,11 @@ namespace TheChicagoProject.AI
     /// </summary>
     abstract class AI
     {
-        private LivingEntity entity;
+        protected LivingEntity entity;
 
         public AI(LivingEntity entity) {
             this.entity = entity;
         }
-        public abstract void Update(GameTime time);
+        public abstract void Update(GameTime time, EntityManager manager);
     }
 }

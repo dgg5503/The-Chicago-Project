@@ -40,7 +40,7 @@ namespace TheChicagoProject
 
         public void Update(GameTime time) {
             foreach (Entity.Entity e in entities)
-                e.Update(time);
+                e.Update(time, this);
         }
 
         /// <summary>

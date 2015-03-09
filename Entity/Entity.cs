@@ -13,7 +13,7 @@ namespace TheChicagoProject.Entity
     {
         public Rectangle location;
 
-        public virtual void Update(GameTime time) { }
+        public virtual void Update(GameTime time, EntityManager manager) { }
 
         public virtual void Move()
         {
