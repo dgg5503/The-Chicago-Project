@@ -14,9 +14,8 @@ namespace TheChicagoProject.Entity
         public readonly AI.AI entityAI;
         public int health;
 
-        public LivingEntity(AI.AI ai, Rectangle rect) {
+        public LivingEntity(AI.AI ai, Rectangle rect, string fileName) : base(rect, fileName) {
             this.entityAI = ai;
-            this.location = rect;
             inventory = new List<Item.Item>();
         }
 

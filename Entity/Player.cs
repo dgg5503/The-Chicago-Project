@@ -32,9 +32,7 @@ namespace TheChicagoProject.Entity
         GameTime gameTime;
         public Quests.QuestLog log;
 
-        private double lastShot;    //The time of the last time the player shot
-
-        public Player(Rectangle location) : base(null, location)
+        public Player(Rectangle location, string fileName) : base(null, location, fileName)
         {
             holster = new Weapon[10];
             activeWeapon = 0;
