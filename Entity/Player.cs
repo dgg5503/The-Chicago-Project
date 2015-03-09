@@ -67,20 +67,6 @@ namespace TheChicagoProject.Entity
         }
 
         /// <summary>
-        /// The player attacks
-        /// </summary>
-        /// <param name="type">0 is primary fire, 1 is secondary</param>
-        public override void Attack(int type)
-        {
-            if(type == 0)
-            {
-                double trajectory = rand.NextDouble() * holster[activeWeapon].accuracy * (double)(rand.Next(2) - 1);
-                trajectory += (double)((int)direction * System.Math.PI / 8D);
-                EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
-            }
-        }
-
-        /// <summary>
         /// Reloads the active weapon
         /// </summary>
         public void Reload()
