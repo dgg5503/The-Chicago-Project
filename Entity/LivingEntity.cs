@@ -14,29 +14,42 @@ namespace TheChicagoProject.Entity
         public readonly AI.AI entityAI;
         public int health;
 
+        protected GameTime time;
+
+        protected double lastShot;
+
         public LivingEntity(AI.AI ai, Rectangle rect) {
             this.entityAI = ai;
             this.location = rect;
             inventory = new List<Item.Item>();
+            time = new GameTime();
+            lastShot = 0D;
         }
 
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
             if (this.entityAI != null)
                 this.entityAI.Update(time, manager);
+
+            this.time = time;
+            lastShot += time.ElapsedGameTime.Milliseconds;
         }
 
         /// <summary>
         /// The player attacks
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
-        public virtual void Attack(int type)
+        /// <param name="weapon">The weapon with which they are attacking</param>
+        public virtual void Attack(int type, Weapon weapon)
         {
             if (type == 0)
             {
-                double trajectory = 0D;
-                trajectory += 0D;
-                EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
+                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0.0)
+                {
+                    double trajectory = 0D;
+                    trajectory += 0D;
+                    EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
+                }
             }
         }
     }
