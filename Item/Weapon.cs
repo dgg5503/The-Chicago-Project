@@ -7,13 +7,13 @@ namespace TheChicagoProject.Item
 {
     public class Weapon : Item
     {
-        private int rateOfFire;
+        public int rateOfFire;
         private int damage;
         private double reloadTime;
-        private string name;
-        private int maxClip;
+        public string name;
+        public int maxClip;
         private int loadedAmmo;
-        private double accuracy;
+        public double accuracy;
 
         /// <summary>
         /// Creates a new Weapon Object
@@ -34,11 +34,6 @@ namespace TheChicagoProject.Item
             loadedAmmo = maxClip;
             this.accuracy = accuracy;
         }
-
-        /// <summary>
-        /// Gets and sets the rate of fire of the gun
-        /// </summary>
-        public int RateOfFire { get { return rateOfFire; } set { rateOfFire = value; } }
 
         /// <summary>
         /// Gets and sets the Damage of the gun
@@ -78,24 +73,9 @@ namespace TheChicagoProject.Item
         }
 
         /// <summary>
-        /// Gets the angle of the scan on this gun
-        /// </summary>
-        public double Accuracy { get { return accuracy; } }
-
-        /// <summary>
-        /// Gets the amount of ammo loaded into the gun
+        /// Returns the amount of ammo loaded into the gun
         /// </summary>
         public int LoadedAmmo { get { return loadedAmmo; } }
-
-        /// <summary>
-        /// Gets the amount of ammo in a loaded clip
-        /// </summary>
-        public int MaxClip { get { return maxClip; } }
-
-        /// <summary>
-        /// Gets and sets the name of the string
-        /// </summary>
-        public string Name { get { return name; } set { name = value; } }
 
         /// <summary>
         /// Reloads the gun

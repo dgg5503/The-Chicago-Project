@@ -46,7 +46,7 @@ namespace TheChicagoProject.Entity
 
         public virtual void Move()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
