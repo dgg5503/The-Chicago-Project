@@ -17,15 +17,17 @@ namespace TheChicagoProject
         private int playerLoc;
         protected Game1 mainGame;
         public Quests.QuestLog quests;
+        public World world;
 
         public List<Entity.Entity> EntityList {
             get { return entities; }
         }
 
-        public EntityManager(Game1 game) {
+        public EntityManager(Game1 game, World world) {
             entities = new List<Entity.Entity>();
             playerLoc = -1;
             this.mainGame = game;
+            this.world = world;
         }
 
         public void AddEntity(Entity.Entity e) {

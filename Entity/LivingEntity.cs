@@ -18,9 +18,8 @@ namespace TheChicagoProject.Entity
 
         protected double lastShot;
 
-        public LivingEntity(AI.AI ai, Rectangle rect) {
+        public LivingEntity(AI.AI ai, Rectangle rect, string fileName) : base(rect, fileName) {
             this.entityAI = ai;
-            this.location = rect;
             inventory = new List<Item.Item>();
             time = new GameTime();
             lastShot = 0D;
@@ -46,11 +45,11 @@ namespace TheChicagoProject.Entity
             {
                 if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0.0)
                 {
-                    double trajectory = 0D;
-                    trajectory += 0D;
-                    EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
-                }
+                double trajectory = 0D;
+                trajectory += 0D;
+                EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
             }
         }
     }
+}
 }

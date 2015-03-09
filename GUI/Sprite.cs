@@ -15,7 +15,7 @@ namespace TheChicagoProject.GUI
     /// <summary>
     /// Holds information from sprites sheets and handles their animations.
     /// </summary>
-    class Sprite : IDrawable
+    class Sprite
     {
         // Animation information
         // The SpriteSheet
@@ -63,6 +63,8 @@ namespace TheChicagoProject.GUI
         public int Width { get { return width; } }
 
         public int Frame { get { return frame; } set { frame = value; } }
+
+        public string FileName { get { return fileName; } }
 
         public double FPS { get { return fps; } set { fps = value; } }
 
@@ -201,7 +203,7 @@ namespace TheChicagoProject.GUI
         /// <param name="w">Desired width.</param>
         /// <param name="h">Desired height.</param>
         /// <param name="r">Rotation in degrees.</param>
-        public void Draw(SpriteBatch sb, int x, int y, int w, int h, int r)
+        public void Draw(SpriteBatch sb, int x, int y, int w, int h, float r)
         {
             sb.Draw(
                 texture,					    // - The texture to draw

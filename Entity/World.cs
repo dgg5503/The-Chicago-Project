@@ -13,13 +13,13 @@ namespace TheChicagoProject.Entity
         public EntityManager manager;
         public Tile[][] tiles;
         public readonly int size; //Size in tiles, not pixels.
-        protected DijkstraMap playerMap;
+        public DijkstraMap playerMap;
 
         public World(Game1 game, int size) {
             tiles = new Tile[size][];
             for (int x = 0; x < size; x++)
                 tiles[x] = new Tile[size];
-            manager = new EntityManager(game);
+            manager = new EntityManager(game, this);
             this.size = size;
         }
 

@@ -93,16 +93,19 @@ namespace TheChicagoProject
         // The game1 class.
         private Game1 mainGame;
 
+        private WorldManager w;
+
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
         /// <param name="sb">MonoGames SpriteBatch object.</param>
         /// <param name="g">MonoGames GraphicsDevice object.</param>
         /// <param name="mainGame">Game1 class to interact with other managers.</param>
-        public RenderManager(SpriteBatch sb, GraphicsDevice g, Game1 mainGame)
+        public RenderManager(SpriteBatch sb, GraphicsDevice g, Game1 mainGame, WorldManager w)
         {
             this.sb = sb;
             this.g = g;
+            this.w = w;
             this.mainGame = mainGame;
             
             // Load all textures once (constructor will only be called once, so will this method)
@@ -127,7 +130,16 @@ namespace TheChicagoProject
             //--------TILES--------
 
             //------ENTITIES-------
-            
+            // FOREACH THROUGH EACH WORLD!!
+            foreach (Entity.Entity e in w.CurrentWorld.manager.EntityList)
+          
+            {
+                using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
+                {
+                    //imageStream = 
+                    e.sprite.Texture = Texture2D.FromStream(g, imageStream);
+                }
+            }
             //------ENTITIES-------
 
 
@@ -170,7 +182,11 @@ namespace TheChicagoProject
         // Draws all entities
         public void DrawEntities()
         {
-
+            // Simply draw all entities in the currentWorld.
+            foreach (Entity.Entity e in w.CurrentWorld.manager.EntityList)
+            {
+                e.sprite.Draw(sb, e.location.X, e.location.Y);
+            }
         }
 
 
