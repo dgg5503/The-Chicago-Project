@@ -20,6 +20,12 @@ namespace TheChicagoProject.Entity
             inventory = new List<Item.Item>();
         }
 
+        public override void Update(GameTime time) {
+            base.Update(time);
+            if (this.entityAI != null)
+                this.entityAI.Update(time);
+        }
+
         /// <summary>
         /// The player attacks
         /// </summary>
