@@ -176,11 +176,11 @@ namespace TheChicagoProject
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-                WorldManager.player.Attack(0);
+                WorldManager.player.Attack(0, WorldManager.player.holster[WorldManager.player.ActiveWeapon]);
             }
             else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {
-                WorldManager.player.Attack(1);
+                WorldManager.player.Attack(1, WorldManager.player.holster[WorldManager.player.ActiveWeapon]);
             }
         }
     }
