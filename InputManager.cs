@@ -112,19 +112,23 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.I))    //Inventory
             {
-                Game1.state = GameState.Inventory;
+                if (Game1.state == GameState.Game || Game1.state == GameState.Pause || Game1.state == GameState.QuestLog)
+                {
+                    Game1.state = GameState.Inventory;
+                }
             }
             if (keyState.IsKeyDown(Keys.G))    //Quest log
             {
+                if (Game1.state == GameState.Game || Game1.state == GameState.Pause || Game1.state == GameState.Inventory)
                 Game1.state = GameState.QuestLog;
             }
             if (keyState.IsKeyDown(Keys.Escape))    //Escape
             {
-                if (Game1.state == GameState.Game)
+                if (Game1.state == GameState.Game || Game1.state == GameState.Inventory || Game1.state == GameState.QuestLog)
                 {
                     Game1.state = GameState.Pause;
                 }
-                else if (Game1.state != GameState.Menu && Game1.state != GameState.FastTravel && Game1.state != GameState.Shop)
+                else if (Game1.state == GameState.Pause)
                 {
                     Game1.state = GameState.Game;
                 }
