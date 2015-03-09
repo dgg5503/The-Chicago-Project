@@ -73,7 +73,7 @@ namespace TheChicagoProject.Entity
         /// The player attacks
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
-        public void Attack(int type)
+        public override void Attack(int type)
         {
             if(type == 0)
             {
