@@ -18,7 +18,6 @@ namespace TheChicagoProject.Entity
         protected double lastShot;
 
         public LivingEntity(Rectangle rect, string fileName) : base(rect, fileName) {
-            this.entityAI = ai;
             inventory = new List<Item.Item>();
             time = new GameTime();
             lastShot = 0D;

@@ -9,7 +9,18 @@ namespace TheChicagoProject.Quests
 {
     class Mugging
     {
-        private LivingEntity mugger = new LivingEntity(
-        private LowAI muggerAI = new LowAI()
+        public const string MUGGER_TEXTURE = "mugger.png";
+
+        private LivingEntity mugger;
+        private LowAI muggerAI;
+        private Quest quest;
+
+
+        //constructor
+        public Mugging(Quest quest)
+        {
+            LivingEntity = new LivingEntity(quest.StartPoint, MUGGER_TEXTURE);
+        }
+    
     }
 }
