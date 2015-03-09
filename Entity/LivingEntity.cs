@@ -11,18 +11,14 @@ namespace TheChicagoProject.Entity
     public class LivingEntity : Entity
     {
         public List<Item.Item> inventory;
-        public readonly AI.AI entityAI;
         public int health;
 
-        public LivingEntity(AI.AI ai, Rectangle rect, string fileName) : base(rect, fileName) {
-            this.entityAI = ai;
+        public LivingEntity( Rectangle rect, string fileName) : base(rect, fileName) {
             inventory = new List<Item.Item>();
         }
 
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
-            if (this.entityAI != null)
-                this.entityAI.Update(time, manager);
         }
 
         /// <summary>

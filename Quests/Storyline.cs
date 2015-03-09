@@ -13,11 +13,12 @@ namespace TheChicagoProject.Quests
         //Fields
         private List<Quest> quests;
 
+        //properties
         /// <summary>
-        /// 
+        /// Accesses one quest in the sotry line
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index of the quest</param>
+        /// <returns>The Quest</returns>
         public Quest this[int index]
         {
             get 
@@ -37,6 +38,12 @@ namespace TheChicagoProject.Quests
                 else
                     quests[index] = value;
             }
+        }
+
+        //Constructor
+        public Storyline(string name, string objective, string description, Quest firstQuest, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, reward, cashReward)
+        {
+            quests.Add(firstQuest);
         }
     }
 }
