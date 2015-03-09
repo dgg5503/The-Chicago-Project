@@ -76,7 +76,7 @@ namespace TheChicagoProject.Entity
         {
             if(type == 0)
             {
-                double trajectory = rand.NextDouble() * holster[activeWeapon].Accuracy * (double)(rand.Next(2) - 1);
+                double trajectory = rand.NextDouble() * holster[activeWeapon].accuracy * (double)(rand.Next(2) - 1);
                 trajectory += (double)((int)direction * System.Math.PI / 8D);
                 EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
             }
@@ -87,7 +87,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         public void Reload()
         {
-            holster[activeWeapon].Reload(holster[activeWeapon].MaxClip);
+            holster[activeWeapon].Reload(holster[activeWeapon].maxClip);
         }
 
         /// <summary>
