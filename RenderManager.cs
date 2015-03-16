@@ -241,7 +241,8 @@ namespace TheChicagoProject
             for (int x = (playerX - (maxX / 2)); x < (playerX + (maxX / 2)); x++)
                 for (int y = (playerY - (maxY / 2)); y < (playerY + (maxY / 2)); y++)
                 {
-                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
+                    if(x >= 0 && y >= 0)
+                        w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
         }
