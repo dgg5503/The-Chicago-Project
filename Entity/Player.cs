@@ -22,8 +22,6 @@ namespace TheChicagoProject.Entity
 
     public class Player : LivingEntity
     {
-        public Weapon[] holster;
-        private int activeWeapon;
         private int cash;
         private int questPoints;
         private int lives;
@@ -33,8 +31,6 @@ namespace TheChicagoProject.Entity
 
         public Player(Rectangle location, string fileName) : base(location, fileName)
         {
-            holster = new Weapon[10];
-            activeWeapon = 0;
             cash = 40;
             questPoints = 0;
             lives = 4;
@@ -71,7 +67,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         public void Reload()
         {
-            holster[activeWeapon].Reload(holster[activeWeapon].maxClip);
+            inventory.GetEquippedPrimary().Reload(inventory.GetEquippedPrimary().maxClip);
         }
 
         /// <summary>
@@ -81,24 +77,6 @@ namespace TheChicagoProject.Entity
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Gets and sets the active weapon, if the incoming switch is invalid, it changes it to the first weapon
-        /// </summary>
-        public int ActiveWeapon
-        {
-            get
-            {
-                return activeWeapon;
-            }
-
-            set
-            {
-                if (holster[value] == null)
-                    activeWeapon = 1;
-            }
-        }
-
 
         /// <summary>
         /// calculates the number of lives the player should have based on the number of quest points

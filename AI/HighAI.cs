@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using TheChicagoProject.Entity;
-using TheChicagoProject.Math;
 
 namespace TheChicagoProject.AI
 {
