@@ -235,14 +235,25 @@ namespace TheChicagoProject
             int playerX = (int)System.Math.Ceiling((double)player.location.X / Tile.SIDE_LENGTH);
             int playerY = (int)System.Math.Ceiling((double)player.location.Y / Tile.SIDE_LENGTH);
 
+            int lowBoundsX = (playerX - (maxX / 2));
+            int highestBoundsX = (playerX + (maxX / 2));
+
+            int lowBoundsY = (playerY - (maxY / 2));
+            int highestBoundsY = (playerY + (maxY / 2));
+
+            if (lowBoundsX < 0)
+                lowBoundsX = 0;
+
+            if (lowBoundsY < 0)
+                lowBoundsY = 0;
+
             // lol help
             //Hello
             //if (player.location.X
-            for (int x = (playerX - (maxX / 2)); x < (playerX + (maxX / 2)); x++)
-                for (int y = (playerY - (maxY / 2)); y < (playerY + (maxY / 2)); y++)
+            for (int x = lowBoundsX; x < highestBoundsX; x++)
+                for (int y = lowBoundsY; y < highestBoundsY; y++)
                 {
-                    if(x >= 0 && y >= 0)
-                        w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
+                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
         }

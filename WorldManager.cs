@@ -30,10 +30,10 @@ namespace TheChicagoProject
             current = "main";
             this.mainGame = game;
 
-            player = new Player(new Microsoft.Xna.Framework.Rectangle(0, 0, 32, 32), "player.png");
+            player = new Player(new Microsoft.Xna.Framework.Rectangle(256, 256, 32, 32), "player.png");
 
             // DEBUG
-            World tmpWorld = new World(game, 10);
+            World tmpWorld = new World(game, 100);
             Random RNG = new Random();
             for(int x = 0; x < tmpWorld.size; x++)
                 for (int y = 0; y < tmpWorld.size; y++)
