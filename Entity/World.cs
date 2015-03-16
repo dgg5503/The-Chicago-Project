@@ -26,8 +26,8 @@ namespace TheChicagoProject.Entity
         //Updates the world every frame.
         public void tick(GameTime time) {
             Player player = manager.GetPlayer();
-            int pX = (int) player.location.X; //The actual player location.
-            int pY = (int) player.location.Y; //The actual player location.
+            int pX = player.location.X; //The actual player location.
+            int pY = player.location.Y; //The actual player location.
             if (playerMap == null)
                 playerMap = new DijkstraMap(this, new int[] { pX, pY });
             int[] pLoc = playerMap.Goals[0]; //The player location for AI's.

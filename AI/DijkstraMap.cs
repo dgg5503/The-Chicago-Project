@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
+using TheChicagoProject.GUI;
 
 namespace TheChicagoProject.AI
 {
@@ -46,7 +47,7 @@ namespace TheChicagoProject.AI
             }
             //Sets the goal points to 0
             foreach (int[] g in goals) {
-                grid[g[0]][g[1]] = 0;
+                grid[g[0]/Tile.SIDE_LENGTH][g[1]/Tile.SIDE_LENGTH] = 0;
             }
 
             bool b = false;
