@@ -107,6 +107,10 @@ namespace TheChicagoProject
             List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
             foreach(Entity.Entity entity in entities)
             {
+                if(entity.Equals(WorldManager.player))
+                {
+                    continue;
+                }
                 if(location.Intersects(entity.location))
                 {
                     location.X = location.X - x;
@@ -167,54 +171,55 @@ namespace TheChicagoProject
             #region Quick Weapon Select
             if (keyState.IsKeyDown(Keys.D1))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 1;
+                WorldManager.player.inventory.ActiveWeapon = 1;
             }
             if (keyState.IsKeyDown(Keys.D2))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 2;
+                WorldManager.player.inventory.ActiveWeapon = 2;
             }
             if (keyState.IsKeyDown(Keys.D3))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 3;
+                WorldManager.player.inventory.ActiveWeapon = 3;
             }
             if (keyState.IsKeyDown(Keys.D4))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 4;
+                WorldManager.player.inventory.ActiveWeapon = 4;
             }
             if (keyState.IsKeyDown(Keys.D5))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 5;
+                WorldManager.player.inventory.ActiveWeapon = 5;
             }
             if (keyState.IsKeyDown(Keys.D6))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 6;
+                WorldManager.player.inventory.ActiveWeapon = 6;
             }
             if (keyState.IsKeyDown(Keys.D7))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 7;
+                WorldManager.player.inventory.ActiveWeapon = 7;
             }
             if (keyState.IsKeyDown(Keys.D8))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 8;
+                WorldManager.player.inventory.ActiveWeapon = 8;
             }
             if (keyState.IsKeyDown(Keys.D9))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 9;
+                WorldManager.player.inventory.ActiveWeapon = 9;
             }
             if (keyState.IsKeyDown(Keys.D0))    //Quick Weapon Select
             {
-                WorldManager.player.ActiveWeapon = 0;
+                WorldManager.player.inventory.ActiveWeapon = 0;
             }
             #endregion
 
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-                WorldManager.player.Attack(0, WorldManager.player.holster[WorldManager.player.ActiveWeapon]);
+                WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
             }
             else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {
-                WorldManager.player.Attack(1, WorldManager.player.holster[WorldManager.player.ActiveWeapon]);
+                throw new NotImplementedException();
+                //WorldManager.player.Attack(1, );
             }
         }
     }
