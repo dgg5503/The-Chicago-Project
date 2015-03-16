@@ -103,7 +103,7 @@ namespace TheChicagoProject
             y += deltaY * time.ElapsedGameTime.Milliseconds;
 
             Rectangle location = new Rectangle(x, y, WorldManager.player.location.Width, WorldManager.player.location.Height); 
-
+            
             List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
             foreach(Entity.Entity entity in entities)
             {
