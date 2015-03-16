@@ -48,7 +48,8 @@
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="InputManager.cs" />
-    <Compile Include="Math\DijkstraMap.cs" />
+    <Compile Include="Item\Inventory.cs" />
+    <Compile Include="AI\DijkstraMap.cs" />
     <Compile Include="Item\Item.cs" />
     <Compile Include="Item\Weapon.cs" />
     <Compile Include="Program.cs" />

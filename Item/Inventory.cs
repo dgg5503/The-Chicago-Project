@@ -5,29 +5,49 @@ using System.Text;
 
 namespace TheChicagoProject.Item
 {
-    class Inventory
+    public class Inventory
     {
         private List<Item> inventory;
-        private int primary;
-        private int secondary;
+        private int[] holster;
+        private int activeWeapon;
+
+        /// <summary>
+        /// Gets and sets the active weapon, if the incoming switch is invalid, it changes it to the first weapon
+        /// </summary>
+        public int ActiveWeapon {
+            get { return activeWeapon; }
+            set {
+                if (value == -1)
+                    activeWeapon = 0;
+                else
+                    activeWeapon = value;
+            }
+        }
 
         public Inventory() {
             inventory = new List<Item>();
-            primary = -1;
-            secondary = -1;
+            holster = new int[10];
+            activeWeapon = -1;
         }
 
+        /// <summary>
+        /// Adds an item to the inventory.
+        /// </summary>
+        /// <param name="item">The item to be added.</param>
         public void Add(Item item) {
             inventory.Add(item);
             if (item is Weapon)
-                //if it is a primary
-                if (primary == -1)
-                    primary = inventory.Count - 1;
-                //if it's a secondary
+                for (int x = 0; x < holster.Length; x++)
+                    if (holster[x] == null)
+                        holster[x] = inventory.Count - 1;
         }
 
-        public Weapon getEquippedPrimary() {
-            return primary == -1 ? null : inventory[primary] as Weapon;
+        /// <summary>
+        /// Returns the currently equipped primary weapon, if any.
+        /// </summary>
+        /// <returns>The primary weapon, if any. Otherwise returns null.</returns>
+        public Weapon GetEquippedPrimary() {
+            return activeWeapon == -1 ? null : inventory[activeWeapon] as Weapon;
         }
     }
 }
