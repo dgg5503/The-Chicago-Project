@@ -21,6 +21,7 @@ namespace TheChicagoProject.Entity
                 tiles[x] = new Tile[size];
             manager = new EntityManager(game, this);
             this.size = size;
+            
         }
 
         //Updates the world every frame.
