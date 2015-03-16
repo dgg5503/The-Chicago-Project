@@ -10,7 +10,8 @@ namespace TheChicagoProject.Entity
 {
     public class LivingEntity : Entity
     {
-        public List<Item.Item> inventory;
+        public Inventory inventory;
+
         public int health;
 
         protected GameTime time;
@@ -18,7 +19,7 @@ namespace TheChicagoProject.Entity
         protected double lastShot;
 
         public LivingEntity(Rectangle rect, string fileName) : base(rect, fileName) {
-            inventory = new List<Item.Item>();
+            inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;
         }

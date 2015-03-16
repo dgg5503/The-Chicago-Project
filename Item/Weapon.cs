@@ -10,7 +10,6 @@ namespace TheChicagoProject.Item
         public int rateOfFire;
         private int damage;
         private double reloadTime;
-        public string name;
         public int maxClip;
         private int loadedAmmo;
         public double accuracy;
