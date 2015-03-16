@@ -241,6 +241,7 @@ namespace TheChicagoProject
                 {
                     w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
+            }
 
         }
     }

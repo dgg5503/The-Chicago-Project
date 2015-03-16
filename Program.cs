@@ -18,7 +18,6 @@ namespace TheChicagoProject
         [STAThread]
         static void Main()
         {
-            Console.WriteLine()
             using (var game = new Game1())
                 game.Run();
         }

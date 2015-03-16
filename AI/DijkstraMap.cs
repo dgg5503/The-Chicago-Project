@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
 
-namespace TheChicagoProject.Math
+namespace TheChicagoProject.AI
 {
     /// <summary>
     /// It's not the mathematical DijkstraMap, but rather an AI construct.
