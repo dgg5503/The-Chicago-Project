@@ -29,7 +29,7 @@ namespace TheChicagoProject.AI
                 entity.Move();
             } else if (dist < 14) {
                 entity.direction = closerDir;
-                entity.Attack(0, entity.inventory[0] as Item.Weapon);
+                entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else {
                 entity.direction = closerDir;
                 entity.Move();

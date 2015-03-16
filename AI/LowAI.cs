@@ -26,7 +26,7 @@ namespace TheChicagoProject.AI
             Direction closerDir = findPos(map, 1);
             if (dist < 4) {
                 entity.direction = closerDir;
-                entity.Attack(0, entity.inventory[0] as Item.Weapon);
+                entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else {
                 entity.direction = closerDir;
                 entity.Move();

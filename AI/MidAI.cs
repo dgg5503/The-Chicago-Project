@@ -30,7 +30,7 @@ namespace TheChicagoProject.AI
             } else if (dist < 8) {
                 entity.direction = closerDir;
                 if (time.ElapsedGameTime.Milliseconds % 2 == 0)
-                    entity.Attack(0, entity.inventory[0] as Item.Weapon);
+                    entity.Attack(0, entity.inventory.GetEquippedPrimary());
                 else
                     entity.Attack(1);
             } else {
