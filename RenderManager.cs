@@ -236,7 +236,7 @@ namespace TheChicagoProject
             int playerY = (int)System.Math.Ceiling((double)player.location.Y / Tile.SIDE_LENGTH);
 
             // lol help
-
+            //Hello
             //if (player.location.X
             for (int x = (playerX - (maxX / 2)); x < (playerX + (maxX / 2)); x++)
                 for (int y = (playerY - (maxY / 2)); y < (playerY + (maxY / 2)); y++)
