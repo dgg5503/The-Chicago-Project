@@ -21,7 +21,6 @@ namespace TheChicagoProject.Entity
                 tiles[x] = new Tile[size];
             manager = new EntityManager(game, this);
             this.size = size;
-            playerMap = new DijkstraMap(this, new int[] { manager.GetPlayer().location.X, manager.GetPlayer().location.Y });
         }
 
         //Updates the world every frame.
@@ -30,7 +29,7 @@ namespace TheChicagoProject.Entity
             int[] pLoc = playerMap.Goals[0]; //The player location for AI's.
             int pX = (int) player.location.X; //The actual player location.
             int pY = (int) player.location.Y; //The actual player location.
-            if (pX != pLoc[0] || pY != pLoc[1])
+            if (pX != pLoc[0] || pY != pLoc[1] || playerMap == null)
                 playerMap = new DijkstraMap(this, new int[] { pX, pY});
             manager.Update(time);
         }
