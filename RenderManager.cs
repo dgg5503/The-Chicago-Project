@@ -221,11 +221,13 @@ namespace TheChicagoProject
             World w =  mainGame.worldManager.CurrentWorld;
             
             // Off the screen technique
-            for(int x = 0; x < w.size; x++)
+            for (int x = 0; x < w.size; x++)
+            {
                 for (int y = 0; y < w.size; y++)
                 {
                     w.tiles[x][y].Draw(sb, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
+            }
 
         }
     }
