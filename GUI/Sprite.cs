@@ -190,7 +190,7 @@ namespace TheChicagoProject.GUI
                      height),		        	//     draw the whole thing)
                  Color.White,					// - The color
                  DirectionToRadians(dir),								// - Rotation (none currently)
-                 Vector2.Zero,					// - Origin inside the image (top left)
+                 new Vector2(width/2, height/2),					// - Origin inside the image (top left)
                  SpriteEffects.None,				        // - Can be used to flip the image
                  0);								// - Layer depth (unused)
         }

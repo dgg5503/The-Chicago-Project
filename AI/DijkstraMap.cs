@@ -47,7 +47,9 @@ namespace TheChicagoProject.AI
             }
             //Sets the goal points to 0
             foreach (int[] g in goals) {
-                 grid[g[0]/Tile.SIDE_LENGTH][g[1]/Tile.SIDE_LENGTH] = 0;
+                int actualX = g[0] / Tile.SIDE_LENGTH;
+                int actualY = g[1] / Tile.SIDE_LENGTH;
+                 grid[actualX][actualY] = 0;
             }
 
             bool b = false;
