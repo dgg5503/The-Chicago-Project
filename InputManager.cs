@@ -100,6 +100,15 @@ namespace TheChicagoProject
 
             Rectangle location = new Rectangle(x + deltaX, y + deltaY, WorldManager.player.location.Width, WorldManager.player.location.Height); 
             
+            if(location.X < 0)
+            {
+                location.X = 0;
+            }
+            if(y < 0)
+            {
+                location.X = 0;
+            }
+
             List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
             foreach(Entity.Entity entity in entities)
             {
