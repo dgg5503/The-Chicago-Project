@@ -21,7 +21,7 @@ namespace TheChicagoProject.Entity
                 tiles[x] = new Tile[size];
             manager = new EntityManager(game, this);
             this.size = size;
-            
+            playerMap = new DijkstraMap(this, new int[] { manager.GetPlayer().location.X, manager.GetPlayer().location.Y });
         }
 
         //Updates the world every frame.
