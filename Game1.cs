@@ -63,7 +63,7 @@ namespace TheChicagoProject
             state = GameState.Menu;
             saveManager = new SaveManager(this);
             worldManager = new WorldManager(this);
-            inputManager = new InputManager(this);
+            inputManager = new InputManager();
             base.Initialize();
 
             
