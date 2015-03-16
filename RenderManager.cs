@@ -84,28 +84,28 @@ namespace TheChicagoProject
         // be used to execute the draw method, doing it
         // this way will require this class to be
         // constructed in LoadContent (which only happens once)
-        private SpriteBatch sb;
+        private SpriteBatch spriteBatch;
 
         // Main graphicsDevice from Game1, required
         // for loading textures
-        private GraphicsDevice g;
+        private GraphicsDevice graphics;
 
         // The game1 class.
         private Game1 mainGame;
 
-        private WorldManager w;
+        private WorldManager worldManager;
 
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
-        /// <param name="sb">MonoGames SpriteBatch object.</param>
-        /// <param name="g">MonoGames GraphicsDevice object.</param>
+        /// <param name="spriteBatch">MonoGames SpriteBatch object.</param>
+        /// <param name="graphics">MonoGames GraphicsDevice object.</param>
         /// <param name="mainGame">Game1 class to interact with other managers.</param>
-        public RenderManager(SpriteBatch sb, GraphicsDevice g, Game1 mainGame, WorldManager w)
+        public RenderManager(SpriteBatch spriteBatch, GraphicsDevice graphics, Game1 mainGame, WorldManager worldManager)
         {
-            this.sb = sb;
-            this.g = g;
-            this.w = w;
+            this.spriteBatch = spriteBatch;
+            this.graphics = graphics;
+            this.worldManager = worldManager;
             this.mainGame = mainGame;
             
             // Load all textures once (constructor will only be called once, so will this method)
@@ -124,21 +124,21 @@ namespace TheChicagoProject
                 using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
                     //imageStream = 
-                    kvp.Value.Texture = Texture2D.FromStream(g, imageStream);
+                    kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
                 }
             }
             //--------TILES--------
 
             //------ENTITIES-------
             // FOREACH THROUGH EACH WORLD!!
-            foreach (World z in w.worlds.Values)
+            foreach (World z in worldManager.worlds.Values)
             {
                 foreach (Entity.Entity e in z.manager.EntityList)
                 {
                     using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
                     {
                         //imageStream = 
-                        e.sprite.Texture = Texture2D.FromStream(g, imageStream);
+                        e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
                     }
                 }
             }
@@ -185,9 +185,9 @@ namespace TheChicagoProject
         public void DrawEntities()
         {
             // Simply draw all entities in the currentWorld.
-            foreach (Entity.Entity e in w.CurrentWorld.manager.EntityList)
+            foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(sb, e.location.X, e.location.Y, e.direction);
+                e.sprite.Draw(spriteBatch, e.location.X, e.location.Y, e.direction);
             }
         }
 
@@ -221,10 +221,25 @@ namespace TheChicagoProject
             World w =  mainGame.worldManager.CurrentWorld;
             
             // Off the screen technique
-            for(int x = 0; x < w.size; x++)
-                for (int y = 0; y < w.size; y++)
+            
+            // RELATIVE TO THE PLAYER.....
+            Player player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
+
+            // All locations are relative to the XY global axis.
+            int maxX = (int)System.Math.Ceiling((double)graphics.Viewport.Width / Tile.SIDE_LENGTH) + 2;
+            int maxY = (int)System.Math.Ceiling((double)graphics.Viewport.Height / Tile.SIDE_LENGTH) + 2;
+
+
+            // Max size is 15 over (2 extra for left and right)
+            // Max height 10 down (2 extra for up and down)
+            int playerX = (int)System.Math.Ceiling((double)player.location.X / Tile.SIDE_LENGTH);
+            int playerY = (int)System.Math.Ceiling((double)player.location.Y / Tile.SIDE_LENGTH);
+
+            //if (player.location.X
+            for (int x = (playerX - (maxX / 2)); x < (playerX + (maxX / 2)); x++)
+                for (int y = (playerY - (maxY / 2)); y < (playerY + (maxY / 2)); y++)
                 {
-                    w.tiles[x][y].Draw(sb, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
+                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
         }
