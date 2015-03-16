@@ -188,7 +188,7 @@ namespace TheChicagoProject
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
                 if (e is Player)
-                    e.sprite.Draw(spriteBatch, graphics.Viewport.Width / 2, graphics.Viewport.Height / 2, e.direction);
+                    e.sprite.Draw(spriteBatch, graphics.Viewport.Width / 2 - e.sprite.Width/2, graphics.Viewport.Height / 2 - e.sprite.Height/2, e.direction);
                 else
                     e.sprite.Draw(spriteBatch, e.location.X, e.location.Y, e.direction);
             }
@@ -231,12 +231,14 @@ namespace TheChicagoProject
             // All locations are relative to the XY global axis.
             int maxX = (int)System.Math.Ceiling((double)graphics.Viewport.Width / Tile.SIDE_LENGTH) + 2;
             int maxY = (int)System.Math.Ceiling((double)graphics.Viewport.Height / Tile.SIDE_LENGTH) + 2;
-
+            
 
             // Max size is 15 over (2 extra for left and right)
             // Max height 10 down (2 extra for up and down)
-            int playerX = (int)System.Math.Ceiling((double)player.location.X / Tile.SIDE_LENGTH);
-            int playerY = (int)System.Math.Ceiling((double)player.location.Y / Tile.SIDE_LENGTH);
+            int playerX = (int)(player.location.X / Tile.SIDE_LENGTH);
+            int playerY = (int)(player.location.Y / Tile.SIDE_LENGTH);
+            int offX = player.location.X % Tile.SIDE_LENGTH;
+            int offY = player.location.Y % Tile.SIDE_LENGTH;
 
             int lowBoundsX = (playerX - (maxX / 2));
             int highestBoundsX = (playerX + (maxX / 2));
@@ -256,7 +258,7 @@ namespace TheChicagoProject
             for (int x = lowBoundsX; x < highestBoundsX; x++)
                 for (int y = lowBoundsY; y < highestBoundsY; y++)
                 {
-                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
+                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH - offX, y * Tile.SIDE_LENGTH - offY);
                 }
 
         }
