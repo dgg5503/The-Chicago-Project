@@ -103,7 +103,7 @@ namespace TheChicagoProject
             y += deltaY * time.ElapsedGameTime.Milliseconds;
 
             
-            foreach()
+            //foreach()
 
             WorldManager.player.location.X = x;
             WorldManager.player.location.Y = y;
