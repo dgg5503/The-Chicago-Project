@@ -123,9 +123,7 @@ namespace TheChicagoProject
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
-            spriteBatch.Begin();
-            renderManager.Draw(gameTime);
-            spriteBatch.End();
+            renderManager.Draw(spriteBatch, gameTime);
 
             base.Draw(gameTime);
         }

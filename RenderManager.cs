@@ -95,6 +95,10 @@ namespace TheChicagoProject
 
         private WorldManager worldManager;
 
+        // RELATIVE TO THE PLAYER.....
+        private Player player;
+
+
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
         /// </summary>
@@ -107,6 +111,8 @@ namespace TheChicagoProject
             this.graphics = graphics;
             this.worldManager = worldManager;
             this.mainGame = mainGame;
+
+            player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
@@ -156,7 +162,7 @@ namespace TheChicagoProject
         /// <summary>
         /// Draws LEGITERALLY EVERYTHING!
         /// </summary>
-        public void Draw(GameTime gameTime)
+        public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             // DEBUG DRAWING
             //Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
@@ -165,10 +171,20 @@ namespace TheChicagoProject
 
             // ORDER OF DRAWING:
             // World (own method of drawing)
+
+            Vector2 cameraWorldPostion = new Vector2((player.location.X) + (player.location.Width / 2), player.location.Y + (player.location.Height / 2));
+
+            Vector2 screenCenter = new Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2);
+
+            Vector2 translation = -cameraWorldPostion + screenCenter;
+            Matrix cameraMatrix = Matrix.CreateTranslation(translation.X, translation.Y, 0);
+
+            spriteBatch.Begin(0, null, null, null, null, null, cameraMatrix);
             DrawWorld();
 
             // Entities (items, players and what not) (list of entities and their locs (?))
             DrawEntities();
+            sb.End();
 
             // GUI (list of GUI elements and their locs (?))
             DrawGUI();
@@ -187,10 +203,7 @@ namespace TheChicagoProject
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                if (e is Player)
-                    e.sprite.Draw(spriteBatch, graphics.Viewport.Width / 2 - e.sprite.Width/2, graphics.Viewport.Height / 2 - e.sprite.Height/2, e.direction);
-                else
-                    e.sprite.Draw(spriteBatch, e.location.X, e.location.Y, e.direction);
+                e.sprite.Draw(spriteBatch, e.location.X, e.location.Y, e.direction);
             }
         }
 
@@ -222,43 +235,35 @@ namespace TheChicagoProject
             // We are taking in a 2D array of Tile and doing a simple double for loop
             // to draw all the tiles on the screen.
             World w =  mainGame.worldManager.CurrentWorld;
-            
-            // Off the screen technique
-            
-            // RELATIVE TO THE PLAYER.....
-            Player player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
 
             // All locations are relative to the XY global axis.
-            int maxX = (int)System.Math.Ceiling((double)graphics.Viewport.Width / Tile.SIDE_LENGTH) + 2;
-            int maxY = (int)System.Math.Ceiling((double)graphics.Viewport.Height / Tile.SIDE_LENGTH) + 2;
-            
+            int excess = 1;
 
-            // Max size is 15 over (2 extra for left and right)
-            // Max height 10 down (2 extra for up and down)
-            int playerX = (int)(player.location.X / Tile.SIDE_LENGTH);
-            int playerY = (int)(player.location.Y / Tile.SIDE_LENGTH);
-            int offX = player.location.X % Tile.SIDE_LENGTH;
-            int offY = player.location.Y % Tile.SIDE_LENGTH;
+            int xLowBound = ((player.location.X / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2); // + left most number of tiles...
+            int yLowBound = ((player.location.Y / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
 
-            int lowBoundsX = (playerX - (maxX / 2));
-            int highestBoundsX = (playerX + (maxX / 2));
+            if (xLowBound < 0)
+                xLowBound = 0;
 
-            int lowBoundsY = (playerY - (maxY / 2));
-            int highestBoundsY = (playerY + (maxY / 2));
+            if (yLowBound < 0)
+                yLowBound = 0;
 
-            if (lowBoundsX < 0)
-                lowBoundsX = 0;
+            int xHighBound = ((player.location.X / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2) + excess; // math.ceil
+            int yHighBound = ((player.location.Y / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) + excess; // math.ceil
 
-            if (lowBoundsY < 0)
-                lowBoundsY = 0;
+            if (xHighBound > w.tiles.Length)
+                xHighBound = w.tiles.Length;
+
+            if (yHighBound > w.tiles[0].Length)
+                yHighBound = w.tiles[0].Length;
 
             // lol help
             //Hello
             //if (player.location.X
-            for (int x = lowBoundsX; x < highestBoundsX; x++)
-                for (int y = lowBoundsY; y < highestBoundsY; y++)
+            for (int x = xLowBound; x <= xHighBound; x++)
+                for (int y = yLowBound; y <= yHighBound; y++)
                 {
-                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH - offX, y * Tile.SIDE_LENGTH - offY);
+                    w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
         }
