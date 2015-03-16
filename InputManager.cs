@@ -30,7 +30,7 @@ namespace TheChicagoProject
         public void HandleInput(KeyboardState keyState, MouseState mouseState, GameTime time)
         {
             #region Movement Input
-            int speed = 5;
+            int speed = 1;
 
             int deltaX = 0;
             int deltaY = 0;
@@ -95,14 +95,10 @@ namespace TheChicagoProject
                 }
             }
 
-
             int x = WorldManager.player.location.X;
             int y = WorldManager.player.location.Y;
 
-            x += deltaX * time.ElapsedGameTime.Milliseconds;
-            y += deltaY * time.ElapsedGameTime.Milliseconds;
-
-            Rectangle location = new Rectangle(x, y, WorldManager.player.location.Width, WorldManager.player.location.Height); 
+            Rectangle location = new Rectangle(x + deltaX, y + deltaY, WorldManager.player.location.Width, WorldManager.player.location.Height); 
             
             List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
             foreach(Entity.Entity entity in entities)
