@@ -13,6 +13,17 @@ namespace TheChicagoProject
     /// </summary>
     public class InputManager
     {
+        private Game1 mainGame;
+
+        /// <summary>
+        /// Makes a new Input manager
+        /// </summary>
+        /// <param name="mainGame">Instance of the Game1</param>
+        public InputManager(Game1 mainGame)
+        {
+            this.mainGame = mainGame;
+        }
+
         /// <summary>
         /// What happens with Update?
         /// </summary>
@@ -91,8 +102,27 @@ namespace TheChicagoProject
             x += deltaX * time.ElapsedGameTime.Milliseconds;
             y += deltaY * time.ElapsedGameTime.Milliseconds;
 
-            WorldManager.player.location.X = x;
-            WorldManager.player.location.Y = y;
+            Rectangle location = new Rectangle(x, y, WorldManager.player.location.Width, WorldManager.player.location.Height); 
+            
+            List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
+            foreach(Entity.Entity entity in entities)
+            {
+                if(location.Intersects(entity.location))
+                {
+                    location.X = location.X - x;
+                    if (location.Intersects(entity.location))
+                    {
+                        location.X = location.X + x;
+                        location.Y = location.Y - y;
+                        if (location.Intersects(entity.location))
+                        {
+                            location.X = location.X - x;
+                        }
+                    }
+                }
+            }
+
+            WorldManager.player.location = location;
             #endregion
 
             if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel

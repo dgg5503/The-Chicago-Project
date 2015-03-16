@@ -60,13 +60,13 @@ namespace TheChicagoProject
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-
-            base.Initialize();
-
             state = GameState.Menu;
             saveManager = new SaveManager(this);
             worldManager = new WorldManager(this);
             inputManager = new InputManager();
+            base.Initialize();
+
+            
         }
 
         /// <summary>
