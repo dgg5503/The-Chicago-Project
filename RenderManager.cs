@@ -78,8 +78,6 @@ namespace TheChicagoProject
     /// </summary>
     public class RenderManager
     {
-        // Fields
-
         // The main SpriteBatch taken from Game1 which will
         // be used to execute the draw method, doing it
         // this way will require this class to be
@@ -95,7 +93,6 @@ namespace TheChicagoProject
 
         private WorldManager worldManager;
 
-        // RELATIVE TO THE PLAYER.....
         private Player player;
 
 
@@ -122,36 +119,28 @@ namespace TheChicagoProject
         // This will be called when rendermanager is constructed in LoadContent... (since we only want to load textures once!!!)
         public void LoadTextures()
         {
-            // Image stream for basic texture loading
-
             //--------TILES--------
             foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
             {
                 using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
-                    //imageStream = 
                     kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
                 }
             }
             //--------TILES--------
 
             //------ENTITIES-------
-            // FOREACH THROUGH EACH WORLD!!
             foreach (World z in worldManager.worlds.Values)
             {
                 foreach (Entity.Entity e in z.manager.EntityList)
                 {
                     using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
                     {
-                        //imageStream = 
                         e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
                     }
                 }
             }
             //------ENTITIES-------
-
-
-
         }
 
         public void Update(GameTime gameTime)
@@ -162,7 +151,7 @@ namespace TheChicagoProject
         /// <summary>
         /// Draws LEGITERALLY EVERYTHING!
         /// </summary>
-        public void Draw(SpriteBatch sb, GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
             // DEBUG DRAWING
             //Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
@@ -171,7 +160,8 @@ namespace TheChicagoProject
 
             // ORDER OF DRAWING:
             // World (own method of drawing)
-
+            // Camera and relative coordinate translation (coordinates are still on the X, Y plane NOT RELATIVE TO THE CAMERA)
+            // Camera follows the player
             Vector2 cameraWorldPostion = new Vector2((player.location.X) + (player.location.Width / 2), player.location.Y + (player.location.Height / 2));
 
             Vector2 screenCenter = new Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2);
@@ -179,18 +169,20 @@ namespace TheChicagoProject
             Vector2 translation = -cameraWorldPostion + screenCenter;
             Matrix cameraMatrix = Matrix.CreateTranslation(translation.X, translation.Y, 0);
 
+            // Custom spriteBatch params
             spriteBatch.Begin(0, null, null, null, null, null, cameraMatrix);
             DrawWorld();
 
             // Entities (items, players and what not) (list of entities and their locs (?))
             DrawEntities();
-            sb.End();
+            spriteBatch.End();
 
             // GUI (list of GUI elements and their locs (?))
+            spriteBatch.Begin();
             DrawGUI();
+            spriteBatch.End();
 
-            // High Priority Menus (inventory, pause, etc...) (list of GUI elements and their locs (?))
-            // ????
+            // All we need are 2 sprite batches for GUI and the world.
         }
 
         // Sprite Sheets
@@ -229,7 +221,6 @@ namespace TheChicagoProject
         // characters / numbers / etc...
         // Perhaps the way in which we parse and construct the world should determine the keys in the dictionary? (?)
         // i.e. maybe not strings but enum/identifying ints/character
-        // 
         public void DrawWorld()
         {
             // We are taking in a 2D array of Tile and doing a simple double for loop
@@ -239,7 +230,7 @@ namespace TheChicagoProject
             // All locations are relative to the XY global axis.
             int excess = 1;
 
-            int xLowBound = ((player.location.X / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2); // + left most number of tiles...
+            int xLowBound = ((player.location.X / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2);
             int yLowBound = ((player.location.Y / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
 
             if (xLowBound < 0)
@@ -248,8 +239,8 @@ namespace TheChicagoProject
             if (yLowBound < 0)
                 yLowBound = 0;
 
-            int xHighBound = ((player.location.X / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2) + excess; // math.ceil
-            int yHighBound = ((player.location.Y / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) + excess; // math.ceil
+            int xHighBound = ((player.location.X / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2) + excess;
+            int yHighBound = ((player.location.Y / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) + excess;
 
             if (xHighBound > w.tiles.Length)
                 xHighBound = w.tiles.Length;
@@ -257,9 +248,6 @@ namespace TheChicagoProject
             if (yHighBound > w.tiles[0].Length)
                 yHighBound = w.tiles[0].Length;
 
-            // lol help
-            //Hello
-            //if (player.location.X
             for (int x = xLowBound; x <= xHighBound; x++)
                 for (int y = yLowBound; y <= yHighBound; y++)
                 {
