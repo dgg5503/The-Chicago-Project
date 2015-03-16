@@ -104,9 +104,9 @@ namespace TheChicagoProject
             {
                 location.X = 0;
             }
-            if(y < 0)
+            if(location.Y < 0)
             {
-                location.X = 0;
+                location.Y = 0;
             }
 
             List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
