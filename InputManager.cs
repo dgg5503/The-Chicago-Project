@@ -13,6 +13,17 @@ namespace TheChicagoProject
     /// </summary>
     public class InputManager
     {
+        private Game1 mainGame;
+
+        /// <summary>
+        /// Makes a new Input manager
+        /// </summary>
+        /// <param name="mainGame">Instance of the Game1</param>
+        public InputManager(Game1 mainGame)
+        {
+            this.mainGame = mainGame;
+        }
+
         /// <summary>
         /// What happens with Update?
         /// </summary>
@@ -90,6 +101,9 @@ namespace TheChicagoProject
 
             x += deltaX * time.ElapsedGameTime.Milliseconds;
             y += deltaY * time.ElapsedGameTime.Milliseconds;
+
+            
+            foreach()
 
             WorldManager.player.location.X = x;
             WorldManager.player.location.Y = y;
