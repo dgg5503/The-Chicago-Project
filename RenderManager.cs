@@ -107,7 +107,7 @@ namespace TheChicagoProject
             this.graphics = graphics;
             this.worldManager = worldManager;
             this.mainGame = mainGame;
-            
+
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
         }
@@ -119,7 +119,7 @@ namespace TheChicagoProject
             // Image stream for basic texture loading
 
             //--------TILES--------
-            foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
+            foreach (KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
             {
                 using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
@@ -152,7 +152,7 @@ namespace TheChicagoProject
         {
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
         }
-        
+
         /// <summary>
         /// Draws LEGITERALLY EVERYTHING!
         /// </summary>
@@ -218,10 +218,10 @@ namespace TheChicagoProject
         {
             // We are taking in a 2D array of Tile and doing a simple double for loop
             // to draw all the tiles on the screen.
-            World w =  mainGame.worldManager.CurrentWorld;
-            
+            World w = mainGame.worldManager.CurrentWorld;
+
             // Off the screen technique
-            
+
             // RELATIVE TO THE PLAYER.....
             Player player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
 
@@ -246,4 +246,5 @@ namespace TheChicagoProject
 
         }
     }
+}
 
