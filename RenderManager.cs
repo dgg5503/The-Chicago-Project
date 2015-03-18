@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
-
 namespace TheChicagoProject
 {
     /*
@@ -161,10 +160,12 @@ namespace TheChicagoProject
         {
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
 
-            // When hiding menus and other GUI elements, DISABLE their Update methods in controls and DONT draw them
-            // with this example, the button is still there since the checks are still going through but we can get rid
-            // of these checks by doing what i just said :P. (TO-DO)
-            menu.Update(gameTime);
+            // if the GUI is not visible, dont update it.
+            if (menu.IsVisible)
+            {
+                menu.Update(gameTime);
+            }
+            Console.WriteLine("DRAWING: {0}", menu.IsVisible);
         }
         
         /// <summary>
@@ -233,8 +234,6 @@ namespace TheChicagoProject
             {
                 mainGame.IsMouseVisible = true;
                 menu.Draw(spriteBatch, gameTime);
-
-                
             }
             else
             {
