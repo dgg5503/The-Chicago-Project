@@ -160,6 +160,10 @@ namespace TheChicagoProject
         public void Update(GameTime gameTime)
         {
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
+
+            // When hiding menus and other GUI elements, DISABLE their Update methods in controls and DONT draw them
+            // with this example, the button is still there since the checks are still going through but we can get rid
+            // of these checks by doing what i just said :P. (TO-DO)
             menu.Update(gameTime);
         }
         
@@ -229,6 +233,8 @@ namespace TheChicagoProject
             {
                 mainGame.IsMouseVisible = true;
                 menu.Draw(spriteBatch, gameTime);
+
+                
             }
             else
             {
