@@ -44,8 +44,13 @@
     <Compile Include="Entity\LivingEntity.cs" />
     <Compile Include="Entity\Player.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GUI\Forms\Button.cs" />
+    <Compile Include="GUI\Forms\Control.cs" />
+    <Compile Include="GUI\Forms\Label.cs" />
+    <Compile Include="GUI\Menu.cs" />
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
+    <Compile Include="GUI\Utils.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Item\Inventory.cs" />
     <Compile Include="AI\DijkstraMap.cs" />
@@ -102,7 +107,11 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Content\Font\TimesNewRoman12.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Quests\QuestGenerator\QuestBuilder.resx">
       <DependentUpon>QuestBuilder.cs</DependentUpon>

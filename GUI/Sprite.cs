@@ -244,6 +244,8 @@ namespace TheChicagoProject.GUI
                 Vector2.Zero,					// - Origin inside the image (top left)
                 SpriteEffects.None,				        // - Can be used to flip the image
                 0);								// - Layer depth (unused)
+
+           
         }
 
         /// <summary>

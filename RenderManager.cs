@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using TheChicagoProject.GUI;
+using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
 
 
 namespace TheChicagoProject
@@ -95,6 +95,8 @@ namespace TheChicagoProject
 
         private Player player;
 
+        private Menu menu;
+
 
         /// <summary>
         /// Constructs RenderManager using a SpriteBatch object which will be used for drawing.
@@ -108,6 +110,8 @@ namespace TheChicagoProject
             this.graphics = graphics;
             this.worldManager = worldManager;
             this.mainGame = mainGame;
+
+            menu = new Menu();
 
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
@@ -125,7 +129,9 @@ namespace TheChicagoProject
                 using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
                     kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
+                    
                 }
+                //kvp.Value.Texture = mainGame.Content.Load<Texture2D>("Tiles/" + kvp.Value.FileName);
             }
             //--------TILES--------
 
@@ -134,18 +140,27 @@ namespace TheChicagoProject
             {
                 foreach (Entity.Entity e in z.manager.EntityList)
                 {
+                    
                     using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
                     {
                         e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
                     }
+                    //e.sprite.Texture = mainGame.Content.Load<Texture2D>("Sprites/" + e.sprite.FileName);
                 }
             }
             //------ENTITIES-------
+
+            //--------GUI----------
+            menu.LoadTextures(graphics);
+            menu.LoadContent(mainGame.Content);
+            //--------GUI----------
+
         }
 
         public void Update(GameTime gameTime)
         {
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
+            menu.Update(gameTime);
         }
         
         /// <summary>
@@ -153,36 +168,34 @@ namespace TheChicagoProject
         /// </summary>
         public void Draw(GameTime gameTime)
         {
-            // DEBUG DRAWING
-            //Tiles.tilesDictionary["RoadTar"].Draw(sb, 0, 0);
-            //Tiles.tilesDictionary["RoadTar"].Draw(sb, 64 * 100, 0);
-            //Tiles.tilesDictionary["RoadLine"].Draw(sb, 256, 0, Color.White);
-
             // ORDER OF DRAWING:
             // World (own method of drawing)
-            // Camera and relative coordinate translation (coordinates are still on the X, Y plane NOT RELATIVE TO THE CAMERA)
-            // Camera follows the player
-            Vector2 cameraWorldPostion = new Vector2((player.location.X) + (player.location.Width / 2), player.location.Y + (player.location.Height / 2));
+            if (Game1.state != GameState.Menu)
+            {
+                // Camera and relative coordinate translation (coordinates are still on the X, Y plane NOT RELATIVE TO THE CAMERA)
+                // Camera follows the player
+                Vector2 cameraWorldPostion = new Vector2((player.location.X) + (player.location.Width / 2), player.location.Y + (player.location.Height / 2));
 
-            Vector2 screenCenter = new Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2);
+                Vector2 screenCenter = new Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height / 2);
 
-            Vector2 translation = -cameraWorldPostion + screenCenter;
-            Matrix cameraMatrix = Matrix.CreateTranslation(translation.X, translation.Y, 0);
+                Vector2 translation = -cameraWorldPostion + screenCenter;
+                Matrix cameraMatrix = Matrix.CreateTranslation(translation.X, translation.Y, 0);
 
-            // Custom spriteBatch params
-            spriteBatch.Begin(0, null, null, null, null, null, cameraMatrix);
-            DrawWorld();
+                // Custom spriteBatch params
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, cameraMatrix);
+                DrawWorld();
 
-            // Entities (items, players and what not) (list of entities and their locs (?))
-            DrawEntities();
-            spriteBatch.End();
-
+                // Entities (items, players and what not) (list of entities and their locs (?))
+                DrawEntities();
+                spriteBatch.End();
+            }
             // GUI (list of GUI elements and their locs (?))
             spriteBatch.Begin();
-            DrawGUI();
+            DrawGUI(gameTime);
             spriteBatch.End();
 
             // All we need are 2 sprite batches for GUI and the world.
+            
         }
 
         // Sprite Sheets
@@ -210,9 +223,17 @@ namespace TheChicagoProject
          * 
          * - Another tool could be an external GUI builder? (no need to hand code stuff) (?)
          */
-        public void DrawGUI()
+        public void DrawGUI(GameTime gameTime)
         {
-
+            if (Game1.state == GameState.Menu)
+            {
+                mainGame.IsMouseVisible = true;
+                menu.Draw(spriteBatch, gameTime);
+            }
+            else
+            {
+                mainGame.IsMouseVisible = false;
+            }
         }
 
         // World drawing

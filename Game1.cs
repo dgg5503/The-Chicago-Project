@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
 #endregion
 
 namespace TheChicagoProject
@@ -84,7 +83,7 @@ namespace TheChicagoProject
             //Load the data
             //saveManager.Load();//Currently Throws a not implemented exception
 
-            // TODO: use this.Content to load your game content here
+            base.LoadContent();
         }
 
         /// <summary>
@@ -94,6 +93,8 @@ namespace TheChicagoProject
         protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
             saveManager.Save();
+
+            base.UnloadContent();
         }
 
         /// <summary>
@@ -102,10 +103,10 @@ namespace TheChicagoProject
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            /*if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            */
 
-            // TODO: Add your update logic here
             inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
             worldManager.CurrentWorld.tick(gameTime);
 
@@ -124,7 +125,7 @@ namespace TheChicagoProject
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             renderManager.Draw(gameTime);
-
+            
             base.Draw(gameTime);
         }
     }

@@ -219,7 +219,8 @@ namespace TheChicagoProject
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-                WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                // Needed to comment this out since it was always on no matter the state.
+                //WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
             }
             else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {
