@@ -165,7 +165,7 @@ namespace TheChicagoProject
             {
                 menu.Update(gameTime);
             }
-            Console.WriteLine("DRAWING: {0}", menu.IsVisible);
+           
         }
         
         /// <summary>
