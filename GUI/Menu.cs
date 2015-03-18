@@ -26,7 +26,7 @@ namespace TheChicagoProject.GUI
         {
 
             this.Location = new Point(100, 100);
-            this.Size = new Point(200, 500);
+            this.Size = new Point(200, 300);
             
             InitializeForms();
         }
@@ -34,17 +34,17 @@ namespace TheChicagoProject.GUI
         public void InitializeForms()
         {
             buttons = new Button();
-            buttons.Text = "CLICK ME";
+            buttons.Text = "START";
             buttons.Click += buttons_Click;
             buttons.Location = new Point(this.Size.X / 2, (this.Size.Y / 2) + 20);
-            buttons.Size = new Point(50, 10);
+            buttons.Size = new Point(55, 20);
             buttons.parent = this;
             Add(buttons);
 
             header = new Label();
-            header.Text = "MENU";
+            header.Text = "MAIN MENU";
             header.Font = null;
-            header.Location = new Point(this.Size.X / 2, 10);
+            header.Location = new Point(this.Size.X / 2 - 45, 10);
             header.Size = new Point(50, 10);
             header.parent = this;
             Add(header);
