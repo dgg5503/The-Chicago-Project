@@ -190,11 +190,12 @@ namespace TheChicagoProject
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, cameraMatrix);
                 DrawWorld();
 
-                // Entities (items, players and what not) (list of entities and their locs (?))
+                // Entities
                 DrawEntities();
                 spriteBatch.End();
             }
-            // GUI (list of GUI elements and their locs (?))
+
+            // GUI
             spriteBatch.Begin();
             DrawGUI(gameTime);
             spriteBatch.End();
@@ -242,11 +243,6 @@ namespace TheChicagoProject
         }
 
         // World drawing
-        // @Ashwin
-        // What possible parameters would this take in? How are we creating our world?
-        // characters / numbers / etc...
-        // Perhaps the way in which we parse and construct the world should determine the keys in the dictionary? (?)
-        // i.e. maybe not strings but enum/identifying ints/character
         public void DrawWorld()
         {
             // We are taking in a 2D array of Tile and doing a simple double for loop

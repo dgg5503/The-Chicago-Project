@@ -27,7 +27,7 @@ namespace TheChicagoProject.GUI
 
             this.Location = new Point(100, 100);
             this.Size = new Point(200, 500);
-
+            
             InitializeForms();
         }
 

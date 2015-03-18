@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI.Forms
 {
-    class Control
+    abstract class Control
     {
         // Private list of controls.
         private List<Control> controls;
@@ -140,6 +140,7 @@ namespace TheChicagoProject.GUI.Forms
         public void Add(Control control)
         {
             controls.Add(control);
+            //controls.Add(control.parent = this);
         }
     }
 }

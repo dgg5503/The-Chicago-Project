@@ -13,10 +13,6 @@ namespace TheChicagoProject.GUI
      * - All tiles will be 64x64 in size.
      * - By default, isWalkable is set to true.
      * 
-     * 
-     * TO-DO:
-     * - Base constructor with no location defined?
-     * 
      */
 
     public class Tile
