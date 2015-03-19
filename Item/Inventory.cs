@@ -38,7 +38,7 @@ namespace TheChicagoProject.Item
             inventory.Add(item);
             if (item is Weapon)
                 for (int x = 0; x < holster.Length; x++)
-                    if (holster[x] == null)
+                    if (holster[x] == 0)
                         holster[x] = inventory.Count - 1;
         }
 

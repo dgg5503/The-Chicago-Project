@@ -14,15 +14,17 @@ namespace TheChicagoProject.Quests
         //fields
         private string name;
         private Item.Item item;
+        private Entity.Entity entity; //an optional entity that could represent a physical item
 
         //properties
         public string Name { get { return name; } }
         public Item.Item Item { get { return item; } set { item = value; } }
 
         //constructor
-        public QuestItem(string name)
+        public QuestItem(string name, Entity.Entity entity = null)
         {
             this.name = name;
+            this.entity = entity;
         }
     }
 }

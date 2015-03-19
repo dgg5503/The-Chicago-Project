@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+
 namespace TheChicagoProject.GUI
 {
     // Each GUI overlay is its own Form (think of Windows forms, but the desktop being the game and the forms being these menus)
@@ -41,6 +42,15 @@ namespace TheChicagoProject.GUI
             buttons.parent = this;
             Add(buttons);
 
+            //Quest builder
+            buttons = new Button();
+            buttons.Text = "Quest Builder";
+            buttons.Click += OpenTool;
+            buttons.Location = new Point(this.Size.X / 2, (this.Size.Y / 2) + 120);
+            buttons.Size = new Point(95, 20);
+            buttons.parent = this;
+            Add(buttons);
+
             header = new Label();
             header.Text = "MAIN MENU";
             header.Font = null;
@@ -55,6 +65,15 @@ namespace TheChicagoProject.GUI
             Game1.state = GameState.Game;
         }
 
+        void OpenTool(object sender, EventArgs e)
+        {
+            
+                Quests.QuestGenerator.QuestBuilder tool = new Quests.QuestGenerator.QuestBuilder();
+                System.Windows.Forms.ApplicationContext appContext = new System.Windows.Forms.ApplicationContext();
+                appContext.MainForm = tool;
+                System.Windows.Forms.Application.Run(appContext);
+            
+        }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {

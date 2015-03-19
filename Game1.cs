@@ -80,6 +80,7 @@ namespace TheChicagoProject
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
             renderManager = new RenderManager(spriteBatch, GraphicsDevice, this, worldManager);
 
+            this.IsMouseVisible = true;
             //Load the data
             //saveManager.Load();//Currently Throws a not implemented exception
 
@@ -106,13 +107,35 @@ namespace TheChicagoProject
             /*if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             */
+            //FSM
+            switch (state)
+            {
+                case GameState.Menu:
+                    break;
+                case GameState.Game:
+                    break;
+                case GameState.Pause:
+                    break;
+                case GameState.Inventory:
+                    break;
+                case GameState.QuestLog:
+                    break;
+                case GameState.WeaponWheel:
+                    break;
+                case GameState.FastTravel:
+                    break;
+                case GameState.Shop:
+                    break;
+                default:
+                    break;
+            }
 
             inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
             worldManager.CurrentWorld.tick(gameTime);
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);
-
+            
             base.Update(gameTime);
         }
 

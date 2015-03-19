@@ -41,7 +41,7 @@ namespace TheChicagoProject
         /// </summary>
         public void Save()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -108,16 +108,7 @@ namespace TheChicagoProject
                     int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
                     Vector2 startPos = new Vector2(X, Y);
 
-                    //create new quest
-                    Quest loaded = new Quest(
-                        name,
-                        objective,
-                        description,
-                        startPos,
-                        reward,
-                        cashReward
-                        );
-                    log.Add(loaded);
+                    
                 }
             }
         }

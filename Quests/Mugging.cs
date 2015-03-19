@@ -25,7 +25,7 @@ namespace TheChicagoProject.Quests
             muggerAI = new LowAI(mugger);
         }
 
-        public void Update()
+        public override void Update()
         {
             if(mugger.health <= 0)
             {
@@ -35,6 +35,13 @@ namespace TheChicagoProject.Quests
             {
                 throw new NotImplementedException("Needs to get the mugger to attack the player");
             }
+        }
+
+        public override void StartQuest()
+        {
+            if (mugger.health <= 0)
+                base.Completed(this.player);
+            base.StartQuest();
         }
     
     }
