@@ -17,5 +17,16 @@ namespace TheChicagoProject.Quests.QuestGenerator
         {
             InitializeComponent();
         }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose(true);
+        }
+
     }
 }
