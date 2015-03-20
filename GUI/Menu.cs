@@ -26,8 +26,8 @@ namespace TheChicagoProject.GUI
         public Menu()
         {
 
-            this.Location = new Point(100, 100);
-            this.Size = new Point(200, 300);
+            this.Location = new Vector2(100, 100);
+            this.Size = new Vector2(200, 300);
             
             InitializeForms();
         }
@@ -37,8 +37,8 @@ namespace TheChicagoProject.GUI
             buttons = new Button();
             buttons.Text = "START";
             buttons.Click += buttons_Click;
-            buttons.Location = new Point(this.Size.X / 2, (this.Size.Y / 2) + 20);
-            buttons.Size = new Point(55, 20);
+            buttons.Location = new Vector2(this.Size.X / 2, (this.Size.Y / 2) + 20);
+            buttons.Size = new Vector2(55, 20);
             buttons.parent = this;
             Add(buttons);
 
@@ -46,16 +46,16 @@ namespace TheChicagoProject.GUI
             buttons = new Button();
             buttons.Text = "Quest Builder";
             buttons.Click += OpenTool;
-            buttons.Location = new Point(this.Size.X / 2, (this.Size.Y / 2) + 120);
-            buttons.Size = new Point(95, 20);
+            buttons.Location = new Vector2(this.Size.X / 2, (this.Size.Y / 2) + 120);
+            buttons.Size = new Vector2(95, 20);
             buttons.parent = this;
             Add(buttons);
 
             header = new Label();
             header.Text = "MAIN MENU";
             header.Font = null;
-            header.Location = new Point(this.Size.X / 2 - 45, 10);
-            header.Size = new Point(50, 10);
+            header.Location = new Vector2(this.Size.X / 2 - 45, 10);
+            header.Size = new Vector2(50, 10);
             header.parent = this;
             Add(header);
         }
@@ -78,7 +78,7 @@ namespace TheChicagoProject.GUI
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(Border, this.GlobalLocation().ToVector2(), Color.White);
+            spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
         }
 
