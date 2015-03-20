@@ -20,12 +20,22 @@ namespace TheChicagoProject.Entity
 
         protected double lastShot;
 
+        /// <summary>
+        /// Creates a new Living Entity
+        /// </summary>
+        /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
+        /// <param name="fileName">the location of the sprite for this entity</param>
         public LivingEntity(Rectangle rect, string fileName) : base(rect, fileName) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;
         }
 
+        /// <summary>
+        /// Updates the Game Time and Entity Manager of the Living Entity
+        /// </summary>
+        /// <param name="time">The GameTime</param>
+        /// <param name="manager">The Entity Manager that links to the living entity</param>
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
             
