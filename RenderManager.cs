@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject
 {
+    // Douglas Gliner
+
     /*
      * Tile ideas:
      * 

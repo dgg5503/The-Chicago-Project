@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner
+
     /*
      * FOR ENTTIY COLLISION, GET STUFF IN TILE AND CHECK BETWEEN WHATS IN THAT TILE WITH THE PLAYER....
      */

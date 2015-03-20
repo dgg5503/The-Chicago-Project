@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI.Forms
 {
+    // Douglas Gliner
     class Button : Control
     {
         // Text on button

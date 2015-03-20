@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner
     static class Sprites
     {
         // Dictionary of tiles and their file name.

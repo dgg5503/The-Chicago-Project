@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner
 
     /*
      * Tile Notes:

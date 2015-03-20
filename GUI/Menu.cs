@@ -12,8 +12,10 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner
+
     // Each GUI overlay is its own Form (think of Windows forms, but the desktop being the game and the forms being these menus)
-    //Doug Gliner
+
     class Menu : Control
     {
         // Header of the menu
