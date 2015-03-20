@@ -1,4 +1,4 @@
-﻿//Josiah DeVizia
+﻿//Josiah S DeVizia
 
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,11 @@ using Microsoft.Xna.Framework;
 namespace TheChicagoProject.Entity
 {
 
+    /// <summary>
+    /// The direction a Living Entity is facing
+    /// The values are coded so that they can be casted
+    /// to ints for use in the code
+    /// </summary>
     public enum Direction
     {
         Up = 0,
@@ -31,6 +36,11 @@ namespace TheChicagoProject.Entity
         GameTime gameTime;
         public Quests.QuestLog log;
 
+        /// <summary>
+        /// Creates a new Player
+        /// </summary>
+        /// <param name="location">A rectangle representing the location of the player</param>
+        /// <param name="fileName">The location of the sprite in the files</param>
         public Player(Rectangle location, string fileName) : base(location, fileName)
         {
             cash = 40;
@@ -40,7 +50,9 @@ namespace TheChicagoProject.Entity
             rand = new Random();
         }
 
-        //properties
+        /// <summary>
+        /// Gets or sets the amount of cash the player has
+        /// </summary>
         public int Cash
         {
             get { return Cash; }
@@ -103,6 +115,11 @@ namespace TheChicagoProject.Entity
             Cash += amount;
         }
 
+        /// <summary>
+        /// Updates the time and EntityManager the player uses
+        /// </summary>
+        /// <param name="time">The game time</param>
+        /// <param name="em">The entity manager that links to the player</param>
         public override void Update(GameTime time, EntityManager em)
         {
             base.Update(time, em);
