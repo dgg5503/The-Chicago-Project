@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TheChicagoProject.Quests
 {
+    //Sean Levorse
     /// <summary>
     /// Essentially a list of quests for plots that works polymorphically with quest logs
     /// </summary>

@@ -9,6 +9,8 @@ using System.IO;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner
+
     public static class Tiles
     {
         // Dictionary of tiles and their file name.

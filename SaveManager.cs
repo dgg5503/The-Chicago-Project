@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject
 {
+    //Sean Levorse
     /// <summary>
     /// Anything and everything to do with file handling,
     /// aka reading or writing to the hard disk, goes here.
@@ -41,7 +42,7 @@ namespace TheChicagoProject
         /// </summary>
         public void Save()
         {
-            //throw new NotImplementedException();
+            //throw new NotImplementedException(); //Commented out for now so the game doesn't throw an error when you close it.
         }
 
         /// <summary>

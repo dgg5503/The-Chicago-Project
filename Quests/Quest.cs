@@ -11,6 +11,7 @@ using TheChicagoProject.Entity;
 
 namespace TheChicagoProject.Quests
 {
+    //Sean Levorse
     /// <summary>
     /// Represents a quest and stores information about the quest
     /// </summary>

@@ -10,9 +10,11 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner (usually stuff is taken from stackoverflow / other projects of mine and others)
     static class Utils
     {
         //http://stackoverflow.com/questions/13893959/how-to-draw-the-border-of-a-square
+        // EXTENSION METHODS :OOOO!
         public static void CreateBorder(this Texture2D texture, int borderWidth, Color borderColor)
         {
             Color[] colors = new Color[texture.Width * texture.Height];

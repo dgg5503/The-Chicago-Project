@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Quests
 {
+    //Sean Levorse
     class Mugging : Quest
     {
         public const string MUGGER_TEXTURE = "mugger.png";

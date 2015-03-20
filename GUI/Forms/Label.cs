@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI.Forms
 {
+    // Douglas Gliner
     class Label : Control
     {
         // Text on label

@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI
 {
+    // Douglas Gliner
+
     // Each GUI overlay is its own Form (think of Windows forms, but the desktop being the game and the forms being these menus)
 
     class Menu : Control
@@ -65,6 +67,7 @@ namespace TheChicagoProject.GUI
             Game1.state = GameState.Game;
         }
 
+        //Sean Levorse
         void OpenTool(object sender, EventArgs e)
         {
             
