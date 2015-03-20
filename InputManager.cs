@@ -1,4 +1,4 @@
-﻿//Josiah DeVizia
+﻿//Josiah S DeVizia
 
 using System;
 using System.Collections.Generic;
@@ -31,6 +31,7 @@ namespace TheChicagoProject
         /// </summary>
         public void HandleInput(KeyboardState keyState, MouseState mouseState, GameTime time)
         {
+            //Detects if the player wants to move
             #region Movement Input
             int speed = 1;
 
@@ -175,6 +176,7 @@ namespace TheChicagoProject
                 }
             }
 
+            //Selects the weapon the player wants
             #region Quick Weapon Select
             if (keyState.IsKeyDown(Keys.D1))    //Quick Weapon Select
             {
