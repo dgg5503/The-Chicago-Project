@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Josiah S DeVizia
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,11 +44,16 @@ namespace TheChicagoProject.Entity
             sprite = new Sprite(location.Height, location.Width, 0, fileName);
         }
 
+        /// <summary>
+        /// Updates the Game Time and the Entity Manager of the Entity
+        /// </summary>
+        /// <param name="time">The game Time</param>
+        /// <param name="manager">The EntityManager that links to the player</param>
         public virtual void Update(GameTime time, EntityManager manager) { }
 
-        public virtual void Move()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Moves the Entity
+        /// </summary>
+        public abstract void Move();
     }
 }
