@@ -6,6 +6,7 @@ using TheChicagoProject.Item;
 
 namespace TheChicagoProject.Quests
 {
+    //Sean Levorse
     /// <summary>
     /// An item that may be important to the quest
     /// </summary>

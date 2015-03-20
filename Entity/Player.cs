@@ -49,6 +49,7 @@ namespace TheChicagoProject.Entity
             }
         }
 
+        //Sean Levorse
         public int QuestPoints { get { return questPoints; } 
             set 
             { 
@@ -78,17 +79,19 @@ namespace TheChicagoProject.Entity
             throw new NotImplementedException();
         }
 
+        //Sean Levorse
         /// <summary>
         /// calculates the number of lives the player should have based on the number of quest points
         /// </summary>
-        /// <param name="qPoints"></param>
-        /// <returns></returns>
+        /// <param name="qPoints">the number of quest points</param>
+        /// <returns>the number of lives that the player should have at max health</returns>
         private int QuestPointsToLives(int qPoints)
         {
             int newLives = 4 + (int)(2 * System.Math.Sqrt(qPoints));
             return newLives;
         }
 
+        //Sean Levorse
         /// <summary>
         /// Gives the player a certain amount of cash
         /// </summary>

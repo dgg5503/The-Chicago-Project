@@ -10,6 +10,10 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject
 {
+    //Josia DeVizia
+    //Ashin Ganapathiraju
+    //Doug Gliner
+    //Sean Levorse
     /*
      * Update:
      * Input

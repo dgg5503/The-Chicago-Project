@@ -2,6 +2,7 @@
 {
     partial class QuestBuilder
     {
+        //Sean Levorse
         /// <summary>
         /// Required designer variable.
         /// </summary>
