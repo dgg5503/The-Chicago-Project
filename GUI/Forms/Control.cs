@@ -36,11 +36,11 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Location of this control relative to its current container.
         /// </summary>
-        public Point Location { get { return new Point(locAndSize.X, locAndSize.Y); } set { locAndSize = new Rectangle(value.X, value.Y, locAndSize.Width, locAndSize.Height); } }
+        public Vector2 Location { get { return new Vector2(locAndSize.X, locAndSize.Y); } set { locAndSize = new Rectangle((int)value.X, (int)value.Y, locAndSize.Width, locAndSize.Height); } }
         /// <summary>
         /// Size of control. Might want to return a new struct called size later on... (?)
         /// </summary>
-        public Point Size { get { return new Point(locAndSize.Width, locAndSize.Height); } set { locAndSize = new Rectangle(locAndSize.X, locAndSize.Y, value.X, value.Y); } }
+        public Vector2 Size { get { return new Vector2(locAndSize.Width, locAndSize.Height); } set { locAndSize = new Rectangle(locAndSize.X, locAndSize.Y, (int)value.X, (int)value.Y); } }
         /// <summary>
         /// The parent of this control, if null then it must be the root.
         /// </summary>
@@ -80,7 +80,7 @@ namespace TheChicagoProject.GUI.Forms
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
             // WHAT IF RESIZED?????????
-            border = new Texture2D(graphics, this.Size.X, this.Size.Y);
+            border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
             border.CreateBorder(1, Color.Black);
 
             foreach (Control c in controls)
@@ -106,7 +106,7 @@ namespace TheChicagoProject.GUI.Forms
             // THIS SHOULD BE HANDLED BY INPUTMANAGER SOMEHOW!!
             MouseState mouseState = Mouse.GetState();
 
-            Rectangle globalControlLoc = new Rectangle(GlobalLocation().X, GlobalLocation().Y, this.Size.X, this.Size.Y);
+            Rectangle globalControlLoc = new Rectangle((int)GlobalLocation().X, (int)GlobalLocation().Y, (int)this.Size.X, (int)this.Size.Y);
 
             if (globalControlLoc.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
             {
@@ -121,7 +121,7 @@ namespace TheChicagoProject.GUI.Forms
                 c.Update(gameTime);
         }
 
-        public Point GlobalLocation()
+        public Vector2 GlobalLocation()
         {
             if (parent == null)
                 return this.Location;
@@ -129,7 +129,7 @@ namespace TheChicagoProject.GUI.Forms
             return GlobalLocation(this.Location, parent);
         }
 
-        private Point GlobalLocation(Point location, Control parent)
+        private Vector2 GlobalLocation(Vector2 location, Control parent)
         {
             if (parent == null)
                 return location;
