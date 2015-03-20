@@ -12,6 +12,8 @@ namespace TheChicagoProject
 
     /// <summary>
     /// Manages the worlds (maps) of the game.
+    /// 
+    /// Ashwin Ganapathiraju
     /// </summary>
     public class WorldManager
     {

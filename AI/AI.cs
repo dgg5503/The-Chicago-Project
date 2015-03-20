@@ -12,6 +12,8 @@ namespace TheChicagoProject.AI
     /// Extensions of this are needed.
     /// Why? Because AI's have different "wants".
     /// Every Living Entity has an AI. (lies, what about player?)
+    /// 
+    /// Ashwin Ganapathiraju
     /// </summary>
     public abstract class AI
     {

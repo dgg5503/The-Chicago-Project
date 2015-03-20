@@ -11,6 +11,10 @@ namespace TheChicagoProject.AI
     /// It's not the mathematical DijkstraMap, but rather an AI construct.
     /// Premise will be explained here at a later date.
     /// http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps
+    /// 
+    /// Ashwin Ganapathiraju
+    /// 
+    /// Code taken from The Catalyst Project (copyright Serakos Coding 2015, All Rights Reserved).
     /// </summary>
     public class DijkstraMap
     {

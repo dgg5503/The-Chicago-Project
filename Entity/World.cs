@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Entity
 {
+    // Ashwin Ganapathiraju
     public class World
     {
         public EntityManager manager;

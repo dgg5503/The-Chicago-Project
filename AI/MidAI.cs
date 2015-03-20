@@ -11,6 +11,8 @@ namespace TheChicagoProject.AI
     /// Keeps his distance.
     /// Will attempt to shoot you / grenade you.
     /// Stays within 5-7 tiles, and moves away if you get close.
+    /// 
+    /// Ashwin Ganapathiraju
     /// </summary>
     public class MidAI : AI
     {

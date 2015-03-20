@@ -11,6 +11,8 @@ namespace TheChicagoProject.AI
     /// Death from afar.
     /// Will shoot you from 10-13 tiles, preferrably.
     /// Will only run if you're within 8 tiles.
+    /// 
+    /// Ashwin Ganapathiraju
     /// </summary>
     public class HighAI : AI
     {

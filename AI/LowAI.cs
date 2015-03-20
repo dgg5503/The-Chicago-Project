@@ -11,6 +11,8 @@ namespace TheChicagoProject.AI
     /// Gets up close and personal.
     /// Will knife (?) / shoot you from ~1-3 tiles.
     /// Does not care if you get close, but will chase you.
+    /// 
+    /// Ashwin Ganapathiraju
     /// </summary>
     public class LowAI : AI
     {
