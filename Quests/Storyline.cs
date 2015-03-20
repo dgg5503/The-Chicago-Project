@@ -8,7 +8,7 @@ namespace TheChicagoProject.Quests
     /// <summary>
     /// Essentially a list of quests for plots that works polymorphically with quest logs
     /// </summary>
-    abstract class Storyline : Quest
+    public class Storyline : Quest
     {
         //Fields
         private List<Quest> quests;
@@ -46,6 +46,6 @@ namespace TheChicagoProject.Quests
             quests.Add(firstQuest);
         }
 
-        public abstract override void Update();
+        public virtual override void Update(){}
     }
 }

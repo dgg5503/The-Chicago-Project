@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.richTextUpdate = new System.Windows.Forms.RichTextBox();
+            this.treeQuests = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +46,6 @@
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Description = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -58,23 +57,32 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxStartX = new System.Windows.Forms.TextBox();
             this.textBoxStartY = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.richTextCompleted = new System.Windows.Forms.RichTextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.treeEntities = new System.Windows.Forms.TreeView();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // richTextUpdate
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(176, 317);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(898, 179);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.richTextUpdate.AcceptsTab = true;
+            this.richTextUpdate.Location = new System.Drawing.Point(176, 302);
+            this.richTextUpdate.Name = "richTextUpdate";
+            this.richTextUpdate.Size = new System.Drawing.Size(898, 179);
+            this.richTextUpdate.TabIndex = 0;
+            this.richTextUpdate.Text = "";
+            this.richTextUpdate.TextChanged += new System.EventHandler(this.richTextUpdate_TextChanged);
             // 
-            // treeView1
+            // treeQuests
             // 
-            this.treeView1.Location = new System.Drawing.Point(12, 27);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(158, 469);
-            this.treeView1.TabIndex = 1;
+            this.treeQuests.Location = new System.Drawing.Point(12, 368);
+            this.treeQuests.Name = "treeQuests";
+            this.treeQuests.Size = new System.Drawing.Size(158, 390);
+            this.treeQuests.TabIndex = 1;
             // 
             // menuStrip1
             // 
@@ -106,42 +114,43 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.newToolStripMenuItem.Text = "&New Quest";
             // 
             // newStorylineToolStripMenuItem
             // 
             this.newStorylineToolStripMenuItem.Name = "newStorylineToolStripMenuItem";
-            this.newStorylineToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.newStorylineToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.newStorylineToolStripMenuItem.Text = "New Story&line";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.openToolStripMenuItem.Text = "&Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(167, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(172, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -199,15 +208,6 @@
             this.textBoxName.Size = new System.Drawing.Size(194, 30);
             this.textBoxName.TabIndex = 4;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "label2";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -243,7 +243,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(898, 80);
+            this.textBox1.Size = new System.Drawing.Size(898, 107);
             this.textBox1.TabIndex = 6;
             // 
             // label5
@@ -308,27 +308,96 @@
             this.textBoxStartY.Size = new System.Drawing.Size(63, 30);
             this.textBoxStartY.TabIndex = 4;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(176, 274);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(268, 25);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "public override void Update(){";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(178, 484);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(19, 25);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "}";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(176, 518);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(300, 25);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "public override void Completed(){";
+            // 
+            // richTextCompleted
+            // 
+            this.richTextCompleted.AcceptsTab = true;
+            this.richTextCompleted.Location = new System.Drawing.Point(176, 547);
+            this.richTextCompleted.Name = "richTextCompleted";
+            this.richTextCompleted.Size = new System.Drawing.Size(898, 179);
+            this.richTextCompleted.TabIndex = 0;
+            this.richTextCompleted.Text = "";
+            this.richTextCompleted.TextChanged += new System.EventHandler(this.richTextUpdate_TextChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(176, 729);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(19, 25);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "}";
+            // 
+            // treeEntities
+            // 
+            this.treeEntities.Location = new System.Drawing.Point(12, 31);
+            this.treeEntities.Name = "treeEntities";
+            this.treeEntities.Size = new System.Drawing.Size(158, 331);
+            this.treeEntities.TabIndex = 1;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "OpenQuest.cs";
+            this.openFileDialog.Filter = "C# files|*.cs|All Files|*.*";
+            this.openFileDialog.InitialDirectory = "\\Quests";
+            this.openFileDialog.Title = "Open Quest";
+            // 
             // QuestBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1147, 1114);
+            this.ClientSize = new System.Drawing.Size(1147, 767);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Description);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxStartY);
             this.Controls.Add(this.textBoxStartX);
             this.Controls.Add(this.textBoxPoints);
             this.Controls.Add(this.textBoxReward);
             this.Controls.Add(this.textBoxName);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.treeEntities);
+            this.Controls.Add(this.treeQuests);
+            this.Controls.Add(this.richTextCompleted);
+            this.Controls.Add(this.richTextUpdate);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "QuestBuilder";
@@ -342,8 +411,8 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.RichTextBox richTextUpdate;
+        private System.Windows.Forms.TreeView treeQuests;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
@@ -360,7 +429,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Description;
         private System.Windows.Forms.Label label4;
@@ -372,5 +440,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxStartX;
         private System.Windows.Forms.TextBox textBoxStartY;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RichTextBox richTextCompleted;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TreeView treeEntities;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
