@@ -14,7 +14,7 @@ namespace TheChicagoProject.Quests
     /// <summary>
     /// Represents a quest and stores information about the quest
     /// </summary>
-    public abstract class Quest
+    public class Quest
     {
         //fields
         private int status;                 //0: Unavailable, 1: Unstarted, 2: In progress, 3: complete
@@ -109,7 +109,7 @@ namespace TheChicagoProject.Quests
         /// <summary>
         /// Checks to see if the quest has been completed
         /// </summary>
-        public abstract void Update();
+        public virtual void Update(){}
         
 
 
