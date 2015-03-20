@@ -46,6 +46,6 @@ namespace TheChicagoProject.Quests
             quests.Add(firstQuest);
         }
 
-        public virtual override void Update(){}
+        public override void Update(){}
     }
 }
