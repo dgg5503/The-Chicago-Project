@@ -61,5 +61,13 @@ namespace TheChicagoProject.Entity
                 }
             }
         }
+
+        /// <summary>
+        /// Moves the Living Entity
+        /// </summary>
+        public override void Move()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -54,6 +54,9 @@ namespace TheChicagoProject.Entity
         /// <summary>
         /// Moves the Entity
         /// </summary>
-        public abstract void Move();
+        public virtual void Move()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
