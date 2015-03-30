@@ -22,6 +22,9 @@ namespace TheChicagoProject.GUI.Forms
         // Default spriteFont
         private SpriteFont font;
 
+        // Font XNB file.
+        private string fontFile;
+
         // When clicked (input manager?)
         public event EventHandler Click;
 
@@ -60,12 +63,13 @@ namespace TheChicagoProject.GUI.Forms
         public bool IsVisible { get { return isVisible; } }
 
 
-        public Control()
+        public Control(string fontFile = "TimesNewRoman12")
         {
             locAndSize = new Rectangle(0, 0, 0, 0);
             controls = new List<Control>();
             isVisible = false;
             parent = null;
+            this.fontFile = fontFile;
         }
 
         // This is here to make sure the controls within this one are drawn.
@@ -80,7 +84,7 @@ namespace TheChicagoProject.GUI.Forms
 
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
-            // WHAT IF RESIZED?????????
+            // WHAT IF RESIZED????????? (?)
             border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
             border.CreateBorder(1, Color.Black);
 
@@ -91,15 +95,15 @@ namespace TheChicagoProject.GUI.Forms
         // For loading XNB related files...
         public virtual void LoadContent(ContentManager contentManager)
         {
-            // PERHAPS MAKE INTERFACE FOR OBJECTS REQUIRING TEXT?
-            font = contentManager.Load<SpriteFont>("Font/TimesNewRoman12");
+            // PERHAPS MAKE INTERFACE FOR OBJECTS REQUIRING TEXT? (?)
+            font = contentManager.Load<SpriteFont>("Font/" + fontFile);
 
             foreach (Control c in controls)
                 c.LoadContent(contentManager);
         }
 
         // All cases of callbacks are done here.
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             isVisible = false;
 
@@ -135,11 +139,15 @@ namespace TheChicagoProject.GUI.Forms
             if (parent == null)
                 return location;
 
-            return location + parent.Location;
+            return GlobalLocation(location + parent.Location, parent.parent);
         }
 
         public void Add(Control control)
         {
+            // Prevents infinite looping. If for some reason this does occur, throw exception because itll crash the game anyway
+            if (control == this)
+                throw new InvalidOperationException();
+
             controls.Add(control);
             //controls.Add(control.parent = this);
         }

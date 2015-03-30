@@ -39,8 +39,8 @@ namespace TheChicagoProject.GUI
             buttons = new Button();
             buttons.Text = "START";
             buttons.Click += buttons_Click;
-            buttons.Location = new Vector2(this.Size.X / 2, (this.Size.Y / 2) + 20);
             buttons.Size = new Vector2(55, 20);
+            buttons.Location = new Vector2((this.Size.X / 2) - (buttons.Size.X / 2), (this.Size.Y / 2) + 20);
             buttons.parent = this;
             Add(buttons);
 
@@ -48,16 +48,16 @@ namespace TheChicagoProject.GUI
             buttons = new Button();
             buttons.Text = "Quest Builder";
             buttons.Click += OpenTool;
-            buttons.Location = new Vector2(this.Size.X / 2, (this.Size.Y / 2) + 120);
             buttons.Size = new Vector2(95, 20);
+            buttons.Location = new Vector2((this.Size.X / 2) - (buttons.Size.X / 2), (this.Size.Y / 2) + 120);
             buttons.parent = this;
             Add(buttons);
 
             header = new Label();
             header.Text = "MAIN MENU";
-            header.Font = null;
-            header.Location = new Vector2(this.Size.X / 2 - 45, 10);
             header.Size = new Vector2(50, 10);
+            header.AutoResize = true;
+            header.Location = new Vector2((this.Size.X / 2) - (header.Size.X / 2), 10);
             header.parent = this;
             Add(header);
         }
