@@ -33,6 +33,16 @@ namespace TheChicagoProject
         public float Y;
 
         /// <summary>
+        /// The x coordinate of the top-left corner of this <see cref="FloatRectangle"/>.
+        /// </summary>
+        public int IntX { get { return (int)X; } }
+
+        /// <summary>
+        /// The y coordinate of the top-left corner of this <see cref="FloatRectangle"/>.
+        /// </summary>
+        public int IntY { get { return (int)Y; } }
+
+        /// <summary>
         /// The width of this <see cref="FloatRectangle"/>.
         /// </summary>
         public float Width;
@@ -41,6 +51,17 @@ namespace TheChicagoProject
         /// The height of this <see cref="FloatRectangle"/>.
         /// </summary>
         public float Height;
+
+        /// <summary>
+        /// The width of this <see cref="FloatRectangle"/>.
+        /// </summary>
+        public int IntWidth { get { return (int)Width; } }
+
+        /// <summary>
+        /// The height of this <see cref="FloatRectangle"/>.
+        /// </summary>
+        public int IntHeight { get { return (int)Height; } }
+
 
         #endregion
 
@@ -494,6 +515,8 @@ namespace TheChicagoProject
         /// <param name="value1">The first <see cref="FloatRectangle"/>.</param>
         /// <param name="value2">The second <see cref="FloatRectangle"/>.</param>
         /// <param name="result">The union of the two FloatRectangles as an output parameter.</param>
+        /// 
+        /*
         public static void Union(ref FloatRectangle value1, ref FloatRectangle value2, out FloatRectangle result)
         {
             result.X = Math.Min(value1.X, value2.X);
@@ -501,6 +524,7 @@ namespace TheChicagoProject
             result.Width = Math.Max(value1.Right, value2.Right) - result.X;
             result.Height = Math.Max(value1.Bottom, value2.Bottom) - result.Y;
         }
+         * */
 
         public static implicit operator Rectangle(FloatRectangle floatRec)
         {

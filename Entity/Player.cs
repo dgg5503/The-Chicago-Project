@@ -41,7 +41,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="location">A rectangle representing the location of the player</param>
         /// <param name="fileName">The location of the sprite in the files</param>
-        public Player(Rectangle location, string fileName) : base(location, fileName)
+        public Player(FloatRectangle location, string fileName) : base(location, fileName)
         {
             cash = 40;
             questPoints = 0;
@@ -124,6 +124,9 @@ namespace TheChicagoProject.Entity
         {
             base.Update(time, em);
             gameTime = time;
+
+            movement.X = 0;
+            movement.Y = 0;
         }
     }
 }

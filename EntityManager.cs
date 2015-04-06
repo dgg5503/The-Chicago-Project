@@ -56,6 +56,7 @@ namespace TheChicagoProject
         /// </summary>
         /// <returns></returns>
         public List<Entity.Entity[]> DoCollisions() {
+
             List<Entity.Entity[]> list = new List<Entity.Entity[]>();
             foreach(Entity.Entity e1 in entities) {
                 foreach (Entity.Entity e2 in entities) {

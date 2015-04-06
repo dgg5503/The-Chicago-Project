@@ -22,7 +22,7 @@ namespace TheChicagoProject.Quests
         public Mugging(string name, string objective, string description, Vector2 start, Player player) : base(name, objective, description, start, 0, 10)
         {
             this.player = player;
-            mugger = new LivingEntity(new Rectangle((int)start.X, (int)start.Y, MUGGER_WIDTH, MUGGER_WIDTH), MUGGER_TEXTURE);
+            mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), MUGGER_TEXTURE);
             muggerAI = new LowAI(mugger);
         }
 

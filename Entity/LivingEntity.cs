@@ -25,7 +25,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(Rectangle rect, string fileName) : base(rect, fileName) {
+        public LivingEntity(FloatRectangle rect, string fileName) : base(rect, fileName) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;

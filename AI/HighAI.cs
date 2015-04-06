@@ -23,7 +23,8 @@ namespace TheChicagoProject.AI
 
         public override void Update(GameTime time, EntityManager manager) {
             DijkstraMap map = manager.world.playerMap;
-            int dist = map.Map[entity.location.X][entity.location.Y];
+            // Float --> int
+            int dist = map.Map[entity.location.IntX][entity.location.IntY];
             Direction furtherDir = findPos(map, -1);
             Direction closerDir = findPos(map, 1);
             if (dist < 8) {

@@ -35,73 +35,79 @@ namespace TheChicagoProject
             #region Movement Input
             int speed = 1;
 
-            int deltaX = 0;
-            int deltaY = 0;
+            //int deltaX = 0;
+            //int deltaY = 0;
 
             //The following statements check the movement keys
             if (keyState.IsKeyDown(Keys.W))    //Move up
             {
-                deltaY -= speed;
+                //deltaY -= speed;
+                WorldManager.player.movement.Y = speed * -1;
             }
             if (keyState.IsKeyDown(Keys.A))    //move down
             {
-                deltaX -= speed;
+                //deltaX -= speed;
+                WorldManager.player.movement.X = speed * -1;
             }
             if (keyState.IsKeyDown(Keys.S))    //move left
             {
-                deltaY += speed;
+                //deltaY += speed;
+                WorldManager.player.movement.Y = speed;
             }
             if (keyState.IsKeyDown(Keys.D))    //move right
             {
-                deltaX += speed;
+                //deltaX += speed;
+                WorldManager.player.movement.X = speed;
             }
 
-            if(deltaX == 0)
+            if (WorldManager.player.movement.X == 0)
             {
-                if(deltaY < 0)
+                if (WorldManager.player.movement.Y < 0)
                 {
                     WorldManager.player.direction = Entity.Direction.Up;
                 }
-                else if(deltaY > 0)
+                else if (WorldManager.player.movement.Y > 0)
                 {
                     WorldManager.player.direction = Entity.Direction.Down;
                 }
             }
-            else if(deltaX < 0)
+            else if (WorldManager.player.movement.X < 0)
             {
-                if (deltaY < 0)
+                if (WorldManager.player.movement.Y < 0)
                 {
                     WorldManager.player.direction = Entity.Direction.UpLeft;
                 }
-                else if(deltaY == 0)
+                else if (WorldManager.player.movement.Y == 0)
                 {
                     WorldManager.player.direction = Entity.Direction.Left;
                 }
-                else if (deltaY > 0)
+                else if (WorldManager.player.movement.Y > 0)
                 {
                     WorldManager.player.direction = Entity.Direction.DownLeft;
                 }
             }
             else
             {
-                if (deltaY < 0)
+                if (WorldManager.player.movement.Y < 0)
                 {
                     WorldManager.player.direction = Entity.Direction.UpRight;
                 }
-                else if (deltaY == 0)
+                else if (WorldManager.player.movement.Y == 0)
                 {
                     WorldManager.player.direction = Entity.Direction.Right;
                 }
-                else if (deltaY > 0)
+                else if (WorldManager.player.movement.Y > 0)
                 {
                     WorldManager.player.direction = Entity.Direction.DownRight;
                 }
             }
 
-            int x = WorldManager.player.location.X;
-            int y = WorldManager.player.location.Y;
+            // MOVED TO BASIC COLLISION TESTING...
+            /*
+            float x = WorldManager.player.location.X;
+            float y = WorldManager.player.location.Y;
 
-            Rectangle location = new Rectangle(x + deltaX, y + deltaY, WorldManager.player.location.Width, WorldManager.player.location.Height); 
+            FloatRectangle location = new FloatRectangle(x + deltaX, y + deltaY, WorldManager.player.location.Width, WorldManager.player.location.Height); 
             
             if(location.X < 0)
             {
@@ -111,7 +117,10 @@ namespace TheChicagoProject
             {
                 location.Y = 0;
             }
+            */
 
+
+            /*
             List<Entity.Entity> entities = this.mainGame.worldManager.CurrentWorld.manager.EntityList;
             foreach(Entity.Entity entity in entities)
             {
@@ -133,8 +142,9 @@ namespace TheChicagoProject
                     }
                 }
             }
+            */
 
-            WorldManager.player.location = location;
+            //WorldManager.player.location = location;
             #endregion
 
             if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel

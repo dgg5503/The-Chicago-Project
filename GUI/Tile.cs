@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TheChicagoProject.Entity;
 
 namespace TheChicagoProject.GUI
 {
@@ -20,13 +19,6 @@ namespace TheChicagoProject.GUI
     public class Tile
     {
         // Fields
-
-        //--- COLLISION STUFF ---
-
-        // Every tile holds entities.
-        private List<Entity.Entity> entities;
-
-        //--- COLLISION STUFF ---
 
         // The tile's texture
         private Texture2D texture;

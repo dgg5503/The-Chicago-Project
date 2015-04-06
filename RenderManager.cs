@@ -216,8 +216,7 @@ namespace TheChicagoProject
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(spriteBatch, (int)e.location.X, (int)e.location.Y, e.direction);
-                
+                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.direction);
             }
         }
 
@@ -252,8 +251,8 @@ namespace TheChicagoProject
             // All locations are relative to the XY global axis.
             int excess = 1;
 
-            int xLowBound = ((player.location.X / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2);
-            int yLowBound = ((player.location.Y / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
+            int xLowBound = ((player.location.IntX / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2);
+            int yLowBound = ((player.location.IntY / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
 
             if (xLowBound < 0)
                 xLowBound = 0;
@@ -261,8 +260,8 @@ namespace TheChicagoProject
             if (yLowBound < 0)
                 yLowBound = 0;
 
-            int xHighBound = ((player.location.X / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2) + excess;
-            int yHighBound = ((player.location.Y / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) + excess;
+            int xHighBound = ((player.location.IntX / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2) + excess;
+            int yHighBound = ((player.location.IntY / Tile.SIDE_LENGTH)) + ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) + excess;
 
             if (xHighBound > w.tiles.Length)
                 xHighBound = w.tiles.Length;

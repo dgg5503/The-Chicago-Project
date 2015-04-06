@@ -31,8 +31,8 @@ namespace TheChicagoProject.AI
         /// <param name="hl">-1 (further) to 1 (closer)</param>
         /// <returns></returns>
         protected Direction findPos(DijkstraMap map, int hl) {
-            int ex = entity.location.X;
-            int ey = entity.location.Y;
+            int ex = entity.location.IntX;
+            int ey = entity.location.IntY;
             if (map.Map[ex - 1][ey] == map.Map[ex][ey] - hl) //left
                 return Direction.Left;
             if (map.Map[ex + 1][ey] == map.Map[ex][ey] - hl) //right

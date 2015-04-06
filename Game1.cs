@@ -46,6 +46,7 @@ namespace TheChicagoProject
         public WorldManager worldManager;
         public InputManager inputManager;
         public SaveManager saveManager;
+        public CollisionManager collisionManager;
 
         public static GameState state;
 
@@ -67,6 +68,7 @@ namespace TheChicagoProject
             saveManager = new SaveManager(this);
             worldManager = new WorldManager(this);
             inputManager = new InputManager(this);
+            collisionManager = new CollisionManager(this);
             base.Initialize();
 
             
@@ -133,6 +135,8 @@ namespace TheChicagoProject
                 default:
                     break;
             }
+
+            collisionManager.Update();
 
             inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
             worldManager.CurrentWorld.tick(gameTime);

@@ -32,7 +32,7 @@ namespace TheChicagoProject
             current = "main";
             this.mainGame = game;
 
-            player = new Player(new Microsoft.Xna.Framework.Rectangle(256, 256, 32, 32), "player.png");
+            player = new Player(new FloatRectangle(256, 256, 32, 32), "player.png");
 
             // DEBUG
             World tmpWorld = new World(game, 100);
@@ -48,6 +48,9 @@ namespace TheChicagoProject
 
             //Add player to the world
             worlds["main"].manager.AddEntity(player);
+
+            // DEBUG
+            worlds["main"].manager.AddEntity(new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png"));
         }
     }
 }
