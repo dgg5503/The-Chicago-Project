@@ -120,6 +120,8 @@ namespace TheChicagoProject
                 case GameState.Game:
                     if(mugTemp.Status == 1)
                         mugTemp.StartQuest();
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+                    worldManager.CurrentWorld.tick(gameTime);
                     break;
                 case GameState.Pause:
                     break;

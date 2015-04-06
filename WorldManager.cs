@@ -41,6 +41,8 @@ namespace TheChicagoProject
             this.mainGame = game;
 
             player = new Player(new Microsoft.Xna.Framework.Rectangle(256, 256, 32, 32), "player.png");
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
+            player.inventory.ActiveWeapon = 0;
 
             // DEBUG
             World tmpWorld = new World(game, 100);

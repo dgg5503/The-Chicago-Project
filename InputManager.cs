@@ -33,7 +33,7 @@ namespace TheChicagoProject
         {
             //Detects if the player wants to move
             #region Movement Input
-            int speed = 5;
+            int speed = 2;
 
             int deltaX = 0;
             int deltaY = 0;
@@ -223,8 +223,7 @@ namespace TheChicagoProject
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-                // Needed to comment this out since it was always on no matter the state.
-                //WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
             }
             else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {
