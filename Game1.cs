@@ -117,6 +117,8 @@ namespace TheChicagoProject
                 case GameState.Menu:
                     break;
                 case GameState.Game:
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+                    worldManager.CurrentWorld.tick(gameTime);
                     break;
                 case GameState.Pause:
                     break;
@@ -133,9 +135,6 @@ namespace TheChicagoProject
                 default:
                     break;
             }
-
-            inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
-            worldManager.CurrentWorld.tick(gameTime);
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);
