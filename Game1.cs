@@ -139,9 +139,18 @@ namespace TheChicagoProject
                     break;
             }
 
+            if (gameTime.ElapsedGameTime.TotalSeconds > 30 && mugTemp.Status != 2)
+            {
+                mugTemp.StartQuest();
+            }
+
+            inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+            worldManager.CurrentWorld.tick(gameTime);
+
             // For sprite and GUI animations
             renderManager.Update(gameTime);
-            
+            worldManager.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -154,7 +163,7 @@ namespace TheChicagoProject
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             renderManager.Draw(gameTime);
-            
+
             base.Draw(gameTime);
         }
     }

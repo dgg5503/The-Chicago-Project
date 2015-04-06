@@ -47,8 +47,14 @@ namespace TheChicagoProject
         }
 
         public void Update(GameTime time) {
-            foreach (Entity.Entity e in entities)
+            for (int x = 0; x < entities.Count; x++) {
+                Entity.Entity e = entities[x];
+                if (e is LivingEntity && ((LivingEntity) e).health < 1) {
+                    entities.Remove(e);
+                } else {
                 e.Update(time, this);
+        }
+            }
         }
 
         /// <summary>
