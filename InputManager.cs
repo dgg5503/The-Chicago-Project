@@ -16,6 +16,7 @@ namespace TheChicagoProject
     public class InputManager
     {
         private Game1 mainGame;
+        private static bool lastFrameFired;
 
         /// <summary>
         /// Makes a new Input manager
@@ -24,6 +25,7 @@ namespace TheChicagoProject
         public InputManager(Game1 mainGame)
         {
             this.mainGame = mainGame;
+            lastFrameFired = true;
         }
 
         /// <summary>
@@ -223,7 +225,15 @@ namespace TheChicagoProject
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-                WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                if (!lastFrameFired)
+                {
+                    WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                    lastFrameFired = true;
+                }
+                else
+                {
+                    lastFrameFired = false;
+                }
             }
             else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {
