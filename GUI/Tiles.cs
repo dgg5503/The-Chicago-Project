@@ -14,19 +14,24 @@ namespace TheChicagoProject.GUI
     public static class Tiles
     {
         // Dictionary of tiles and their file name.
-        public readonly static Dictionary<string, Tile> tilesDictionary = new Dictionary<string, Tile>
-        {
-            {"RoadTar", new Tile(true, "RoadTar.png")},
+        public readonly static Dictionary<string, Tile> tilesDictionary = new Dictionary<string, Tile>();
 
-            {"RoadLine", new Tile(true, "RoadLine.png")},
+        public readonly static Tile[] tilesList = new Tile[256];
+        private static int open = 0;
 
-            {"SideWalkBrick", new Tile(true, "SideWalkBrick.png")},
+        static Tiles() {
+            AddTile("RoadTar", new Tile(true, "RoadTar.png")); // 0
+            AddTile("RoadLine", new Tile(true, "RoadLine.png")); // 1
+            AddTile("SideWalkBrick", new Tile(true, "SideWalkBrick.png")); // 2
+            AddTile("BuildingEdge", new Tile(false, "BuildingEdge.png")); // 3
+            AddTile("BuildingRoof", new Tile(true, "BuildingRoof.png")); // 4
+        }
 
-            {"BuildingEdge", new Tile(false, "BuildingEdge.png")},
-
-            {"BuildingRoof", new Tile(true, "BuildingRoof.png")}
-        };
-
+        private static void AddTile(String mapName, Tile tile) {
+            Console.WriteLine("[TileLoader] Mapping " + mapName + " to " + open);
+            tilesDictionary.Add(mapName, tile);
+            tilesList[open++] = tile;
+        }
 
         // TILE FILE FORMAT 
         // IMAGE AND THEN TILE INFO SUCH AS WALKABLE
