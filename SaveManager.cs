@@ -34,7 +34,11 @@ namespace TheChicagoProject
         public void Load()
         {
             LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
-            throw new NotImplementedException();
+            LoadWorld("main");
+        }
+
+        private void LoadWorld(String worldPath) {
+            //using(BinaryReader reader = new BinaryReader())
         }
 
         /// <summary>
@@ -42,7 +46,7 @@ namespace TheChicagoProject
         /// </summary>
         public void Save()
         {
-            //throw new NotImplementedException(); //Commented out for now so the game doesn't throw an error when you close it.
+           
         }
 
         /// <summary>
