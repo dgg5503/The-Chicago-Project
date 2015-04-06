@@ -28,7 +28,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
         public QuestBuilder()
         {
             //initialize
-            quest = new Quest("", "", "", new Vector2(-1, -1), 0, 0);
+            //quest = new Quest("", "", "", new Vector2(-1, -1), 0, 0);
             InitializeComponent();
         }
 
@@ -61,8 +61,9 @@ namespace TheChicagoProject.Quests.QuestGenerator
                         code = questStream.ReadToEnd();
                         //parse the code
                         index = code.IndexOf("class");
-                        name = code.Substring(index + 5, code.IndexOf(':', index) - 1);
+                        name = code.Substring(index + 6, code.IndexOf(':', index) - 1 - index + 6);
 
+                        //index = index
 
                         
                     }

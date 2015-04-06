@@ -25,6 +25,9 @@ namespace TheChicagoProject.Quests
         private Vector2 startPoint;
         private int reward;
         private int cashReward;
+        private WorldManager worldManager;
+
+        public List<Entity.Entity> entitites;
 
         //properties
         public int Status { get { return status; }
@@ -61,7 +64,7 @@ namespace TheChicagoProject.Quests
         }
 
         //Constructor
-        public Quest(string name, string objective, string description, Vector2 start, int reward = 1, int cashReward = 10)
+        public Quest(string name, string objective, string description, Vector2 start, WorldManager worldManager, int reward = 1, int cashReward = 10)
         {
             this.name = name;
             this.objective = objective;
@@ -69,6 +72,7 @@ namespace TheChicagoProject.Quests
             this.startPoint = start;
             this.Reward = reward;
             this.CashReward = cashReward;
+            this.worldManager = worldManager;
             status = 0;
         }
 
@@ -89,6 +93,12 @@ namespace TheChicagoProject.Quests
         public virtual void StartQuest()
         {
             status = 2;
+            //initialize each entity
+            foreach (Entity.Entity entity in entitites)
+            {
+                worldManager.CurrentWorld.manager.AddEntity(entity); //not entitity
+                Console.WriteLine("Entity Added");
+            }
         }
 
         /// <summary>

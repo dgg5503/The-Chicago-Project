@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using TheChicagoProject.Quests;
 #endregion
 
 namespace TheChicagoProject
@@ -49,6 +50,7 @@ namespace TheChicagoProject
         public CollisionManager collisionManager;
 
         public static GameState state;
+        Mugging mugTemp;
 
         public Game1()
             : base() {
@@ -70,8 +72,6 @@ namespace TheChicagoProject
             inputManager = new InputManager(this);
             collisionManager = new CollisionManager(this);
             base.Initialize();
-
-            
         }
 
         /// <summary>
@@ -89,7 +89,6 @@ namespace TheChicagoProject
             this.IsMouseVisible = true;
             //Load the data
             //saveManager.Load();//Currently Throws a not implemented exception
-
             base.LoadContent();
         }
 
@@ -114,11 +113,27 @@ namespace TheChicagoProject
                 Exit();
             */
             //FSM
-            switch (state)
-            {
+            switch (state) {
                 case GameState.Menu:
                     break;
                 case GameState.Game:
+                    if(mugTemp == null)
+                    {
+                        mugTemp = new Mugging("mugging1", "Stop the mugger!", "you have to stop the mugger!", new Vector2(10, 10), worldManager.CurrentWorld.manager.GetPlayer(), worldManager);
+                    }
+                    if (gameTime.ElapsedGameTime.TotalSeconds > 30 && mugTemp.Status < 2)
+                    {
+                        mugTemp.StartQuest();
+                    }
+                    else
+                    {
+
+                        //Console.WriteLine("QUEST IN PROGRESS");
+                        //Console.WriteLine("MUGGER LOC: {0}, {1}", mugTemp.entitites[0].location.X, mugTemp.entitites[0].location.Y);
+                        //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
+                    }
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+                    worldManager.CurrentWorld.tick(gameTime);
                     break;
                 case GameState.Pause:
                     break;
@@ -143,6 +158,7 @@ namespace TheChicagoProject
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);
+            worldManager.Update(gameTime);
             
             base.Update(gameTime);
         }

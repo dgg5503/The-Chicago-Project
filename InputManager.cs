@@ -16,6 +16,7 @@ namespace TheChicagoProject
     public class InputManager
     {
         private Game1 mainGame;
+        private static bool lastFrameFired;
 
         /// <summary>
         /// Makes a new Input manager
@@ -24,6 +25,7 @@ namespace TheChicagoProject
         public InputManager(Game1 mainGame)
         {
             this.mainGame = mainGame;
+            lastFrameFired = true;
         }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace TheChicagoProject
         {
             //Detects if the player wants to move
             #region Movement Input
-            int speed = 1;
+            int speed = 2;
 
             //int deltaX = 0;
             //int deltaY = 0;
@@ -233,8 +235,15 @@ namespace TheChicagoProject
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
             {
-                // Needed to comment this out since it was always on no matter the state.
-                //WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                if (!lastFrameFired)
+                {
+                    WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                    lastFrameFired = true;
+                }
+                else
+                {
+                    lastFrameFired = false;
+                }
             }
             else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
             {

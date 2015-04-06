@@ -48,6 +48,8 @@ namespace TheChicagoProject.Entity
             lives = 4;
             direction = Direction.Up;
             rand = new Random();
+            log = new Quests.QuestLog();
+            health = lives;
         }
 
         /// <summary>
