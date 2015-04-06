@@ -97,6 +97,7 @@ namespace TheChicagoProject.Quests
             foreach (Entity.Entity entity in entitites)
             {
                 worldManager.CurrentWorld.manager.AddEntity(entity); //not entitity
+                Console.WriteLine("Entity Added");
             }
         }
 

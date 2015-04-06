@@ -126,9 +126,9 @@ namespace TheChicagoProject
                     else
                     {
 
-                        Console.WriteLine("QUEST IN PROGRESS");
-                        Console.WriteLine("MUGGER LOC: {0}, {1}", mugTemp.entitites[0].location.X, mugTemp.entitites[0].location.Y);
-                        Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
+                        //Console.WriteLine("QUEST IN PROGRESS");
+                        //Console.WriteLine("MUGGER LOC: {0}, {1}", mugTemp.entitites[0].location.X, mugTemp.entitites[0].location.Y);
+                        //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
                     inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
                     worldManager.CurrentWorld.tick(gameTime);

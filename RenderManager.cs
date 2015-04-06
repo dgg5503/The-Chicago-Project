@@ -145,6 +145,7 @@ namespace TheChicagoProject
                     using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
                     {
                         e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
+                        Console.WriteLine("Loaded " + e.sprite.FileName);
                     }
                     //e.sprite.Texture = mainGame.Content.Load<Texture2D>("Sprites/" + e.sprite.FileName);
                 }
