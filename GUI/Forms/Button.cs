@@ -31,6 +31,7 @@ namespace TheChicagoProject.GUI.Forms
             text.Size = new Vector2(1, 1); // doesnt matter?
             text.Location = new Vector2(0, 0);
             text.AutoResize = true;
+            text.Alignment = TextAlignment.Center;
             text.parent = this;
             Add(text);
         }
@@ -38,9 +39,10 @@ namespace TheChicagoProject.GUI.Forms
         public override void Update(GameTime gameTime)
         {
             // Centered text, make this a bool or enum (?)
+            /*
             if (text != null)
                 text.Location = new Vector2(this.Size.X / 2 - text.Font.MeasureString(text.Text).X / 2, 0);
-
+            */
             base.Update(gameTime);
         }
 

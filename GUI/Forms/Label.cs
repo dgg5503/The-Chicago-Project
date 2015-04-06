@@ -12,6 +12,12 @@ namespace TheChicagoProject.GUI.Forms
 {
     // Douglas Gliner
 
+    enum TextAlignment
+    {
+        Left,
+        Right,
+        Center
+    }
     /*
      * TO-DO:
      * - Auto resize the control to fit the text size.
@@ -26,6 +32,9 @@ namespace TheChicagoProject.GUI.Forms
         // Autoresize to fit text?
         private bool autoResize;
 
+        // Alignment relative to parent
+        private TextAlignment alignment;
+
         /// <summary>
         /// Gets or sets the text for this label.
         /// </summary>
@@ -34,6 +43,10 @@ namespace TheChicagoProject.GUI.Forms
         /// Autoresize the control to fit the text.
         /// </summary>
         public bool AutoResize { get { return autoResize; } set { autoResize = value; } }
+        /// <summary>
+        /// Sets the alignment of this text relative to its container (parent).
+        /// </summary>
+        public TextAlignment Alignment { get { return alignment; } set { alignment = value; } }
 
         public Label()
         {
@@ -44,8 +57,23 @@ namespace TheChicagoProject.GUI.Forms
         public override void Update(GameTime gameTime)
         {
             // If drawing, the texture has already been loaded! AutoResize here.
-            /*if(autoResize)
-                this.Size = Font.MeasureString(text);*/
+            if(autoResize)
+                this.Size = Font.MeasureString(text);
+
+            switch(alignment)
+            {
+                case TextAlignment.Center:
+                    Location = new Vector2(parent.Size.X / 2 - Font.MeasureString(text).X / 2, 0);
+                    break;
+
+                case TextAlignment.Left:
+                    Location = new Vector2(0, 0);
+                    break;
+
+                case TextAlignment.Right:
+                    Location = new Vector2(parent.Size.X/ - Font.MeasureString(text).X, 0);
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -54,8 +82,8 @@ namespace TheChicagoProject.GUI.Forms
         {
             // If drawing, the texture has already been loaded! AutoResize here.
             // does this actually do anything? (?)
-            if(autoResize)
-                this.Size = Font.MeasureString(text);
+            /*if(autoResize)
+                this.Size = Font.MeasureString(text);*/
 
             spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
