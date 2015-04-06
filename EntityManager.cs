@@ -75,7 +75,8 @@ namespace TheChicagoProject
         /// <param name="j">The j component of the direction vector</param>
         public static void FireBullet(float x, float y, double i, double j)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Boom");
+            //throw new NotImplementedException();
         }
     }
 }
