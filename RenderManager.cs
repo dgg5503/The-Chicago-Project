@@ -216,7 +216,8 @@ namespace TheChicagoProject
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(spriteBatch, e.location.X, e.location.Y, e.direction);
+                e.sprite.Draw(spriteBatch, (int)e.location.X, (int)e.location.Y, e.direction);
+                
             }
         }
 
@@ -238,10 +239,7 @@ namespace TheChicagoProject
                 mainGame.IsMouseVisible = true;
                 menu.Draw(spriteBatch, gameTime);
             }
-            else
-            {
-                mainGame.IsMouseVisible = false;
-            }
+            
         }
 
         // World drawing

@@ -43,6 +43,7 @@
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\LivingEntity.cs" />
     <Compile Include="Entity\Player.cs" />
+    <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
     <Compile Include="GUI\Forms\Control.cs" />
