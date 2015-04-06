@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using TheChicagoProject.Quests;
 #endregion
 
 namespace TheChicagoProject
@@ -48,6 +49,7 @@ namespace TheChicagoProject
         public SaveManager saveManager;
 
         public static GameState state;
+        Mugging mugTemp;
 
         public Game1()
             : base() {
@@ -69,7 +71,7 @@ namespace TheChicagoProject
             inputManager = new InputManager(this);
             base.Initialize();
 
-            
+            mugTemp = new Mugging("mugging1", "Stop the mugger!", "you have to stop the mugger!", new Vector2(10, 10), worldManager.CurrentWorld.manager.GetPlayer());
         }
 
         /// <summary>
@@ -112,11 +114,12 @@ namespace TheChicagoProject
                 Exit();
             */
             //FSM
-            switch (state)
-            {
+            switch (state) {
                 case GameState.Menu:
                     break;
                 case GameState.Game:
+                    if(mugTemp.Status == 1)
+                        mugTemp.StartQuest();
                     break;
                 case GameState.Pause:
                     break;
@@ -139,7 +142,7 @@ namespace TheChicagoProject
 
             // For sprite and GUI animations
             renderManager.Update(gameTime);
-            
+
             base.Update(gameTime);
         }
 
@@ -152,7 +155,7 @@ namespace TheChicagoProject
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             renderManager.Draw(gameTime);
-            
+
             base.Draw(gameTime);
         }
     }

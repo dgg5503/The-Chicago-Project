@@ -33,7 +33,7 @@ namespace TheChicagoProject
         {
             //Detects if the player wants to move
             #region Movement Input
-            int speed = 1;
+            int speed = 5;
 
             int deltaX = 0;
             int deltaY = 0;
