@@ -47,8 +47,14 @@ namespace TheChicagoProject
         }
 
         public void Update(GameTime time) {
-            foreach (Entity.Entity e in entities)
-                e.Update(time, this);
+            for (int x = 0; x < entities.Count; x++) {
+                Entity.Entity e = entities[x];
+                if (e is LivingEntity && ((LivingEntity) e).health < 1) {
+                    entities.Remove(e);
+                } else {
+                    e.Update(time, this);
+                }
+            }
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ namespace TheChicagoProject
         /// <param name="j">The j component of the direction vector</param>
         public static void FireBullet(float x, float y, double i, double j)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
