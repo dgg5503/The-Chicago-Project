@@ -42,7 +42,7 @@ namespace TheChicagoProject.Quests
         }
 
         //Constructor
-        public Storyline(string name, string objective, string description, Quest firstQuest, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, reward, cashReward)
+        public Storyline(string name, string objective, string description, Quest firstQuest, WorldManager worldManager, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, worldManager, reward, cashReward)
         {
             quests.Add(firstQuest);
         }

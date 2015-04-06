@@ -71,7 +71,7 @@ namespace TheChicagoProject
             inputManager = new InputManager(this);
             base.Initialize();
 
-            mugTemp = new Mugging("mugging1", "Stop the mugger!", "you have to stop the mugger!", new Vector2(10, 10), worldManager.CurrentWorld.manager.GetPlayer());
+            mugTemp = new Mugging("mugging1", "Stop the mugger!", "you have to stop the mugger!", new Vector2(10, 10), worldManager.CurrentWorld.manager.GetPlayer(), worldManager);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace TheChicagoProject
                     break;
             }
 
-            if (gameTime.ElapsedGameTime.TotalSeconds > 30 && mugTemp.Status != 2)
+            if (gameTime.ElapsedGameTime.TotalSeconds > 30 && mugTemp.Status < 2)
             {
                 mugTemp.StartQuest();
             }

@@ -28,7 +28,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
         public QuestBuilder()
         {
             //initialize
-            quest = new Quest("", "", "", new Vector2(-1, -1), 0, 0);
+            //quest = new Quest("", "", "", new Vector2(-1, -1), 0, 0);
             InitializeComponent();
         }
 
