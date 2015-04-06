@@ -1,9 +1,16 @@
-﻿using System;
+﻿#region Using Statements
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using TheChicagoProject.Quests;
+#endregion
 // DEBUG
 using TheChicagoProject.GUI;
 
@@ -21,6 +28,7 @@ namespace TheChicagoProject
         public Dictionary<String, World> worlds;
         private String current;
         protected Game1 mainGame;
+        public QuestLog worldQuests;
 
         public World CurrentWorld {
             get { return worlds[current]; }
@@ -48,6 +56,14 @@ namespace TheChicagoProject
 
             //Add player to the world
             worlds["main"].manager.AddEntity(player);
+            worldQuests = new QuestLog();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            //udate quests
+            worldQuests.Update(gameTime);
+            player.log.Update(gameTime);
         }
     }
 }
