@@ -135,7 +135,7 @@ namespace TheChicagoProject.Entity
                     foreach (CollisionTile colTileIntersecting in verticalRects)
                         CollisionReaction(colTileIntersecting.Rectangle, 1);
 
-                    foreach (CollisionTile colTileIntersecting in intersectingTiles // needed??
+                    foreach (CollisionTile colTileIntersecting in intersectingTiles) // needed??
                         CollisionReaction(colTileIntersecting.Rectangle);
                 }
             }
