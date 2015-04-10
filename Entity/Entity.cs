@@ -25,7 +25,7 @@ namespace TheChicagoProject.Entity
         public Vector2 movement;
 
         // The current tile the entity is in...
-        public CollisionTile Tile;
+        public CollisionTile CollisionTile;
 
         /// <summary>
         /// The constructor for the base entity.
@@ -70,15 +70,16 @@ namespace TheChicagoProject.Entity
         public virtual void Update(GameTime time, EntityManager manager)
         {
             // ------- COLLISION TEST ------
-            double delta = time.ElapsedGameTime.TotalSeconds;
-
-            // Calc vector from point before to new point based on deltaX and deltaY
-            FloatRectangle lastLoc = this.location;
 
             location.X += movement.X;
             location.Y += movement.Y;
 
             // ------ EDGE OF SCREEN TEST ------
+            /*
+             * TO-DO:
+             * - Include all edges of the world
+             *      - What if we need to hit the edge of a world to load the next one???
+             */
             if (location.X < 0)
             {
                 location.X = 0;
@@ -90,11 +91,11 @@ namespace TheChicagoProject.Entity
             }
             // ------ EDGE OF SCREEN TEST ------
 
-            if (this.Tile == null)
+            if (this.CollisionTile == null)
                 return;
 
             // ------ TILE COLLISION TEST ------
-            CollisionTile[] adjNonWalkableTiles = this.Tile.GetAdjacentNonWalkableTiles();
+            CollisionTile[] adjNonWalkableTiles = this.CollisionTile.GetAdjacentNonWalkableTiles();
             
             // Time saver...
             if (adjNonWalkableTiles.Length != 0)
@@ -134,40 +135,31 @@ namespace TheChicagoProject.Entity
                     foreach (CollisionTile colTileIntersecting in verticalRects)
                         CollisionReaction(colTileIntersecting.Rectangle, 1);
 
-                    foreach (CollisionTile colTileIntersecting in intersectingTiles)
+                    foreach (CollisionTile colTileIntersecting in intersectingTiles // needed??
                         CollisionReaction(colTileIntersecting.Rectangle);
                 }
             }
             // ------ TILE COLLISION TEST ------
 
-            if (this.Tile.EntitiesInTile.Count == 1)
+            if (this.CollisionTile.EntitiesInTile.Count == 1)
                 return;
 
             // ------- ENTITY COLLISION TEST ------
-            foreach (Entity e in this.Tile.EntitiesInTile.Where(e => !(e.Equals(this))))
+            foreach (Entity e in this.CollisionTile.EntitiesInTile.Where(e => !(e.Equals(this))))
             {
                 bool isColliding;
                 FloatRectangle toCheck = e.location;
                 this.location.Intersects(ref toCheck, out isColliding);
 
                 /*
-                 * Sometimes entity can very slightly clip through tops and sides of objects. (possibly converting from ints to floats and vice versa)
-                 *      - Need to handle both the 1 key case and 2 key case.
-                 *  Handle corner case
-                 * 
-                 *  Odd width and length objects will result in bad rounding.
-                 * 
-                 *  Fast objects probably wont work.
-                 *      - Multisampling or sweep collision?
-                 *      - do a speed less than the largest object.
-                 *      - Definitly sweep for bullets!
+                 * Sometimes entity can very slightly clip through tops and sides of objects. (possibly converting from ints to floats and vice versa) - Fixed with floatrectangle :)!
+                 * Handle corner case - still iffy on this one, good enough measures have been added.
+                 * Fast object handling - NOT IMPLEMENTED, should consider optimizing current code before even considering this!
                  * 
                  */
                 if (isColliding)
                 {
                     CollisionReaction(toCheck);
-                    //this.CollisionReaction(toCheck);
-                    
                 }
             }
             // ------- COLLISION TEST ------
@@ -214,7 +206,6 @@ namespace TheChicagoProject.Entity
             // Collision Times
             //http://gamedev.stackexchange.com/questions/17502/how-to-deal-with-corner-collisions-in-2d
             // check for which dir to go in opp direction of...
-            //Vector2 collisionVector = (projXThisWidth + projXToTestWidth) - projXCenters;
             float xScalarFinal = (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length();
             float yScalarFinal = (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length();
 
@@ -227,7 +218,6 @@ namespace TheChicagoProject.Entity
                 // DEBUG
                 //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
                 location.Y -= yScalarFinal * Math.Sign(movement.Y);
-
             }
             else
             {

@@ -57,7 +57,7 @@ namespace TheChicagoProject.GUI
         public static readonly string Directory = "./Content/Sprites/";
 
         // Properties
-        public Texture2D Texture { get { return texture; } set { texture = value; texture.CreateBorder(1, Color.Black); } }
+        public Texture2D Texture { get { return texture; } set { texture = value; } }
 
         public int YOffset { get { return yOffset; } }
 
@@ -197,6 +197,7 @@ namespace TheChicagoProject.GUI
                  SpriteEffects.None,				        // - Can be used to flip the image
                  0);								// - Layer depth (unused)
           
+            /*
             #region debug
             
             sb.Draw(
@@ -206,6 +207,7 @@ namespace TheChicagoProject.GUI
             );
              
             #endregion
+            */
            
         }
 

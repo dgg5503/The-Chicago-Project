@@ -55,7 +55,7 @@ namespace TheChicagoProject.Collision
                 if (loc.Contains(new Vector2(globalEntities[i].location.X, globalEntities[i].location.Y)))
                 {
                     // Allow entites to know what tile they are at!
-                    globalEntities[i].Tile = this;
+                    globalEntities[i].CollisionTile = this;
 
                     entities.Add(globalEntities[i]);
 
