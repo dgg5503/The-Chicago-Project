@@ -69,6 +69,9 @@ namespace TheChicagoProject
 
             tmpWorld.tiles[6][3] = Tiles.tilesDictionary["BuildingEdge"];
             tmpWorld.tiles[6][4] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[6][5] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[6][6] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[6][7] = Tiles.tilesDictionary["BuildingEdge"];
             tmpWorld.tiles[5][4] = Tiles.tilesDictionary["BuildingEdge"];
 
             worlds["main"] = tmpWorld;

@@ -94,13 +94,48 @@ namespace TheChicagoProject.Entity
                 return;
 
             // ------ TILE COLLISION TEST ------
-            // if this intersects with a non walkable tile, react
-            foreach(CollisionTile colTile in this.Tile.GetAdjacentNonWalkableTiles())
+            CollisionTile[] adjNonWalkableTiles = this.Tile.GetAdjacentNonWalkableTiles();
+            
+            // Time saver...
+            if (adjNonWalkableTiles.Length != 0)
             {
-                if(this.location.Intersects(colTile.Rectangle))
+                // if this intersects with a non walkable tile, react
+                // Find rectangles entity is intersecting with...
+                List<CollisionTile> intersectingTiles = new List<CollisionTile>();
+                foreach (CollisionTile colTile in adjNonWalkableTiles)
                 {
-                    CollisionReaction(colTile.Rectangle);
-                    break;
+                    if (this.location.Intersects(colTile.Rectangle))
+                    {
+                        intersectingTiles.Add(colTile);
+                    }
+                }
+
+
+                // Find rectangles in rows, if none do the next thing
+                List<CollisionTile> verticalRects = new List<CollisionTile>();
+                foreach (CollisionTile colTileIntersectingVertSearch in intersectingTiles)
+                {
+                    int GridYToLookFor = colTileIntersectingVertSearch.GridY;
+                    foreach (CollisionTile colTileIntersectingVertDoubleSearch in intersectingTiles)
+                    {
+                        if (GridYToLookFor + 1 == colTileIntersectingVertDoubleSearch.GridY || GridYToLookFor - 1 == colTileIntersectingVertDoubleSearch.GridY)
+                            verticalRects.Add(colTileIntersectingVertDoubleSearch);
+                    }
+                }
+
+                if (verticalRects.Count == 0)
+                {
+                    foreach (CollisionTile colTileIntersecting in intersectingTiles)
+                        CollisionReaction(colTileIntersecting.Rectangle);
+                }
+                else
+                {
+                    // do X reaction instead of Y...
+                    foreach (CollisionTile colTileIntersecting in verticalRects)
+                        CollisionReaction(colTileIntersecting.Rectangle, 1);
+
+                    foreach (CollisionTile colTileIntersecting in intersectingTiles)
+                        CollisionReaction(colTileIntersecting.Rectangle);
                 }
             }
             // ------ TILE COLLISION TEST ------
@@ -131,15 +166,14 @@ namespace TheChicagoProject.Entity
                 if (isColliding)
                 {
                     CollisionReaction(toCheck);
+                    //this.CollisionReaction(toCheck);
+                    
                 }
             }
             // ------- COLLISION TEST ------
-
-            //if(!this.Tile.IsWalkable && )
-
         }
 
-        private void CollisionReaction(FloatRectangle toCheck)
+        private void CollisionReaction(FloatRectangle toCheck, int cornerCollisionCase = 0)
         {
             // http://www.metanetsoftware.com/technique/tutorialA.html#section0
             // pretty much learned this in a class im taking right now but im
@@ -197,28 +231,49 @@ namespace TheChicagoProject.Entity
             }
             else
             {
-
-
                 if (xScalarFinal == yScalarFinal) // corner collision
                 {
-
                     float diff = 0;
-                    if (this.location.Center.Y < toCheck.Center.Y)
-                    {
-                        // on top
-                        diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
-                        location.Y -= diff;
-                        Console.WriteLine("GOING UP");
+                    switch(cornerCollisionCase)
+                    { 
+                        case 0:
+                            if (this.location.Center.Y < toCheck.Center.Y)
+                            {
+                                // on top
+                                diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
+                                location.Y -= diff;
+                                //Console.WriteLine("GOING UP");
 
-                    }
-                    else
-                    {
-                        // on bottom
-                        diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
-                        location.Y += diff;
-                        Console.WriteLine("GOING DOWN");
-                    }
-                    Console.WriteLine("CORNER {0}", new Random().NextDouble());
+                            }
+                            else
+                            {
+                                // on bottom
+                                diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
+                                location.Y += diff;
+                                //Console.WriteLine("GOING DOWN");
+                            }
+                        break;
+
+                        case 1:
+                            if (this.location.Center.X < toCheck.Center.X)
+                            {
+                                // on top
+                                diff = (this.location.X + this.location.Width) - toCheck.Location.X;
+                                location.X -= diff;
+                                //Console.WriteLine("GOING LEFT");
+
+                            }
+                            else
+                            {
+                                // on bottom
+                                diff = (toCheck.Location.X + toCheck.Width) - this.location.X;
+                                location.X += diff;
+                                //Console.WriteLine("GOING RIGHT");
+                            }
+                        break;
+                     }
+
+                    //Console.WriteLine("CORNER {0}", new Random().NextDouble());
                 }
                 else
                 {
