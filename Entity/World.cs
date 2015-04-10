@@ -33,7 +33,8 @@ namespace TheChicagoProject.Entity
                 playerMap = new DijkstraMap(this, new int[] { pX, pY });
             int[] pLoc = playerMap.Goals[0]; //The player location for AI's.
             if (pX != pLoc[0] || pY != pLoc[1])
-                playerMap = new DijkstraMap(this, new int[] { pX, pY});
+                playerMap = new DijkstraMap(this, new int[] { pX, pY }); // !!!This causes lag when walking between tiles!!!
+                
             manager.Update(time);
         }
     }

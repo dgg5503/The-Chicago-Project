@@ -9,9 +9,9 @@ namespace TheChicagoProject.GUI
     static class Sprites
     {
         // Dictionary of tiles and their file name.
-        public readonly static Dictionary<string, Tile> spritesDictionary = new Dictionary<string, Tile>
+        public readonly static Dictionary<string, Sprite> spritesDictionary = new Dictionary<string, Sprite>
         {
-            //{"SpriteName", new Sprite(height, width, yOffset)},
+            {"mugger", new Sprite(32, 32, 0, "mugger.png")}
         };
     }
 }

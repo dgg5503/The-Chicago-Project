@@ -59,8 +59,10 @@ namespace TheChicagoProject
             //Add player to the world
             worlds["main"].manager.AddEntity(player);
 
+
+
             // DEBUG
-            worlds["main"].manager.AddEntity(new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png"));
+            worlds["main"].manager.AddEntity(new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png") { health = 10});
 
             worldQuests = new QuestLog();
         }

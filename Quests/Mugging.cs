@@ -13,7 +13,7 @@ namespace TheChicagoProject.Quests
     class Mugging : Quest
     {
         /*DESCR*/
-        
+
         public const string MUGGER_TEXTURE = "mugger.png";
         public const int MUGGER_WIDTH = 32;
 
@@ -27,11 +27,12 @@ namespace TheChicagoProject.Quests
         public Mugging(string name, string objective, string description, Vector2 start, Player player, WorldManager manager) : base(name, objective, description, start, manager, 0, 10)
         {
             this.player = player;
-            mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), MUGGER_TEXTURE);
+            mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), MUGGER_TEXTURE) { health = 10 };
             knife = new Weapon(20, 1, 3, "Knife", 1, 99);
             muggerAI = new LowAI(mugger);
             entitites = new List<Entity.Entity>();
             entitites.Add(mugger);
+            //manager.CurrentWorld.manager.AddEntity(mugger);
         }
 
         public override void Update()

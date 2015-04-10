@@ -133,7 +133,7 @@ namespace TheChicagoProject
                         //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
                     inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
-                    worldManager.CurrentWorld.tick(gameTime);
+                    //worldManager.CurrentWorld.tick(gameTime); // should only appear once...
                     break;
                 case GameState.Pause:
                     break;

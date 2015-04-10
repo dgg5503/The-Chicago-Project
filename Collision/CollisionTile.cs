@@ -22,7 +22,10 @@ namespace TheChicagoProject.Collision
 
         private FloatRectangle loc;
 
+        private bool isWalkable;
+
         public List<Entity.Entity> EntitiesInTile { get { return entities; } }
+        public bool IsWalkable { get { return isWalkable; } set { isWalkable = value; } }
 
         public FloatRectangle Rectangle { get { return loc; } }
 
@@ -37,6 +40,7 @@ namespace TheChicagoProject.Collision
         {
             entities = new List<Entity.Entity>();
             loc = new FloatRectangle(x, y, SIDE_LENGTH, SIDE_LENGTH);
+            isWalkable = true;
             this.grid = grid;
         }
 

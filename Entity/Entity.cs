@@ -17,7 +17,7 @@ namespace TheChicagoProject.Entity
     public abstract class Entity
     {
         public FloatRectangle location;
-        
+
         public Direction direction;
 
         public Sprite sprite;
@@ -53,6 +53,16 @@ namespace TheChicagoProject.Entity
         }
 
         /// <summary>
+        /// The constructor for the base entity.
+        /// </summary>
+        /// <param name="sprite">Sprite object.</param>
+        public Entity(Sprite sprite)
+        {
+            this.sprite = sprite;
+            movement = Vector2.Zero;
+        }
+
+        /// <summary>
         /// Updates the Game Time and the Entity Manager of the Entity
         /// </summary>
         /// <param name="time">The game Time</param>
@@ -64,7 +74,7 @@ namespace TheChicagoProject.Entity
 
             // Calc vector from point before to new point based on deltaX and deltaY
             FloatRectangle lastLoc = this.location;
-           
+
             location.X += movement.X;
             location.Y += movement.Y;
 
@@ -84,6 +94,7 @@ namespace TheChicagoProject.Entity
             if (this.Tile.EntitiesInTile.Count == 1)
                 return;
 
+            // Entity collision test...
             foreach (Entity e in this.Tile.EntitiesInTile.Where(e => !(e.Equals(this))))
             {
                 bool isColliding;
@@ -105,98 +116,104 @@ namespace TheChicagoProject.Entity
                  */
                 if (isColliding)
                 {
-                    // http://www.metanetsoftware.com/technique/tutorialA.html#section0
-                    // pretty much learned this in a class im taking right now but im
-                    // too dumb to realize the application :*(...
-                    Vector2 topLeft = toCheck.Location;
-                    Vector2 topRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y);
-                    Vector2 bottomLeft = new Vector2(toCheck.X, toCheck.Y + toCheck.Height);
-                    Vector2 bottomRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y + toCheck.Height);
-
-                    Vector2 xAxis = new Vector2(1.0f, 0); // these would have to change for rotating objects...
-                    Vector2 yAxis = new Vector2(0, 1.0f); // these would have to change for rotating objects...
-
-                    float xThisCenter = this.location.Center.X;
-                    float yThisCenter = this.location.Center.Y;
-
-                    float xToTestCenter = e.location.Center.X;
-                    float yToTestCenter = e.location.Center.Y;
-
-                    Vector2 centers = new Vector2(xThisCenter - xToTestCenter, yThisCenter - yToTestCenter);
-
-                    Vector2 thisHalfWidth = new Vector2(this.location.Width / 2, 0);
-                    Vector2 thisHalfHeight = new Vector2(0, this.location.Height / 2);
-
-                    Vector2 toTestHalfWidth = new Vector2(toCheck.Width / 2, 0);
-                    Vector2 toTestHalfHeight = new Vector2(0, toCheck.Height / 2);
-
-                    // x axis collision check
-                    Vector2 projXCenters = Utils.Project(centers, xAxis);
-
-                    Vector2 projXThisWidth = Utils.Project(thisHalfWidth, xAxis);
-
-                    Vector2 projXToTestWidth = Utils.Project(toTestHalfWidth, xAxis);
-
-                    // y axis collision check
-                    Vector2 projYCenters = Utils.Project(centers, yAxis);
-
-                    Vector2 projYThisHeight = Utils.Project(thisHalfHeight, yAxis);
-
-                    Vector2 projYToTestHeight = Utils.Project(toTestHalfHeight, yAxis);
-
-                    // Collision Times
-                    //http://gamedev.stackexchange.com/questions/17502/how-to-deal-with-corner-collisions-in-2d
-                    // check for which dir to go in opp direction of...
-                    //Vector2 collisionVector = (projXThisWidth + projXToTestWidth) - projXCenters;
-                    float xScalarFinal = (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length();
-                    float yScalarFinal = (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length();
-
-                    // DEBUG
-                    //Console.WriteLine("FLOAT X SCALAR: {0:0.00}", (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length());
-                    //Console.WriteLine("FLOAT Y SCALAR: {0:0.00}", (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length());
-
-                    if (xScalarFinal > yScalarFinal)
-                    {
-                        // DEBUG
-                        //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
-                        location.Y -= yScalarFinal * Math.Sign(movement.Y);
-
-                    }
-                    else
-                    {
-
-
-                        if (xScalarFinal == yScalarFinal) // corner collision
-                        {
-
-                            float diff = 0;
-                            if (this.location.Center.Y < toCheck.Center.Y)
-                            {
-                                // on top
-                                diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
-                                location.Y -= diff;
-
-                            }
-                            else
-                            {
-                                // on bottom
-                                diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
-                                location.Y += diff;
-                            }
-                        }
-                        else
-                        {
-                            //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
-                            location.X -= (xScalarFinal * Math.Sign(movement.X));
-                        }
-                    }
+                    CollisionReaction(e, toCheck);
                 }
             }
             // ------- COLLISION TEST ------
 
+            //if(!this.Tile.IsWalkable && )
 
         }
-        
+
+        private void CollisionReaction(Entity e, FloatRectangle toCheck)
+        {
+            // http://www.metanetsoftware.com/technique/tutorialA.html#section0
+            // pretty much learned this in a class im taking right now but im
+            // too dumb to realize the application :*(...
+            Vector2 topLeft = toCheck.Location;
+            Vector2 topRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y);
+            Vector2 bottomLeft = new Vector2(toCheck.X, toCheck.Y + toCheck.Height);
+            Vector2 bottomRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y + toCheck.Height);
+
+            Vector2 xAxis = new Vector2(1.0f, 0); // these would have to change for rotating objects...
+            Vector2 yAxis = new Vector2(0, 1.0f); // these would have to change for rotating objects...
+
+            float xThisCenter = this.location.Center.X;
+            float yThisCenter = this.location.Center.Y;
+
+            float xToTestCenter = e.location.Center.X;
+            float yToTestCenter = e.location.Center.Y;
+
+            Vector2 centers = new Vector2(xThisCenter - xToTestCenter, yThisCenter - yToTestCenter);
+
+            Vector2 thisHalfWidth = new Vector2(this.location.Width / 2, 0);
+            Vector2 thisHalfHeight = new Vector2(0, this.location.Height / 2);
+
+            Vector2 toTestHalfWidth = new Vector2(toCheck.Width / 2, 0);
+            Vector2 toTestHalfHeight = new Vector2(0, toCheck.Height / 2);
+
+            // x axis collision check
+            Vector2 projXCenters = Utils.Project(centers, xAxis);
+
+            Vector2 projXThisWidth = Utils.Project(thisHalfWidth, xAxis);
+
+            Vector2 projXToTestWidth = Utils.Project(toTestHalfWidth, xAxis);
+
+            // y axis collision check
+            Vector2 projYCenters = Utils.Project(centers, yAxis);
+
+            Vector2 projYThisHeight = Utils.Project(thisHalfHeight, yAxis);
+
+            Vector2 projYToTestHeight = Utils.Project(toTestHalfHeight, yAxis);
+
+            // Collision Times
+            //http://gamedev.stackexchange.com/questions/17502/how-to-deal-with-corner-collisions-in-2d
+            // check for which dir to go in opp direction of...
+            //Vector2 collisionVector = (projXThisWidth + projXToTestWidth) - projXCenters;
+            float xScalarFinal = (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length();
+            float yScalarFinal = (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length();
+
+            // DEBUG
+            //Console.WriteLine("FLOAT X SCALAR: {0:0.00}", (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length());
+            //Console.WriteLine("FLOAT Y SCALAR: {0:0.00}", (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length());
+
+            if (xScalarFinal > yScalarFinal)
+            {
+                // DEBUG
+                //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
+                location.Y -= yScalarFinal * Math.Sign(movement.Y);
+
+            }
+            else
+            {
+
+
+                if (xScalarFinal == yScalarFinal) // corner collision
+                {
+
+                    float diff = 0;
+                    if (this.location.Center.Y < toCheck.Center.Y)
+                    {
+                        // on top
+                        diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
+                        location.Y -= diff;
+
+                    }
+                    else
+                    {
+                        // on bottom
+                        diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
+                        location.Y += diff;
+                    }
+                }
+                else
+                {
+                    //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
+                    location.X -= (xScalarFinal * Math.Sign(movement.X));
+                }
+            }
+
+        }
 
         /// <summary>
         /// Moves the Entity
