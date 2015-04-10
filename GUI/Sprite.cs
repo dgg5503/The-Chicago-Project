@@ -57,7 +57,7 @@ namespace TheChicagoProject.GUI
         public static readonly string Directory = "./Content/Sprites/";
 
         // Properties
-        public Texture2D Texture { get { return texture; } set { texture = value; } }
+        public Texture2D Texture { get { return texture; } set { texture = value; texture.CreateBorder(1, Color.Black); } }
 
         public int YOffset { get { return yOffset; } }
 
@@ -182,9 +182,10 @@ namespace TheChicagoProject.GUI
         /// <param name="dir">Direction of the sprite to face.</param>
         public void Draw(SpriteBatch sb, int x, int y, Direction dir)
         {
+            
             sb.Draw(
                  texture,					    // - The texture to draw
-                 new Rectangle(x, y, width, height),		// - The location to draw on the screen
+                 new Rectangle(x + (width / 2), y + (height / 2), width, height),		// - The location to draw on the screen
                  new Rectangle(					// - The "source" rectangle
                      frame * width,	                    //   - This rectangle specifies
                      yOffset,		            //	   where "inside" the texture
@@ -192,9 +193,20 @@ namespace TheChicagoProject.GUI
                      height),		        	//     draw the whole thing)
                  Color.White,					// - The color
                  DirectionToRadians(dir),								// - Rotation (none currently)
-                 new Vector2(width/2, height/2),					// - Origin inside the image (top left)
+                 new Vector2(width / 2, height / 2),					// - Origin inside the image (top left)
                  SpriteEffects.None,				        // - Can be used to flip the image
                  0);								// - Layer depth (unused)
+          
+            #region debug
+            
+            sb.Draw(
+                texture,					    // - The texture to draw
+                new Rectangle(x, y, texture.Width, texture.Height),		// - The location to draw on the screen
+                Color.White					// - The color
+            );
+             
+            #endregion
+           
         }
 
         /// <summary>

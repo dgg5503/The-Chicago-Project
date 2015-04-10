@@ -44,15 +44,32 @@ namespace TheChicagoProject
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
-            // DEBUG
+            #region debug
             World tmpWorld = new World(game, 100);
             Random RNG = new Random();
             for(int x = 0; x < tmpWorld.size; x++)
                 for (int y = 0; y < tmpWorld.size; y++)
                 {
                     // get random tile from dict.
-                    tmpWorld.tiles[x][y] = Tiles.tilesDictionary.Values.ToArray()[RNG.Next(0, Tiles.tilesDictionary.Count)];
+                    //tmpWorld.tiles[x][y] = Tiles.tilesDictionary.Values.ToArray()[RNG.Next(0, Tiles.tilesDictionary.Count)];
+                    tmpWorld.tiles[x][y] = Tiles.tilesDictionary["SideWalkBrick"];
+
+
                 }
+
+            tmpWorld.tiles[0][0] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[0][1] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[0][2] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[0][3] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[0][4] = Tiles.tilesDictionary["BuildingEdge"];
+
+            tmpWorld.tiles[3][3] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[4][4] = Tiles.tilesDictionary["BuildingEdge"];
+
+
+            tmpWorld.tiles[6][3] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[6][4] = Tiles.tilesDictionary["BuildingEdge"];
+            tmpWorld.tiles[5][4] = Tiles.tilesDictionary["BuildingEdge"];
 
             worlds["main"] = tmpWorld;
 
@@ -63,7 +80,7 @@ namespace TheChicagoProject
 
             // DEBUG
             worlds["main"].manager.AddEntity(new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png") { health = 10});
-
+            #endregion
             worldQuests = new QuestLog();
         }
 

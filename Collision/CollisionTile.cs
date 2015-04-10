@@ -41,7 +41,7 @@ namespace TheChicagoProject.Collision
             entities = new List<Entity.Entity>();
             loc = new FloatRectangle(x, y, SIDE_LENGTH, SIDE_LENGTH);
             isWalkable = true;
-            this.grid = grid;
+            this.grid = grid;  
         }
 
         /// <summary>
@@ -105,6 +105,61 @@ namespace TheChicagoProject.Collision
                 grid[right,GridY].AddEntity(e);
         }
 
+        /// <summary>
+        /// Gets adjacent non walkable tiles.
+        /// </summary>
+        /// <param name="x">Grid X location (not pixels)</param>
+        /// <param name="y">Grid Y location (not pixels)</param>
+        /// <returns>An array of adjacent non walkable tiles.</returns>
+        public CollisionTile[] GetAdjacentNonWalkableTiles()
+        {
+            // list of tiles
+            List<CollisionTile> adjNonWalkTiles = new List<CollisionTile>();
+
+            // the 8 cases, also checking to make sure that the 8 cases exist!
+            int up = this.GridY - 1;
+            int down = this.GridY + 1;
+            int left = this.GridX - 1;
+            int right = this.GridX + 1;
+
+            if (up >= 0)
+                if (!grid[GridX, up].IsWalkable)
+                    adjNonWalkTiles.Add(grid[GridX, up]);
+
+            if (down < grid.GetLength(1))
+                if (!grid[GridX, down].IsWalkable)
+                    adjNonWalkTiles.Add(grid[GridX, down]);
+
+            if (up >= 0 && left >= 0)
+                if (!grid[left, up].IsWalkable)
+                    adjNonWalkTiles.Add(grid[left, up]);
+
+            if (down < grid.GetLength(1) && left >= 0)
+                if (!grid[left, down].IsWalkable)
+                    adjNonWalkTiles.Add(grid[left, down]);
+
+            if (up >= 0 && right < grid.GetLength(0))
+                if (!grid[right, up].IsWalkable)
+                    adjNonWalkTiles.Add(grid[right, up]);
+
+            if (down < grid.GetLength(1) && right < grid.GetLength(0))
+                if (!grid[right, down].IsWalkable)
+                    adjNonWalkTiles.Add(grid[right, down]);
+
+            if (left >= 0)
+                if (!grid[left, GridY].IsWalkable)
+                    adjNonWalkTiles.Add(grid[left, GridY]);
+
+            if (right < grid.GetLength(0))
+                if (!grid[right, GridY].IsWalkable)
+                    adjNonWalkTiles.Add(grid[right, GridY]);
+
+            if (!this.IsWalkable)
+                adjNonWalkTiles.Add(this);
+
+            return adjNonWalkTiles.ToArray();
+        }
+
         public void AddEntity(Entity.Entity e)
         {
             entities.Add(e);
@@ -115,6 +170,13 @@ namespace TheChicagoProject.Collision
         {
             entities.Clear();
         }
+
+        #region debug
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Game1.border, loc, Color.Black);
+        }
+        #endregion
 
         public override string ToString()
         {

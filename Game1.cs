@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using TheChicagoProject.GUI;
 using TheChicagoProject.Quests;
 #endregion
 
@@ -48,6 +49,9 @@ namespace TheChicagoProject
         public InputManager inputManager;
         public SaveManager saveManager;
         public CollisionManager collisionManager;
+        #region debug
+        public static Texture2D border;
+        #endregion
 
         public static GameState state;
         Mugging mugTemp;
@@ -71,6 +75,7 @@ namespace TheChicagoProject
             worldManager = new WorldManager(this);
             inputManager = new InputManager(this);
             collisionManager = new CollisionManager(this);
+            
             base.Initialize();
         }
 
@@ -89,6 +94,12 @@ namespace TheChicagoProject
             this.IsMouseVisible = true;
             //Load the data
             //saveManager.Load();//Currently Throws a not implemented exception
+
+            #region debug
+            border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);
+            border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
+            #endregion
+
             base.LoadContent();
         }
 
@@ -127,13 +138,14 @@ namespace TheChicagoProject
                     }
                     else
                     {
-
                         //Console.WriteLine("QUEST IN PROGRESS");
                         //Console.WriteLine("MUGGER LOC: {0}, {1}", mugTemp.entitites[0].location.X, mugTemp.entitites[0].location.Y);
                         //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
-                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
-                    //worldManager.CurrentWorld.tick(gameTime); // should only appear once...
+
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime); // should only appear here unless ticking while paused (?)
+                    worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
+                    collisionManager.Update();
                     break;
                 case GameState.Pause:
                     break;
@@ -151,13 +163,9 @@ namespace TheChicagoProject
                     break;
             }
 
-            collisionManager.Update();
-
-            inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
-            worldManager.CurrentWorld.tick(gameTime);
-
             // For sprite and GUI animations
             renderManager.Update(gameTime);
+
             worldManager.Update(gameTime);
             
             base.Update(gameTime);
@@ -168,7 +176,7 @@ namespace TheChicagoProject
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Gray);
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             renderManager.Draw(gameTime);

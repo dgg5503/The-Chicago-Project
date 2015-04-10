@@ -5,6 +5,10 @@ using System.Text;
 using TheChicagoProject.Collision;
 using TheChicagoProject.Entity;
 using TheChicagoProject.GUI;
+#region debug
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+#endregion
 
 namespace TheChicagoProject
 {
@@ -39,13 +43,11 @@ namespace TheChicagoProject
          * TO-DO:
          * - Update collision grid when loading a new world of different size... (?)
          */
-
         public void Update()
         {
             World w = mainGame.worldManager.CurrentWorld;
             Player player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
             
-
             // this calculation is being done twice.....
             int excess = 1;
 
@@ -82,9 +84,22 @@ namespace TheChicagoProject
                     // Get entities from current world.
                     if (!w.tiles[x][y].IsWalkable)
                         grid[x, y].IsWalkable = false;
+                    
                     grid[x, y].DetectEntitiesInThisTile(mainGame.worldManager.CurrentWorld.manager.EntityList);
                 }
         }
+
+        #region debug
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for (int x = 0; x < grid.GetLength(0); x++)
+                for (int y = 0; y < grid.GetLength(1); y++)
+                {
+                    grid[x, y].Draw(spriteBatch);
+                }
+        }
+        #endregion
+
 
         public CollisionTile[,] GetCollisionGrid()
         {

@@ -197,6 +197,12 @@ namespace TheChicagoProject
 
                 // Entities
                 DrawEntities();
+
+                #region debug
+                // DEBUG DRAWS
+                mainGame.collisionManager.Draw(spriteBatch);
+                #endregion
+
                 spriteBatch.End();
             }
 

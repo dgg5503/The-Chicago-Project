@@ -78,6 +78,7 @@ namespace TheChicagoProject.Entity
             location.X += movement.X;
             location.Y += movement.Y;
 
+            // ------ EDGE OF SCREEN TEST ------
             if (location.X < 0)
             {
                 location.X = 0;
@@ -87,14 +88,27 @@ namespace TheChicagoProject.Entity
             {
                 location.Y = 0;
             }
+            // ------ EDGE OF SCREEN TEST ------
 
             if (this.Tile == null)
                 return;
 
+            // ------ TILE COLLISION TEST ------
+            // if this intersects with a non walkable tile, react
+            foreach(CollisionTile colTile in this.Tile.GetAdjacentNonWalkableTiles())
+            {
+                if(this.location.Intersects(colTile.Rectangle))
+                {
+                    CollisionReaction(colTile.Rectangle);
+                    break;
+                }
+            }
+            // ------ TILE COLLISION TEST ------
+
             if (this.Tile.EntitiesInTile.Count == 1)
                 return;
 
-            // Entity collision test...
+            // ------- ENTITY COLLISION TEST ------
             foreach (Entity e in this.Tile.EntitiesInTile.Where(e => !(e.Equals(this))))
             {
                 bool isColliding;
@@ -116,7 +130,7 @@ namespace TheChicagoProject.Entity
                  */
                 if (isColliding)
                 {
-                    CollisionReaction(e, toCheck);
+                    CollisionReaction(toCheck);
                 }
             }
             // ------- COLLISION TEST ------
@@ -125,24 +139,21 @@ namespace TheChicagoProject.Entity
 
         }
 
-        private void CollisionReaction(Entity e, FloatRectangle toCheck)
+        private void CollisionReaction(FloatRectangle toCheck)
         {
             // http://www.metanetsoftware.com/technique/tutorialA.html#section0
             // pretty much learned this in a class im taking right now but im
             // too dumb to realize the application :*(...
-            Vector2 topLeft = toCheck.Location;
-            Vector2 topRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y);
-            Vector2 bottomLeft = new Vector2(toCheck.X, toCheck.Y + toCheck.Height);
-            Vector2 bottomRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y + toCheck.Height);
-
             Vector2 xAxis = new Vector2(1.0f, 0); // these would have to change for rotating objects...
             Vector2 yAxis = new Vector2(0, 1.0f); // these would have to change for rotating objects...
 
             float xThisCenter = this.location.Center.X;
             float yThisCenter = this.location.Center.Y;
 
-            float xToTestCenter = e.location.Center.X;
-            float yToTestCenter = e.location.Center.Y;
+            //float xToTestCenter = e.location.Center.X;
+            //float yToTestCenter = e.location.Center.Y;
+            float xToTestCenter = toCheck.Center.X;
+            float yToTestCenter = toCheck.Center.Y;
 
             Vector2 centers = new Vector2(xThisCenter - xToTestCenter, yThisCenter - yToTestCenter);
 
@@ -197,6 +208,7 @@ namespace TheChicagoProject.Entity
                         // on top
                         diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
                         location.Y -= diff;
+                        Console.WriteLine("GOING UP");
 
                     }
                     else
@@ -204,12 +216,14 @@ namespace TheChicagoProject.Entity
                         // on bottom
                         diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
                         location.Y += diff;
+                        Console.WriteLine("GOING DOWN");
                     }
+                    Console.WriteLine("CORNER {0}", new Random().NextDouble());
                 }
                 else
                 {
                     //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
-                    location.X -= (xScalarFinal * Math.Sign(movement.X));
+                    location.X -= xScalarFinal * Math.Sign(movement.X);
                 }
             }
 
