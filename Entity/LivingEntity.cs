@@ -20,6 +20,8 @@ namespace TheChicagoProject.Entity
 
         protected double lastShot;
 
+        public AI.AI ai;
+
         /// <summary>
         /// Creates a new Living Entity
         /// </summary>
@@ -40,6 +42,8 @@ namespace TheChicagoProject.Entity
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
 
+            if (ai != null)
+                ai.Update(time, manager);
 
             this.time = time;
             lastShot += time.ElapsedGameTime.Milliseconds;
@@ -64,7 +68,32 @@ namespace TheChicagoProject.Entity
         /// Moves the Living Entity
         /// </summary>
         public override void Move() {
-            throw new NotImplementedException();
+            switch (direction) {
+                case Direction.Down:
+                    movement += new Vector2(0, 1);
+                    break;
+                case Direction.DownLeft:
+                    movement += new Vector2(-1, 1);
+                    break;
+                case Direction.DownRight:
+                    movement += new Vector2(1, 1);
+                    break;
+                case Direction.Left:
+                    movement += new Vector2(-1, 0);
+                    break;
+                case Direction.Right:
+                    movement += new Vector2(1, 0);
+                    break;
+                case Direction.Up:
+                    movement += new Vector2(0, -1);
+                    break;
+                case Direction.UpLeft:
+                    movement += new Vector2(-1, -1);
+                    break;
+                case Direction.UpRight:
+                    movement += new Vector2(-1, 1);
+                    break;
+            }
         }
     }
 }
