@@ -24,6 +24,8 @@ namespace TheChicagoProject.Entity
 
         public Vector2 movement;
 
+        public World currentWorld;
+
         // The current tile the entity is in...
         public CollisionTile CollisionTile;
 
@@ -88,6 +90,16 @@ namespace TheChicagoProject.Entity
             if (location.Y < 0)
             {
                 location.Y = 0;
+            }
+
+            if (location.X + location.Width > currentWorld.size * Tile.SIDE_LENGTH)
+            {
+                location.X = currentWorld.size * Tile.SIDE_LENGTH - location.Width;
+            }
+
+            if (location.Y + location.Height > currentWorld.size * Tile.SIDE_LENGTH)
+            {
+                location.Y = currentWorld.size * Tile.SIDE_LENGTH - location.Height;
             }
             // ------ EDGE OF SCREEN TEST ------
 

@@ -47,6 +47,7 @@
     <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Collision\CollisionTile.cs" />
+    <Compile Include="GUI\Controls.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
     <Compile Include="GUI\Forms\Control.cs" />
     <Compile Include="GUI\Forms\Label.cs" />

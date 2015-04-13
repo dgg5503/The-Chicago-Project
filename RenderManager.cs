@@ -258,7 +258,7 @@ namespace TheChicagoProject
             World w =  mainGame.worldManager.CurrentWorld;
 
             // All locations are relative to the XY global axis.
-            int excess = 1;
+            int excess = 2;
 
             int xLowBound = ((player.location.IntX / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2);
             int yLowBound = ((player.location.IntY / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
@@ -278,9 +278,10 @@ namespace TheChicagoProject
             if (yHighBound > w.tiles[0].Length)
                 yHighBound = w.tiles[0].Length;
 
-            for (int x = xLowBound; x <= xHighBound; x++)
-                for (int y = yLowBound; y <= yHighBound; y++)
+            for (int x = xLowBound; x < xHighBound; x++)
+                for (int y = yLowBound; y < yHighBound; y++)
                 {
+                    
                     w.tiles[x][y].Draw(spriteBatch, x * Tile.SIDE_LENGTH, y * Tile.SIDE_LENGTH);
                 }
 
