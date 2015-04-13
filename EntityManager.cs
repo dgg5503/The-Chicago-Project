@@ -33,6 +33,7 @@ namespace TheChicagoProject
         }
 
         public void AddEntity(Entity.Entity e) {
+            e.currentWorld = world;
             entities.Add(e);
             Console.WriteLine("Added Entity");
             if (e is Player)

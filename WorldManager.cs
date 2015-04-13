@@ -40,7 +40,7 @@ namespace TheChicagoProject
             current = "main";
             this.mainGame = game;
 
-            player = new Player(new FloatRectangle(256, 256, 32, 32), "player.png");
+            player = new Player(new FloatRectangle(512, 512, 32, 32), "player.png");
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
@@ -95,4 +95,4 @@ namespace TheChicagoProject
 
         }
     }
-}
+}   
