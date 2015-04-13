@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.AI;
 using TheChicagoProject.Entity;
-using Microsoft.Xna.Framework;
+using TheChicagoProject.GUI;
 using TheChicagoProject.Item;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 namespace TheChicagoProject.Quests
 {
@@ -14,7 +17,7 @@ namespace TheChicagoProject.Quests
     {
         /*DESCR*/
 
-        public const string MUGGER_TEXTURE = "mugger.png";
+        //public const string MUGGER_TEXTURE = "mugger.png";
         public const int MUGGER_WIDTH = 32;
 
         private LivingEntity mugger;
@@ -27,9 +30,10 @@ namespace TheChicagoProject.Quests
         public Mugging(string name, string objective, string description, Vector2 start, Player player, WorldManager manager) : base(name, objective, description, start, manager, 0, 10)
         {
             this.player = player;
-            mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), MUGGER_TEXTURE, 10);
+            mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), Sprites.spritesDictionary["mugger"], 10);
             knife = new Weapon(20, 1, 3, "Knife", 1, 99);
             muggerAI = new LowAI(mugger);
+            mugger.ai = muggerAI;
             entitites = new List<Entity.Entity>();
             entitites.Add(mugger);
             //manager.CurrentWorld.manager.AddEntity(mugger);

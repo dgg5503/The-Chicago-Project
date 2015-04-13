@@ -132,12 +132,12 @@ namespace TheChicagoProject
                 using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
                     kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
-                    
+
                 }
-                //kvp.Value.Texture = mainGame.Content.Load<Texture2D>("Tiles/" + kvp.Value.FileName);
             }
             //--------TILES--------
 
+            /*
             //------ENTITIES-------
             foreach (World z in worldManager.worlds.Values)
             {
@@ -147,12 +147,23 @@ namespace TheChicagoProject
                     using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
                     {
                         e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
-                        Console.WriteLine("Loaded " + e.sprite.FileName);
+                        //Console.WriteLine("Loaded " + e.sprite.FileName);
                     }
-                    //e.sprite.Texture = mainGame.Content.Load<Texture2D>("Sprites/" + e.sprite.FileName);
                 }
             }
             //------ENTITIES-------
+            */
+
+            //------SPRITES-------
+            foreach (KeyValuePair<string, Sprite> kvp in Sprites.spritesDictionary)
+            {
+                using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + kvp.Value.FileName))
+                {
+                    kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
+
+                }
+            }
+            //------SPRITES-------
 
             //--------GUI----------
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)

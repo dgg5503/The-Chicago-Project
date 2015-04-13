@@ -34,7 +34,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="fileName">The texture filename for the entity.</param>
         /// <param name="location">The height, width, and X and Y location.</param>
-        public Entity(FloatRectangle location, string fileName)
+        public Entity(FloatRectangle location, Sprite sprite)
         {
             this.location = location;
 
@@ -49,7 +49,8 @@ namespace TheChicagoProject.Entity
              * TO RESIZE A SPRITE, EITHER DO SPRITE.RESIZE OR INSTANTIATE VIA
              * THE HEIGHT AND WIDTH FROM LOCATION RECTANGLE?????
              */
-            sprite = new Sprite(location.IntHeight, location.IntWidth, 0, fileName);
+            //sprite = new Sprite(location.IntHeight, location.IntWidth, 0, fileName);
+            this.sprite = sprite;
 
             movement = Vector2.Zero;
         }

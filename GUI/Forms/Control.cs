@@ -91,10 +91,11 @@ namespace TheChicagoProject.GUI.Forms
 
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
+            // Fill creation
             fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-            fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
+            fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.Gray);
 
-            // WHAT IF RESIZED????????? (?)
+            // Border creation
             border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
             border.CreateBorder(1, Color.Black);
 
