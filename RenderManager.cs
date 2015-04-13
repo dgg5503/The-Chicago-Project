@@ -98,7 +98,7 @@ namespace TheChicagoProject
 
         private Player player;
 
-        private Menu menu;
+        //private Menu menu;
 
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace TheChicagoProject
             this.worldManager = worldManager;
             this.mainGame = mainGame;
 
-            menu = new Menu();
+            //menu = new Menu();
 
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
@@ -155,8 +155,11 @@ namespace TheChicagoProject
             //------ENTITIES-------
 
             //--------GUI----------
-            menu.LoadTextures(graphics);
-            menu.LoadContent(mainGame.Content);
+            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
+            {
+                c.Value.LoadTextures(graphics);
+                c.Value.LoadContent(mainGame.Content);
+            }
             //--------GUI----------
 
         }
@@ -164,11 +167,11 @@ namespace TheChicagoProject
         public void Update(GameTime gameTime)
         {
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
-
             // if the GUI is not visible, dont update it.
-            if (menu.IsVisible)
+            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
             {
-                menu.Update(gameTime);
+                if(c.Value.IsVisible)
+                    c.Value.Update(gameTime);
             }
            
         }
@@ -242,10 +245,37 @@ namespace TheChicagoProject
          */
         public void DrawGUI(GameTime gameTime)
         {
-            if (Game1.state == GameState.Menu)
+            switch(Game1.state)
             {
-                mainGame.IsMouseVisible = true;
-                menu.Draw(spriteBatch, gameTime);
+                case GameState.Menu:
+                    Controls.guiElements["mainMenu"].Draw(spriteBatch, gameTime);
+                    break;
+
+                case GameState.Pause:
+                    // Transparent fadeout.
+                    Controls.guiElements["pauseMenu"].Draw(spriteBatch, gameTime);
+                    break;
+
+                case GameState.Inventory:
+                    break;
+
+                case GameState.FastTravel:
+                    break;
+
+                case GameState.Game:
+                    // UI (health, current wep, other stuff)
+                    break;
+
+                case GameState.QuestLog:
+                    break;
+
+                case GameState.Shop:
+                    break;
+
+                case GameState.WeaponWheel:
+
+                    //weapons come from holster
+                    break;
             }
             
         }

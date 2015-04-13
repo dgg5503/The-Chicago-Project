@@ -11,13 +11,16 @@ using Microsoft.Xna.Framework.Storage;
 namespace TheChicagoProject.GUI.Forms
 {
     // Douglas Gliner
-    abstract class Control
+    public abstract class Control
     {
         // Private list of controls.
         private List<Control> controls;
 
         // Border texture
         private Texture2D border;
+
+        // Fill within the rectangle.
+        private Texture2D fill;
 
         // Default spriteFont
         private SpriteFont font;
@@ -54,6 +57,10 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public Texture2D Border { get { return border; } set { border = value; } }
         /// <summary>
+        /// Sets the fill of the control to some given Texture2D
+        /// </summary>
+        public Texture2D Fill { get { return fill; } set { fill = value; } }
+        /// <summary>
         /// Font for any elements which use one within this control.
         /// </summary>
         public SpriteFont Font { get { return font; } set { font = value; } }
@@ -84,6 +91,9 @@ namespace TheChicagoProject.GUI.Forms
 
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
+            fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
+
             // WHAT IF RESIZED????????? (?)
             border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
             border.CreateBorder(1, Color.Black);

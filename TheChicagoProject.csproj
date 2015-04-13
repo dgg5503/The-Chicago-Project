@@ -52,6 +52,7 @@
     <Compile Include="GUI\Forms\Control.cs" />
     <Compile Include="GUI\Forms\Label.cs" />
     <Compile Include="GUI\Menu.cs" />
+    <Compile Include="GUI\PauseMenu.cs" />
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="GUI\Utils.cs" />
