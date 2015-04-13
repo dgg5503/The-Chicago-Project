@@ -29,8 +29,8 @@ namespace TheChicagoProject.Entity
             Player player = manager.GetPlayer();
             int pX = player.location.IntX / Tile.SIDE_LENGTH; //The actual player location.
             int pY = player.location.IntY / Tile.SIDE_LENGTH; //The actual player location.
-            int width = manager.mainGame.GraphicsDevice.Viewport.Width / Tile.SIDE_LENGTH;
-            int height = manager.mainGame.GraphicsDevice.Viewport.Height / Tile.SIDE_LENGTH;
+            int width = manager.mainGame.GraphicsDevice.Viewport.Width / Tile.SIDE_LENGTH + 20;
+            int height = manager.mainGame.GraphicsDevice.Viewport.Height / Tile.SIDE_LENGTH + 20;
             if (playerMap == null)
                 playerMap = new DijkstraMap(this, width, height, pX - 10, pY - 10, new int[] { pX, pY });
             int[] pLoc = playerMap.Goals[0]; //The player location for AI's.

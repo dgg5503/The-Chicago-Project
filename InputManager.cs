@@ -106,6 +106,7 @@ namespace TheChicagoProject
                 }
             }
 
+            #region Commented Out
             // MOVED TO BASIC COLLISION TESTING...
             /*
             float x = WorldManager.player.location.X;
@@ -149,6 +150,7 @@ namespace TheChicagoProject
             */
 
             //WorldManager.player.location = location;
+            #endregion
             #endregion
 
             if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
@@ -233,6 +235,8 @@ namespace TheChicagoProject
                 WorldManager.player.inventory.ActiveWeapon = 0;
             }
             #endregion
+
+            WorldManager.player.cursor = mouseState.Position;
 
             //handles mouse input
             if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using TheChicagoProject.Quests;
+using TheChicagoProject.AI;
 #endregion
 // DEBUG
 using TheChicagoProject.GUI;
@@ -82,7 +83,9 @@ namespace TheChicagoProject
 
 
             // DEBUG
-            worlds["main"].manager.AddEntity(new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png") { health = 10});
+            LivingEntity mugger = new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png", 10);
+            mugger.ai = new LowAI(mugger);
+            worlds["main"].manager.AddEntity(mugger);
             #endregion
             worldQuests = new QuestLog();
         }

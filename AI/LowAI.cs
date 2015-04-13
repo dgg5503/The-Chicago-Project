@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using TheChicagoProject.Entity;
+using TheChicagoProject.GUI;
 
 namespace TheChicagoProject.AI
 {
@@ -24,14 +25,16 @@ namespace TheChicagoProject.AI
         public override void Update(GameTime time, EntityManager manager) {
             DijkstraMap map = manager.world.playerMap;
             // Float --> Int
-            int dist = map.Map[entity.location.IntX][entity.location.IntY];
+            int pX = entity.location.IntX / Tile.SIDE_LENGTH;
+            int pY = entity.location.IntY / Tile.SIDE_LENGTH;
+            int dist = map.Map[pX][pY];
             Direction furtherDir = findPos(map, -1);
             Direction closerDir = findPos(map, 1);
+            entity.direction = closerDir;
+            Console.WriteLine(closerDir + " " + dist);
             if (dist < 4) {
-                entity.direction = closerDir;
                 entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else {
-                entity.direction = closerDir;
                 entity.Move();
             }
         }

@@ -20,16 +20,20 @@ namespace TheChicagoProject.Entity
 
         protected double lastShot;
 
+        public AI.AI ai;
+
         /// <summary>
         /// Creates a new Living Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(FloatRectangle rect, string fileName)
+        public LivingEntity(FloatRectangle rect, string fileName, int health, AI.AI ai = null)
             : base(rect, fileName) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;
+            this.health = health;
+            this.ai = ai;
         }
 
         /// <summary>
@@ -40,6 +44,8 @@ namespace TheChicagoProject.Entity
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
 
+            if (ai != null)
+                ai.Update(time, manager);
 
             this.time = time;
             lastShot += time.ElapsedGameTime.Milliseconds;
@@ -64,7 +70,32 @@ namespace TheChicagoProject.Entity
         /// Moves the Living Entity
         /// </summary>
         public override void Move() {
-            throw new NotImplementedException();
+            switch (direction) {
+                case Direction.Down:
+                    movement += new Vector2(0, 1);
+                    break;
+                case Direction.DownLeft:
+                    movement += new Vector2(-1, 1);
+                    break;
+                case Direction.DownRight:
+                    movement += new Vector2(1, 1);
+                    break;
+                case Direction.Left:
+                    movement += new Vector2(-1, 0);
+                    break;
+                case Direction.Right:
+                    movement += new Vector2(1, 0);
+                    break;
+                case Direction.Up:
+                    movement += new Vector2(0, -1);
+                    break;
+                case Direction.UpLeft:
+                    movement += new Vector2(-1, -1);
+                    break;
+                case Direction.UpRight:
+                    movement += new Vector2(-1, 1);
+                    break;
+            }
         }
     }
 }
