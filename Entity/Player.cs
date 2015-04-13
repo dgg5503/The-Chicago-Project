@@ -35,6 +35,7 @@ namespace TheChicagoProject.Entity
         private Random rand;
         GameTime gameTime;
         public Quests.QuestLog log;
+        public Point cursor;
 
         /// <summary>
         /// Creates a new Player
@@ -50,6 +51,11 @@ namespace TheChicagoProject.Entity
             rand = new Random();
             log = new Quests.QuestLog();
             health = lives;
+        }
+
+        public Point Cursor
+        {
+            set { cursor = value; }
         }
 
         /// <summary>
@@ -93,6 +99,27 @@ namespace TheChicagoProject.Entity
         public void Interact()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Attacks
+        /// </summary>
+        /// <param name="type">Type of Fire</param>
+        /// <param name="weapon">Weapon used to fire, cannot be null if primary fire</param>
+        public override void Attack(int type, Weapon weapon = null)
+        {
+            if (type == 0)
+            {
+                if(weapon == null)
+                {
+                    throw new ArgumentException();
+                }
+                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D)
+                {
+                    int magnitude = (int) Math.Sqrt(Math.Pow(cursor.X, 2) + Math.Pow(cursor.Y, 2));
+                    EntityManager.FireBullet(location.X, location.Y, cursor.X / magnitude, cursor.Y / magnitude);
+                }
+            }
         }
 
         //Sean Levorse
