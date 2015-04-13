@@ -17,7 +17,7 @@ namespace TheChicagoProject
     {
         private List<Entity.Entity> entities;
         private int playerLoc;
-        protected Game1 mainGame;
+        public Game1 mainGame;
         public Quests.QuestLog quests;
         public World world;
 
@@ -33,10 +33,10 @@ namespace TheChicagoProject
         }
 
         public void AddEntity(Entity.Entity e) {
+            e.currentWorld = world;
             entities.Add(e);
             Console.WriteLine("Added Entity");
-            if (e is Player)
-            {
+            if (e is Player) {
                 Console.WriteLine("Added Player");
                 playerLoc = entities.Count - 1;
             }
@@ -52,8 +52,8 @@ namespace TheChicagoProject
                 if (e is LivingEntity && ((LivingEntity) e).health < 1) {
                     entities.Remove(e);
                 } else {
-                e.Update(time, this);
-        }
+                    e.Update(time, this);
+                }
             }
         }
 
@@ -64,7 +64,7 @@ namespace TheChicagoProject
         public List<Entity.Entity[]> DoCollisions() {
 
             List<Entity.Entity[]> list = new List<Entity.Entity[]>();
-            foreach(Entity.Entity e1 in entities) {
+            foreach (Entity.Entity e1 in entities) {
                 foreach (Entity.Entity e2 in entities) {
                     if (e1.location.Intersects(e2.location))
                         list.Add(new Entity.Entity[] { e1, e2 });
@@ -80,8 +80,7 @@ namespace TheChicagoProject
         /// <param name="y">The attacker y location</param>
         /// <param name="i">The i component of the direction vector</param>
         /// <param name="j">The j component of the direction vector</param>
-        public static void FireBullet(float x, float y, double i, double j)
-        {
+        public static void FireBullet(float x, float y, double i, double j) {
             Console.WriteLine("Boom");
             //throw new NotImplementedException();
         }

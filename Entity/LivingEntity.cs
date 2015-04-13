@@ -20,12 +20,15 @@ namespace TheChicagoProject.Entity
 
         protected double lastShot;
 
+        public AI.AI ai;
+
         /// <summary>
         /// Creates a new Living Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(FloatRectangle rect, string fileName) : base(rect, fileName) {
+        public LivingEntity(FloatRectangle rect, string fileName)
+            : base(rect, fileName) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;
@@ -38,7 +41,9 @@ namespace TheChicagoProject.Entity
         /// <param name="manager">The Entity Manager that links to the living entity</param>
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
-            
+
+            if (ai != null)
+                ai.Update(time, manager);
 
             this.time = time;
             lastShot += time.ElapsedGameTime.Milliseconds;
@@ -49,12 +54,9 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="type">0 is primary fire, 1 is secondary</param>
         /// <param name="weapon">The weapon with which they are attacking</param>
-        public virtual void Attack(int type, Weapon weapon = null)
-        {
-            if (type == 0)
-            {
-                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D)
-                {
+        public virtual void Attack(int type, Weapon weapon = null) {
+            if (type == 0) {
+                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D) {
                     double trajectory = 0D;
                     trajectory += 0D;
                     EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
@@ -65,9 +67,33 @@ namespace TheChicagoProject.Entity
         /// <summary>
         /// Moves the Living Entity
         /// </summary>
-        public override void Move()
-        {
-            throw new NotImplementedException();
+        public override void Move() {
+            switch (direction) {
+                case Direction.Down:
+                    movement += new Vector2(0, 1);
+                    break;
+                case Direction.DownLeft:
+                    movement += new Vector2(-1, 1);
+                    break;
+                case Direction.DownRight:
+                    movement += new Vector2(1, 1);
+                    break;
+                case Direction.Left:
+                    movement += new Vector2(-1, 0);
+                    break;
+                case Direction.Right:
+                    movement += new Vector2(1, 0);
+                    break;
+                case Direction.Up:
+                    movement += new Vector2(0, -1);
+                    break;
+                case Direction.UpLeft:
+                    movement += new Vector2(-1, -1);
+                    break;
+                case Direction.UpRight:
+                    movement += new Vector2(-1, 1);
+                    break;
+            }
         }
     }
 }

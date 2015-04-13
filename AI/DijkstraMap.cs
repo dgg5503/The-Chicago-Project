@@ -20,6 +20,10 @@ namespace TheChicagoProject.AI
     {
         private int[][] goals;
         private int[][] map;
+        private int mapHeight; //Size of the map
+        private int mapWidth; //Size of the map
+        private int modX; //Start X for the miniature DMap
+        private int modY; //Start Y for the miniature DMap
 
         /// <summary>
         /// Returns the list of goal-points.
@@ -35,88 +39,97 @@ namespace TheChicagoProject.AI
             get { return map; }
         }
 
-        public DijkstraMap(World world, params int[][] goals) {
+        public DijkstraMap(World world, int width, int height, int startX, int startY, params int[][] goals) {
             this.goals = goals;
+            this.mapWidth = width;
+            this.mapHeight = height;
+            this.modX = startX;
+            this.modY = startY;
             this.map = generateMap(world, goals);
         }
 
-        private static int[][] generateMap(World world, params int[][] goals) {
-            int mapSize = world.size;
-            int[][] grid = new int[mapSize][];
+        private int[][] generateMap(World world, params int[][] goals) {
+            int[][] grid = new int[mapWidth][];
             //Initalizes the grid with 100
             for (int x = 0; x < grid.Length; x++) {
-                grid[x] = new int[mapSize];
-                for (int y = 0; y < grid.Length; y++)
+                grid[x] = new int[mapHeight];
+                for (int y = 0; y < grid[x].Length; y++)
                     grid[x][y] = 100;
             }
             //Sets the goal points to 0
             foreach (int[] g in goals) {
                 int actualX = g[0] / Tile.SIDE_LENGTH;
                 int actualY = g[1] / Tile.SIDE_LENGTH;
-                 grid[actualX][actualY] = 0;
+                grid[actualX][actualY] = 0;
             }
 
             bool b = false;
             while (!b) {
                 b = true;
                 for (int x = 0; x < grid.Length; x++) {
-                    for (int y = 0; y < grid[x].Length; y++) {
-                        if (!world.tiles[x][y].IsWalkable)
-                            continue;
-                        #region Grid Checking
-                        if (x - 1 >= 0) {
-                            if(y - 1 >= 0) //top left
-                                if (grid[x - 1][y - 1] > grid[x][y] + 1) {
-                                    grid[x - 1][y - 1] = grid[x][y] + 1;
+                    for (int y = 0; y < grid[x].Length; y++)
+                        if (valid(world, modX + x, modY + y)) {
+                            if (!world.tiles[modX + x][modY + y].IsWalkable)
+                                continue;
+                            #region Grid Checking
+                            if (x - 1 >= 0) {
+                                if (y - 1 >= 0) //top left
+                                    if (grid[x - 1][y - 1] > grid[x][y] + 1) {
+                                        grid[x - 1][y - 1] = grid[x][y] + 1;
+                                        b = false;
+                                    }
+                                if (grid[x - 1][y] > grid[x][y] + 1) { //top middle
+                                    grid[x - 1][y] = grid[x][y] + 1;
                                     b = false;
                                 }
-                            if (grid[x - 1][y] > grid[x][y] + 1) { //top middle
-                                grid[x - 1][y] = grid[x][y] + 1;
-                                b = false;
+                                if (y + 1 < grid[x].Length)
+                                    if (grid[x - 1][y + 1] > grid[x][y] + 1) { //top right
+                                        grid[x - 1][y + 1] = grid[x][y] + 1;
+                                        b = false;
+                                    }
                             }
-                            if(y + 1 < grid.Length)
-                                if (grid[x - 1][y + 1] > grid[x][y] + 1) { //top right
-                                    grid[x - 1][y + 1] = grid[x][y] + 1;
+                            if (y - 1 >= 0) {
+                                if (grid[x][y - 1] > grid[x][y] + 1) { //middle left
+                                    grid[x][y - 1] = grid[x][y] + 1;
                                     b = false;
                                 }
-                        }
-                        if (y - 1 >= 0) {
-                            if (grid[x][y - 1] > grid[x][y] + 1) { //middle left
-                                grid[x][y - 1] = grid[x][y] + 1;
-                                b = false;
+                                if (x + 1 < grid.Length)
+                                    if (grid[x + 1][y - 1] > grid[x][y] + 1) { //middle right
+                                        grid[x + 1][y - 1] = grid[x][y] + 1;
+                                        b = false;
+                                    }
                             }
-                            if(x + 1 < grid.Length)
-                                if (grid[x + 1][y - 1] > grid[x][y] + 1) { //middle right
-                                    grid[x + 1][y - 1] = grid[x][y] + 1;
+                            if (x + 1 < grid.Length) {
+                                if (y - 1 >= 0)
+                                    if (grid[x + 1][y - 1] > grid[x][y] + 1) { //bottom left
+                                        grid[x + 1][y - 1] = grid[x][y] + 1;
+                                        b = false;
+                                    }
+                                if (grid[x + 1][y] > grid[x][y] + 1) { //bottom middle
+                                    grid[x + 1][y] = grid[x][y] + 1;
                                     b = false;
                                 }
-                        }
-                        if (x + 1 < grid.Length) {
-                            if (y - 1 >= 0)
-                                if (grid[x + 1][y - 1] > grid[x][y] + 1) { //bottom left
-                                    grid[x + 1][y - 1] = grid[x][y] + 1;
-                                    b = false;
-                                }
-                            if (grid[x + 1][y] > grid[x][y] + 1) { //bottom middle
-                                grid[x + 1][y] = grid[x][y] + 1;
-                                b = false;
+                                if (y + 1 < grid[x].Length)
+                                    if (grid[x + 1][y + 1] > grid[x][y] + 1) { //bottom right
+                                        grid[x + 1][y + 1] = grid[x][y] + 1;
+                                        b = false;
+                                    }
                             }
-                            if(y + 1 < grid.Length)
-                                if (grid[x + 1][y + 1] > grid[x][y] + 1) { //bottom right
-                                    grid[x + 1][y + 1] = grid[x][y] + 1;
-                                    b = false;
-                                }
+                            #endregion
                         }
-                        #endregion
-                    }
                 }
             }
             for (int x = 0; x < grid.Length; x++)
                 for (int y = 0; y < grid[x].Length; y++)
-                    if (!world.tiles[x][y].IsWalkable)
-                        grid[x][y] = 100;
+                    if (valid(world, modX + x, modY + y))
+                        if (!world.tiles[modX + x][modY + y].IsWalkable)
+                            grid[x][y] = 100;
 
             return grid;
+        }
+
+        private bool valid(World world, int x, int y) {
+            return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles.Length;
         }
     }
 }
