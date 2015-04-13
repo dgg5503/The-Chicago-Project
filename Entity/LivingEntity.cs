@@ -27,11 +27,13 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(FloatRectangle rect, string fileName)
+        public LivingEntity(FloatRectangle rect, string fileName, int health, AI.AI ai = null)
             : base(rect, fileName) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;
+            this.health = health;
+            this.ai = ai;
         }
 
         /// <summary>
