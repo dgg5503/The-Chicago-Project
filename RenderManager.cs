@@ -76,6 +76,8 @@ namespace TheChicagoProject
 
     /// <summary>
     /// Handles the drawing. Any and all drawing. Ever.
+    /// TO-DO
+    /// - on the fly drawing for code generated textures.
     /// </summary>
     public class RenderManager
     {
@@ -195,6 +197,12 @@ namespace TheChicagoProject
 
                 // Entities
                 DrawEntities();
+
+                #region debug
+                // DEBUG DRAWS
+                mainGame.collisionManager.Draw(spriteBatch);
+                #endregion
+
                 spriteBatch.End();
             }
 

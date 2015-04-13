@@ -17,7 +17,7 @@ namespace TheChicagoProject.Entity
     public abstract class Entity
     {
         public FloatRectangle location;
-        
+
         public Direction direction;
 
         public Sprite sprite;
@@ -25,7 +25,7 @@ namespace TheChicagoProject.Entity
         public Vector2 movement;
 
         // The current tile the entity is in...
-        public CollisionTile Tile;
+        public CollisionTile CollisionTile;
 
         /// <summary>
         /// The constructor for the base entity.
@@ -53,6 +53,16 @@ namespace TheChicagoProject.Entity
         }
 
         /// <summary>
+        /// The constructor for the base entity.
+        /// </summary>
+        /// <param name="sprite">Sprite object.</param>
+        public Entity(Sprite sprite)
+        {
+            this.sprite = sprite;
+            movement = Vector2.Zero;
+        }
+
+        /// <summary>
         /// Updates the Game Time and the Entity Manager of the Entity
         /// </summary>
         /// <param name="time">The game Time</param>
@@ -60,14 +70,16 @@ namespace TheChicagoProject.Entity
         public virtual void Update(GameTime time, EntityManager manager)
         {
             // ------- COLLISION TEST ------
-            double delta = time.ElapsedGameTime.TotalSeconds;
 
-            // Calc vector from point before to new point based on deltaX and deltaY
-            FloatRectangle lastLoc = this.location;
-           
             location.X += movement.X;
             location.Y += movement.Y;
 
+            // ------ EDGE OF SCREEN TEST ------
+            /*
+             * TO-DO:
+             * - Include all edges of the world
+             *      - What if we need to hit the edge of a world to load the next one???
+             */
             if (location.X < 0)
             {
                 location.X = 0;
@@ -77,104 +89,150 @@ namespace TheChicagoProject.Entity
             {
                 location.Y = 0;
             }
+            // ------ EDGE OF SCREEN TEST ------
 
-            if (this.Tile == null)
+            if (this.CollisionTile == null)
                 return;
 
-            if (this.Tile.EntitiesInTile.Count == 1)
+            // ------ TILE COLLISION TEST ------
+            CollisionTile[] adjNonWalkableTiles = this.CollisionTile.GetAdjacentNonWalkableTiles();
+            
+            // Time saver...
+            if (adjNonWalkableTiles.Length != 0)
+            {
+                // if this intersects with a non walkable tile, react
+                // Find rectangles entity is intersecting with...
+                List<CollisionTile> intersectingTiles = new List<CollisionTile>();
+                foreach (CollisionTile colTile in adjNonWalkableTiles)
+                {
+                    if (this.location.Intersects(colTile.Rectangle))
+                    {
+                        intersectingTiles.Add(colTile);
+                    }
+                }
+
+
+                // Find rectangles in rows, if none do the next thing
+                List<CollisionTile> verticalRects = new List<CollisionTile>();
+                foreach (CollisionTile colTileIntersectingVertSearch in intersectingTiles)
+                {
+                    int GridYToLookFor = colTileIntersectingVertSearch.GridY;
+                    foreach (CollisionTile colTileIntersectingVertDoubleSearch in intersectingTiles)
+                    {
+                        if (GridYToLookFor + 1 == colTileIntersectingVertDoubleSearch.GridY || GridYToLookFor - 1 == colTileIntersectingVertDoubleSearch.GridY)
+                            verticalRects.Add(colTileIntersectingVertDoubleSearch);
+                    }
+                }
+
+                if (verticalRects.Count == 0)
+                {
+                    foreach (CollisionTile colTileIntersecting in intersectingTiles)
+                        CollisionReaction(colTileIntersecting.Rectangle);
+                }
+                else
+                {
+                    // do X reaction instead of Y...
+                    foreach (CollisionTile colTileIntersecting in verticalRects)
+                        CollisionReaction(colTileIntersecting.Rectangle, 1);
+
+                    foreach (CollisionTile colTileIntersecting in intersectingTiles) // needed??
+                        CollisionReaction(colTileIntersecting.Rectangle);
+                }
+            }
+            // ------ TILE COLLISION TEST ------
+
+            if (this.CollisionTile.EntitiesInTile.Count == 1)
                 return;
 
-            foreach (Entity e in this.Tile.EntitiesInTile.Where(e => !(e.Equals(this))))
+            // ------- ENTITY COLLISION TEST ------
+            foreach (Entity e in this.CollisionTile.EntitiesInTile.Where(e => !(e.Equals(this))))
             {
                 bool isColliding;
                 FloatRectangle toCheck = e.location;
                 this.location.Intersects(ref toCheck, out isColliding);
 
                 /*
-                 * Sometimes entity can very slightly clip through tops and sides of objects. (possibly converting from ints to floats and vice versa)
-                 *      - Need to handle both the 1 key case and 2 key case.
-                 *  Handle corner case
-                 * 
-                 *  Odd width and length objects will result in bad rounding.
-                 * 
-                 *  Fast objects probably wont work.
-                 *      - Multisampling or sweep collision?
-                 *      - do a speed less than the largest object.
-                 *      - Definitly sweep for bullets!
+                 * Sometimes entity can very slightly clip through tops and sides of objects. (possibly converting from ints to floats and vice versa) - Fixed with floatrectangle :)!
+                 * Handle corner case - still iffy on this one, good enough measures have been added.
+                 * Fast object handling - NOT IMPLEMENTED, should consider optimizing current code before even considering this!
                  * 
                  */
                 if (isColliding)
                 {
-                    // http://www.metanetsoftware.com/technique/tutorialA.html#section0
-                    // pretty much learned this in a class im taking right now but im
-                    // too dumb to realize the application :*(...
-                    Vector2 topLeft = toCheck.Location;
-                    Vector2 topRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y);
-                    Vector2 bottomLeft = new Vector2(toCheck.X, toCheck.Y + toCheck.Height);
-                    Vector2 bottomRight = new Vector2(toCheck.X + toCheck.Width, toCheck.Y + toCheck.Height);
+                    CollisionReaction(toCheck);
+                }
+            }
+            // ------- COLLISION TEST ------
+        }
 
-                    Vector2 xAxis = new Vector2(1.0f, 0); // these would have to change for rotating objects...
-                    Vector2 yAxis = new Vector2(0, 1.0f); // these would have to change for rotating objects...
+        private void CollisionReaction(FloatRectangle toCheck, int cornerCollisionCase = 0)
+        {
+            // http://www.metanetsoftware.com/technique/tutorialA.html#section0
+            // pretty much learned this in a class im taking right now but im
+            // too dumb to realize the application :*(...
+            Vector2 xAxis = new Vector2(1.0f, 0); // these would have to change for rotating objects...
+            Vector2 yAxis = new Vector2(0, 1.0f); // these would have to change for rotating objects...
 
-                    float xThisCenter = this.location.Center.X;
-                    float yThisCenter = this.location.Center.Y;
+            float xThisCenter = this.location.Center.X;
+            float yThisCenter = this.location.Center.Y;
 
-                    float xToTestCenter = e.location.Center.X;
-                    float yToTestCenter = e.location.Center.Y;
+            //float xToTestCenter = e.location.Center.X;
+            //float yToTestCenter = e.location.Center.Y;
+            float xToTestCenter = toCheck.Center.X;
+            float yToTestCenter = toCheck.Center.Y;
 
-                    Vector2 centers = new Vector2(xThisCenter - xToTestCenter, yThisCenter - yToTestCenter);
+            Vector2 centers = new Vector2(xThisCenter - xToTestCenter, yThisCenter - yToTestCenter);
 
-                    Vector2 thisHalfWidth = new Vector2(this.location.Width / 2, 0);
-                    Vector2 thisHalfHeight = new Vector2(0, this.location.Height / 2);
+            Vector2 thisHalfWidth = new Vector2(this.location.Width / 2, 0);
+            Vector2 thisHalfHeight = new Vector2(0, this.location.Height / 2);
 
-                    Vector2 toTestHalfWidth = new Vector2(toCheck.Width / 2, 0);
-                    Vector2 toTestHalfHeight = new Vector2(0, toCheck.Height / 2);
+            Vector2 toTestHalfWidth = new Vector2(toCheck.Width / 2, 0);
+            Vector2 toTestHalfHeight = new Vector2(0, toCheck.Height / 2);
 
-                    // x axis collision check
-                    Vector2 projXCenters = Utils.Project(centers, xAxis);
+            // x axis collision check
+            Vector2 projXCenters = Utils.Project(centers, xAxis);
 
-                    Vector2 projXThisWidth = Utils.Project(thisHalfWidth, xAxis);
+            Vector2 projXThisWidth = Utils.Project(thisHalfWidth, xAxis);
 
-                    Vector2 projXToTestWidth = Utils.Project(toTestHalfWidth, xAxis);
+            Vector2 projXToTestWidth = Utils.Project(toTestHalfWidth, xAxis);
 
-                    // y axis collision check
-                    Vector2 projYCenters = Utils.Project(centers, yAxis);
+            // y axis collision check
+            Vector2 projYCenters = Utils.Project(centers, yAxis);
 
-                    Vector2 projYThisHeight = Utils.Project(thisHalfHeight, yAxis);
+            Vector2 projYThisHeight = Utils.Project(thisHalfHeight, yAxis);
 
-                    Vector2 projYToTestHeight = Utils.Project(toTestHalfHeight, yAxis);
+            Vector2 projYToTestHeight = Utils.Project(toTestHalfHeight, yAxis);
 
-                    // Collision Times
-                    //http://gamedev.stackexchange.com/questions/17502/how-to-deal-with-corner-collisions-in-2d
-                    // check for which dir to go in opp direction of...
-                    //Vector2 collisionVector = (projXThisWidth + projXToTestWidth) - projXCenters;
-                    float xScalarFinal = (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length();
-                    float yScalarFinal = (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length();
+            // Collision Times
+            //http://gamedev.stackexchange.com/questions/17502/how-to-deal-with-corner-collisions-in-2d
+            // check for which dir to go in opp direction of...
+            float xScalarFinal = (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length();
+            float yScalarFinal = (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length();
 
-                    // DEBUG
-                    //Console.WriteLine("FLOAT X SCALAR: {0:0.00}", (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length());
-                    //Console.WriteLine("FLOAT Y SCALAR: {0:0.00}", (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length());
+            // DEBUG
+            //Console.WriteLine("FLOAT X SCALAR: {0:0.00}", (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length());
+            //Console.WriteLine("FLOAT Y SCALAR: {0:0.00}", (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length());
 
-                    if (xScalarFinal > yScalarFinal)
-                    {
-                        // DEBUG
-                        //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
-                        location.Y -= yScalarFinal * Math.Sign(movement.Y);
-
-                    }
-                    else
-                    {
-
-
-                        if (xScalarFinal == yScalarFinal) // corner collision
-                        {
-
-                            float diff = 0;
+            if (xScalarFinal > yScalarFinal)
+            {
+                // DEBUG
+                //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
+                location.Y -= yScalarFinal * Math.Sign(movement.Y);
+            }
+            else
+            {
+                if (xScalarFinal == yScalarFinal) // corner collision
+                {
+                    float diff = 0;
+                    switch(cornerCollisionCase)
+                    { 
+                        case 0:
                             if (this.location.Center.Y < toCheck.Center.Y)
                             {
                                 // on top
                                 diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
                                 location.Y -= diff;
+                                //Console.WriteLine("GOING UP");
 
                             }
                             else
@@ -182,21 +240,39 @@ namespace TheChicagoProject.Entity
                                 // on bottom
                                 diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
                                 location.Y += diff;
+                                //Console.WriteLine("GOING DOWN");
                             }
-                        }
-                        else
-                        {
-                            //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
-                            location.X -= (xScalarFinal * Math.Sign(movement.X));
-                        }
-                    }
+                        break;
+
+                        case 1:
+                            if (this.location.Center.X < toCheck.Center.X)
+                            {
+                                // on top
+                                diff = (this.location.X + this.location.Width) - toCheck.Location.X;
+                                location.X -= diff;
+                                //Console.WriteLine("GOING LEFT");
+
+                            }
+                            else
+                            {
+                                // on bottom
+                                diff = (toCheck.Location.X + toCheck.Width) - this.location.X;
+                                location.X += diff;
+                                //Console.WriteLine("GOING RIGHT");
+                            }
+                        break;
+                     }
+
+                    //Console.WriteLine("CORNER {0}", new Random().NextDouble());
+                }
+                else
+                {
+                    //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
+                    location.X -= xScalarFinal * Math.Sign(movement.X);
                 }
             }
-            // ------- COLLISION TEST ------
-
 
         }
-        
 
         /// <summary>
         /// Moves the Entity

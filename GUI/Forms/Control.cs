@@ -67,7 +67,7 @@ namespace TheChicagoProject.GUI.Forms
         {
             locAndSize = new Rectangle(0, 0, 0, 0);
             controls = new List<Control>();
-            isVisible = false;
+            isVisible = true;
             parent = null;
             this.fontFile = fontFile;
         }
@@ -105,8 +105,6 @@ namespace TheChicagoProject.GUI.Forms
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
         {
-            isVisible = false;
-
 
             // THIS SHOULD BE HANDLED BY INPUTMANAGER SOMEHOW!!
             MouseState mouseState = Mouse.GetState();
@@ -124,6 +122,8 @@ namespace TheChicagoProject.GUI.Forms
 
             foreach (Control c in controls)
                 c.Update(gameTime);
+
+            isVisible = false;
         }
 
         public Vector2 GlobalLocation()

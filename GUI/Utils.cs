@@ -85,10 +85,6 @@ namespace TheChicagoProject.GUI
         /// <returns></returns>
         public static Vector2 Project(Vector2 a, Vector2 b)
         {
-            //float scalar = (a.X * b.X + a.Y * b.Y) / (b.X * b.X + b.Y * b.Y);
-            //Console.WriteLine("AX: {0} AY: {1} BX: {2} BY: {3}", a.X, a.Y, b.X, b.Y);
-            //Console.WriteLine(scalar);
-            //return new Vector2(b.X * scalar, b.Y * scalar);
             return Vector2.Multiply(b, Vector2.Dot(a, b) / b.LengthSquared());
         }
     }
