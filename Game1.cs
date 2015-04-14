@@ -143,7 +143,7 @@ namespace TheChicagoProject
                         //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
 
-                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime); // should only appear here unless ticking while paused (?)
+
                     worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
                     collisionManager.Update();
                     break;
@@ -164,6 +164,8 @@ namespace TheChicagoProject
             }
 
             // For sprite and GUI animations
+            inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+
             renderManager.Update(gameTime);
 
             worldManager.Update(gameTime);

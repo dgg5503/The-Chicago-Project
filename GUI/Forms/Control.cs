@@ -28,9 +28,6 @@ namespace TheChicagoProject.GUI.Forms
         // Font XNB file.
         private string fontFile;
 
-        // When clicked (input manager?)
-        public event EventHandler Click;
-
         // Is this control visible?
         private bool isVisible;
 
@@ -39,6 +36,17 @@ namespace TheChicagoProject.GUI.Forms
 
         // If no root, then it must be based on global coords.
         public Control parent;
+
+        // When clicked (input manager?)
+        public event EventHandler Click;
+
+        public event EventHandler Pressed;
+
+        public event EventHandler Hover;
+
+        MouseState lastFrameMouseState;
+
+        MouseState currentFrameMouseState;
 
         /// <summary>
         /// Location of this control relative to its current container.
@@ -60,6 +68,7 @@ namespace TheChicagoProject.GUI.Forms
         /// Sets the fill of the control to some given Texture2D
         /// </summary>
         public Texture2D Fill { get { return fill; } set { fill = value; } }
+        public MouseState CurrentFrameMouseState { get { return currentFrameMouseState; } }
         /// <summary>
         /// Font for any elements which use one within this control.
         /// </summary>
@@ -118,17 +127,38 @@ namespace TheChicagoProject.GUI.Forms
         {
 
             // THIS SHOULD BE HANDLED BY INPUTMANAGER SOMEHOW!!
-            MouseState mouseState = Mouse.GetState();
+            currentFrameMouseState = Mouse.GetState();
 
             Rectangle globalControlLoc = new Rectangle((int)GlobalLocation().X, (int)GlobalLocation().Y, (int)this.Size.X, (int)this.Size.Y);
 
+            /*
             if (globalControlLoc.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
             {
                 if (Click != null)
                 {
                     Click(this, EventArgs.Empty);
                 }
+            }*/
+
+            // hover
+            if (globalControlLoc.Contains(currentFrameMouseState.Position))
+            {
+                if (Hover != null)
+                    Hover(this, EventArgs.Empty);
+
+                // pressed
+                if (lastFrameMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (Pressed != null)
+                        Pressed(this, EventArgs.Empty);
+
+                    // released / click
+                    if (currentFrameMouseState.LeftButton == ButtonState.Released && Click != null)
+                        Click(this, EventArgs.Empty);
+                }
             }
+
+            lastFrameMouseState = currentFrameMouseState;
 
 
             foreach (Control c in controls)

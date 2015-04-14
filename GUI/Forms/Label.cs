@@ -71,7 +71,7 @@ namespace TheChicagoProject.GUI.Forms
                     break;
 
                 case TextAlignment.Right:
-                    Location = new Vector2(parent.Size.X/ - Font.MeasureString(text).X, 0);
+                    Location = new Vector2(parent.Size.X - Font.MeasureString(text).X, 0);
                     break;
             }
 

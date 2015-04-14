@@ -239,6 +239,7 @@ namespace TheChicagoProject.Entity
                     float diff = 0;
                     switch(cornerCollisionCase)
                     { 
+                        // y dummy reaction
                         case 0:
                             if (this.location.Center.Y < toCheck.Center.Y)
                             {
@@ -257,6 +258,7 @@ namespace TheChicagoProject.Entity
                             }
                         break;
 
+                        // x dummy reaction
                         case 1:
                             if (this.location.Center.X < toCheck.Center.X)
                             {
