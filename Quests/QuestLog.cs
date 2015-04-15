@@ -72,7 +72,7 @@ namespace TheChicagoProject.Quests
         }
 
         /// <summary>
-        /// 
+        /// Updates all of the quests in the quest log
         /// </summary>
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
