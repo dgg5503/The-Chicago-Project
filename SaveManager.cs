@@ -130,6 +130,7 @@ namespace TheChicagoProject
                 else
                 {
                     int index, end;
+                    string attribute;
                     //get name
                     index = data.IndexOf("Name:") + 6;
                     end = data.IndexOf('"', index);
@@ -141,9 +142,45 @@ namespace TheChicagoProject
                     string description = data.Substring(index, end - index);
                     
                     //get objective
-                    index = data.IndexOf("Objective:") + 10;
+                    index = data.IndexOf("Objective:") + 11;
                     end = data.IndexOf('"', index);
                     string objective = data.Substring(index, end - index);
+
+                    //get reward
+                    index = data.IndexOf("Reward:");
+                    index = data.IndexOf("Cash Reward:", index) + 12;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int cash;
+                    if (!int.TryParse(attribute, out cash))
+                        cash = 0;
+                    index = data.IndexOf("Quest Reward:", index) + 13;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int qPoints;
+                    if (!int.TryParse(attribute, out qPoints))
+                        qPoints = 0;
+                    
+                    //get start point
+                    index = data.IndexOf("Start:");
+                    index = data.IndexOf("X:", index) + 2;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int X;
+                    if (!int.TryParse(attribute, out X))
+                        X = 10;
+                    index = data.IndexOf("Y:", index) + 2;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int Y;
+                    if (!int.TryParse(attribute, out Y))
+                        Y = 10;
+                    Vector2 start = new Vector2(X, Y);
+
+                    //get the win condition
+                    index = data.IndexOf("Condition:", index) + 10;
+                    end = data.IndexOf("\n", index);
+
                 }
 
             }
