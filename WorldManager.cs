@@ -47,7 +47,6 @@ namespace TheChicagoProject
             player.inventory.ActiveWeapon = 0;
 
             #region debug
-            Random RNG = new Random();
 
             Stream worldStream = File.OpenRead(".\\Content\\World.txt");
             StreamReader worldReader = new StreamReader(worldStream);
@@ -96,6 +95,8 @@ namespace TheChicagoProject
             // DEBUG
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 64, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new LowAI(mugger);
+            mugger.inventory.Add(new Item.Weapon(10, 1, 1, "Bam", 100, 0.5));
+            mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
             worlds["main"].manager.AddEntity(player);
             #endregion
