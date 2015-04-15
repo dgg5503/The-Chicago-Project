@@ -156,14 +156,13 @@ namespace TheChicagoProject.Quests
                     }
                     break;
                 case WinCondition.ObtainItem:
-                    if(player.inventory.Inventory.Contains(FindThis))
+                    if(player.inventory.EntityInventory.Contains(FindThis))
                     {
                         this.Completed();
                     }
                     break;
                 case WinCondition.DeliverItem:
                     throw new NotImplementedException("Please implement Player's Interact() method before implenting this");
-                    break;
                 default:
                     break;
             }
