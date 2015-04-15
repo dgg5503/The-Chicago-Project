@@ -22,8 +22,8 @@ namespace TheChicagoProject.AI
         private int[][] map;
         private int mapHeight; //Size of the map
         private int mapWidth; //Size of the map
-        private int modX; //Start X for the miniature DMap
-        private int modY; //Start Y for the miniature DMap
+        public int modX; //Start X for the miniature DMap
+        public int modY; //Start Y for the miniature DMap
 
         /// <summary>
         /// Returns the list of goal-points.
@@ -46,6 +46,7 @@ namespace TheChicagoProject.AI
             this.modX = startX;
             this.modY = startY;
             this.map = generateMap(world, goals);
+            // printMap();
         }
 
         private int[][] generateMap(World world, params int[][] goals) {
@@ -58,9 +59,10 @@ namespace TheChicagoProject.AI
             }
             //Sets the goal points to 0
             foreach (int[] g in goals) {
-                int actualX = g[0] / Tile.SIDE_LENGTH;
-                int actualY = g[1] / Tile.SIDE_LENGTH;
+                int actualX = g[0];
+                int actualY = g[1];
                 grid[actualX][actualY] = 0;
+                //Console.WriteLine("GOAL: " + actualX + ", " + actualY);
             }
 
             bool b = false;
@@ -88,17 +90,17 @@ namespace TheChicagoProject.AI
                                         b = false;
                                     }
                             }
-                            if (y - 1 >= 0) {
+                            if (y - 1 >= 0)
                                 if (grid[x][y - 1] > grid[x][y] + 1) { //middle left
                                     grid[x][y - 1] = grid[x][y] + 1;
                                     b = false;
                                 }
-                                if (x + 1 < grid.Length)
-                                    if (grid[x + 1][y - 1] > grid[x][y] + 1) { //middle right
-                                        grid[x + 1][y - 1] = grid[x][y] + 1;
-                                        b = false;
-                                    }
-                            }
+                            if (y + 1 < grid[x].Length)
+                                if (grid[x][y + 1] > grid[x][y] + 1) { //middle right
+                                    grid[x][y + 1] = grid[x][y] + 1;
+                                    b = false;
+                                }
+
                             if (x + 1 < grid.Length) {
                                 if (y - 1 >= 0)
                                     if (grid[x + 1][y - 1] > grid[x][y] + 1) { //bottom left
@@ -128,7 +130,24 @@ namespace TheChicagoProject.AI
             return grid;
         }
 
-        private bool valid(World world, int x, int y) {
+        public void printMap() {
+            Console.WriteLine("" + mapWidth + "/" + mapHeight + ": " + modX + ", " + modY + " | " + goals[0][0] + ", " + goals[0][1]);
+            for (int x = 0; x < map.Length; x++) {
+                for (int y = 0; y < map[x].Length; y++)
+                    Console.Write(format(map[x][y]) + " ");
+                Console.WriteLine();
+            }
+        }
+
+        private String format(int num) {
+            if (num < 10)
+                return "  " + num;
+            if (num < 99)
+                return " " + num;
+            return "" + num;
+        }
+
+        public bool valid(World world, int x, int y) {
             return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles.Length;
         }
     }
