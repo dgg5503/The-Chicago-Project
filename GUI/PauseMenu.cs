@@ -24,13 +24,7 @@ namespace TheChicagoProject.GUI
 
             this.Location = new Vector2(100, 100);
             this.Size = new Vector2(200, 300);
-            
-            InitializeForms();
-        }
 
-        public void InitializeForms()
-        {
-            
             resumeButton = new Button();
             resumeButton.Text = "Resume";
             resumeButton.Click += resumeButton_Click;

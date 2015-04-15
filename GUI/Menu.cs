@@ -41,21 +41,17 @@ namespace TheChicagoProject.GUI
 
             this.Location = new Vector2(100, 100);
             this.Size = new Vector2(200, 300);
-            
-            InitializeForms();
-        }
 
-        /*
-         * - Init blank constructor of control.
-         *      - Init properties (size and control dependent properties are required like text for the label)
-         *      - LOCATIONS ARE RELATIVE TO THE PARENTS TOP LEFT CORNER
-         *          - Example, this menu class is located at 100, 100 and its top left corner will draw at 100,100
-         *          - If a button is given a location of 20, 20 then on the global coord axis (relative to viewport), it will be located at 120, 120 NOT 20, 20
-         *      - After initing properties, set its parent to "this" class.
-         *      - Add it to this controls control list.
-         */
-        public void InitializeForms()
-        {
+            /*
+             * - Init blank constructor of control.
+             *      - Init properties (size and control dependent properties are required like text for the label)
+             *      - LOCATIONS ARE RELATIVE TO THE PARENTS TOP LEFT CORNER
+             *          - Example, this menu class is located at 100, 100 and its top left corner will draw at 100,100
+             *          - If a button is given a location of 20, 20 then on the global coord axis (relative to viewport), it will be located at 120, 120 NOT 20, 20
+             *      - After initing properties, set its parent to "this" class.
+             *      - Add it to this controls control list.
+             */
+
             buttons = new Button();
             buttons.Text = "START";
             buttons.Click += buttons_Click;

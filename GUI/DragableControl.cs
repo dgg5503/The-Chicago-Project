@@ -10,45 +10,26 @@ namespace TheChicagoProject.GUI.Forms
 {
     public class DragableControl : Control
     {
+        public const int SIDE_LENGTH = 64;
+
         private Label textLbl;
 
-        private Vector2 mouseOrigin;
-
-        private bool isPressed;
-
-        private DragableControl[,] controlMatrix;
-
-        string text;
-
-        private int dragMatrixX;
-        private int dragMatrixY;
-
-        public int DragMatrixX { get { return dragMatrixX; } set { dragMatrixX = value; } }
-        public int DragMatrixY { get { return dragMatrixY; } set { dragMatrixY = value; } }
-
-        public DragableControl(string text, DragableControl[,] containerMatrix)
+        public DragableControl(string text)
         {
-            // relative to container object
             this.Location = new Vector2(0, 0);
-            this.Size = new Vector2(64, 64);
+            this.Size = new Vector2(SIDE_LENGTH, SIDE_LENGTH);
 
-            this.controlMatrix = containerMatrix;
-            this.Pressed += DragableControl_Pressed;
-            this.text = text;
-
-
-            isPressed = false;
-
-            mouseOrigin = new Vector2(-1, -1);
-
-            // Find first spot in cont
-            
-            dragMatrixX = -1;
-            dragMatrixY = -1;
-
-            InitializeForms();
+            textLbl = new Label();
+            textLbl.Text = text;
+            textLbl.Size = new Vector2(50, 10);
+            textLbl.AutoResize = true;
+            textLbl.Location = new Vector2((this.Size.X / 2) - (textLbl.Size.X / 2), (this.Size.Y / 2) - (textLbl.Size.Y / 2));
+            textLbl.Alignment = TextAlignment.Center;
+            textLbl.parent = this;
+            Add(textLbl);
         }
 
+        /*
         void DragableControl_Pressed(object sender, EventArgs e)
         {
             if (controlMatrix != null && isPressed == false)
@@ -57,19 +38,7 @@ namespace TheChicagoProject.GUI.Forms
                 isPressed = true;
             }
         }
-
-        public void InitializeForms()
-        {
-            textLbl = new Label();
-            textLbl.Text = text;
-            textLbl.Size = new Vector2(50, 10);
-            textLbl.AutoResize = true;
-            textLbl.Location = new Vector2((this.Size.X / 2) - (textLbl.Size.X / 2), 10);
-            textLbl.Alignment = TextAlignment.Center;
-            textLbl.parent = this;
-            Add(textLbl);
-        }
-
+         
         public override void Update(GameTime gameTime)
         {
             if(controlMatrix != null && isPressed)
@@ -120,7 +89,7 @@ namespace TheChicagoProject.GUI.Forms
 
             base.Update(gameTime);
         }
-
+        */
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
