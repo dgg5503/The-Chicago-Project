@@ -19,7 +19,7 @@ namespace TheChicagoProject.Entity
 
         public World(Game1 game, int height, int width) {
             tiles = new Tile[height][];
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < height; x++)
                 tiles[x] = new Tile[width];
             manager = new EntityManager(game, this);
             this.worldWidth = width;
