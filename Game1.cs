@@ -104,7 +104,6 @@ namespace TheChicagoProject
             //Stack Overflow code (see below)
             this.Window.AllowUserResizing = true;
             this.Window.ClientSizeChanged += new EventHandler<EventArgs>(Window_ClientSizeChanged);
-
             base.LoadContent();
         }
 
@@ -164,8 +163,9 @@ namespace TheChicagoProject
                         //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
 
-                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime); // should only appear here unless ticking while paused (?)
+
                     worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
                     collisionManager.Update();
                     break;
                 case GameState.Pause:
@@ -185,6 +185,8 @@ namespace TheChicagoProject
             }
 
             // For sprite and GUI animations
+            
+
             renderManager.Update(gameTime);
 
             worldManager.Update(gameTime);

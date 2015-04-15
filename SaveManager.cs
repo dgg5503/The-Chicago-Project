@@ -97,25 +97,94 @@ namespace TheChicagoProject
             string[] files = Directory.GetFiles(QUEST_DIRECTORY);
             foreach(string path in files)
             {
-                using(StreamReader input = new StreamReader(path))
-                {
-                    //read input
-                    string name = input.ReadLine();
-                    string description = input.ReadLine();
-                    string objective = input.ReadLine();
-                    string position = input.ReadLine();
-                    int status = int.Parse(input.ReadLine());
-                    int reward = int.Parse(input.ReadLine());
-                    int cashReward = int.Parse(input.ReadLine());
-
-                    //parse position
-                    int X = int.Parse(position.Substring(0, position.Length - position.IndexOf(',')));
-                    int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
-                    Vector2 startPos = new Vector2(X, Y);
-
-                    
-                }
+                
             }
+        }
+
+        public Quest ParseQuest(string filename)
+        {
+            Quest quest = null;
+            using (StreamReader input = new StreamReader(filename))
+            {
+                /*
+                //read input
+                string name = input.ReadLine();
+                string description = input.ReadLine();
+                string objective = input.ReadLine();
+                string position = input.ReadLine();
+                int status = int.Parse(input.ReadLine());
+                int reward = int.Parse(input.ReadLine());
+                int cashReward = int.Parse(input.ReadLine());
+
+                //parse position
+                int X = int.Parse(position.Substring(0, position.Length - position.IndexOf(',')));
+                int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
+                Vector2 startPos = new Vector2(X, Y);
+
+                */
+                string data = input.ReadToEnd();
+                if (data.Substring(5, 10).Contains("Storyline"))
+                {
+                    //load individual quests
+                }
+                else
+                {
+                    int index, end;
+                    string attribute;
+                    //get name
+                    index = data.IndexOf("Name:") + 6;
+                    end = data.IndexOf('"', index);
+                    string name = data.Substring(index, end - index);
+
+                    //get the description
+                    index = data.IndexOf("Description:") + 13;
+                    end = data.IndexOf('"', index);
+                    string description = data.Substring(index, end - index);
+                    
+                    //get objective
+                    index = data.IndexOf("Objective:") + 11;
+                    end = data.IndexOf('"', index);
+                    string objective = data.Substring(index, end - index);
+
+                    //get reward
+                    index = data.IndexOf("Reward:");
+                    index = data.IndexOf("Cash Reward:", index) + 12;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int cash;
+                    if (!int.TryParse(attribute, out cash))
+                        cash = 0;
+                    index = data.IndexOf("Quest Reward:", index) + 13;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int qPoints;
+                    if (!int.TryParse(attribute, out qPoints))
+                        qPoints = 0;
+                    
+                    //get start point
+                    index = data.IndexOf("Start:");
+                    index = data.IndexOf("X:", index) + 2;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int X;
+                    if (!int.TryParse(attribute, out X))
+                        X = 10;
+                    index = data.IndexOf("Y:", index) + 2;
+                    end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    int Y;
+                    if (!int.TryParse(attribute, out Y))
+                        Y = 10;
+                    Vector2 start = new Vector2(X, Y);
+
+                    //get the win condition
+                    index = data.IndexOf("Condition:", index) + 10;
+                    end = data.IndexOf("\n", index);
+
+                }
+
+            }
+            return quest;
         }
     }
 }

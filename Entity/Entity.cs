@@ -34,7 +34,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="fileName">The texture filename for the entity.</param>
         /// <param name="location">The height, width, and X and Y location.</param>
-        public Entity(FloatRectangle location, string fileName)
+        public Entity(FloatRectangle location, Sprite sprite)
         {
             this.location = location;
 
@@ -49,7 +49,8 @@ namespace TheChicagoProject.Entity
              * TO RESIZE A SPRITE, EITHER DO SPRITE.RESIZE OR INSTANTIATE VIA
              * THE HEIGHT AND WIDTH FROM LOCATION RECTANGLE?????
              */
-            sprite = new Sprite(location.IntHeight, location.IntWidth, 0, fileName);
+            //sprite = new Sprite(location.IntHeight, location.IntWidth, 0, fileName);
+            this.sprite = sprite;
 
             movement = Vector2.Zero;
         }
@@ -92,14 +93,14 @@ namespace TheChicagoProject.Entity
                 location.Y = 0;
             }
 
-            if (location.X + location.Width > currentWorld.size * Tile.SIDE_LENGTH)
+            if (location.X + location.Width > currentWorld.worldWidth * Tile.SIDE_LENGTH)
             {
-                location.X = currentWorld.size * Tile.SIDE_LENGTH - location.Width;
+                location.X = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Width;
             }
 
-            if (location.Y + location.Height > currentWorld.size * Tile.SIDE_LENGTH)
+            if (location.Y + location.Height > currentWorld.worldWidth * Tile.SIDE_LENGTH)
             {
-                location.Y = currentWorld.size * Tile.SIDE_LENGTH - location.Height;
+                location.Y = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Height;
             }
             // ------ EDGE OF SCREEN TEST ------
 
@@ -238,6 +239,7 @@ namespace TheChicagoProject.Entity
                     float diff = 0;
                     switch(cornerCollisionCase)
                     { 
+                        // y dummy reaction
                         case 0:
                             if (this.location.Center.Y < toCheck.Center.Y)
                             {
@@ -256,6 +258,7 @@ namespace TheChicagoProject.Entity
                             }
                         break;
 
+                        // x dummy reaction
                         case 1:
                             if (this.location.Center.X < toCheck.Center.X)
                             {

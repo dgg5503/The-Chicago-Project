@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Storage;
 namespace TheChicagoProject.GUI.Forms
 {
     // Douglas Gliner
-    abstract class Control
+    public abstract class Control
     {
         // Private list of controls.
         private List<Control> controls;
@@ -19,14 +19,14 @@ namespace TheChicagoProject.GUI.Forms
         // Border texture
         private Texture2D border;
 
+        // Fill within the rectangle.
+        private Texture2D fill;
+
         // Default spriteFont
         private SpriteFont font;
 
         // Font XNB file.
         private string fontFile;
-
-        // When clicked (input manager?)
-        public event EventHandler Click;
 
         // Is this control visible?
         private bool isVisible;
@@ -36,6 +36,17 @@ namespace TheChicagoProject.GUI.Forms
 
         // If no root, then it must be based on global coords.
         public Control parent;
+
+        // When clicked (input manager?)
+        public event EventHandler Click;
+
+        public event EventHandler Pressed;
+
+        public event EventHandler Hover;
+
+        MouseState lastFrameMouseState;
+
+        MouseState currentFrameMouseState;
 
         /// <summary>
         /// Location of this control relative to its current container.
@@ -54,6 +65,11 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public Texture2D Border { get { return border; } set { border = value; } }
         /// <summary>
+        /// Sets the fill of the control to some given Texture2D
+        /// </summary>
+        public Texture2D Fill { get { return fill; } set { fill = value; } }
+        public MouseState CurrentFrameMouseState { get { return currentFrameMouseState; } }
+        /// <summary>
         /// Font for any elements which use one within this control.
         /// </summary>
         public SpriteFont Font { get { return font; } set { font = value; } }
@@ -61,6 +77,8 @@ namespace TheChicagoProject.GUI.Forms
         /// Returns whether or not this control is being drawn on screen.
         /// </summary>
         public bool IsVisible { get { return isVisible; } }
+
+        public Rectangle Rectangle { get { return locAndSize; } }
 
 
         public Control(string fontFile = "TimesNewRoman12")
@@ -84,7 +102,11 @@ namespace TheChicagoProject.GUI.Forms
 
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
-            // WHAT IF RESIZED????????? (?)
+            // Fill creation
+            fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.Gray);
+
+            // Border creation
             border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
             border.CreateBorder(1, Color.Black);
 
@@ -107,17 +129,38 @@ namespace TheChicagoProject.GUI.Forms
         {
 
             // THIS SHOULD BE HANDLED BY INPUTMANAGER SOMEHOW!!
-            MouseState mouseState = Mouse.GetState();
+            currentFrameMouseState = Mouse.GetState();
 
             Rectangle globalControlLoc = new Rectangle((int)GlobalLocation().X, (int)GlobalLocation().Y, (int)this.Size.X, (int)this.Size.Y);
 
+            /*
             if (globalControlLoc.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
             {
                 if (Click != null)
                 {
                     Click(this, EventArgs.Empty);
                 }
+            }*/
+
+            // hover
+            if (globalControlLoc.Contains(currentFrameMouseState.Position))
+            {
+                if (Hover != null)
+                    Hover(this, EventArgs.Empty);
+
+                // pressed
+                if (lastFrameMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (Pressed != null)
+                        Pressed(this, EventArgs.Empty);
+
+                    // released / click
+                    if (currentFrameMouseState.LeftButton == ButtonState.Released && Click != null)
+                        Click(this, EventArgs.Empty);
+                }
             }
+
+            lastFrameMouseState = currentFrameMouseState;
 
 
             foreach (Control c in controls)
@@ -140,6 +183,11 @@ namespace TheChicagoProject.GUI.Forms
                 return location;
 
             return GlobalLocation(location + parent.Location, parent.parent);
+        }
+
+        public void Clear()
+        {
+            controls.Clear();
         }
 
         public void Add(Control control)

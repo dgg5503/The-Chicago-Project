@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Item;
+using TheChicagoProject.GUI;
 using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Entity
@@ -42,7 +43,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="location">A rectangle representing the location of the player</param>
         /// <param name="fileName">The location of the sprite in the files</param>
-        public Player(FloatRectangle location, string fileName) : base(location, fileName, 10)
+        public Player(FloatRectangle location, Sprite sprite) : base(location, sprite, 10)
         {
             cash = 40;
             questPoints = 0;

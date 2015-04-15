@@ -8,11 +8,13 @@ namespace TheChicagoProject.GUI
 {
     public static class Controls
     {
-        /*
-        public static Dictionary<string, Control> guiElements = new Dictionary<string,Control>()
+
+        public static Dictionary<string, Control> guiElements = new Dictionary<string, Control>()
         {
             {"mainMenu", new Menu()},
-            {"pauseMenu", }
-        }*/
+            {"pauseMenu", new PauseMenu()},
+            {"inventoryMenu", new InventoryMenu()}
+            //
+        };
     }
 }

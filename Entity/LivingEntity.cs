@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.Item;
 using TheChicagoProject.AI;
+using TheChicagoProject.GUI;
 using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Entity
@@ -27,8 +28,8 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(FloatRectangle rect, string fileName, int health, AI.AI ai = null)
-            : base(rect, fileName) {
+        public LivingEntity(FloatRectangle rect, Sprite sprite, int health, AI.AI ai = null)
+            : base(rect, sprite) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 0D;

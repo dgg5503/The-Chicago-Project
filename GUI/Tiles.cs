@@ -25,6 +25,7 @@ namespace TheChicagoProject.GUI
             AddTile("SideWalkBrick", new Tile(true, "SideWalkBrick.png")); // 2
             AddTile("BuildingEdge", new Tile(false, "BuildingEdge.png")); // 3
             AddTile("BuildingRoof", new Tile(false, "BuildingRoof.png")); // 4
+            AddTile("Water", new Tile(false, "Water.png")); //5
         }
 
         private static void AddTile(String mapName, Tile tile) {

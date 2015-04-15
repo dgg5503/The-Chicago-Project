@@ -98,7 +98,13 @@ namespace TheChicagoProject
 
         private Player player;
 
-        private Menu menu;
+        // Width and height for everyones use.
+        private static int viewportWidth;
+        private static int viewportHeight;
+
+        // Static props so no need to make a render manager...
+        public static int ViewportWidth { get { return viewportWidth; } }
+        public static int ViewportHeight { get { return viewportHeight; } }
 
 
         /// <summary>
@@ -114,8 +120,10 @@ namespace TheChicagoProject
             this.worldManager = worldManager;
             this.mainGame = mainGame;
 
-            menu = new Menu();
+            viewportHeight = graphics.Viewport.Height;
+            viewportWidth = graphics.Viewport.Width;
 
+            // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
             // Load all textures once (constructor will only be called once, so will this method)
@@ -132,31 +140,28 @@ namespace TheChicagoProject
                 using (Stream imageStream = TitleContainer.OpenStream(Tile.Directory + kvp.Value.FileName))
                 {
                     kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
-                    
+
                 }
-                //kvp.Value.Texture = mainGame.Content.Load<Texture2D>("Tiles/" + kvp.Value.FileName);
             }
             //--------TILES--------
 
-            //------ENTITIES-------
-            foreach (World z in worldManager.worlds.Values)
+            //------SPRITES-------
+            foreach (KeyValuePair<string, Sprite> kvp in Sprites.spritesDictionary)
             {
-                foreach (Entity.Entity e in z.manager.EntityList)
+                using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + kvp.Value.FileName))
                 {
-                    
-                    using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
-                    {
-                        e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
-                        Console.WriteLine("Loaded " + e.sprite.FileName);
-                    }
-                    //e.sprite.Texture = mainGame.Content.Load<Texture2D>("Sprites/" + e.sprite.FileName);
+                    kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
+
                 }
             }
-            //------ENTITIES-------
+            //------SPRITES-------
 
             //--------GUI----------
-            menu.LoadTextures(graphics);
-            menu.LoadContent(mainGame.Content);
+            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
+            {
+                c.Value.LoadTextures(graphics);
+                c.Value.LoadContent(mainGame.Content);
+            }
             //--------GUI----------
 
         }
@@ -164,11 +169,11 @@ namespace TheChicagoProject
         public void Update(GameTime gameTime)
         {
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
-
             // if the GUI is not visible, dont update it.
-            if (menu.IsVisible)
+            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
             {
-                menu.Update(gameTime);
+                if(c.Value.IsVisible)
+                    c.Value.Update(gameTime);
             }
            
         }
@@ -242,10 +247,39 @@ namespace TheChicagoProject
          */
         public void DrawGUI(GameTime gameTime)
         {
-            if (Game1.state == GameState.Menu)
+            switch(Game1.state)
             {
-                mainGame.IsMouseVisible = true;
-                menu.Draw(spriteBatch, gameTime);
+                case GameState.Menu:
+                    Controls.guiElements["mainMenu"].Draw(spriteBatch, gameTime);
+                    break;
+
+                case GameState.Pause:
+                    // Transparent fadeout.
+                    Controls.guiElements["pauseMenu"].Draw(spriteBatch, gameTime);
+                    
+                    break;
+
+                case GameState.Inventory:
+                    Controls.guiElements["inventoryMenu"].Draw(spriteBatch, gameTime);
+                    break;
+                    
+                case GameState.FastTravel:
+                    break;
+
+                case GameState.Game:
+                    // UI (health, current wep, other stuff)
+                    break;
+
+                case GameState.QuestLog:
+                    break;
+
+                case GameState.Shop:
+                    break;
+
+                case GameState.WeaponWheel:
+
+                    //weapons come from holster
+                    break;
             }
             
         }
