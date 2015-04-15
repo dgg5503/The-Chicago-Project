@@ -251,7 +251,6 @@ namespace TheChicagoProject
             {
                 case GameState.Menu:
                     Controls.guiElements["mainMenu"].Draw(spriteBatch, gameTime);
-                    Controls.guiElements["testDrag"].Draw(spriteBatch, gameTime);
                     break;
 
                 case GameState.Pause:

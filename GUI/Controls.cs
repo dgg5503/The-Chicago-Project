@@ -13,7 +13,6 @@ namespace TheChicagoProject.GUI
         {
             {"mainMenu", new Menu()},
             {"pauseMenu", new PauseMenu()},
-            {"testDrag", new DragableControl()},
             {"inventoryMenu", new InventoryMenu()}
             //
         };
