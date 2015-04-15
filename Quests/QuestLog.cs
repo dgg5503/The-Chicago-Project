@@ -55,6 +55,26 @@ namespace TheChicagoProject.Quests
             return questsOfStatus;
         }
 
+        /// <summary>
+        /// Returns a list of all quests that match the given status
+        /// </summary>
+        /// <param name="status">The status you are looking for: 0 - Unavailable, 1 - Unstarted, 2 - Started, 3 - Completed</param>
+        /// <returns></returns>
+        public List<Quest> GetByStatus(State status)
+        {
+            List<Quest> questsOfStatus = new List<Quest>();
+            foreach (Quest quest in log.Values)
+            {
+                if (quest.Status == (int)status)
+                    questsOfStatus.Add(quest);
+            }
+            return questsOfStatus;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             foreach(Quest quest in log.Values)
