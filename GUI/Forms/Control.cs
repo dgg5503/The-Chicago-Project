@@ -183,6 +183,12 @@ namespace TheChicagoProject.GUI.Forms
             return GlobalLocation(location + parent.Location, parent.parent);
         }
 
+        public void Clear()
+        {
+            controls.Clear();
+
+        }
+
         public void Add(Control control)
         {
             // Prevents infinite looping. If for some reason this does occur, throw exception because itll crash the game anyway
