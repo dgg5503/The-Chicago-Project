@@ -98,7 +98,7 @@ namespace TheChicagoProject.Entity
                 location.X = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Width;
             }
 
-            if (location.Y + location.Height > currentWorld.worldWidth * Tile.SIDE_LENGTH)
+            if (location.Y + location.Height > currentWorld.worldHeight * Tile.SIDE_LENGTH)
             {
                 location.Y = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Height;
             }
