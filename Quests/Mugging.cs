@@ -27,7 +27,7 @@ namespace TheChicagoProject.Quests
 
 
         //constructor
-        public Mugging(string name, string objective, string description, Vector2 start, Player player, WorldManager manager) : base(name, objective, description, start, manager, 0, 10)
+        public Mugging(string name, string objective, string description, Vector2 start, Player player, WorldManager manager) : base(name, objective, description, start, player, manager, WinCondition.EnemyDies, 0, 10)
         {
             this.player = player;
             mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), Sprites.spritesDictionary["mugger"], 10);
@@ -36,9 +36,10 @@ namespace TheChicagoProject.Quests
             mugger.ai = muggerAI;
             entitites = new List<Entity.Entity>();
             entitites.Add(mugger);
+            EnemyToKill = mugger;
             //manager.CurrentWorld.manager.AddEntity(mugger);
         }
-
+        /*
         public override void Update()
         {
             if(mugger.health <= 0)
@@ -51,7 +52,7 @@ namespace TheChicagoProject.Quests
                 mugger.Attack(0, knife);
             }
         }
-
+        */
         public override void StartQuest()
         {
             if (mugger.health <= 0)
