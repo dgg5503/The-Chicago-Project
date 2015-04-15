@@ -97,25 +97,57 @@ namespace TheChicagoProject
             string[] files = Directory.GetFiles(QUEST_DIRECTORY);
             foreach(string path in files)
             {
-                using(StreamReader input = new StreamReader(path))
-                {
-                    //read input
-                    string name = input.ReadLine();
-                    string description = input.ReadLine();
-                    string objective = input.ReadLine();
-                    string position = input.ReadLine();
-                    int status = int.Parse(input.ReadLine());
-                    int reward = int.Parse(input.ReadLine());
-                    int cashReward = int.Parse(input.ReadLine());
-
-                    //parse position
-                    int X = int.Parse(position.Substring(0, position.Length - position.IndexOf(',')));
-                    int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
-                    Vector2 startPos = new Vector2(X, Y);
-
-                    
-                }
+                
             }
+        }
+
+        public Quest ParseQuest(string filename)
+        {
+            Quest quest = null;
+            using (StreamReader input = new StreamReader(filename))
+            {
+                /*
+                //read input
+                string name = input.ReadLine();
+                string description = input.ReadLine();
+                string objective = input.ReadLine();
+                string position = input.ReadLine();
+                int status = int.Parse(input.ReadLine());
+                int reward = int.Parse(input.ReadLine());
+                int cashReward = int.Parse(input.ReadLine());
+
+                //parse position
+                int X = int.Parse(position.Substring(0, position.Length - position.IndexOf(',')));
+                int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
+                Vector2 startPos = new Vector2(X, Y);
+
+                */
+                string data = input.ReadToEnd();
+                if (data.Substring(5, 10).Contains("Storyline"))
+                {
+                    //load individual quests
+                }
+                else
+                {
+                    int index, end;
+                    //get name
+                    index = data.IndexOf("Name:") + 6;
+                    end = data.IndexOf('"', index);
+                    string name = data.Substring(index, end - index);
+
+                    //get the description
+                    index = data.IndexOf("Description:") + 13;
+                    end = data.IndexOf('"', index);
+                    string description = data.Substring(index, end - index);
+                    
+                    //get objective
+                    index = data.IndexOf("Objective:") + 10;
+                    end = data.IndexOf('"', index);
+                    string objective = data.Substring(index, end - index);
+                }
+
+            }
+            return quest;
         }
     }
 }
