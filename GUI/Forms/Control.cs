@@ -78,6 +78,8 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public bool IsVisible { get { return isVisible; } }
 
+        public Rectangle Rectangle { get { return locAndSize; } }
+
 
         public Control(string fontFile = "TimesNewRoman12")
         {
@@ -181,6 +183,11 @@ namespace TheChicagoProject.GUI.Forms
                 return location;
 
             return GlobalLocation(location + parent.Location, parent.parent);
+        }
+
+        public void Clear()
+        {
+            controls.Clear();
         }
 
         public void Add(Control control)

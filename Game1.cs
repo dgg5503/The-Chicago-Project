@@ -100,6 +100,10 @@ namespace TheChicagoProject
             border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
             #endregion
 
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.ApplyChanges();
+
             base.LoadContent();
         }
 
@@ -145,6 +149,7 @@ namespace TheChicagoProject
 
 
                     worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
                     collisionManager.Update();
                     break;
                 case GameState.Pause:
@@ -164,7 +169,7 @@ namespace TheChicagoProject
             }
 
             // For sprite and GUI animations
-            inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+            
 
             renderManager.Update(gameTime);
 
