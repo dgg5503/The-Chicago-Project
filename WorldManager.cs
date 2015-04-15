@@ -41,7 +41,7 @@ namespace TheChicagoProject
             current = "main";
             this.mainGame = game;
 
-            player = new Player(new FloatRectangle(512, 512, 32, 32), "player.png");
+            player = new Player(new FloatRectangle(64, 64, 32, 32), "player.png");
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
@@ -83,8 +83,10 @@ namespace TheChicagoProject
 
 
             // DEBUG
-            LivingEntity mugger = new LivingEntity(new FloatRectangle(512, 512, 32, 32), "player.png", 10);
+            LivingEntity mugger = new LivingEntity(new FloatRectangle(128, 128, 32, 32), "player.png", 10);
             mugger.ai = new LowAI(mugger);
+            mugger.inventory.Add(new Item.Weapon(10, 1, 1, "Bam", 100, 0.5));
+            mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
             #endregion
             worldQuests = new QuestLog();

@@ -162,7 +162,8 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
-                WorldManager.player.Interact();
+                //WorldManager.player.Interact();
+                mainGame.worldManager.CurrentWorld.playerMap.printMap();
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {

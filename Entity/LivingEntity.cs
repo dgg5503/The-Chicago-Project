@@ -70,30 +70,31 @@ namespace TheChicagoProject.Entity
         /// Moves the Living Entity
         /// </summary>
         public override void Move() {
+            float move = 1.5f;
             switch (direction) {
                 case Direction.Down:
-                    movement += new Vector2(0, 1);
+                    movement = new Vector2(0, move);
                     break;
                 case Direction.DownLeft:
-                    movement += new Vector2(-1, 1);
+                    movement = new Vector2(-move, move);
                     break;
                 case Direction.DownRight:
-                    movement += new Vector2(1, 1);
+                    movement = new Vector2(move, move);
                     break;
                 case Direction.Left:
-                    movement += new Vector2(-1, 0);
+                    movement = new Vector2(-move, 0);
                     break;
                 case Direction.Right:
-                    movement += new Vector2(1, 0);
+                    movement = new Vector2(move, 0);
                     break;
                 case Direction.Up:
-                    movement += new Vector2(0, -1);
+                    movement = new Vector2(0, -move);
                     break;
                 case Direction.UpLeft:
-                    movement += new Vector2(-1, -1);
+                    movement = new Vector2(-move, -move);
                     break;
                 case Direction.UpRight:
-                    movement += new Vector2(-1, 1);
+                    movement = new Vector2(move, -move);
                     break;
             }
         }
