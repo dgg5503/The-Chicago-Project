@@ -36,7 +36,7 @@ namespace TheChicagoProject.GUI
                 currentControl.parent = this;
                 Add(currentControl);
             }
-                // hi
+                // WHY
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
