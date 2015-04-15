@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using TheChicagoProject.Quests;
 using TheChicagoProject.AI;
+using System.IO;
 #endregion
 // DEBUG
 using TheChicagoProject.GUI;
@@ -41,51 +42,63 @@ namespace TheChicagoProject
             current = "main";
             this.mainGame = game;
 
-            player = new Player(new FloatRectangle(512, 512, 32, 32), Sprites.spritesDictionary["player"]);
+            player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
             #region debug
-            World tmpWorld = new World(game, 100);
-            Random RNG = new Random();
-            for(int x = 0; x < tmpWorld.size; x++)
-                for (int y = 0; y < tmpWorld.size; y++)
+
+            Stream worldStream = File.OpenRead(".\\Content\\World.txt");
+            StreamReader worldReader = new StreamReader(worldStream);
+
+            World tmpWorld = new World(game, int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
+
+            string line = worldReader.ReadLine();
+            int row = 0;
+            while (line != null)
+            {
+                for (int col = 0; col < line.Length; ++col)
                 {
-                    // get random tile from dict.
-                    //tmpWorld.tiles[x][y] = Tiles.tilesDictionary.Values.ToArray()[RNG.Next(0, Tiles.tilesDictionary.Count)];
-                    tmpWorld.tiles[x][y] = Tiles.tilesDictionary["SideWalkBrick"];
+                    switch (line[col])
+                    {
+                        case '0':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["RoadTar"];
+                            break;
 
+                        case '1':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["RoadLine"];
+                            break;
 
+                        case '2':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["SideWalkBrick"];
+                            break;
+
+                        case '3':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingEdge"];
+                            break;
+
+                        case '4':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingRoof"];
+                            break;
+
+                        case '5':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
+                            break;
+                    }
                 }
+                row++;
+                line = worldReader.ReadLine();
+            }
 
-            tmpWorld.tiles[0][0] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[0][1] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[0][2] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[0][3] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[0][4] = Tiles.tilesDictionary["BuildingEdge"];
-
-            tmpWorld.tiles[3][3] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[4][4] = Tiles.tilesDictionary["BuildingEdge"];
-
-
-            tmpWorld.tiles[6][3] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[6][4] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[6][5] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[6][6] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[6][7] = Tiles.tilesDictionary["BuildingEdge"];
-            tmpWorld.tiles[5][4] = Tiles.tilesDictionary["BuildingEdge"];
-
-            worlds["main"] = tmpWorld;
-
-            //Add player to the world
-            worlds["main"].manager.AddEntity(player);
-
-
+            worlds.Add("main", tmpWorld);
 
             // DEBUG
-            LivingEntity mugger = new LivingEntity(new FloatRectangle(512, 512, 32, 32), Sprites.spritesDictionary["player"], 10);
+            LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 128, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new LowAI(mugger);
+            mugger.inventory.Add(new Item.Weapon(10, 1, 1, "Bam", 100, 0.5));
+            mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
+            worlds["main"].manager.AddEntity(player);
             #endregion
             worldQuests = new QuestLog();
         }

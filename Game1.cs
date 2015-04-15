@@ -44,6 +44,7 @@ namespace TheChicagoProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private bool screenChanged;
         public RenderManager renderManager;
         public WorldManager worldManager;
         public InputManager inputManager;
@@ -100,11 +101,22 @@ namespace TheChicagoProject
             border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
             #endregion
 
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.ApplyChanges();
-
+            //Stack Overflow code (see below)
+            this.Window.AllowUserResizing = true;
+            this.Window.ClientSizeChanged += new EventHandler<EventArgs>(Window_ClientSizeChanged);
             base.LoadContent();
+        }
+
+        /// <summary>
+        /// Code taken from Stack Overflow, because it's amazing!
+        /// http://gamedev.stackexchange.com/questions/68914/issue-with-monogame-resizing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Window_ClientSizeChanged(object sender, EventArgs e) {
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            screenChanged = true;
         }
 
         /// <summary>
@@ -128,6 +140,10 @@ namespace TheChicagoProject
                 Exit();
             */
             //FSM
+            if (screenChanged) {
+                graphics.ApplyChanges();
+                screenChanged = false;
+            }
             switch (state) {
                 case GameState.Menu:
                     break;

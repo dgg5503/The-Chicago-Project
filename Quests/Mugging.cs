@@ -56,7 +56,7 @@ namespace TheChicagoProject.Quests
         public override void StartQuest()
         {
             if (mugger.health <= 0)
-                base.Completed(this.player);
+                base.Completed();
             base.StartQuest();
         }
     

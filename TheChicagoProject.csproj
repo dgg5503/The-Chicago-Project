@@ -48,7 +48,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Collision\CollisionTile.cs" />
     <Compile Include="GUI\Controls.cs" />
-    <Compile Include="GUI\DragableContainer.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
     <Compile Include="GUI\Forms\Control.cs" />
     <Compile Include="GUI\DragableControl.cs" />
@@ -115,6 +114,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tiles\SideWalkBrick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Tiles\Water.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\World.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
