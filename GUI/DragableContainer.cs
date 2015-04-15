@@ -24,20 +24,24 @@ namespace TheChicagoProject.GUI
         /// Holds a dragable control
         /// </summary>
         /// <param name="dragableControl">The dragable control you want in this container.</param>
-        public DragableContainer(DragableContainer[,] containerMatrix, string text, Vector2 location)
+        public DragableContainer(DragableControl[,] containerMatrix, string text, Vector2 location)
         {
             this.Size = new Vector2(70, 70);
             this.Location = location;
 
             currentControl = new DragableControl(text, containerMatrix);
 
+            
             if (currentControl != null)
             {
                 currentControl.parent = this;
                 Add(currentControl);
             }
+            
                 // WHY
         }
+
+        
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {

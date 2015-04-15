@@ -39,7 +39,7 @@ namespace TheChicagoProject.GUI
             for (int x = 0; x < items.GetLength(0); x++)
                 for (int y = 0; y < items.GetLength(1); y++)
                 {
-                    items[x, y] = new DragableContainer(items, String.Format("{0} {1}", x, y), new Vector2((70 * x) + 10, (70 * y) + 10)) { parent = this };
+                   // items[x, y] = new DragableContainer(items, String.Format("{0} {1}", x, y), new Vector2((70 * x) + 10, (70 * y) + 10)) { parent = this };
 
                     Add(items[x, y]);
                 }
