@@ -9,6 +9,10 @@ namespace TheChicagoProject.GUI
     static class Sprites
     {
         // Dictionary of sprites and their file name.
+        /*
+         * NOTES:
+         * - Add all sprites in the entire game to this dicitionary so they can be grabbed at any time during the game!
+         */
         public readonly static Dictionary<string, Sprite> spritesDictionary = new Dictionary<string, Sprite>
         {
             {"mugger", new Sprite(32, 32, 0, "mugger.png")},

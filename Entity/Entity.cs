@@ -93,14 +93,14 @@ namespace TheChicagoProject.Entity
                 location.Y = 0;
             }
 
-            if (location.X + location.Width > currentWorld.size * Tile.SIDE_LENGTH)
+            if (location.X + location.Width > currentWorld.worldWidth * Tile.SIDE_LENGTH)
             {
-                location.X = currentWorld.size * Tile.SIDE_LENGTH - location.Width;
+                location.X = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Width;
             }
 
-            if (location.Y + location.Height > currentWorld.size * Tile.SIDE_LENGTH)
+            if (location.Y + location.Height > currentWorld.worldHeight * Tile.SIDE_LENGTH)
             {
-                location.Y = currentWorld.size * Tile.SIDE_LENGTH - location.Height;
+                location.Y = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Height;
             }
             // ------ EDGE OF SCREEN TEST ------
 
@@ -239,6 +239,7 @@ namespace TheChicagoProject.Entity
                     float diff = 0;
                     switch(cornerCollisionCase)
                     { 
+                        // y dummy reaction
                         case 0:
                             if (this.location.Center.Y < toCheck.Center.Y)
                             {
@@ -257,6 +258,7 @@ namespace TheChicagoProject.Entity
                             }
                         break;
 
+                        // x dummy reaction
                         case 1:
                             if (this.location.Center.X < toCheck.Center.X)
                             {

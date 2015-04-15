@@ -12,7 +12,8 @@ namespace TheChicagoProject.GUI
         public static Dictionary<string, Control> guiElements = new Dictionary<string, Control>()
         {
             {"mainMenu", new Menu()},
-            {"pauseMenu", new PauseMenu()}
+            {"pauseMenu", new PauseMenu()},
+            {"inventoryMenu", new InventoryMenu()}
             //
         };
     }

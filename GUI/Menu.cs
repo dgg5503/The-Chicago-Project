@@ -16,15 +16,26 @@ namespace TheChicagoProject.GUI
 
     // Each GUI overlay is its own Form (think of Windows forms, but the desktop being the game and the forms being these menus)
 
+
+    // Make sure to extend Control from .GUI.Forms!
     class Menu : Control
     {
+        // Place your controls here like buttons or labels
+        //---- CONTROLS ----
+
         // Header of the menu
         private Label header;
 
         // Buttons on the menu
         private Button buttons;
 
+        //---- CONTROLS ----
 
+        /*
+         * - In the constructor you must set atleast a size or else crash (textures are loaded on the fly since they are generated)
+         * - Call the function Initialize forms to modify and init your controls.
+         * 
+         */
         public Menu()
         {
 
@@ -34,6 +45,15 @@ namespace TheChicagoProject.GUI
             InitializeForms();
         }
 
+        /*
+         * - Init blank constructor of control.
+         *      - Init properties (size and control dependent properties are required like text for the label)
+         *      - LOCATIONS ARE RELATIVE TO THE PARENTS TOP LEFT CORNER
+         *          - Example, this menu class is located at 100, 100 and its top left corner will draw at 100,100
+         *          - If a button is given a location of 20, 20 then on the global coord axis (relative to viewport), it will be located at 120, 120 NOT 20, 20
+         *      - After initing properties, set its parent to "this" class.
+         *      - Add it to this controls control list.
+         */
         public void InitializeForms()
         {
             buttons = new Button();
@@ -63,6 +83,9 @@ namespace TheChicagoProject.GUI
             Add(header);
         }
 
+        /*
+         * - As you can tell, clicking is automatically handled in the control class.
+         */
         void buttons_Click(object sender, EventArgs e)
         {
             Game1.state = GameState.Game;
@@ -79,6 +102,10 @@ namespace TheChicagoProject.GUI
             
         }
 
+
+        /*
+         * - To draw border or fill simply do sb.Draw(border or fill, and then this.GlobalLocation(), color.white)
+         */
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);

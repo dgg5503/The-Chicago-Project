@@ -44,6 +44,7 @@ namespace TheChicagoProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private bool screenChanged;
         public RenderManager renderManager;
         public WorldManager worldManager;
         public InputManager inputManager;
@@ -100,7 +101,22 @@ namespace TheChicagoProject
             border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
             #endregion
 
+            //Stack Overflow code (see below)
+            this.Window.AllowUserResizing = true;
+            this.Window.ClientSizeChanged += new EventHandler<EventArgs>(Window_ClientSizeChanged);
             base.LoadContent();
+        }
+
+        /// <summary>
+        /// Code taken from Stack Overflow, because it's amazing!
+        /// http://gamedev.stackexchange.com/questions/68914/issue-with-monogame-resizing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Window_ClientSizeChanged(object sender, EventArgs e) {
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            screenChanged = true;
         }
 
         /// <summary>
@@ -124,6 +140,10 @@ namespace TheChicagoProject
                 Exit();
             */
             //FSM
+            if (screenChanged) {
+                graphics.ApplyChanges();
+                screenChanged = false;
+            }
             switch (state) {
                 case GameState.Menu:
                     break;
@@ -143,8 +163,9 @@ namespace TheChicagoProject
                         //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
 
-                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime); // should only appear here unless ticking while paused (?)
+
                     worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
                     collisionManager.Update();
                     break;
                 case GameState.Pause:
@@ -164,6 +185,8 @@ namespace TheChicagoProject
             }
 
             // For sprite and GUI animations
+            
+
             renderManager.Update(gameTime);
 
             worldManager.Update(gameTime);

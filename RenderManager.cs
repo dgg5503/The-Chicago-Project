@@ -98,7 +98,13 @@ namespace TheChicagoProject
 
         private Player player;
 
-        //private Menu menu;
+        // Width and height for everyones use.
+        private static int viewportWidth;
+        private static int viewportHeight;
+
+        // Static props so no need to make a render manager...
+        public static int ViewportWidth { get { return viewportWidth; } }
+        public static int ViewportHeight { get { return viewportHeight; } }
 
 
         /// <summary>
@@ -114,8 +120,10 @@ namespace TheChicagoProject
             this.worldManager = worldManager;
             this.mainGame = mainGame;
 
-            //menu = new Menu();
+            viewportHeight = graphics.Viewport.Height;
+            viewportWidth = graphics.Viewport.Width;
 
+            // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
             // Load all textures once (constructor will only be called once, so will this method)
@@ -136,23 +144,6 @@ namespace TheChicagoProject
                 }
             }
             //--------TILES--------
-
-            /*
-            //------ENTITIES-------
-            foreach (World z in worldManager.worlds.Values)
-            {
-                foreach (Entity.Entity e in z.manager.EntityList)
-                {
-                    
-                    using (Stream imageStream = TitleContainer.OpenStream(Sprite.Directory + e.sprite.FileName))
-                    {
-                        e.sprite.Texture = Texture2D.FromStream(graphics, imageStream);
-                        //Console.WriteLine("Loaded " + e.sprite.FileName);
-                    }
-                }
-            }
-            //------ENTITIES-------
-            */
 
             //------SPRITES-------
             foreach (KeyValuePair<string, Sprite> kvp in Sprites.spritesDictionary)
@@ -265,11 +256,13 @@ namespace TheChicagoProject
                 case GameState.Pause:
                     // Transparent fadeout.
                     Controls.guiElements["pauseMenu"].Draw(spriteBatch, gameTime);
+                    
                     break;
 
                 case GameState.Inventory:
+                    Controls.guiElements["inventoryMenu"].Draw(spriteBatch, gameTime);
                     break;
-
+                    
                 case GameState.FastTravel:
                     break;
 

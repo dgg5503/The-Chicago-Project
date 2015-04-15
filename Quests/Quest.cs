@@ -26,6 +26,12 @@ namespace TheChicagoProject.Quests
         private int reward;
         private int cashReward;
         private WorldManager worldManager;
+        private WinCondition winCondition;
+        private LivingEntity enemyToKill;
+        private LivingEntity recipient;
+        private Item.Item delivery;
+        private Item.Item findThis; //Why are variable names that mean something so hard.
+        private Player player;
 
         public List<Entity.Entity> entitites;
 
@@ -62,9 +68,14 @@ namespace TheChicagoProject.Quests
                     cashReward = value;
             }
         }
+        public WinCondition WinCondition { get { return winCondition; } set { winCondition = value; } }
+        public LivingEntity EnemyToKill { get { return enemyToKill; } set { enemyToKill = value; } }
+        public LivingEntity Recipient { get { return recipient; } set { recipient = value; } }
+        public Item.Item Delivery { get { return delivery; } set { delivery = value; } }
+        public Item.Item FindThis { get { return findThis; } set { findThis = value; } }
 
         //Constructor
-        public Quest(string name, string objective, string description, Vector2 start, WorldManager worldManager, int reward = 1, int cashReward = 10)
+        public Quest(string name, string objective, string description, Vector2 start, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 1, int cashReward = 10)
         {
             this.name = name;
             this.objective = objective;
@@ -72,7 +83,9 @@ namespace TheChicagoProject.Quests
             this.startPoint = start;
             this.Reward = reward;
             this.CashReward = cashReward;
+            this.player = player;
             this.worldManager = worldManager;
+            this.winCondition = winCondition;
             status = 0;
         }
 
@@ -80,9 +93,9 @@ namespace TheChicagoProject.Quests
         /// Updates the player's quest log, gives them the reward and updates this quest object's status
         /// </summary>
         /// <param name="player">The player object</param>
-        public void Completed(Player player)
+        public void Completed()
         {
-            status = 3;
+            status = (int)State.Completed;
             player.Cash += cashReward;
             player.QuestPoints += reward;
         }
@@ -92,7 +105,7 @@ namespace TheChicagoProject.Quests
         /// </summary>
         public virtual void StartQuest()
         {
-            status = 2;
+            status = (int)State.InProgress;
             //initialize each entity
             foreach (Entity.Entity entity in entitites)
             {
@@ -106,7 +119,7 @@ namespace TheChicagoProject.Quests
         /// </summary>
         public virtual void SetAvailable()
         {
-            status = 1;
+            status = (int)State.Unstarted;
         }
 
         /// <summary>
@@ -114,15 +127,64 @@ namespace TheChicagoProject.Quests
         /// </summary>
         public virtual void SetUnavailable()
         {
-            status = 0;
+            status = (int)State.Unavailable;
         }
 
         /// <summary>
         /// Checks to see if the quest has been completed
         /// </summary>
-        public virtual void Update(){}
+        public virtual void Update()
+        {
+            switch (winCondition)
+            {
+                case WinCondition.EnemyDies:
+                    if (enemyToKill.health <= 0)
+                    {
+                        this.Completed();
+                    }
+                    break;
+                case WinCondition.AllEnemiesDead:
+                    bool allDead = true;
+                    foreach(LivingEntity enemy in entitites)
+                    {
+                        if (enemy.health > 0)
+                            allDead = false;
+                    }
+                    if(allDead)
+                    {
+                        this.Completed();
+                    }
+                    break;
+                case WinCondition.ObtainItem:
+                    if(player.inventory.EntityInventory.Contains(FindThis))
+                    {
+                        this.Completed();
+                    }
+                    break;
+                case WinCondition.DeliverItem:
+                    throw new NotImplementedException("Please implement Player's Interact() method before implenting this");
+                default:
+                    break;
+            }
+        }
         
 
 
+    }//class
+
+    public enum WinCondition
+    {
+        EnemyDies,
+        AllEnemiesDead,
+        ObtainItem,
+        DeliverItem
+    }
+
+    public enum State
+    {
+        Unavailable = 0,
+        Unstarted = 1,
+        InProgress = 2,
+        Completed = 3
     }
 }

@@ -11,6 +11,9 @@ namespace TheChicagoProject.Item
         private int[] holster;
         private int activeWeapon;
 
+        //property to get items from the inventory more easily. If you remove this, make it possible to access the stuff in the inventory from the outside please. - Sean
+        public List<Item> EntityInventory { get { return inventory; } }
+
         /// <summary>
         /// Gets and sets the active weapon, if the incoming switch is invalid, it changes it to the first weapon
         /// </summary>
