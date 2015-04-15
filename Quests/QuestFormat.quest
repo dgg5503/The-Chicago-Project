@@ -1,0 +1,22 @@
+Name: "Mugging"
+Objective: "Kill the mugger"
+Description: "A mugger is attacking you and you need to kill him"
+Start:
+	X: 10
+	Y: 10
+Reward:
+	Cash: 10
+	Q-Points:0
+
+Living Entity:
+	ID: mugger
+	Start:
+		X: 10
+		y: 10
+	Texture: "mugger"
+	Health: 40
+	AI: Low
+
+
+Finish:
+	mugger.Health <= 0
