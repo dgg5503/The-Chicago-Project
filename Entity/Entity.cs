@@ -26,8 +26,12 @@ namespace TheChicagoProject.Entity
 
         public World currentWorld;
 
-        // The current tile the entity is in...
+        // The current collision tile the entity is in...
         public CollisionTile CollisionTile;
+
+        // Applied collision vector
+        public Vector2 collisionReactionVector;
+        
 
         /// <summary>
         /// The constructor for the base entity.
@@ -51,7 +55,7 @@ namespace TheChicagoProject.Entity
              */
             //sprite = new Sprite(location.IntHeight, location.IntWidth, 0, fileName);
             this.sprite = sprite;
-
+            collisionReactionVector = Vector2.Zero;
             movement = Vector2.Zero;
         }
 
@@ -172,8 +176,10 @@ namespace TheChicagoProject.Entity
                  */
                 if (isColliding)
                 {
+                   
                     CollisionReaction(toCheck);
                 }
+                
             }
             // ------- COLLISION TEST ------
         }
@@ -230,7 +236,8 @@ namespace TheChicagoProject.Entity
             {
                 // DEBUG
                 //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
-                location.Y -= yScalarFinal * Math.Sign(movement.Y);
+                collisionReactionVector = new Vector2(0, yScalarFinal * Math.Sign(movement.Y));
+                //location.Y -= yScalarFinal * Math.Sign(movement.Y);
             }
             else
             {
@@ -245,7 +252,8 @@ namespace TheChicagoProject.Entity
                             {
                                 // on top
                                 diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
-                                location.Y -= diff;
+                                collisionReactionVector = new Vector2(0, diff);
+                                //location.Y -= diff;
                                 //Console.WriteLine("GOING UP");
 
                             }
@@ -253,7 +261,8 @@ namespace TheChicagoProject.Entity
                             {
                                 // on bottom
                                 diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
-                                location.Y += diff;
+                                collisionReactionVector = new Vector2(0, diff * -1);
+                                //location.Y += diff;
                                 //Console.WriteLine("GOING DOWN");
                             }
                         break;
@@ -264,7 +273,8 @@ namespace TheChicagoProject.Entity
                             {
                                 // on top
                                 diff = (this.location.X + this.location.Width) - toCheck.Location.X;
-                                location.X -= diff;
+                                collisionReactionVector = new Vector2(diff, 0);
+                                //location.X -= diff;
                                 //Console.WriteLine("GOING LEFT");
 
                             }
@@ -272,7 +282,8 @@ namespace TheChicagoProject.Entity
                             {
                                 // on bottom
                                 diff = (toCheck.Location.X + toCheck.Width) - this.location.X;
-                                location.X += diff;
+                                collisionReactionVector = new Vector2(diff * -1, 0);
+                                //location.X += diff;
                                 //Console.WriteLine("GOING RIGHT");
                             }
                         break;
@@ -283,9 +294,13 @@ namespace TheChicagoProject.Entity
                 else
                 {
                     //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
-                    location.X -= xScalarFinal * Math.Sign(movement.X);
+                    collisionReactionVector = new Vector2(xScalarFinal * Math.Sign(movement.X), 0);
+                    //location.X -= xScalarFinal * Math.Sign(movement.X);
                 }
             }
+
+            location.Location -= collisionReactionVector;
+            
 
         }
 

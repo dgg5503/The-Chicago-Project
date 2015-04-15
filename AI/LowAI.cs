@@ -25,8 +25,8 @@ namespace TheChicagoProject.AI
         public override void Update(GameTime time, EntityManager manager) {
             DijkstraMap map = manager.world.playerMap;
             // Float --> Int
-            int pX = entity.location.IntX / Tile.SIDE_LENGTH - map.modX;
-            int pY = entity.location.IntY / Tile.SIDE_LENGTH - map.modY;
+            int pX = (int) (entity.location.Center.X / Tile.SIDE_LENGTH) - map.modX;
+            int pY = (int) (entity.location.Center.Y / Tile.SIDE_LENGTH) - map.modY;
             if (pX < 0 || pY < 0 || pX >= map.Map.Length || pY >= map.Map[0].Length)
                 return;
             int dist = map.Map[pX][pY];

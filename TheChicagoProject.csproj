@@ -130,6 +130,7 @@
     <None Include="Content\Font\TimesNewRoman12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Quests\QuestFormat.quest" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Quests\QuestGenerator\QuestBuilder.resx">
