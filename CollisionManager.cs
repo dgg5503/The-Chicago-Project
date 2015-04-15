@@ -28,7 +28,7 @@ namespace TheChicagoProject
         {
             this.mainGame = mainGame;
 
-            grid = new CollisionTile[mainGame.worldManager.CurrentWorld.manager.world.size, mainGame.worldManager.CurrentWorld.manager.world.size];
+            grid = new CollisionTile[mainGame.worldManager.CurrentWorld.manager.world.worldWidth, mainGame.worldManager.CurrentWorld.manager.world.worldWidth];
 
             // Setup tile grid.
             for (int x = 0; x < grid.GetLength(0); x++)
