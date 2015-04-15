@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheChicagoProject.Entity;
 
 namespace TheChicagoProject.Quests
 {
@@ -42,11 +43,17 @@ namespace TheChicagoProject.Quests
         }
 
         //Constructor
-        public Storyline(string name, string objective, string description, Quest firstQuest, WorldManager worldManager, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, worldManager, reward, cashReward)
+        public Storyline(string name, string objective, string description, Quest firstQuest, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, player, worldManager, winCondition, reward, cashReward)
         {
             quests.Add(firstQuest);
         }
 
-        public override void Update(){}
+        public override void Update()
+        {
+            foreach(Quest quest in quests)
+            {
+                quest.Update();
+            }
+        }
     }
 }
