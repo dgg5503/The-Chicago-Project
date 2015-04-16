@@ -234,13 +234,13 @@ namespace TheChicagoProject
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, cameraMatrix);
                 DrawWorld();
 
-                // Entities
-                DrawEntities();
-
                 #region debug
                 // DEBUG DRAWS
                 mainGame.collisionManager.Draw(spriteBatch);
                 #endregion
+
+                // Entities
+                DrawEntities();
 
                 spriteBatch.End();
             }
@@ -290,7 +290,6 @@ namespace TheChicagoProject
                 case GameState.Pause:
                     // Transparent fadeout.
                     Controls.guiElements["pauseMenu"].Draw(spriteBatch, gameTime);
-                    
                     break;
 
                 case GameState.Inventory:
@@ -309,6 +308,7 @@ namespace TheChicagoProject
 
                 case GameState.Game:
                     // UI (health, current wep, other stuff)
+                    Controls.guiElements["weaponUI"].Draw(spriteBatch, gameTime);
                     break;
 
                 case GameState.QuestLog:

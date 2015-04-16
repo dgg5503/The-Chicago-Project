@@ -14,8 +14,7 @@ namespace TheChicagoProject.GUI.Forms
     {
         Left,
         Right,
-        Center,
-        Bottom
+        Center
     }
 
     // Douglas Gliner

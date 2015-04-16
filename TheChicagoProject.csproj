@@ -60,6 +60,7 @@
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="GUI\Utils.cs" />
+    <Compile Include="GUI\WeaponUI.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Item\Inventory.cs" />
     <Compile Include="AI\DijkstraMap.cs" />
