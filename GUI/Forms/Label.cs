@@ -63,7 +63,7 @@ namespace TheChicagoProject.GUI.Forms
             switch(alignment)
             {
                 case TextAlignment.Center:
-                    Location = new Vector2(parent.Size.X / 2 - Font.MeasureString(text).X / 2, parent.Size.Y / 2 - Font.MeasureString(text).Y / 2);
+                    Location = new Vector2(parent.Size.X / 2 - Font.MeasureString(text).X / 2, this.Location.Y);
                     break;
 
                 case TextAlignment.Left:
