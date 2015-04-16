@@ -13,9 +13,10 @@ using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Quests.QuestGenerator
 {
-    //Sean LEvorse
+    //Sean Levorse
     public partial class QuestBuilder : Form
     {
+        
         string code;
         Quest quest;
         string name;
@@ -24,6 +25,13 @@ namespace TheChicagoProject.Quests.QuestGenerator
         Vector2 start;
         int reward;
         int cashreward;
+
+        //new variables
+        string enemyToKill;
+        string itemToFind;
+        string itemToDeliver;
+        string recipient;
+
 
         public QuestBuilder()
         {
@@ -88,6 +96,26 @@ namespace TheChicagoProject.Quests.QuestGenerator
                 keys.Add(key);
             cmbLivingEntitySprite.DataSource = keys;
             cmbItemSprite.DataSource = keys;
+
+        }
+
+        private void butCreateLivingEntity_Click(object sender, EventArgs e)
+        {
+            //get each of the fields to add to the living entity
+            string name = txtLivingEntityName.Text;
+            int x = (int)nudLivingEntityStartX.Value;
+            int y = (int)nudLivingEntityStartY.Value;
+
+            string sprite = cmbLivingEntitySprite.Text;
+            int health = (int)nudLivingEntityHealth.Value;
+            string ai = cmbLivingEntityAI.Text;
+            if (ai == "None")
+                ai = "";
+
+            if (chkRecipient.Checked)
+                recipient = name;
+            if (chkTarget.Checked)
+                enemyToKill = name;
 
         }
 

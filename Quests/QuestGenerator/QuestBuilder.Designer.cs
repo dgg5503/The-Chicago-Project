@@ -336,6 +336,11 @@
             // 
             this.nudStartX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudStartX.Location = new System.Drawing.Point(994, 29);
+            this.nudStartX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudStartX.Name = "nudStartX";
             this.nudStartX.Size = new System.Drawing.Size(80, 30);
             this.nudStartX.TabIndex = 9;
@@ -344,6 +349,11 @@
             // 
             this.nudStartY.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudStartY.Location = new System.Drawing.Point(1105, 29);
+            this.nudStartY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.nudStartY.Name = "nudStartY";
             this.nudStartY.Size = new System.Drawing.Size(76, 30);
             this.nudStartY.TabIndex = 9;
@@ -377,6 +387,7 @@
             this.butCreateLivingEntity.TabIndex = 11;
             this.butCreateLivingEntity.Text = "Create Living Entity";
             this.butCreateLivingEntity.UseVisualStyleBackColor = true;
+            this.butCreateLivingEntity.Click += new System.EventHandler(this.butCreateLivingEntity_Click);
             // 
             // panLivingEntitiy
             // 
@@ -521,7 +532,7 @@
             "Low",
             "Mid",
             "High"});
-            this.cmbLivingEntityAI.Location = new System.Drawing.Point(396, 52);
+            this.cmbLivingEntityAI.Location = new System.Drawing.Point(395, 48);
             this.cmbLivingEntityAI.Name = "cmbLivingEntityAI";
             this.cmbLivingEntityAI.Size = new System.Drawing.Size(121, 30);
             this.cmbLivingEntityAI.TabIndex = 12;
