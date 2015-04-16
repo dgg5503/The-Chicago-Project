@@ -24,10 +24,11 @@ namespace TheChicagoProject.GUI
         //---- CONTROLS ----
 
         // Header of the menu
-        private Label header;
+        private Label lblHeader;
 
         // Buttons on the menu
-        private Button buttons;
+        private Button startButton;
+        private Button questBuilderButton;
 
         //---- CONTROLS ----
 
@@ -52,31 +53,34 @@ namespace TheChicagoProject.GUI
              *      - Add it to this controls control list.
              */
 
-            buttons = new Button();
-            buttons.Text = "START";
-            buttons.Click += buttons_Click;
-            buttons.Size = new Vector2(55, 20);
-            buttons.Location = new Vector2((this.Size.X / 2) - (buttons.Size.X / 2), (this.Size.Y / 2) + 20);
-            buttons.parent = this;
-            Add(buttons);
+            startButton = new Button();
+            startButton.Text = "START";
+            startButton.Click += buttons_Click;
+            startButton.Size = new Vector2(55, 20);
+            startButton.Alignment = ControlAlignment.Center;
+            startButton.Location = new Vector2(0, 20);
+            startButton.parent = this;
+            Add(startButton);
 
             //Quest builder
-            buttons = new Button();
-            buttons.Text = "Quest Builder";
-            buttons.Click += OpenTool;
-            buttons.Size = new Vector2(95, 20);
-            buttons.Location = new Vector2((this.Size.X / 2) - (buttons.Size.X / 2), (this.Size.Y / 2) + 120);
-            buttons.parent = this;
-            Add(buttons);
+            questBuilderButton = new Button();
+            questBuilderButton.Size = new Vector2(95, 20);
+            questBuilderButton.Alignment = ControlAlignment.Center;
+            questBuilderButton.Location = new Vector2(0, 120);
+            questBuilderButton.Text = "Quest Builder";
+            questBuilderButton.Click += OpenTool;
+            //questBuilderButton.Location = new Vector2((this.Size.X / 2) - (questBuilderButton.Size.X / 2), (this.Size.Y / 2) + 120);
+            questBuilderButton.parent = this;
+            Add(questBuilderButton);
 
-            header = new Label();
-            header.Text = "MAIN MENU";
-            header.Size = new Vector2(50, 10);
-            header.AutoResize = true;
-            header.Location = new Vector2((this.Size.X / 2) - (header.Size.X / 2), 10);
-            header.TextAlignment = TextAlignment.Center;
-            header.parent = this;
-            Add(header);
+            lblHeader = new Label();
+            lblHeader.Text = "MAIN MENU";
+            lblHeader.Size = new Vector2(50, 10);
+            lblHeader.AutoResize = true;
+            lblHeader.Location = new Vector2((this.Size.X / 2) - (lblHeader.Size.X / 2), 10);
+            lblHeader.TextAlignment = TextAlignment.Center;
+            lblHeader.parent = this;
+            Add(lblHeader);
         }
 
         /*

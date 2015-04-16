@@ -41,7 +41,6 @@ namespace TheChicagoProject.GUI
             currentDragableControl = null;
 
             this.Size = new Vector2((DragableControl.SIDE_LENGTH) * xSize, (DragableControl.SIDE_LENGTH) * ySize);
-            this.Location = new Vector2(0, 0);
             this.seperatorWidth = seperatorWidth;
         }
 

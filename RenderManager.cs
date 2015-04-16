@@ -102,9 +102,15 @@ namespace TheChicagoProject
         private static int viewportWidth;
         private static int viewportHeight;
 
+        private static int viewportDeltaWidth;
+        private static int viewportDeltaHeight;
+
         // Static props so no need to make a render manager...
         public static int ViewportWidth { get { return viewportWidth; } }
         public static int ViewportHeight { get { return viewportHeight; } }
+
+        public static int ViewportDeltaWidth { get { return viewportDeltaWidth; } }
+        public static int ViewportDeltaHeight { get { return viewportDeltaHeight; } }
 
 
         /// <summary>
@@ -123,11 +129,39 @@ namespace TheChicagoProject
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
 
+            viewportDeltaWidth = 0;
+            viewportDeltaHeight = 0;
+
+            mainGame.Window.ClientSizeChanged += Window_ClientSizeChanged;
+
             // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
+        }
+
+        void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            viewportDeltaWidth = graphics.Viewport.Width - viewportWidth;
+            viewportDeltaHeight = graphics.Viewport.Height - viewportHeight;
+
+            if (viewportDeltaHeight == 0 && viewportDeltaWidth == 0)
+                return;
+            
+
+            viewportHeight = graphics.Viewport.Height;
+            viewportWidth = graphics.Viewport.Width;
+
+            Console.WriteLine("{0}/{1}", viewportDeltaWidth, viewportDeltaHeight);
+
+            Controls.guiElements["inventoryMenu"].ScreenSizeChange();
+
+            /*
+            foreach (Control c in Controls.guiElements.Values)
+                c.ScreenSizeChange();
+             * */
+
         }
 
         // LOAD TEXTURES

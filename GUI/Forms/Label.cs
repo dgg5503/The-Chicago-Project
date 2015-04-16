@@ -80,11 +80,6 @@ namespace TheChicagoProject.GUI.Forms
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            // If drawing, the texture has already been loaded! AutoResize here.
-            // does this actually do anything? (?)
-            /*if(autoResize)
-                this.Size = Font.MeasureString(text);*/
-
             spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
         }

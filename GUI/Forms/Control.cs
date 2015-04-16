@@ -14,7 +14,8 @@ namespace TheChicagoProject.GUI.Forms
     {
         Left,
         Right,
-        Center
+        Center,
+        Bottom
     }
 
     // Douglas Gliner
@@ -100,7 +101,7 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public SpriteFont Font { get { return font; } set { font = value; } }
         /// <summary>
-        /// Sets the alignment of this text relative to its container (parent).
+        /// Sets the alignment of this control relative to its parent.
         /// </summary>
         public ControlAlignment Alignment { get { return alignment; } set { alignment = value; } }
         //public bool RequiresOTFLoad { get { if(fill == null || border == null){return true;} return false; } }
@@ -162,13 +163,9 @@ namespace TheChicagoProject.GUI.Forms
         {
             currentFrameMouseState = Mouse.GetState();
 
-            //Rectangle globalControlLoc = new Rectangle((int)GlobalLocation().X, (int)GlobalLocation().Y, (int)this.Size.X, (int)this.Size.Y);
-
             if (currentFrameMouseState.LeftButton == ButtonState.Pressed)
                 if (firstClickLoc == Vector2.Zero)
                     firstClickLoc = new Vector2(currentFrameMouseState.Position.X, currentFrameMouseState.Position.Y);
-
-            
 
             // hover
             if (GlobalRectangle.Contains(currentFrameMouseState.Position))
@@ -194,13 +191,13 @@ namespace TheChicagoProject.GUI.Forms
 
             if (currentFrameMouseState.LeftButton == ButtonState.Released)
                 firstClickLoc = Vector2.Zero;
-            //Console.WriteLine(firstClickLoc);
 
             lastFrameMouseState = currentFrameMouseState;
 
             if (!alignApplied)
             {
-                Allign();
+                ControlAlign();
+                ParentAlign();
                 alignApplied = true;
             }
             
@@ -210,14 +207,17 @@ namespace TheChicagoProject.GUI.Forms
             isVisible = false;
         }
 
-        public void Allign()
+        /// <summary>
+        /// Aligns control relative to parent.
+        /// </summary>
+        private void ControlAlign()
         {
             if (this.parent != null)
             {
                 switch (alignment)
                 {
                     case ControlAlignment.Center:
-                        Location = new Vector2(parent.Size.X / 2 - this.Size.X / 2, parent.Size.Y / 2 - this.Size.Y / 2);
+                        Location = new Vector2((parent.Size.X / 2 - this.Size.X / 2) + this.Location.X, (parent.Size.Y / 2 - this.Size.Y / 2) + this.Location.Y);
                         break;
 
                     case ControlAlignment.Left:
@@ -229,6 +229,60 @@ namespace TheChicagoProject.GUI.Forms
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Aligns control relative to viewport.
+        /// </summary>
+        private void ParentAlign()
+        {
+            if (this.parent == null)
+            {
+                switch (alignment)
+                {
+                    case ControlAlignment.Center:
+                        Location = new Vector2(((RenderManager.ViewportWidth / 2) - (this.Size.X / 2)) - this.Location.X, ((RenderManager.ViewportHeight / 2) - (this.Size.Y / 2)) - this.Location.Y);
+                        break;
+
+                    case ControlAlignment.Left:
+                        Location = new Vector2(this.Location.X, this.Location.Y);
+                        break;
+
+                    case ControlAlignment.Right:
+                        Location = new Vector2((RenderManager.ViewportWidth - this.Size.X - this.Location.X), this.Location.Y);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Moves root control based on new screen size, controls location derive from root so no need to touch those locations.
+        /// </summary>
+        private void ScreenSizeChangeAlignParent()
+        {
+            if (this.parent == null)
+            {
+                switch (alignment)
+                {
+                    case ControlAlignment.Center:
+                        Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth / 2, this.Location.Y + RenderManager.ViewportDeltaHeight / 2);
+                        break;
+
+                    case ControlAlignment.Left:
+                        Location = new Vector2(this.Location.X, this.Location.Y);
+                        break;
+
+                    case ControlAlignment.Right:
+                        Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth, this.Location.Y);
+                        break;
+                }
+            }
+        }
+
+        // Screen size change reaction
+        public void ScreenSizeChange()
+        {
+            ScreenSizeChangeAlignParent();
         }
 
         public Vector2 GlobalLocation()
@@ -250,7 +304,6 @@ namespace TheChicagoProject.GUI.Forms
         public virtual void Clear()
         {
             controls.Clear();
-
         }
 
         public void Add(Control control)
