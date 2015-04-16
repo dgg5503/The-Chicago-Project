@@ -75,5 +75,21 @@ namespace TheChicagoProject.Quests.QuestGenerator
             }
         }
 
+        private void nudStartY_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QuestBuilder_Load(object sender, EventArgs e)
+        {
+            cmbConditions.DataSource = Enum.GetNames(typeof(Quests.WinCondition));
+            List<string> keys = new List<string>();
+            foreach (string key in GUI.Sprites.spritesDictionary.Keys)
+                keys.Add(key);
+            cmbLivingEntitySprite.DataSource = keys;
+            cmbItemSprite.DataSource = keys;
+
+        }
+
     }
 }

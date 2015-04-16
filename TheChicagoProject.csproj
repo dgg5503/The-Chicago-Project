@@ -73,9 +73,11 @@
     <Compile Include="Quests\Quest.cs" />
     <Compile Include="Quests\QuestGenerator\QuestBuilder.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Quests\QuestGenerator\QuestBuilder.Designer.cs">
       <DependentUpon>QuestBuilder.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Quests\QuestItem.cs" />
     <Compile Include="Quests\QuestLog.cs" />
@@ -136,6 +138,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Quests\QuestGenerator\QuestBuilder.resx">
       <DependentUpon>QuestBuilder.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
