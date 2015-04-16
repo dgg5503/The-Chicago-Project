@@ -46,7 +46,7 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Sets the alignment of this text relative to its container (parent).
         /// </summary>
-        public TextAlignment Alignment { get { return alignment; } set { alignment = value; } }
+        public TextAlignment TextAlignment { get { return alignment; } set { alignment = value; } }
 
         public Label()
         {

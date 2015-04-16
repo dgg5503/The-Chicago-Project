@@ -74,7 +74,7 @@ namespace TheChicagoProject.GUI
             header.Size = new Vector2(50, 10);
             header.AutoResize = true;
             header.Location = new Vector2((this.Size.X / 2) - (header.Size.X / 2), 10);
-            header.Alignment = TextAlignment.Center;
+            header.TextAlignment = TextAlignment.Center;
             header.parent = this;
             Add(header);
         }

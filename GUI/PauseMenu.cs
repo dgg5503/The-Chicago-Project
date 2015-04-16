@@ -46,7 +46,7 @@ namespace TheChicagoProject.GUI
             lblHeader.Size = new Vector2(50, 10);
             lblHeader.AutoResize = true;
             lblHeader.Location = new Vector2((this.Size.X / 2) - (lblHeader.Size.X / 2), 10);
-            lblHeader.Alignment = TextAlignment.Center;
+            lblHeader.TextAlignment = TextAlignment.Center;
             lblHeader.parent = this;
             Add(lblHeader);
         }

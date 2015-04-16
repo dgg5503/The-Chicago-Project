@@ -14,17 +14,24 @@ namespace TheChicagoProject.GUI.Forms
 
         private Label textLbl;
 
-        public DragableControl(string text)
+        private Item.Item item;
+
+        public Item.Item Item { get { return item; } }
+
+        public DragableControl(Item.Item item)
         {
             this.Location = new Vector2(0, 0);
             this.Size = new Vector2(SIDE_LENGTH, SIDE_LENGTH);
+            this.Fill = item.image;
+
+            this.item = item;
 
             textLbl = new Label();
-            textLbl.Text = text;
+            textLbl.Text = item.name;
             textLbl.Size = new Vector2(50, 10);
             textLbl.AutoResize = true;
             textLbl.Location = new Vector2((this.Size.X / 2) - (textLbl.Size.X / 2), (this.Size.Y / 2) - (textLbl.Size.Y / 2));
-            textLbl.Alignment = TextAlignment.Center;
+            textLbl.TextAlignment = TextAlignment.Center;
             textLbl.parent = this;
             Add(textLbl);
         }
@@ -92,6 +99,7 @@ namespace TheChicagoProject.GUI.Forms
         */
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
             spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
         }

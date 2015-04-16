@@ -260,7 +260,14 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.Inventory:
-                    Controls.guiElements["inventoryMenu"].Draw(spriteBatch, gameTime);
+                    InventoryMenu inventoryMenu = Controls.guiElements["inventoryMenu"] as InventoryMenu;
+                    if(!inventoryMenu.IsInventoryLoaded)
+                    {
+                        inventoryMenu.Load(player.inventory);
+                        inventoryMenu.LoadTextures(graphics);
+                        inventoryMenu.LoadContent(mainGame.Content);
+                    }
+                    inventoryMenu.Draw(spriteBatch, gameTime);
                     break;
                     
                 case GameState.FastTravel:
