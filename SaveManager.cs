@@ -212,19 +212,19 @@ namespace TheChicagoProject
                         case WinCondition.EnemyDies:
                         case WinCondition.ObtainItem:
                             //get the name of the entity
-                            index = data.IndexOf("Target:") + 8;
-                            end = data.IndexOf('"');
+                            index = data.IndexOf("Target:") + 7;
+                            end = data.IndexOf('\n');
                             target = data.Substring(index, index - end);
                             break;
                         case WinCondition.DeliverItem:
                             //get the target item
-                            index = data.IndexOf("Target:") + 8;
-                            end = data.IndexOf('"');
+                            index = data.IndexOf("Target:") + 7;
+                            end = data.IndexOf('\n');
                             target = data.Substring(index, index - end);
 
                             //get destination
-                            index = data.IndexOf("Recipient:") + 11;
-                            end = data.IndexOf('"');
+                            index = data.IndexOf("Recipient:") + 10;
+                            end = data.IndexOf('\n');
                             recipient = data.Substring(index, index - end);
                             break;
                     }
@@ -322,8 +322,8 @@ namespace TheChicagoProject
                         endItem = data.IndexOf("End Item", index);
 
                         //get the id
-                        index = data.IndexOf("ID:", index) + 8;
-                        end = data.IndexOf('"', index);
+                        index = data.IndexOf("ID:", index) + 3;
+                        end = data.IndexOf('\n', index);
                         string id = data.Substring(index, end - index);
 
                         //get the texture

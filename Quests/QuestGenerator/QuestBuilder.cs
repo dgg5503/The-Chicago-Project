@@ -14,23 +14,58 @@ using Microsoft.Xna.Framework;
 namespace TheChicagoProject.Quests.QuestGenerator
 {
     //Sean Levorse
+
+    public struct LivingEntityData
+    {
+        public string name;
+        public int x;
+        public int y;
+        public string sprite;
+        public int health;
+        public string ai;
+
+        public LivingEntityData(string name, int x, int y, string sprite, int health, string ai)
+        {
+            this.name = name;
+            this.x = x;
+            this.y = y;
+            this.sprite = sprite;
+            this.health = health;
+            this.ai = ai;
+        }
+    }
+
+    public struct QuestItemData
+    {
+        public string name;
+        public string sprite;
+
+        public QuestItemData(string name, string sprite)
+        {
+            this.name = name;
+            this.sprite = sprite;
+        }
+    }
+
     public partial class QuestBuilder : Form
     {
         
-        string code;
-        Quest quest;
-        string name;
+        string QuestName;
         string description;
         string objective;
-        Vector2 start;
+        int x, y;
         int reward;
         int cashreward;
+        string condition;
 
         //new variables
         string enemyToKill;
         string itemToFind;
         string itemToDeliver;
         string recipient;
+
+        List<LivingEntityData> livingEntities;
+        List<QuestItemData> items;
 
 
         public QuestBuilder()
@@ -47,7 +82,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Dispose(true);
+            this.Hide();
         }
 
         private void richTextUpdate_TextChanged(object sender, EventArgs e)
@@ -57,6 +92,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
             StreamReader questStream = null;
             int index = 0;
             if(openFileDialog.ShowDialog() == DialogResult.OK)
@@ -81,6 +117,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
                     MessageBox.Show("Error Loading file: " + exception.Message);
                 }
             }
+             */
         }
 
         private void nudStartY_ValueChanged(object sender, EventArgs e)
@@ -90,12 +127,17 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         private void QuestBuilder_Load(object sender, EventArgs e)
         {
+            
             cmbConditions.DataSource = Enum.GetNames(typeof(Quests.WinCondition));
             List<string> keys = new List<string>();
             foreach (string key in GUI.Sprites.spritesDictionary.Keys)
                 keys.Add(key);
             cmbLivingEntitySprite.DataSource = keys;
             cmbItemSprite.DataSource = keys;
+
+            livingEntities = new List<LivingEntityData>();
+            items = new List<QuestItemData>();
+             
 
         }
 
@@ -112,12 +154,133 @@ namespace TheChicagoProject.Quests.QuestGenerator
             if (ai == "None")
                 ai = "";
 
+            //store this information somewhere
+            livingEntities.Add(new LivingEntityData(name, x, y, sprite, health, ai));
+
             if (chkRecipient.Checked)
                 recipient = name;
             if (chkTarget.Checked)
                 enemyToKill = name;
 
+            
+
         }
+
+        private void butCreatItem_Click(object sender, EventArgs e)
+        {
+            //get the data
+            string name = txtItemName.Text;
+            string sprite = cmbItemSprite.Text;
+
+            //store the data
+            items.Add(new QuestItemData(name, sprite));
+
+            if (chkGoalItem.Checked)
+                itemToFind = name;
+            if (chkDelivery.Checked)
+                itemToDeliver = name;
+
+        }
+
+        private void chkGoalItem_CheckedChanged(object sender, EventArgs e)
+        {
+            chkDelivery.Enabled = !chkGoalItem.Checked;
+        }
+
+        private void chkDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            chkGoalItem.Enabled = chkDelivery.Checked;
+        }
+
+        private void chkTarget_CheckedChanged(object sender, EventArgs e)
+        {
+            chkRecipient.Enabled = !chkTarget.Checked;
+        }
+
+        private void chkRecipient_CheckedChanged(object sender, EventArgs e)
+        {
+            chkTarget.Enabled = !chkRecipient.Checked;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StreamWriter output = null;
+
+            try
+            {
+                //get information
+                QuestName = textBoxName.Text;
+                QuestName.Replace('"', '\'');
+                objective = textBoxObjective.Text;
+                objective.Replace('"','\'');
+                description = textBoxDescription.Text;
+                description.Replace('"', '\'');
+                x = (int)nudStartX.Value;
+                y = (int)nudStartY.Value;
+                cashreward = (int)nudCash.Value;
+                reward = (int)nudQPoints.Value;
+                condition = cmbConditions.Text;
+
+                //write the information
+                output = new StreamWriter(QuestName + ".quest");
+
+                output.WriteLine("Type:\"Quest\"");
+                output.WriteLine("Name:\"{0}\"", QuestName);
+                output.WriteLine("Objective:\"{0}\"", objective);
+                output.WriteLine("Description:\"{0}\"", description);
+                output.WriteLine("Start:\n\tX:{0}\n\tY:{1}", x, y);
+                output.WriteLine("Reward:\n\tCash:{0}\n\tQ-Points:{1}\n",cashreward, reward);
+
+                //write the living entitities
+                foreach(LivingEntityData entityData in livingEntities)
+                {
+                    output.WriteLine("Living Entity:");
+                    output.WriteLine("\tID:" + entityData.name);
+                    output.WriteLine("\tStart:\n\t\tX:{0}\n\t\tY:{1}", entityData.x, entityData.y);
+                    output.WriteLine("\tTexture:\"{0}\"", entityData.sprite);
+                    output.WriteLine("\tHealth:" + entityData.health);
+                    output.WriteLine("\tAI:" + entityData.ai);
+                    output.WriteLine("End Living Entity\n");
+                }
+
+                //write the items
+                foreach(QuestItemData itemData in items)
+                {
+                    output.WriteLine("Item:");
+                    output.WriteLine("\tID:" + itemData.name);
+                    output.WriteLine("\tTexture:\"{0}\"", itemData.sprite);
+                    output.WriteLine("End Item\n");
+                }
+
+                //write the condition
+                output.WriteLine("Condition:" + condition);
+                switch(condition)
+                {
+                    case "EnemyDies":
+                        output.WriteLine("Target:" + enemyToKill);
+                        break;
+                    case "ObtainItem":
+                        output.WriteLine("Target:" + itemToFind);
+                        break;
+                    case "DeliverItem":
+                        output.WriteLine("Target:" + itemToDeliver);
+                        output.WriteLine("Target:" + enemyToKill);
+                        break;
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error saving file:\n" + ex.Message);
+            }
+            finally
+            {
+                if (output != null)
+                    output.Close();
+            }
+        }
+
+
 
     }
 }
