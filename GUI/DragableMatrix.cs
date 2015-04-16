@@ -14,8 +14,12 @@ namespace TheChicagoProject.GUI
     class DragableMatrix : Control
     {
         // Matrix handling
-        private DragableControl[,] controlMatrix;
+        //private DragableControl[,] controlMatrix;
         private Dictionary<DragableControl, Vector2> controlDictionary;
+        private int xSize;
+        private int ySize;
+        private int xCount;
+        private int yCount;
 
         // Mouse handling
         private Vector2 mouseOrigin;
@@ -26,8 +30,12 @@ namespace TheChicagoProject.GUI
 
         public DragableMatrix(int xSize, int ySize, int seperatorWidth)
         {
-            controlMatrix = new DragableControl[xSize, ySize];
+            //controlMatrix = new DragableControl[xSize, ySize];
             controlDictionary = new Dictionary<DragableControl, Vector2>();
+            this.xSize = xSize;
+            this.ySize = ySize;
+            xCount = 0;
+            yCount = 0;
 
             mouseOrigin = new Vector2(-1, -1);
             currentDragableControl = null;
@@ -79,33 +87,57 @@ namespace TheChicagoProject.GUI
         /// <param name="control">DragableControl to add</param>
         public void AddToMatrix(DragableControl control)
         {
-            if (controlDictionary.Count >= controlMatrix.GetLength(0) * controlMatrix.GetLength(1))
-                throw new Exception("GUI/Inventory dimension mismatch: too many added!");
+            if(xCount < xSize && yCount < ySize)
+            {
+                control.Location = new Vector2((xCount * control.Size.X), (yCount * control.Size.Y));
 
+                control.Pressed += control_Pressed;
 
-            for (int y = 0; y < controlMatrix.GetLength(1); y++)
-                for (int x = 0; x < controlMatrix.GetLength(0); x++)
-                    if (controlMatrix[x, y] == null)
+                control.Hover += control_Hover;
+
+                control.parent = this;
+
+                controlDictionary.Add(control, control.Location);
+                
+                Add(control);
+
+                if (xCount + 1 < xSize)
+                    xCount++;
+                else
+                    if (yCount + 1 < ySize)
                     {
-                        controlMatrix[x, y] = control;
-
-                        control.Location = new Vector2((x * control.Size.X), (y * control.Size.Y));
-
-                        control.Pressed += control_Pressed;
-
-                        control.Hover += control_Hover;
-
-                        control.parent = this;
-
-                        controlDictionary.Add(control, control.Location);
-
-                        Add(control);
-
-                        return;
+                        yCount++;
+                        xCount = 0;
                     }
+            }
+            else
+            {
+                throw new Exception("GUI/Inventory dimension mismatch: too many added!");
+            }
 
+            
+        }
 
-            throw new Exception("GUI/Inventory dimension mismatch.");
+        /// <summary>
+        /// Out a dragable control outside of the matrix bounds.
+        /// 
+        /// HACKY HACK :(
+        /// </summary>
+        /// <param name="control">A REFERENCE to the control</param>
+        /// <param name="offset">The offset to top left of this matrix.</param>
+        public void AddOutsideMatrix(DragableControl control, Vector2 offset)
+        {
+            control.Location = this.Location + offset;
+
+            control.Pressed += control_Pressed;
+
+            control.Hover += control_Hover;
+
+            control.parent = this;
+
+            controlDictionary.Add(control, control.Location);
+
+            Add(control);
         }
 
         void control_Hover(object sender, EventArgs e)
@@ -135,7 +167,7 @@ namespace TheChicagoProject.GUI
 
         public override void Update(GameTime gameTime)
         {
-            if (controlMatrix != null && currentDragableControl != null)
+            if (controlDictionary != null && currentDragableControl != null)
             {
                 currentDragableControl.Location = new Vector2(this.CurrentFrameMouseState.Position.X - mouseOrigin.X, this.CurrentFrameMouseState.Position.Y - mouseOrigin.Y);
                 if (this.CurrentFrameMouseState.LeftButton == ButtonState.Released)
@@ -150,8 +182,8 @@ namespace TheChicagoProject.GUI
                     {
                         // else swap spaces
                         // changes spaces in dic AND matrix.
-                        Vector2 controlToReplace = LocationToGrid(hoveringDragableControl.Location);
-                        Vector2 controlInHand = LocationToGrid(currentDragableControl.Location);
+                        //Vector2 controlToReplace = LocationToGrid(hoveringDragableControl.Location);
+                        //Vector2 controlInHand = LocationToGrid(currentDragableControl.Location);
 
                         Vector2 tmpLoc = controlDictionary[currentDragableControl];
                         currentDragableControl.Location = controlDictionary[hoveringDragableControl];
@@ -160,9 +192,9 @@ namespace TheChicagoProject.GUI
                         controlDictionary[currentDragableControl] = currentDragableControl.Location;
                         controlDictionary[hoveringDragableControl] = hoveringDragableControl.Location;
 
-                        DragableControl tmp = controlMatrix[(int)controlInHand.X, (int)controlInHand.Y];
-                        controlMatrix[(int)controlInHand.X, (int)controlInHand.Y] = controlMatrix[(int)controlToReplace.X, (int)controlToReplace.Y];
-                        controlMatrix[(int)controlToReplace.X, (int)controlToReplace.Y] = tmp;
+                        //DragableControl tmp = controlMatrix[(int)controlInHand.X, (int)controlInHand.Y];
+                        //controlMatrix[(int)controlInHand.X, (int)controlInHand.Y] = controlMatrix[(int)controlToReplace.X, (int)controlToReplace.Y];
+                        //controlMatrix[(int)controlToReplace.X, (int)controlToReplace.Y] = tmp;
 
                         currentDragableControl = null;
                     }
@@ -176,33 +208,24 @@ namespace TheChicagoProject.GUI
             base.Update(gameTime); 
         }
        
+        public Item.Item GetItemFromLocation(Vector2 location)
+        {
+            foreach (KeyValuePair<DragableControl, Vector2> kvp in controlDictionary)
+                if (kvp.Value == location)
+                    return kvp.Key.Item;
+            return null;
+        }
 
         private Vector2 LocationToGrid(Vector2 location)
         {
             return new Vector2(location.X / (DragableControl.SIDE_LENGTH + seperatorWidth), location.Y / (DragableControl.SIDE_LENGTH + seperatorWidth));
         }
 
-        /*
-        public List<Item.Item> MatrixToList()
-        {
-            if (controlDictionary.Count == 0)
-                return null;
-
-            List<Item.Item> itemsOrganized = new List<Item.Item>();
-            for (int y = 0; y < controlMatrix.GetLength(1); y++)
-                for (int x = 0; x < controlMatrix.GetLength(0); x++)
-                    if (controlMatrix[x, y] == null)
-                    {
-                        itemsOrganized.Add(controlMatrix[x,y].Item);
-                    }
-
-            return itemsOrganized;
-
-        }*/
-
         public override void Clear()
         {
-            controlMatrix.Initialize();
+            //controlMatrix.Initialize();
+            xCount = 0;
+            yCount = 0;
             controlDictionary.Clear();
             base.Clear();
         }
