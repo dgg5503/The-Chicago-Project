@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using TheChicagoProject.GUI;
+
 namespace TheChicagoProject.Item
 {
     public class Weapon : Item

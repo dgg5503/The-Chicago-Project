@@ -155,12 +155,11 @@ namespace TheChicagoProject
 
             Console.WriteLine("{0}/{1}", viewportDeltaWidth, viewportDeltaHeight);
 
-            Controls.guiElements["inventoryMenu"].ScreenSizeChange();
+            //Controls.guiElements["inventoryMenu"].ScreenSizeChange();
 
-            /*
+            
             foreach (Control c in Controls.guiElements.Values)
                 c.ScreenSizeChange();
-             * */
 
         }
 
@@ -308,6 +307,10 @@ namespace TheChicagoProject
 
                 case GameState.Game:
                     // UI (health, current wep, other stuff)
+                    if (player.inventory.ActiveWeapon != -1)
+                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
+                    else
+                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = null;
                     Controls.guiElements["weaponUI"].Draw(spriteBatch, gameTime);
                     break;
 
