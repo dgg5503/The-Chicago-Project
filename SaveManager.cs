@@ -106,7 +106,7 @@ namespace TheChicagoProject
         /// </summary>
         /// <param name="filename">the file path</param>
         /// <returns>A quest</returns>
-        public Quest ParseQuest(string filename)
+        public static Quest ParseQuest(string filename)
         {
             Quest quest = null;
             using (StreamReader input = new StreamReader(filename))

@@ -92,32 +92,24 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
-            StreamReader questStream = null;
-            int index = 0;
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                //get the quest
                 string path = openFileDialog.FileName;
-                try
-                {
-                    if((questStream = new StreamReader(path)) != null)
-                    {
-                        code = questStream.ReadToEnd();
-                        //parse the code
-                        index = code.IndexOf("class");
-                        name = code.Substring(index + 6, code.IndexOf(':', index) - 1 - index + 6);
+                Quest openQuest = SaveManager.ParseQuest(path);
 
-                        //index = index
+                //populate the form
+                textBoxName.Text = openQuest.Name;
+                textBoxDescription.Text = openQuest.Description;
+                textBoxObjective.Text = openQuest.Objective;
+                nudCash.Value = openQuest.CashReward;
+                nudQPoints.Value = openQuest.Reward;
+                nudStartX.Value = (decimal)openQuest.StartPoint.X;
+                nudStartY.Value = (decimal)openQuest.StartPoint.Y;
+                cmbConditions.Text = Enum.GetName(typeof(WinCondition), openQuest.WinCondition);
 
-                        
-                    }
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Error Loading file: " + exception.Message);
-                }
             }
-             */
+            
         }
 
         private void nudStartY_ValueChanged(object sender, EventArgs e)
@@ -162,7 +154,14 @@ namespace TheChicagoProject.Quests.QuestGenerator
             if (chkTarget.Checked)
                 enemyToKill = name;
 
-            
+            //clear the fields
+            txtLivingEntityName.Text = "";
+            nudLivingEntityStartX.Value = 0;
+            nudLivingEntityStartY.Value = 0;
+            nudLivingEntityHealth.Value = 0;
+            cmbLivingEntityAI.Text = "";
+            chkTarget.Checked = false;
+            chkRecipient.Checked = false;
 
         }
 
@@ -180,6 +179,11 @@ namespace TheChicagoProject.Quests.QuestGenerator
             if (chkDelivery.Checked)
                 itemToDeliver = name;
 
+
+            //clear the fields
+            txtItemName.Text = "";
+            chkDelivery.Checked = false;
+            chkGoalItem.Checked = false;
         }
 
         private void chkGoalItem_CheckedChanged(object sender, EventArgs e)
@@ -278,6 +282,54 @@ namespace TheChicagoProject.Quests.QuestGenerator
                 if (output != null)
                     output.Close();
             }
+        }
+
+        private void cmbLivingEntitySprite_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            picEntity.BackgroundImage = System.Drawing.Image.FromFile("Content\\Sprites\\" + cmbLivingEntitySprite.Text + ".png");
+        }
+
+        private void cmbItemSprite_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            picItem.BackgroundImage = System.Drawing.Image.FromFile("Content\\Sprites\\" + cmbItemSprite.Text + ".png");
+        }
+
+        private void txtLivingEntityName_TextChanged(object sender, EventArgs e)
+        {
+            butCreateLivingEntity.Enabled = txtLivingEntityName.Text != "";
+        }
+
+        private void txtItemName_TextChanged(object sender, EventArgs e)
+        {
+            butCreatItem.Enabled = txtItemName.Text != "";
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Clear all of the fields
+            textBoxName.Text = "";
+            textBoxDescription.Text = "";
+            textBoxObjective.Text = "";
+            cmbConditions.Text = "None";
+            nudCash.Value = 0;
+            nudQPoints.Value = 0;
+            nudStartX.Value = 0;
+            nudStartY.Value = 0;
+            txtLivingEntityName.Text = "";
+            nudLivingEntityStartX.Value = 0;
+            nudLivingEntityStartY.Value = 0;
+            nudLivingEntityHealth.Value = 0;
+            cmbLivingEntityAI.Text = "";
+            chkTarget.Checked = false;
+            chkRecipient.Checked = false;
+            txtItemName.Text = "";
+            chkDelivery.Checked = false;
+            chkGoalItem.Checked = false;
+        }
+
+        private void QuestBuilder_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
         }
 
 
