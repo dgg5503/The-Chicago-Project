@@ -18,6 +18,38 @@ namespace TheChicagoProject.GUI.Forms
         Center
     }
 
+    public struct Border
+    {
+        public int width;
+        public Color color;
+
+        public Border(int width, Color color)
+        {
+            this.width = width;
+            this.color = color;
+
+            if (width < 1)
+                width = 1;
+        }
+    }
+
+    public struct Fill
+    {
+        public int width;
+        public Color color;
+
+        public Fill(int width, Color color)
+        {
+            this.width = width;
+            this.color = color;
+
+            if (width < 1)
+                width = 1;
+        }
+    }
+
+    // Parent should be viewport by default...
+
     // Douglas Gliner
     public abstract class Control
     {
@@ -136,18 +168,12 @@ namespace TheChicagoProject.GUI.Forms
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
             // Fill creation
-            if (fill == null)
-            {
-                fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-                fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.Gray);
-            }
+            fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.Gray);
 
             // Border creation
-            if (border == null)
-            {
-                border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-                border.CreateBorder(1, Color.Black);
-            }
+            border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            border.CreateBorder(1, Color.Black);
 
             foreach (Control c in controls)
                 c.LoadTextures(graphics);

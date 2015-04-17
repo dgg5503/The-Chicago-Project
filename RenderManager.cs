@@ -209,10 +209,14 @@ namespace TheChicagoProject
             switch (Game1.state)
             {
                 case GameState.Menu:
+                    //Controls.guiElements["mainMenu"].Update(gameTime);
                     break;
 
                 case GameState.Pause:
+                    //Controls.guiElements["pauseMenu"].Update(gameTime);
                     break;
+
+                    // START FROM HERE
 
                 case GameState.Inventory:
                     InventoryMenu inventoryMenu = Controls.guiElements["inventoryMenu"] as InventoryMenu;
@@ -251,11 +255,13 @@ namespace TheChicagoProject
 
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
             // if the GUI is not visible, dont update it.
+            
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
             {
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
             }
+             
            
         }
         
