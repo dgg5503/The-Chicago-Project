@@ -48,7 +48,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Collision\CollisionTile.cs" />
     <Compile Include="GUI\Controls.cs" />
-    <Compile Include="GUI\DragableContainer.cs" />
     <Compile Include="GUI\DragableMatrix.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
     <Compile Include="GUI\Forms\Container.cs" />
@@ -61,6 +60,7 @@
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="GUI\Utils.cs" />
+    <Compile Include="GUI\WeaponUI.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Item\Inventory.cs" />
     <Compile Include="AI\DijkstraMap.cs" />

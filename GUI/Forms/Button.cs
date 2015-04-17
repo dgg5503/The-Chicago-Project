@@ -29,20 +29,15 @@ namespace TheChicagoProject.GUI.Forms
             text = new Label();
             text.Text = String.Empty;
             text.Size = new Vector2(1, 1); // doesnt matter?
-            text.Location = new Vector2(0, 0);
             text.AutoResize = true;
             text.TextAlignment = TextAlignment.Center;
+            text.Alignment = ControlAlignment.Center;
             text.parent = this;
             Add(text);
         }
 
         public override void Update(GameTime gameTime)
         {
-            // Centered text, make this a bool or enum (?)
-            /*
-            if (text != null)
-                text.Location = new Vector2(this.Size.X / 2 - text.Font.MeasureString(text.Text).X / 2, 0);
-            */
             base.Update(gameTime);
         }
 

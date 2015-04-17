@@ -13,7 +13,8 @@ namespace TheChicagoProject.GUI
         {
             {"mainMenu", new Menu()},
             {"pauseMenu", new PauseMenu()},
-            {"inventoryMenu", new InventoryMenu()}
+            {"inventoryMenu", new InventoryMenu()},
+            {"weaponUI", new WeaponUI()}
         };
     }
 }

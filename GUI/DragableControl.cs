@@ -20,7 +20,6 @@ namespace TheChicagoProject.GUI.Forms
 
         public DragableControl(Item.Item item)
         {
-            this.Location = new Vector2(0, 0);
             this.Size = new Vector2(SIDE_LENGTH, SIDE_LENGTH);
             this.Fill = item.image;
 
@@ -30,7 +29,7 @@ namespace TheChicagoProject.GUI.Forms
             textLbl.Text = item.name;
             textLbl.Size = new Vector2(50, 10);
             textLbl.AutoResize = true;
-            textLbl.Location = new Vector2((this.Size.X / 2) - (textLbl.Size.X / 2), (this.Size.Y / 2) - (textLbl.Size.Y / 2));
+            textLbl.Alignment = ControlAlignment.Center;
             textLbl.TextAlignment = TextAlignment.Center;
             textLbl.parent = this;
             Add(textLbl);
