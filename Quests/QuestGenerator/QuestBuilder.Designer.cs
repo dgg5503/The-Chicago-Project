@@ -37,7 +37,6 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +68,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.nudLivingEntityHealth = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picEntity = new System.Windows.Forms.PictureBox();
             this.cmbLivingEntitySprite = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.nudLivingEntityStartY = new System.Windows.Forms.NumericUpDown();
@@ -81,7 +80,7 @@
             this.panItem = new System.Windows.Forms.Panel();
             this.chkDelivery = new System.Windows.Forms.CheckBox();
             this.chkGoalItem = new System.Windows.Forms.CheckBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.picItem = new System.Windows.Forms.PictureBox();
             this.cmbItemSprite = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txtItemName = new System.Windows.Forms.TextBox();
@@ -94,11 +93,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudStartY)).BeginInit();
             this.panLivingEntitiy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLivingEntityHealth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEntity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLivingEntityStartY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLivingEntityStartX)).BeginInit();
             this.panItem.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picItem)).BeginInit();
             this.SuspendLayout();
             // 
             // treeQuests
@@ -128,7 +127,6 @@
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.optionsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
@@ -138,8 +136,9 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.newToolStripMenuItem.Text = "&New Quest";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // newStorylineToolStripMenuItem
             // 
@@ -166,12 +165,6 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(167, 6);
             // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
-            this.optionsToolStripMenuItem.Text = "Options";
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -194,20 +187,22 @@
             this.questItemToolStripMenuItem,
             this.livingEntityToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.addToolStripMenuItem.Text = "&Add";
             // 
             // questItemToolStripMenuItem
             // 
             this.questItemToolStripMenuItem.Name = "questItemToolStripMenuItem";
-            this.questItemToolStripMenuItem.Size = new System.Drawing.Size(158, 24);
+            this.questItemToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.questItemToolStripMenuItem.Text = "Quest &Item";
+            this.questItemToolStripMenuItem.Click += new System.EventHandler(this.butCreatItem_Click);
             // 
             // livingEntityToolStripMenuItem
             // 
             this.livingEntityToolStripMenuItem.Name = "livingEntityToolStripMenuItem";
-            this.livingEntityToolStripMenuItem.Size = new System.Drawing.Size(158, 24);
+            this.livingEntityToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.livingEntityToolStripMenuItem.Text = "Li&ving Entity";
+            this.livingEntityToolStripMenuItem.Click += new System.EventHandler(this.butCreateLivingEntity_Click);
             // 
             // removeToolStripMenuItem
             // 
@@ -292,8 +287,8 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "OpenQuest.cs";
-            this.openFileDialog.Filter = "C# files|*.cs|All Files|*.*";
+            this.openFileDialog.FileName = "OpenQuest.quest";
+            this.openFileDialog.Filter = "Quest Files|*.quest|Text Files|*.txt|All Files|*.*";
             this.openFileDialog.InitialDirectory = "\\Quests";
             this.openFileDialog.Title = "Open Quest";
             // 
@@ -381,6 +376,7 @@
             // 
             // butCreateLivingEntity
             // 
+            this.butCreateLivingEntity.Enabled = false;
             this.butCreateLivingEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butCreateLivingEntity.Location = new System.Drawing.Point(183, 435);
             this.butCreateLivingEntity.Name = "butCreateLivingEntity";
@@ -399,7 +395,7 @@
             this.panLivingEntitiy.Controls.Add(this.label13);
             this.panLivingEntitiy.Controls.Add(this.nudLivingEntityHealth);
             this.panLivingEntitiy.Controls.Add(this.label12);
-            this.panLivingEntitiy.Controls.Add(this.pictureBox1);
+            this.panLivingEntitiy.Controls.Add(this.picEntity);
             this.panLivingEntitiy.Controls.Add(this.cmbLivingEntitySprite);
             this.panLivingEntitiy.Controls.Add(this.label11);
             this.panLivingEntitiy.Controls.Add(this.nudLivingEntityStartY);
@@ -479,14 +475,15 @@
             this.label12.TabIndex = 9;
             this.label12.Text = "Starting Health";
             // 
-            // pictureBox1
+            // picEntity
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(856, 11);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.picEntity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.picEntity.Location = new System.Drawing.Point(856, 11);
+            this.picEntity.Name = "picEntity";
+            this.picEntity.Size = new System.Drawing.Size(128, 128);
+            this.picEntity.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picEntity.TabIndex = 8;
+            this.picEntity.TabStop = false;
             // 
             // cmbLivingEntitySprite
             // 
@@ -496,6 +493,7 @@
             this.cmbLivingEntitySprite.Name = "cmbLivingEntitySprite";
             this.cmbLivingEntitySprite.Size = new System.Drawing.Size(190, 30);
             this.cmbLivingEntitySprite.TabIndex = 7;
+            this.cmbLivingEntitySprite.SelectedIndexChanged += new System.EventHandler(this.cmbLivingEntitySprite_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -550,6 +548,7 @@
             this.txtLivingEntityName.Name = "txtLivingEntityName";
             this.txtLivingEntityName.Size = new System.Drawing.Size(178, 28);
             this.txtLivingEntityName.TabIndex = 1;
+            this.txtLivingEntityName.TextChanged += new System.EventHandler(this.txtLivingEntityName_TextChanged);
             // 
             // label8
             // 
@@ -566,7 +565,7 @@
             this.panItem.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panItem.Controls.Add(this.chkDelivery);
             this.panItem.Controls.Add(this.chkGoalItem);
-            this.panItem.Controls.Add(this.pictureBox2);
+            this.panItem.Controls.Add(this.picItem);
             this.panItem.Controls.Add(this.cmbItemSprite);
             this.panItem.Controls.Add(this.label15);
             this.panItem.Controls.Add(this.txtItemName);
@@ -600,14 +599,15 @@
             this.chkGoalItem.UseVisualStyleBackColor = true;
             this.chkGoalItem.CheckedChanged += new System.EventHandler(this.chkGoalItem_CheckedChanged);
             // 
-            // pictureBox2
+            // picItem
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(454, 16);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
+            this.picItem.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.picItem.Location = new System.Drawing.Point(462, 16);
+            this.picItem.Name = "picItem";
+            this.picItem.Size = new System.Drawing.Size(128, 128);
+            this.picItem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picItem.TabIndex = 4;
+            this.picItem.TabStop = false;
             // 
             // cmbItemSprite
             // 
@@ -617,6 +617,7 @@
             this.cmbItemSprite.Name = "cmbItemSprite";
             this.cmbItemSprite.Size = new System.Drawing.Size(175, 30);
             this.cmbItemSprite.TabIndex = 3;
+            this.cmbItemSprite.SelectedIndexChanged += new System.EventHandler(this.cmbItemSprite_SelectedIndexChanged);
             // 
             // label15
             // 
@@ -635,6 +636,7 @@
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.Size = new System.Drawing.Size(100, 28);
             this.txtItemName.TabIndex = 1;
+            this.txtItemName.TextChanged += new System.EventHandler(this.txtItemName_TextChanged);
             // 
             // label14
             // 
@@ -648,6 +650,7 @@
             // 
             // butCreatItem
             // 
+            this.butCreatItem.Enabled = false;
             this.butCreatItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butCreatItem.Location = new System.Drawing.Point(185, 642);
             this.butCreatItem.Name = "butCreatItem";
@@ -686,6 +689,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "QuestBuilder";
             this.Text = "QuestBuilder";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestBuilder_FormClosing);
             this.Load += new System.EventHandler(this.QuestBuilder_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -696,12 +700,12 @@
             this.panLivingEntitiy.ResumeLayout(false);
             this.panLivingEntitiy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLivingEntityHealth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEntity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLivingEntityStartY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLivingEntityStartX)).EndInit();
             this.panItem.ResumeLayout(false);
             this.panItem.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picItem)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -716,7 +720,6 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newStorylineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -751,7 +754,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtLivingEntityName;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picEntity;
         private System.Windows.Forms.ComboBox cmbLivingEntityAI;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown nudLivingEntityHealth;
@@ -762,7 +765,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtItemName;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox picItem;
         private System.Windows.Forms.CheckBox chkTarget;
         private System.Windows.Forms.CheckBox chkGoalItem;
         private System.Windows.Forms.CheckBox chkRecipient;
