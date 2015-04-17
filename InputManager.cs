@@ -1,6 +1,4 @@
-﻿
-
-//Josiah S DeVizia
+﻿//Josiah S DeVizia
 
 using System;
 using System.Collections.Generic;
@@ -170,7 +168,7 @@ namespace TheChicagoProject
                 }
                 else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
                 {
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
                     //WorldManager.player.Attack(1, );
                 }
                 #endregion
