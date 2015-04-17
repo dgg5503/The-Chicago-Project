@@ -9,6 +9,7 @@ using TheChicagoProject.Item;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     /// <summary>
     /// TO-DO:
     /// - Weapon image

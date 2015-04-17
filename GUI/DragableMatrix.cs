@@ -10,7 +10,7 @@ using TheChicagoProject.GUI.Forms;
 
 namespace TheChicagoProject.GUI
 {
-    // 
+    //Douglas Gliner
     class DragableMatrix : Control
     {
         // Matrix handling

@@ -1,4 +1,5 @@
 ﻿//Josiah S DeVizia
+//Douglas Gliner (collision reaction in Update)
 
 using System;
 using System.Collections.Generic;

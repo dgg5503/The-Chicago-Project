@@ -10,6 +10,7 @@ using TheChicagoProject.GUI.Forms;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     public class InventoryMenu : Control
     {
         private DragableMatrix matrix;

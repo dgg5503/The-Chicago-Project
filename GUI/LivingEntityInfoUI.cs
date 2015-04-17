@@ -9,6 +9,7 @@ using TheChicagoProject.Entity;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     class LivingEntityInfoUI : Control
     {
         // Important GUI controls that will need to be updated
