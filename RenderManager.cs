@@ -340,25 +340,28 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.Inventory:
-                    //inventoryMenu.Draw(spriteBatch, gameTime);
                     Controls.guiElements["inventoryMenu"].Draw(spriteBatch, gameTime);
                     break;
-                    
+
+                // if we get to it.
                 case GameState.FastTravel:
                     break;
 
                 case GameState.Game:
-                    // UI (health, current wep, other stuff)
                     Controls.guiElements["weaponUI"].Draw(spriteBatch, gameTime);
                     Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
                     break;
 
+                // if we get to it.
                 case GameState.QuestLog:
+
                     break;
 
+                // if we get to it.
                 case GameState.Shop:
                     break;
 
+                // if we get to it
                 case GameState.WeaponWheel:
 
                     //weapons come from holster

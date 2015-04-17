@@ -29,7 +29,8 @@ namespace TheChicagoProject.GUI.Forms
             textLbl.Text = item.name;
             textLbl.Size = new Vector2(50, 10);
             textLbl.AutoResize = true;
-            textLbl.Alignment = Alignment.Center;
+            textLbl.TextAlignment = TextAlignment.Center;
+            textLbl.Alignment = Forms.Alignment.Center;
             textLbl.parent = this;
             Add(textLbl);
         }
