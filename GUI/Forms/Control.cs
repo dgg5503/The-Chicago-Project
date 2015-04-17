@@ -10,7 +10,8 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI.Forms
 {
-    public enum ControlAlignment
+    //Douglas Gliner
+    public enum Alignment
     {
         Left,
         Right,
@@ -45,10 +46,10 @@ namespace TheChicagoProject.GUI.Forms
         public Control parent;
 
         // Alignment relative to parent
-        private ControlAlignment alignment;
+        private Alignment alignment;
 
         // Alignment applies
-        private bool alignApplied;
+        protected bool alignApplied;
 
         // When clicked (input manager?)
         public event EventHandler Click;
@@ -102,20 +103,19 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Sets the alignment of this control relative to its parent.
         /// </summary>
-        public ControlAlignment Alignment { get { return alignment; } set { alignment = value; } }
+        public Alignment Alignment { get { return alignment; } set { alignment = value; } }
         //public bool RequiresOTFLoad { get { if(fill == null || border == null){return true;} return false; } }
         /// <summary>
         /// Returns whether or not this control is being drawn on screen.
         /// </summary>
-        public bool IsVisible { get { return isVisible; } }
-
+        public bool IsVisible { get { return isVisible; }}
 
         public Control(string fontFile = "TimesNewRoman12")
         {
             locAndSize = new Rectangle(0, 0, 0, 0);
             controls = new List<Control>();
             firstClickLoc = Vector2.Zero;
-            alignment = ControlAlignment.Left;
+            alignment = Alignment.Left;
             isVisible = true;
             alignApplied = false;
             parent = null;
@@ -221,15 +221,15 @@ namespace TheChicagoProject.GUI.Forms
             {
                 switch (alignment)
                 {
-                    case ControlAlignment.Center:
+                    case Alignment.Center:
                         Location = new Vector2((parent.Size.X / 2 - this.Size.X / 2) + this.Location.X, (parent.Size.Y / 2 - this.Size.Y / 2) + this.Location.Y);
                         break;
 
-                    case ControlAlignment.Left:
+                    case Alignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
 
-                    case ControlAlignment.Right:
+                    case Alignment.Right:
                         Location = new Vector2((parent.Size.X - this.Size.X) - this.Location.X, this.Location.Y);
                         break;
                 }
@@ -245,15 +245,15 @@ namespace TheChicagoProject.GUI.Forms
             {
                 switch (alignment)
                 {
-                    case ControlAlignment.Center:
+                    case Alignment.Center:
                         Location = new Vector2(((RenderManager.ViewportWidth / 2) - (this.Size.X / 2)) - this.Location.X, ((RenderManager.ViewportHeight / 2) - (this.Size.Y / 2)) - this.Location.Y);
                         break;
 
-                    case ControlAlignment.Left:
+                    case Alignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
 
-                    case ControlAlignment.Right:
+                    case Alignment.Right:
                         Location = new Vector2((RenderManager.ViewportWidth - this.Size.X - this.Location.X), this.Location.Y);
                         break;
                 }
@@ -269,16 +269,16 @@ namespace TheChicagoProject.GUI.Forms
             {
                 switch (alignment)
                 {
-                    case ControlAlignment.Center:
+                    case Alignment.Center:
                         Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth / 2, this.Location.Y + RenderManager.ViewportDeltaHeight / 2);
                         break;
 
-                    case ControlAlignment.Left:
+                    case Alignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
 
-                    case ControlAlignment.Right:
-                        Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth, this.Location.Y);
+                    case Alignment.Right:
+                        Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth, this.Location.Y + RenderManager.ViewportDeltaHeight);
                         break;
                 }
             }

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TheChicagoProject.GUI.Forms
 {
+    //Douglas Gliner
     public class DragableControl : Control
     {
         public const int SIDE_LENGTH = 64;
@@ -29,8 +30,8 @@ namespace TheChicagoProject.GUI.Forms
             textLbl.Text = item.name;
             textLbl.Size = new Vector2(50, 10);
             textLbl.AutoResize = true;
-            textLbl.Alignment = ControlAlignment.Center;
             textLbl.TextAlignment = TextAlignment.Center;
+            textLbl.Alignment = Forms.Alignment.Center;
             textLbl.parent = this;
             Add(textLbl);
         }

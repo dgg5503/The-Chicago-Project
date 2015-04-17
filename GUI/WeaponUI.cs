@@ -9,6 +9,7 @@ using TheChicagoProject.Item;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     /// <summary>
     /// TO-DO:
     /// - Weapon image
@@ -42,8 +43,16 @@ namespace TheChicagoProject.GUI
 
             set
             {
-                weaponNameLbl.Text = value.name;
-                //weaponImageContainer.Fill = value.image;
+                if (value != null)
+                {
+                    weaponNameLbl.Text = value.name;
+                    //weaponImageContainer.Fill = value.image;
+                }
+                else
+                {
+                    weaponNameLbl.Text = "";
+                    //weaponImageContainer.Fill = empty;
+                }
                 item = value;
             }
         }
@@ -51,14 +60,14 @@ namespace TheChicagoProject.GUI
         public WeaponUI()
         {
             // Properties for this class
-            this.Alignment = ControlAlignment.Left;
+            this.Alignment = Alignment.Left;
             this.Size = new Vector2(180, 100);
 
             // Init other things.
             // Holds weapon and ammo info
             Container weaponAmmoContainer = new Container();
             weaponAmmoContainer.Size = new Vector2(this.Size.X - 10, this.Size.Y - 10);
-            weaponAmmoContainer.Alignment = ControlAlignment.Center;
+            weaponAmmoContainer.Alignment = Alignment.Center;
             weaponAmmoContainer.parent = this;
             Add(weaponAmmoContainer);
 
@@ -72,7 +81,7 @@ namespace TheChicagoProject.GUI
             weaponImageContainer = new Container();
             weaponImageContainer.Size = new Vector2(64, 64);
             weaponImageContainer.Location = new Vector2(0, -5);
-            weaponImageContainer.Alignment = ControlAlignment.Center;
+            weaponImageContainer.Alignment = Alignment.Center;
             weaponImageContainer.parent = weaponImgInfoContainer;
             weaponImgInfoContainer.Add(weaponImageContainer);
 
@@ -80,16 +89,16 @@ namespace TheChicagoProject.GUI
             weaponNameLbl = new Label();
             weaponNameLbl.Size = new Vector2(90, 10);
             weaponNameLbl.Location = new Vector2(0, 30);
-            weaponNameLbl.Text = "The Dominator";
+            weaponNameLbl.Text = "";
             weaponNameLbl.TextAlignment = TextAlignment.Center;
-            weaponNameLbl.Alignment = ControlAlignment.Center;
+            weaponNameLbl.Alignment = Alignment.Center;
             weaponNameLbl.parent = weaponImgInfoContainer;
             weaponImgInfoContainer.Add(weaponNameLbl);
 
             // Ammo container
             Container ammoInfoContainer = new Container();
             ammoInfoContainer.Size = new Vector2(75, 90);
-            ammoInfoContainer.Alignment = ControlAlignment.Right;
+            ammoInfoContainer.Alignment = Alignment.Right;
             ammoInfoContainer.parent = weaponAmmoContainer;
             weaponAmmoContainer.Add(ammoInfoContainer);
 
@@ -97,9 +106,9 @@ namespace TheChicagoProject.GUI
             ammoCurrentInClipLbl = new Label();
             ammoCurrentInClipLbl.Size = new Vector2(75, 90);
             ammoCurrentInClipLbl.Location = new Vector2(0, 20);
-            ammoCurrentInClipLbl.Text = "100";
+            ammoCurrentInClipLbl.Text = "";
             ammoCurrentInClipLbl.TextAlignment = TextAlignment.Center;
-            ammoCurrentInClipLbl.Alignment = ControlAlignment.Center;
+            ammoCurrentInClipLbl.Alignment = Alignment.Center;
             ammoCurrentInClipLbl.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoCurrentInClipLbl);
 
@@ -107,7 +116,7 @@ namespace TheChicagoProject.GUI
             Container ammoDivisorContainer = new Container();
             ammoDivisorContainer.Size = new Vector2(75, 10);
             ammoDivisorContainer.Location = new Vector2(0, 0);
-            ammoDivisorContainer.Alignment = ControlAlignment.Center;
+            ammoDivisorContainer.Alignment = Alignment.Center;
             ammoDivisorContainer.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoDivisorContainer);
 
@@ -115,20 +124,13 @@ namespace TheChicagoProject.GUI
             ammoTotalLbl = new Label();
             ammoTotalLbl.Size = new Vector2(75, 90);
             ammoTotalLbl.Location = new Vector2(0, 50);
-            ammoTotalLbl.Text = "150";
+            ammoTotalLbl.Text = "";
             ammoTotalLbl.TextAlignment = TextAlignment.Center;
-            ammoTotalLbl.Alignment = ControlAlignment.Center;
+            ammoTotalLbl.Alignment = Alignment.Center;
             ammoTotalLbl.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoTotalLbl);
 
         }
-
-        /*
-        public void Load(Entity.Entity entity)
-        {
-            this.entity = entity;
-        }
-        */
         
         public override void Update(GameTime gameTime)
         {
@@ -142,13 +144,17 @@ namespace TheChicagoProject.GUI
                     ammoTotalLbl.Text = "" + weapon.maxClip + "";
                 }
             }
+            else
+            {
+                ammoCurrentInClipLbl.Text = "";
+                ammoTotalLbl.Text = "";
+            }
             //weaponImageContainer;
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
             spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
         }

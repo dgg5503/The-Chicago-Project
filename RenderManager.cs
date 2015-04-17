@@ -195,12 +195,60 @@ namespace TheChicagoProject
                 c.Value.LoadTextures(graphics);
                 c.Value.LoadContent(mainGame.Content);
             }
+            (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
             //--------GUI----------
 
         }
 
         public void Update(GameTime gameTime)
         {
+            // Switch statement needed for on the fly texture loading
+            // OTF texture loading will only be done for game generated textures, they will not be loaded from files!
+            // Things that are loaded from texture files are found in spriteDicitionary.
+            // (one exception is Font files, this will be fixed later on)
+            switch (Game1.state)
+            {
+                case GameState.Menu:
+                    break;
+
+                case GameState.Pause:
+                    break;
+
+                case GameState.Inventory:
+                    InventoryMenu inventoryMenu = Controls.guiElements["inventoryMenu"] as InventoryMenu;
+                    if (!inventoryMenu.IsInventoryLoaded)
+                    {
+                        inventoryMenu.Load(player.inventory);
+                        inventoryMenu.LoadTextures(graphics);
+                        inventoryMenu.LoadContent(mainGame.Content);
+                    }
+                    break;
+
+                case GameState.FastTravel:
+                    break;
+
+                case GameState.Game:
+                    // UI (health, current wep, other stuff)
+                    if (player.inventory.ActiveWeapon != -1)
+                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
+                    else
+                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = null;
+
+
+                    break;
+
+                case GameState.QuestLog:
+                    break;
+
+                case GameState.Shop:
+                    break;
+
+                case GameState.WeaponWheel:
+
+                    //weapons come from holster
+                    break;
+            }
+
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
             // if the GUI is not visible, dont update it.
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
@@ -292,34 +340,28 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.Inventory:
-                    InventoryMenu inventoryMenu = Controls.guiElements["inventoryMenu"] as InventoryMenu;
-                    if(!inventoryMenu.IsInventoryLoaded)
-                    {
-                        inventoryMenu.Load(player.inventory);
-                        inventoryMenu.LoadTextures(graphics);
-                        inventoryMenu.LoadContent(mainGame.Content);
-                    }
-                    inventoryMenu.Draw(spriteBatch, gameTime);
+                    Controls.guiElements["inventoryMenu"].Draw(spriteBatch, gameTime);
                     break;
-                    
+
+                // if we get to it.
                 case GameState.FastTravel:
                     break;
 
                 case GameState.Game:
-                    // UI (health, current wep, other stuff)
-                    if (player.inventory.ActiveWeapon != -1)
-                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
-                    else
-                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = null;
                     Controls.guiElements["weaponUI"].Draw(spriteBatch, gameTime);
+                    Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
                     break;
 
+                // if we get to it.
                 case GameState.QuestLog:
+
                     break;
 
+                // if we get to it.
                 case GameState.Shop:
                     break;
 
+                // if we get to it
                 case GameState.WeaponWheel:
 
                     //weapons come from holster

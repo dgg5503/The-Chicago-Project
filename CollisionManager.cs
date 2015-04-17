@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject
 {
+    //Douglas Gliner
     /// <summary>
     /// This class will hold the update method for placing entities in the
     /// current world in collision tiles. 

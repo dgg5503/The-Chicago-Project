@@ -8,9 +8,10 @@ using TheChicagoProject.GUI.Forms;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     public class PauseMenu : Control
     {
-                // Header of the menu
+        // Header of the menu
         private Label lblHeader;
 
         // Resume button

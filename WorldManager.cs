@@ -45,15 +45,15 @@ namespace TheChicagoProject
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Lol", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Sus", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Mim", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Bib", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Soos", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The KEK", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The woah", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The nice", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The XD", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Knife", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test1", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test2", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test3", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test4", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test5", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test6", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test7", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
             #region debug
