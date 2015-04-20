@@ -57,7 +57,7 @@ namespace TheChicagoProject.GUI
             startButton.Text = "START";
             startButton.Click += buttons_Click;
             startButton.Size = new Vector2(55, 20);
-            startButton.Alignment = Alignment.Center;
+            startButton.Alignment = ControlAlignment.Center;
             startButton.Location = new Vector2(0, 20);
             startButton.parent = this;
             Add(startButton);
@@ -65,7 +65,7 @@ namespace TheChicagoProject.GUI
             //Quest builder
             questBuilderButton = new Button();
             questBuilderButton.Size = new Vector2(95, 20);
-            questBuilderButton.Alignment = Alignment.Center;
+            questBuilderButton.Alignment = ControlAlignment.Center;
             questBuilderButton.Location = new Vector2(0, 120);
             questBuilderButton.Text = "Quest Builder";
             questBuilderButton.Click += OpenTool;

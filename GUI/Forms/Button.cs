@@ -31,7 +31,7 @@ namespace TheChicagoProject.GUI.Forms
             text.Size = new Vector2(1, 1); // doesnt matter?
             text.AutoResize = true;
             text.TextAlignment = TextAlignment.Center;
-            text.Alignment = Alignment.Center;
+            text.Alignment = ControlAlignment.Center;
             text.parent = this;
             Add(text);
         }

@@ -38,19 +38,19 @@ namespace TheChicagoProject.GUI
             this.Size = new Vector2(600, 350);
             //this.Location = new Vector2(0, 0);
             //this.Location = new Vector2((RenderManager.ViewportWidth / 2) - (this.Size.X / 2), (RenderManager.ViewportHeight / 2) - (this.Size.Y / 2));
-            this.Alignment = Alignment.Center;
+            this.Alignment = ControlAlignment.Center;
 
             Container multiMatContainer = new Container();
             multiMatContainer.Size = new Vector2(DragableControl.SIDE_LENGTH * 5 + 100, DragableControl.SIDE_LENGTH * 3 + 20);
             multiMatContainer.Location = new Vector2(10, (this.Size.Y / 2) - (DragableControl.SIDE_LENGTH * 3 + 20) / 2);
-            multiMatContainer.Alignment = Alignment.Right;
+            multiMatContainer.Alignment = ControlAlignment.Right;
             multiMatContainer.parent = this;
             Add(multiMatContainer);
 
             equipContainer = new Container();
             equipContainer.Size = new Vector2(DragableControl.SIDE_LENGTH, DragableControl.SIDE_LENGTH);
             equipContainer.Location = new Vector2(10, 10);
-            equipContainer.Alignment = Alignment.Left;
+            equipContainer.Alignment = ControlAlignment.Left;
             equipContainer.parent = multiMatContainer;
             multiMatContainer.Add(equipContainer);
 
@@ -64,11 +64,11 @@ namespace TheChicagoProject.GUI
             Container matrixContainer = new Container();
             matrixContainer.Size = new Vector2(DragableControl.SIDE_LENGTH * 5 + 20, DragableControl.SIDE_LENGTH * 3 + 20);
             matrixContainer.Location = new Vector2(0, (multiMatContainer.Size.Y / 2) - (DragableControl.SIDE_LENGTH * 3 + 20) / 2);
-            matrixContainer.Alignment = Alignment.Right;
+            matrixContainer.Alignment = ControlAlignment.Right;
             matrixContainer.parent = multiMatContainer;
             multiMatContainer.Add(matrixContainer);
 
-            matrix.Alignment = Alignment.Center;
+            matrix.Alignment = ControlAlignment.Center;
             matrix.parent = matrixContainer;
             matrixContainer.Add(matrix);
 

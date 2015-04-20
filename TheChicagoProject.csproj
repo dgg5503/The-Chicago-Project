@@ -62,7 +62,8 @@
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="GUI\Utils.cs" />
-    <Compile Include="GUI\WeaponUI.cs" />
+    <Compile Include="GUI\WeaponInfoUI.cs" />
+    <Compile Include="GUI\WeaponWheelUI.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Item\Inventory.cs" />
     <Compile Include="AI\DijkstraMap.cs" />

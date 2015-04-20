@@ -232,11 +232,12 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.Game:
+                    // casting takes a lot of time, a way to check if user changed weapon??
                     // UI (health, current wep, other stuff)
                     if (player.inventory.ActiveWeapon != -1)
-                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
+                        (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
                     else
-                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = null;
+                        (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
 
                     break;
@@ -248,7 +249,13 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.WeaponWheel:
-
+                    WeaponWheelUI weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUI;
+                    if (!weaponWheelUI.IsInventoryLoaded)
+                    {
+                        weaponWheelUI.Load(player.inventory);
+                        weaponWheelUI.LoadTextures(graphics);
+                        weaponWheelUI.LoadContent(mainGame.Content);
+                    }
                     //weapons come from holster
                     break;
             }
@@ -354,7 +361,7 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.Game:
-                    Controls.guiElements["weaponUI"].Draw(spriteBatch, gameTime);
+                    Controls.guiElements["weaponInfoUI"].Draw(spriteBatch, gameTime);
                     Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
                     break;
 
@@ -369,8 +376,7 @@ namespace TheChicagoProject
 
                 // if we get to it
                 case GameState.WeaponWheel:
-
-                    //weapons come from holster
+                    Controls.guiElements["weaponWheel"].Draw(spriteBatch, gameTime);
                     break;
             }
             
