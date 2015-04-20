@@ -18,33 +18,64 @@ namespace TheChicagoProject.GUI.Forms
         Center
     }
 
-    public struct Border
+    public struct BorderInfo
     {
         public int width;
         public Color color;
+        public Texture2D texture;
+        public bool isDrawn;
 
-        public Border(int width, Color color)
+        public BorderInfo(int width, Color color)
         {
             this.width = width;
             this.color = color;
-
+            texture = null;
+            isDrawn = true;
             if (width < 1)
                 width = 1;
+
+            if (color == null)
+                color = Color.Black;
+        }
+
+        public BorderInfo(Texture2D texture)
+        {
+            width = 0;
+            color = Color.White;
+            this.texture = texture;
+            isDrawn = true;
+            if(texture == null)
+            {
+                width = 1;
+                color = Color.Black;
+            }
         }
     }
 
-    public struct Fill
+    public struct FillInfo
     {
-        public int width;
         public Color color;
+        public Texture2D texture;
+        public bool isDrawn;
 
-        public Fill(int width, Color color)
+        public FillInfo(Color color)
         {
-            this.width = width;
             this.color = color;
+            isDrawn = true;
+            if (color == null)
+                color = Color.Gray;
+            
+            texture = null;
+        }
 
-            if (width < 1)
-                width = 1;
+        public FillInfo(Texture2D texure, Color color)
+        {
+            this.texture = texure;
+            this.color = color;
+            isDrawn = true;
+
+            if (texure == null)
+                this.color = Color.Gray;
         }
     }
 
@@ -58,9 +89,11 @@ namespace TheChicagoProject.GUI.Forms
 
         // Border texture
         private Texture2D border;
+        private BorderInfo borderInfo;
 
         // Fill within the rectangle.
         private Texture2D fill;
+        private FillInfo fillInfo;
 
         // Default spriteFont
         private SpriteFont font;
@@ -115,11 +148,13 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// The border texture for controls, only shows if borderEnabled is true.
         /// </summary>
-        public Texture2D Border { get { return border; } set { border = value; } }
+        //public Texture2D Border { get { return border; } set { border = value; } }
+        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; } } } // do OTF load...
         /// <summary>
         /// Sets the fill of the control to some given Texture2D
         /// </summary>
-        public Texture2D Fill { get { return fill; } set { fill = value; } }
+        //public Texture2D Fill { get { return fill; } set { fill = value; } }
+        public FillInfo? Fill { get { return fillInfo; } set { if (value == null) { fillInfo.isDrawn = false; } else { fillInfo = (FillInfo)value; } } } // do OTF load...
         /// <summary>
         /// Gets this frames mouse state
         /// </summary>
@@ -152,6 +187,8 @@ namespace TheChicagoProject.GUI.Forms
             alignApplied = false;
             parent = null;
             this.fontFile = fontFile;
+            borderInfo = new BorderInfo(1, Color.Black);
+            fillInfo = new FillInfo(Color.Gray);
 
         }
 
@@ -160,20 +197,38 @@ namespace TheChicagoProject.GUI.Forms
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             isVisible = true;
-            
+
+            if(fillInfo.isDrawn)
+                spriteBatch.Draw(fill, this.GlobalLocation(), fillInfo.color);
+
+            if (borderInfo.isDrawn)
+                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
+
             foreach (Control c in controls)
                 c.Draw(spriteBatch, gameTime);
+
+            
         }
 
         public virtual void LoadTextures(GraphicsDevice graphics)
         {
             // Fill creation
-            fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-            fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.Gray);
+            if (fillInfo.texture == null)
+            {
+                fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+                fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
+            }
+            else
+                fill = fillInfo.texture; // update size?
 
             // Border creation
-            border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-            border.CreateBorder(1, Color.Black);
+            if (borderInfo.texture == null)
+            {
+                border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+                border.CreateBorder(borderInfo.width, Color.White); 
+            }
+            else
+                border = borderInfo.texture; // update size?
 
             foreach (Control c in controls)
                 c.LoadTextures(graphics);
@@ -344,6 +399,7 @@ namespace TheChicagoProject.GUI.Forms
                 throw new InvalidOperationException();
 
             controls.Add(control);
+        
             //controls.Add(control.parent = this);
         }
     }

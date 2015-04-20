@@ -167,6 +167,9 @@ namespace TheChicagoProject
         // This will be called when rendermanager is constructed in LoadContent... (since we only want to load textures once!!!)
         public void LoadTextures()
         {
+            //--------FONT---------
+            //--------FONT---------
+
             //--------TILES--------
             foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
             {
@@ -197,6 +200,8 @@ namespace TheChicagoProject
             }
             (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
             //--------GUI----------
+            
+            
 
         }
 
@@ -226,6 +231,8 @@ namespace TheChicagoProject
                         inventoryMenu.LoadTextures(graphics);
                         inventoryMenu.LoadContent(mainGame.Content);
                     }
+
+                    //Controls.guiElements["inventoryMenu"].Update(gameTime);
                     break;
 
                 case GameState.FastTravel:
@@ -239,7 +246,8 @@ namespace TheChicagoProject
                     else
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
-
+                    //Controls.guiElements["weaponInfoUI"].Update(gameTime);
+                    //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
                     break;
 
                 case GameState.QuestLog:
@@ -256,6 +264,7 @@ namespace TheChicagoProject
                         weaponWheelUI.LoadTextures(graphics);
                         weaponWheelUI.LoadContent(mainGame.Content);
                     }
+                    //Controls.guiElements["weaponWheel"].Update(gameTime);
                     //weapons come from holster
                     break;
             }
@@ -263,11 +272,13 @@ namespace TheChicagoProject
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
             // if the GUI is not visible, dont update it.
             
+            
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
             {
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
             }
+             
              
            
         }

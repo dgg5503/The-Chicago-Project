@@ -52,6 +52,8 @@ namespace TheChicagoProject.GUI.Forms
         {
             text = String.Empty;
             autoResize = false;
+            Border = null;
+            Fill = null;
         }
 
         public override void Update(GameTime gameTime)
@@ -76,6 +78,24 @@ namespace TheChicagoProject.GUI.Forms
             }
 
             base.Update(gameTime);
+        }
+
+        public void TextAlign()
+        {
+            switch (alignment)
+            {
+                case TextAlignment.Center:
+                    Location = new Vector2(parent.Size.X / 2 - Font.MeasureString(text).X / 2, this.Location.Y);
+                    break;
+
+                case TextAlignment.Left:
+                    Location = new Vector2(0, this.Location.Y);
+                    break;
+
+                case TextAlignment.Right:
+                    Location = new Vector2(parent.Size.X - Font.MeasureString(text).X, this.Location.Y);
+                    break;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
