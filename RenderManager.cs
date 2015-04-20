@@ -167,9 +167,6 @@ namespace TheChicagoProject
         // This will be called when rendermanager is constructed in LoadContent... (since we only want to load textures once!!!)
         public void LoadTextures()
         {
-            //--------FONT---------
-            //--------FONT---------
-
             //--------TILES--------
             foreach(KeyValuePair<string, Tile> kvp in Tiles.tilesDictionary)
             {
@@ -195,8 +192,8 @@ namespace TheChicagoProject
             //--------GUI----------
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
             {
-                c.Value.LoadTextures(graphics);
                 c.Value.LoadContent(mainGame.Content);
+                c.Value.LoadTextures(graphics);
             }
             (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
             //--------GUI----------
@@ -228,8 +225,9 @@ namespace TheChicagoProject
                     if (!inventoryMenu.IsInventoryLoaded)
                     {
                         inventoryMenu.Load(player.inventory);
-                        inventoryMenu.LoadTextures(graphics);
                         inventoryMenu.LoadContent(mainGame.Content);
+                        inventoryMenu.LoadTextures(graphics);
+                        inventoryMenu.Update(gameTime);
                     }
 
                     //Controls.guiElements["inventoryMenu"].Update(gameTime);
@@ -261,8 +259,9 @@ namespace TheChicagoProject
                     if (!weaponWheelUI.IsInventoryLoaded)
                     {
                         weaponWheelUI.Load(player.inventory);
-                        weaponWheelUI.LoadTextures(graphics);
                         weaponWheelUI.LoadContent(mainGame.Content);
+                        weaponWheelUI.LoadTextures(graphics);
+                        weaponWheelUI.Update(gameTime);
                     }
                     //Controls.guiElements["weaponWheel"].Update(gameTime);
                     //weapons come from holster

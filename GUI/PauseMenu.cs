@@ -46,8 +46,8 @@ namespace TheChicagoProject.GUI
             lblHeader.Text = "Paused!";
             lblHeader.Size = new Vector2(50, 10);
             lblHeader.AutoResize = true;
-            lblHeader.Location = new Vector2((this.Size.X / 2) - (lblHeader.Size.X / 2), 10);
-            lblHeader.TextAlignment = TextAlignment.Center;
+            lblHeader.Location = new Vector2(0, -130);
+            lblHeader.Alignment = ControlAlignment.Center;
             lblHeader.parent = this;
             Add(lblHeader);
         }
