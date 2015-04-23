@@ -57,8 +57,8 @@ namespace TheChicagoProject.GUI.Forms
 
         public override void Update(GameTime gameTime)
         {
-            // If drawing, the texture has already been loaded! AutoResize here.
-            // IF SIZE CHANGED, REALLIGN
+            // this is pretty meh and only applies to text
+            // I should do this check in control not just here :P...... (?)
 
             this.Size = Font.MeasureString(text);
 
@@ -68,9 +68,7 @@ namespace TheChicagoProject.GUI.Forms
             if (this.Size != lastSize)
             {
                 this.ControlSizeChange(lastSize);
-                Console.WriteLine("allign applied on {0}, old {1}, new {2}", text, lastSize, this.Size);
                 lastSize = this.Size;
-                
             }
 
             base.Update(gameTime);
@@ -89,8 +87,6 @@ namespace TheChicagoProject.GUI.Forms
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
-
             //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
             spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);

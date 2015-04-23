@@ -21,6 +21,8 @@ namespace TheChicagoProject.Entity
 
         public Direction direction;
 
+        public float faceDirection;
+
         public Sprite sprite;
 
         public Vector2 movement;
