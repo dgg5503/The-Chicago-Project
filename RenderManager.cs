@@ -335,7 +335,11 @@ namespace TheChicagoProject
         {
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
-                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection); // was e.direction
+                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+
+            // the above used e.Direction
+            // ASHWIN please set e.FaceDirection AND e.Direction in your AI to the same thing if you
+            // want basic rotation on AI.
         }
 
 
