@@ -190,12 +190,16 @@ namespace TheChicagoProject
             //------SPRITES-------
 
             //--------GUI----------
-            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
-            {
-                c.Value.LoadContent(mainGame.Content);
-                c.Value.LoadTextures(graphics);
-            }
+            // technically this shouldnt be here but casting is very slow so doing a cast
+            // then checking is living entity is set in this element in update would slow
+            // the game by a little.
+
+            // its placed above the loading of textures and content so text aligns properly.
             (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+
+            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
+                c.Value.LoadVisuals(mainGame.Content, graphics);
+            
             //--------GUI----------
             
             
@@ -225,8 +229,7 @@ namespace TheChicagoProject
                     if (!inventoryMenu.IsInventoryLoaded)
                     {
                         inventoryMenu.Load(player.inventory);
-                        inventoryMenu.LoadContent(mainGame.Content);
-                        inventoryMenu.LoadTextures(graphics);
+                        inventoryMenu.LoadVisuals(mainGame.Content, graphics);
                         inventoryMenu.Update(gameTime);
                     }
 
@@ -244,6 +247,8 @@ namespace TheChicagoProject
                     else
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
+                    
+
                     //Controls.guiElements["weaponInfoUI"].Update(gameTime);
                     //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
                     break;
@@ -259,8 +264,7 @@ namespace TheChicagoProject
                     if (!weaponWheelUI.IsInventoryLoaded)
                     {
                         weaponWheelUI.Load(player.inventory);
-                        weaponWheelUI.LoadContent(mainGame.Content);
-                        weaponWheelUI.LoadTextures(graphics);
+                        weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
                         weaponWheelUI.Update(gameTime);
                     }
                     //Controls.guiElements["weaponWheel"].Update(gameTime);
@@ -273,10 +277,8 @@ namespace TheChicagoProject
             
             
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
-            {
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
-            }
              
              
            
@@ -333,9 +335,7 @@ namespace TheChicagoProject
         {
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
-            {
                 e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.direction);
-            }
         }
 
 

@@ -66,7 +66,6 @@ namespace TheChicagoProject.GUI
             healthInfoContainer.Add(healthTxtLblContainer);
 
             Label healthTxtLbl = new Label();
-            healthTxtLbl.Size = new Vector2(1, 1);
             healthTxtLbl.AutoResize = true;
             healthTxtLbl.Text = "Health:";
             healthTxtLbl.Alignment = ControlAlignment.Center;
@@ -80,7 +79,7 @@ namespace TheChicagoProject.GUI
             healthInfoContainer.Add(healthLblContainer);
 
             healthLbl = new Label();
-            healthLbl.Size = new Vector2(1, 1);
+            //healthLbl.Size = new Vector2(1, 1);
             healthLbl.AutoResize = true;
             healthLbl.Text = "";
             healthLbl.Alignment = ControlAlignment.Center;
@@ -103,7 +102,6 @@ namespace TheChicagoProject.GUI
             moneyInfoContainer.Add(moneyTxtLblContainer);
 
             Label moneyTxtLbl = new Label();
-            moneyTxtLbl.Size = new Vector2(1, 1);
             moneyTxtLbl.AutoResize = true;
             moneyTxtLbl.Text = "Money:";
             moneyTxtLbl.Alignment = ControlAlignment.Center;
@@ -117,7 +115,6 @@ namespace TheChicagoProject.GUI
             moneyInfoContainer.Add(moneyLblContainer);
 
             moneyLbl = new Label();
-            moneyLbl.Size = new Vector2(1, 1);
             moneyLbl.AutoResize = true;
             moneyLbl.Text = "$00000000";
             moneyLbl.Alignment = ControlAlignment.Center;

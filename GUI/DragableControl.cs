@@ -28,9 +28,7 @@ namespace TheChicagoProject.GUI.Forms
 
             textLbl = new Label();
             textLbl.Text = item.name;
-            textLbl.Size = new Vector2(50, 10);
             textLbl.AutoResize = true;
-            //textLbl.TextAlignment = TextAlignment.Center;
             textLbl.Alignment = ControlAlignment.Center;
             textLbl.parent = this;
             Add(textLbl);

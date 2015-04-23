@@ -56,9 +56,7 @@ namespace TheChicagoProject.GUI.Forms
 
             text = new Label();
             text.Text = String.Empty;
-            //text.Size = new Vector2(1, 1); // doesnt matter?
             text.AutoResize = true;
-            //text.TextAlignment = TextAlignment.Center;
             text.Alignment = ControlAlignment.Center;
             text.parent = this;
             Add(text);

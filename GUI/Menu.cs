@@ -75,7 +75,6 @@ namespace TheChicagoProject.GUI
 
             lblHeader = new Label();
             lblHeader.Text = "MAIN MENU";
-            //lblHeader.Size = new Vector2(50, 10);
             lblHeader.AutoResize = true;
             lblHeader.Location = new Vector2(0, -130);
             lblHeader.Alignment = ControlAlignment.Center;

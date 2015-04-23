@@ -210,7 +210,7 @@ namespace TheChicagoProject.GUI.Forms
             
         }
 
-        public virtual void LoadTextures(GraphicsDevice graphics)
+        protected virtual void LoadTextures(GraphicsDevice graphics)
         {
             // Fill creation
             if (fillInfo.texture == null)
@@ -235,7 +235,7 @@ namespace TheChicagoProject.GUI.Forms
         }
 
         // For loading XNB related files...
-        public virtual void LoadContent(ContentManager contentManager)
+        protected virtual void LoadContent(ContentManager contentManager)
         {
             // PERHAPS MAKE INTERFACE FOR OBJECTS REQUIRING TEXT? (?)
             font = contentManager.Load<SpriteFont>("Font/" + fontFile);
@@ -243,6 +243,17 @@ namespace TheChicagoProject.GUI.Forms
             foreach (Control c in controls)
                 c.LoadContent(contentManager);
         }
+
+
+        public void LoadVisuals(ContentManager contentManager = null, GraphicsDevice graphics = null)
+        {
+            if (contentManager != null)
+                LoadContent(contentManager);
+
+            if (graphics != null)
+                LoadTextures(graphics);
+        }
+        
 
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
@@ -365,10 +376,69 @@ namespace TheChicagoProject.GUI.Forms
             }
         }
 
+        /// <summary>
+        /// Moves root control based on new screen size, controls location derive from root so no need to touch those locations.
+        /// </summary>
+        private void ControlSizeChangeAlignControl(Vector2 oldSize)
+        {
+            if (this.parent != null)
+            {
+                switch (alignment)
+                {
+                    case ControlAlignment.Center:
+                        Location = new Vector2(this.Location.X + ((oldSize.X - Size.X) / 2), this.Location.Y + ((oldSize.Y - Size.Y) / 2));
+                        break;
+
+                    case ControlAlignment.Left:
+                        Location = new Vector2(this.Location.X, this.Location.Y);
+                        break;
+
+                    case ControlAlignment.Right:
+                        Location = new Vector2(this.Location.X + (oldSize.X - Size.X), this.Location.Y + (oldSize.Y - Size.Y));
+                        break;
+                }
+            }
+        }
+
         // Screen size change reaction
         public void ScreenSizeChange()
         {
             ScreenSizeChangeAlignParent();
+        }
+
+        public void ControlSizeChange(Vector2 lastSize)
+        {
+            ControlSizeChangeAlignControl(lastSize);
+
+            // REMAKE BORDERS AND STUFF
+            // Fill creation
+            if (this.Size == Vector2.Zero)
+                return;
+
+            if (fillInfo.texture == null)
+            {
+                if (fill != null)
+                {
+                    fill = new Texture2D(fill.GraphicsDevice, (int)this.Size.X, (int)this.Size.Y);
+                    fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
+                }
+            }
+            else
+                fill = fillInfo.texture; // update size?
+
+            // Border creation
+            if (borderInfo.texture == null)
+            {
+                if (border != null)
+                {
+                    border = new Texture2D(border.GraphicsDevice, (int)this.Size.X, (int)this.Size.Y);
+                    border.CreateBorder(borderInfo.width, Color.White);
+                }
+            }
+            else
+                border = borderInfo.texture; // update size?
+             
+            // REMAKE BORDERS AND STUFF
         }
 
         public Vector2 GlobalLocation()

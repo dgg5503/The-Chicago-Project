@@ -45,6 +45,10 @@ namespace TheChicagoProject.GUI.Forms
         public Label()
         {
             text = String.Empty;
+
+            // size will always be automatically resized!
+            Size = Vector2.Zero;
+
             lastSize = Vector2.Zero;
             autoResize = true;
             Border = null;
@@ -57,16 +61,22 @@ namespace TheChicagoProject.GUI.Forms
             // IF SIZE CHANGED, REALLIGN
 
             this.Size = Font.MeasureString(text);
+
+            if (this.Size == Vector2.Zero)
+                this.Size = parent.Size;
+
             if (this.Size != lastSize)
             {
-                alignApplied = false;
+                this.ControlSizeChange(lastSize);
+                Console.WriteLine("allign applied on {0}, old {1}, new {2}", text, lastSize, this.Size);
                 lastSize = this.Size;
+                
             }
 
             base.Update(gameTime);
         }
 
-        public override void LoadContent(ContentManager contentManager)
+        protected override void LoadContent(ContentManager contentManager)
         {
             base.LoadContent(contentManager);
 
