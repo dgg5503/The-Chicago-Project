@@ -78,7 +78,7 @@ namespace TheChicagoProject.Item
         /// <summary>
         /// Returns the amount of ammo loaded into the gun
         /// </summary>
-        public int LoadedAmmo { get { return loadedAmmo; } }
+        public int LoadedAmmo { get { return loadedAmmo; } set { loadedAmmo = value; } }
 
         /// <summary>
         /// Reloads the gun
