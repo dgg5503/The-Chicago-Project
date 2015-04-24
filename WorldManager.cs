@@ -76,6 +76,8 @@ namespace TheChicagoProject
             //player.log.Add(SaveManager.ParseQuest("\\Content\\Quests\\Mugging.quest")); 
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 0);
             test.EnemyToKill = mugger;
+            test.Status = 1;
+            player.log.Add(test);
 #endif
             #endregion
             worldQuests = new QuestLog();

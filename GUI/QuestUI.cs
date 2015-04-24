@@ -151,7 +151,7 @@ namespace TheChicagoProject.GUI
             pointReward.Text = "" + currentQuest.Reward + "";
 
             // load objectives
-            
+            //currentQuest.
         }
 
         public void Close()
