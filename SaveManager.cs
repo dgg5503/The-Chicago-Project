@@ -105,9 +105,6 @@ namespace TheChicagoProject
                     output.Write(item.name);
                 }
 
-
-
-
             }
             catch(Exception e)
             {
