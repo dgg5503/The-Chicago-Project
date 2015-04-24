@@ -61,6 +61,8 @@ namespace TheChicagoProject
 
             #region debug
 
+#if DEBUG
+
             Stream worldStream = File.OpenRead(".\\Content\\World.txt");
             StreamReader worldReader = new StreamReader(worldStream);
 
@@ -106,12 +108,14 @@ namespace TheChicagoProject
             worlds.Add("main", tmpWorld);
 
             // DEBUG
-            LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 128, 32, 32), Sprites.spritesDictionary["player"], 10);
+            LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new LowAI(mugger);
             mugger.inventory.Add(new Item.Weapon(10, 1, 1, "Bam", 100, 0.5));
             mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
             worlds["main"].manager.AddEntity(player);
+
+#endif
             #endregion
             worldQuests = new QuestLog();
         }
