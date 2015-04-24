@@ -415,7 +415,7 @@ namespace TheChicagoProject
             World w =  mainGame.worldManager.CurrentWorld;
 
             // All locations are relative to the XY global axis.
-            int excess = 2;
+            int excess = 3;
 
             int xLowBound = ((player.location.IntX / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Width / Tile.SIDE_LENGTH) / 2);
             int yLowBound = ((player.location.IntY / Tile.SIDE_LENGTH)) - ((graphics.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
