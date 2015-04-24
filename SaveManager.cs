@@ -20,6 +20,7 @@ namespace TheChicagoProject
     public class SaveManager
     {
         public const string QUEST_DIRECTORY = "Quests/";
+        public const string SAVE_LOC = "SaveFiles/save.save";
         protected Game1 MainGame;
 
         //Constructor
@@ -46,7 +47,48 @@ namespace TheChicagoProject
         /// </summary>
         public void Save()
         {
-           
+            // Create a stream, then a writer
+            Stream outStream = null;
+            BinaryWriter output = null;
+            try
+            {
+                //initialize them
+                outStream = File.OpenWrite(SAVE_LOC);
+                output = new BinaryWriter(outStream);
+
+                //get the current world
+                string world = MainGame.worldManager.CurrentWorldString + ".txt";
+               
+                //get the player's stats
+                int playerX = MainGame.worldManager.CurrentWorld.manager.GetPlayer().location.IntX;
+                int playerY = MainGame.worldManager.CurrentWorld.manager.GetPlayer().location.IntY;
+                int playerHealth = MainGame.worldManager.CurrentWorld.manager.GetPlayer().health;
+                int pCash = MainGame.worldManager.CurrentWorld.manager.GetPlayer().Cash;
+                int pQuestPoints = MainGame.worldManager.CurrentWorld.manager.GetPlayer().QuestPoints;
+
+                //get the quest statuses
+                QuestLog log = MainGame.worldManager.CurrentWorld.manager.GetPlayer().log;
+                object[,] questStatuses = new object[log.GetLog().Count, 2];
+                foreach(Quest quest in log)
+                {
+
+                }
+
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error while saving the game: " + e.Message);
+            }
+            finally
+            {
+                if (output != null)
+                {
+                    // Done writing
+                    output.Close();
+                }
+            }
+            
         }
 
         /// <summary>

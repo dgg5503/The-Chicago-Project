@@ -36,6 +36,11 @@ namespace TheChicagoProject
             get { return worlds[current]; }
         }
 
+        public String CurrentWorldString
+        {
+            get { return current; }
+        }
+
         public WorldManager(Game1 game) {
             worlds = new Dictionary<String, World>();
             //TODO: Load/Save worlds.
