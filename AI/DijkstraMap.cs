@@ -49,6 +49,10 @@ namespace TheChicagoProject.AI
             // printMap();
         }
 
+        private DijkstraMap() {
+
+        }
+
         private int[][] generateMap(World world, params int[][] goals) {
             int[][] grid = new int[mapWidth][];
             //Initalizes the grid with 100
@@ -65,6 +69,18 @@ namespace TheChicagoProject.AI
                 //Console.WriteLine("GOAL: " + actualX + ", " + actualY);
             }
 
+            scan(world, grid);
+
+            for (int x = 0; x < grid.Length; x++)
+                for (int y = 0; y < grid[x].Length; y++)
+                    if (valid(world, modX + x, modY + y))
+                        if (!world.tiles[modX + x][modY + y].IsWalkable)
+                            grid[x][y] = 100;
+
+            return grid;
+        }
+
+        public int[][] scan(World world, int[][] grid) {
             bool b = false;
             while (!b) {
                 b = true;
@@ -121,14 +137,37 @@ namespace TheChicagoProject.AI
                         }
                 }
             }
-            for (int x = 0; x < grid.Length; x++)
-                for (int y = 0; y < grid[x].Length; y++)
-                    if (valid(world, modX + x, modY + y))
-                        if (!world.tiles[modX + x][modY + y].IsWalkable)
-                            grid[x][y] = 100;
-
             return grid;
         }
+
+        public bool valid(World world, int x, int y) {
+            return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles.Length;
+        }
+
+        public DijkstraMap GenerateFleeMap(World world) {
+            for (int x = 0; x < map.Length; x++)
+                for (int y = 0; y < map[x].Length; y++)
+                    if (valid(world, modX + x, modY + y)) {
+                        if (!world.tiles[modX + x][modY + y].IsWalkable)
+                            continue;
+                        map[x][y] = (int)(map[x][y] * -1.2);
+                    }
+            map = scan(world, map);
+            return this;
+        }
+
+        public DijkstraMap Clone() {
+            DijkstraMap clone = new DijkstraMap();
+            clone.goals = goals;
+            clone.mapWidth = mapWidth;
+            clone.mapHeight = mapHeight;
+            clone.modX = modX;
+            clone.modY = modY;
+            clone.map = map;
+            return clone;
+        }
+
+        //Debug
 
         public void printMap() {
             Console.WriteLine("" + mapWidth + "/" + mapHeight + ": " + modX + ", " + modY + " | " + goals[0][0] + ", " + goals[0][1]);
@@ -147,8 +186,6 @@ namespace TheChicagoProject.AI
             return "" + num;
         }
 
-        public bool valid(World world, int x, int y) {
-            return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles.Length;
-        }
+
     }
 }
