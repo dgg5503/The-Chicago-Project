@@ -34,12 +34,13 @@ namespace TheChicagoProject
 
         public void AddEntity(Entity.Entity e) {
             e.currentWorld = world;
-            entities.Add(e);
             Console.WriteLine("Added Entity");
             if (e is Player) {
                 Console.WriteLine("Added Player");
-                playerLoc = entities.Count - 1;
-            }
+                playerLoc = 0;
+                entities.Insert(0, e);
+            } else
+                entities.Add(e);
         }
 
         public Player GetPlayer() {
