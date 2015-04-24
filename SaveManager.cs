@@ -24,9 +24,9 @@ namespace TheChicagoProject
         protected Game1 MainGame;
 
         //Constructor
-        public SaveManager(Game1 mainGame)
+        public SaveManager()
         {
-            MainGame = mainGame;
+            MainGame = Game1.Instance;
         }
 
         /// <summary>

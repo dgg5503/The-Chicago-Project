@@ -122,12 +122,12 @@ namespace TheChicagoProject
         /// <param name="spriteBatch">MonoGames SpriteBatch object.</param>
         /// <param name="graphics">MonoGames GraphicsDevice object.</param>
         /// <param name="mainGame">Game1 class to interact with other managers.</param>
-        public RenderManager(SpriteBatch spriteBatch, GraphicsDevice graphics, Game1 mainGame, WorldManager worldManager)
+        public RenderManager(SpriteBatch spriteBatch, GraphicsDevice graphics, WorldManager worldManager)
         {
             this.spriteBatch = spriteBatch;
             this.graphics = graphics;
             this.worldManager = worldManager;
-            this.mainGame = mainGame;
+            this.mainGame = Game1.Instance;
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;

@@ -17,11 +17,11 @@ namespace TheChicagoProject.Entity
         public readonly int worldHeight;
         public DijkstraMap playerMap;
 
-        public World(Game1 game, int height, int width) {
+        public World(int height, int width) {
             tiles = new Tile[height][];
             for (int x = 0; x < height; x++)
                 tiles[x] = new Tile[width];
-            manager = new EntityManager(game, this);
+            manager = new EntityManager(this);
             this.worldWidth = width;
             this.worldHeight = height;
         }

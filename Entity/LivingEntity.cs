@@ -64,7 +64,7 @@ namespace TheChicagoProject.Entity
                 if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D) {
                     double trajectory = faceDirection;
                     trajectory += ((rand.NextDouble() - .5) * 2) * weapon.accuracy;
-                    EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
+                    EntityManager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage);
                 }
             }
         }

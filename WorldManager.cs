@@ -42,11 +42,11 @@ namespace TheChicagoProject
         }
 
         //Josiah S DeVizia, implemented world importation
-        public WorldManager(Game1 game) {
+        public WorldManager() {
             worlds = new Dictionary<String, World>();
             //TODO: Load/Save worlds.
             current = "main";
-            this.mainGame = game;
+            this.mainGame = Game1.Instance;
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
@@ -66,7 +66,7 @@ namespace TheChicagoProject
             Stream worldStream = File.OpenRead(".\\Content\\World.txt");
             StreamReader worldReader = new StreamReader(worldStream);
 
-            World tmpWorld = new World(game, int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
+            World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
 
             string line = worldReader.ReadLine();
             int row = 0;
