@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject
 {
+    //Douglas Gliner
     /// <summary>
     /// This class will hold the update method for placing entities in the
     /// current world in collision tiles. 
@@ -24,9 +25,9 @@ namespace TheChicagoProject
         // Grid for coll detection...
         private CollisionTile[,] grid;
         
-        public CollisionManager(Game1 mainGame)
+        public CollisionManager()
         {
-            this.mainGame = mainGame;
+            this.mainGame = Game1.Instance;
 
             grid = new CollisionTile[mainGame.worldManager.CurrentWorld.manager.world.worldHeight, mainGame.worldManager.CurrentWorld.manager.world.worldWidth];
 

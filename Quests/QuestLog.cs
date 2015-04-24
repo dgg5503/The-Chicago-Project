@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using System.Collections;
 
 namespace TheChicagoProject.Quests
 {
@@ -14,11 +15,19 @@ namespace TheChicagoProject.Quests
     /// <summary>
     /// Holds a Dictionary of Quest objects and information about them
     /// </summary>
-    public class QuestLog
+    public class QuestLog : IEnumerable
     {
         //fields
         private Dictionary<String, Quest> log;
 
+        //property
+        public Quest this[int index]{
+            get { return GetLog()[index]; }
+            set
+            {
+                Add(value);
+            }
+        }
         public QuestLog()
         {
             log = new Dictionary<String, Quest>();
@@ -29,6 +38,7 @@ namespace TheChicagoProject.Quests
         {
             log[newQuest.Name] = newQuest;
         }
+
 
         /// <summary>
         /// Gets the log for the user to access
@@ -82,5 +92,15 @@ namespace TheChicagoProject.Quests
                 quest.Update();
             }
         }
+
+        public IEnumerator GetEnumerator()
+        {
+            for(int i = 0; i < log.Count; i++)
+            {
+                yield return GetLog()[i];
+            }
+
+        }
+
     }
 }

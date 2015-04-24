@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject.Collision
 {
+    //Douglas Gliner
     public class CollisionTile
     {
         // Grid reference

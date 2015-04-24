@@ -6,6 +6,7 @@ using TheChicagoProject.GUI.Forms;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     public static class Controls
     {
 
@@ -13,8 +14,10 @@ namespace TheChicagoProject.GUI
         {
             {"mainMenu", new Menu()},
             {"pauseMenu", new PauseMenu()},
-            {"inventoryMenu", new InventoryMenu()}
-            //
+            {"inventoryMenu", new InventoryMenu()},
+            {"weaponInfoUI", new WeaponInfoUI()},
+            {"livingEntityInfoUI", new LivingEntityInfoUI()},
+            {"weaponWheel", new WeaponWheelUI()}
         };
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-//Josiah S DeVizia
+﻿//Josiah S DeVizia
 
 using System;
 using System.Collections.Generic;
@@ -17,17 +15,14 @@ namespace TheChicagoProject
     /// </summary>
     public class InputManager
     {
-        private Game1 mainGame;
         private static bool lastFrameFired;
         private static KeyboardState previousState;
 
         /// <summary>
         /// Makes a new Input manager
         /// </summary>
-        /// <param name="mainGame">Instance of the Game1</param>
-        public InputManager(Game1 mainGame)
+        public InputManager()
         {
-            this.mainGame = mainGame;
             lastFrameFired = true;
         }
 
@@ -155,6 +150,27 @@ namespace TheChicagoProject
 
                 WorldManager.player.cursor = mouseState.Position;
 
+                // Douglas Gliner
+                #region mouse aim (move to player?)
+                
+                // mouse location relative to CENTER OF SCREEN (not player since those coords are in a different system)
+                float newAngle = 0f;
+                Vector2 mousePositionVector = new Vector2(mouseState.Position.X - (RenderManager.ViewportWidth / 2), mouseState.Position.Y - (RenderManager.ViewportHeight / 2));
+                if (mouseState.Position.X != RenderManager.ViewportWidth / 2 || mouseState.Position.Y != RenderManager.ViewportHeight / 2)
+                {
+                    newAngle = (float)Math.Acos(Vector2.Dot(new Vector2(0, -1), mousePositionVector) / mousePositionVector.Length()); // original angle vector length should always be 1
+                }
+
+                // i dont remember how to math.........
+                // range of invCos is 0-pi, can i extend it to 2pi using multiplication or whatever? i dont remember ;-;....
+                // PERHAPS SLOW DOWN PLAYER IF NOT MOVING IN SAME DIRECTION AS FACING (as an interval of course, otherwise always slow unless at the exact angle.)
+                if (mousePositionVector.X < 0)
+                    WorldManager.player.faceDirection = newAngle * -1;
+                else
+                    WorldManager.player.faceDirection = newAngle;
+                 
+                #endregion
+
                 //handles mouse input
                 if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
                 {
@@ -170,7 +186,7 @@ namespace TheChicagoProject
                 }
                 else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
                 {
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
                     //WorldManager.player.Attack(1, );
                 }
                 #endregion
@@ -185,7 +201,7 @@ namespace TheChicagoProject
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
                 //WorldManager.player.Interact();
-                mainGame.worldManager.CurrentWorld.playerMap.printMap();
+                Game1.Instance.worldManager.CurrentWorld.playerMap.printMap();
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
@@ -216,6 +232,15 @@ namespace TheChicagoProject
             }
 
             previousState = keyState;
+        }
+
+        public void PauseInput(KeyboardState keyboardState)
+        {
+            if(keyboardState.IsKeyDown(Keys.Escape) && previousState.IsKeyUp(Keys.Escape))
+            {
+                Game1.state = GameState.Game;
+            }
+            previousState = keyboardState;
         }
     }
 }

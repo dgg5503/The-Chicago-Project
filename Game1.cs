@@ -57,7 +57,17 @@ namespace TheChicagoProject
         public static GameState state;
         Mugging mugTemp;
 
-        public Game1()
+        private static Game1 inst;
+
+        public static Game1 Instance {
+            get {
+                if (inst == null)
+                    inst = new Game1();
+                return inst;
+            }
+        }
+
+        private Game1()
             : base() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -72,10 +82,10 @@ namespace TheChicagoProject
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             state = GameState.Menu;
-            saveManager = new SaveManager(this);
-            worldManager = new WorldManager(this);
-            inputManager = new InputManager(this);
-            collisionManager = new CollisionManager(this);
+            saveManager = new SaveManager();
+            worldManager = new WorldManager();
+            inputManager = new InputManager();
+            collisionManager = new CollisionManager();
             
             base.Initialize();
         }
@@ -90,7 +100,7 @@ namespace TheChicagoProject
 
             // RenderManager is created here
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
-            renderManager = new RenderManager(spriteBatch, GraphicsDevice, this, worldManager);
+            renderManager = new RenderManager(spriteBatch, GraphicsDevice, worldManager);
 
             this.IsMouseVisible = true;
             //Load the data
@@ -169,6 +179,7 @@ namespace TheChicagoProject
                     collisionManager.Update();
                     break;
                 case GameState.Pause:
+                    inputManager.PauseInput(Keyboard.GetState());
                     break;
                 case GameState.Inventory:
                     break;
@@ -187,10 +198,10 @@ namespace TheChicagoProject
             // For sprite and GUI animations
             
 
-            renderManager.Update(gameTime);
+            
 
             worldManager.Update(gameTime);
-            
+            renderManager.Update(gameTime);
             base.Update(gameTime);
         }
 

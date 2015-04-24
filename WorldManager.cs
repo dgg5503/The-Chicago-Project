@@ -29,21 +29,34 @@ namespace TheChicagoProject
         public static Player player;
         public Dictionary<String, World> worlds;
         private String current;
-        protected Game1 mainGame;
         public QuestLog worldQuests;
 
         public World CurrentWorld {
             get { return worlds[current]; }
         }
 
-        public WorldManager(Game1 game) {
+        public String CurrentWorldString
+        {
+            get { return current; }
+        }
+
+        //Josiah S DeVizia, implemented world importation
+        public WorldManager() {
             worlds = new Dictionary<String, World>();
             //TODO: Load/Save worlds.
             current = "main";
-            this.mainGame = game;
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Knife", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test1", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test2", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test3", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test4", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test5", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test6", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test7", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
             #region debug
@@ -51,7 +64,7 @@ namespace TheChicagoProject
             Stream worldStream = File.OpenRead(".\\Content\\World.txt");
             StreamReader worldReader = new StreamReader(worldStream);
 
-            World tmpWorld = new World(game, int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
+            World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
 
             string line = worldReader.ReadLine();
             int row = 0;

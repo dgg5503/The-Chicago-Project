@@ -1,22 +1,23 @@
-Name: "Mugging"
-Objective: "Kill the mugger"
-Description: "A mugger is attacking you and you need to kill him"
+Type:"Quest"
+Name:"Mugging"
+Objective:"Kill the mugger"
+Description:"A mugger is attacking you and you need to kill him"
 Start:
-	X: 10
-	Y: 10
+	X:10
+	Y:10
 Reward:
-	Cash: 10
+	Cash:10
 	Q-Points:0
 
 Living Entity:
-	ID: mugger
+	ID:mugger
 	Start:
-		X: 10
-		y: 10
-	Texture: "mugger"
-	Health: 40
-	AI: Low
+		X:10
+		y:10
+	Texture:"mugger"
+	Health:40
+	AI:Low
+End Living Entitiy
 
-
-Finish:
-	mugger.Health <= 0
+Condition:EnemyDies
+	Target:mugger

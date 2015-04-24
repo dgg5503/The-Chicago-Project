@@ -21,6 +21,8 @@ namespace TheChicagoProject.Entity
 
         protected double lastShot;
 
+        private static Random rand = new Random();
+
         public AI.AI ai;
 
         /// <summary>
@@ -60,9 +62,9 @@ namespace TheChicagoProject.Entity
         public virtual void Attack(int type, Weapon weapon = null) {
             if (type == 0) {
                 if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D) {
-                    double trajectory = 0D;
-                    trajectory += 0D;
-                    EntityManager.FireBullet(location.X, location.Y, System.Math.Cos(trajectory), System.Math.Sin(trajectory));
+                    double trajectory = faceDirection;
+                    trajectory += ((rand.NextDouble() - .5) * 2) * weapon.accuracy;
+                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage);
                 }
             }
         }

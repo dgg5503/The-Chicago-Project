@@ -8,9 +8,10 @@ using TheChicagoProject.GUI.Forms;
 
 namespace TheChicagoProject.GUI
 {
+    //Douglas Gliner
     public class PauseMenu : Control
     {
-                // Header of the menu
+        // Header of the menu
         private Label lblHeader;
 
         // Resume button
@@ -24,13 +25,7 @@ namespace TheChicagoProject.GUI
 
             this.Location = new Vector2(100, 100);
             this.Size = new Vector2(200, 300);
-            
-            InitializeForms();
-        }
 
-        public void InitializeForms()
-        {
-            
             resumeButton = new Button();
             resumeButton.Text = "Resume";
             resumeButton.Click += resumeButton_Click;
@@ -49,10 +44,9 @@ namespace TheChicagoProject.GUI
 
             lblHeader = new Label();
             lblHeader.Text = "Paused!";
-            lblHeader.Size = new Vector2(50, 10);
             lblHeader.AutoResize = true;
-            lblHeader.Location = new Vector2((this.Size.X / 2) - (lblHeader.Size.X / 2), 10);
-            lblHeader.Alignment = TextAlignment.Center;
+            lblHeader.Location = new Vector2(0, -130);
+            lblHeader.Alignment = ControlAlignment.Center;
             lblHeader.parent = this;
             Add(lblHeader);
         }
@@ -71,8 +65,8 @@ namespace TheChicagoProject.GUI
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
-            spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             
             base.Draw(spriteBatch, gameTime);
         }

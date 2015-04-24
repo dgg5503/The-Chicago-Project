@@ -20,12 +20,13 @@ namespace TheChicagoProject
     public class SaveManager
     {
         public const string QUEST_DIRECTORY = "Quests/";
+        public const string SAVE_LOC = "SaveFiles/save.save";
         protected Game1 MainGame;
 
         //Constructor
-        public SaveManager(Game1 mainGame)
+        public SaveManager()
         {
-            MainGame = mainGame;
+            MainGame = Game1.Instance;
         }
 
         /// <summary>
@@ -35,20 +36,110 @@ namespace TheChicagoProject
         {
             LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
             LoadWorld("main");
+            LoadSave();
         }
 
+        #region load world
+        /// <summary>
+        /// loads the world from a given path
+        /// </summary>
+        /// <param name="worldPath">The path to the world</param>
         private void LoadWorld(String worldPath) {
             //using(BinaryReader reader = new BinaryReader())
         }
+        #endregion
 
+        #region Save File
         /// <summary>
         /// saves the game
         /// </summary>
         public void Save()
         {
-           
+            // Create a stream, then a writer
+            Stream outStream = null;
+            BinaryWriter output = null;
+            try
+            {
+                //initialize them
+                outStream = File.OpenWrite(SAVE_LOC);
+                output = new BinaryWriter(outStream);
+
+                //Get the player
+                Entity.Player player = MainGame.worldManager.CurrentWorld.manager.GetPlayer();
+
+                //get the current world
+                string world = MainGame.worldManager.CurrentWorldString + ".txt";
+               
+                //get the player's stats
+                int playerX = player.location.IntX;
+                int playerY = player.location.IntY;
+                int playerHealth = player.health;
+                int pCash = player.Cash;
+                int pQuestPoints = player.QuestPoints;
+
+                //get the quest statuses
+                QuestLog log = player.log;
+                object[,] questStatuses = new object[log.GetLog().Count, 2];
+                for(int i = 0; i < questStatuses.Length; i++)
+                {
+                    questStatuses[i, 0] = log[i].Name;
+                    questStatuses[i, 1] = log[i].Status;
+                }
+
+                //get the items in the inventory
+                List<string> items = new List<string>();
+                Item.Inventory inventory = player.inventory;
+                foreach(Item.Item item in inventory)
+                {
+                    items.Add(item.name);
+                }
+
+                //store all of the data in the file
+                output.Write(world);
+                output.Write(playerX);
+                output.Write(playerY);
+                output.Write(playerHealth);
+                output.Write(pCash);
+                output.Write(pQuestPoints);
+                output.Write(questStatuses.Length);
+                for(int i = 0; i < questStatuses.Length; i++)
+                {
+                    output.Write((string)questStatuses[i, 0]);
+                    output.Write((int)questStatuses[i, 1]);
+                }
+                output.Write(items.Count);
+                foreach(Item.Item item in inventory)
+                {
+                    output.Write(item.name);
+                }
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error while saving the game: " + e.Message);
+            }
+            finally
+            {
+                if (output != null)
+                {
+                    // Done writing
+                    output.Close();
+                }
+            }
+            
         }
 
+        /// <summary>
+        /// loads a save file
+        /// </summary>
+        public void LoadSave()
+        {
+
+        }
+
+        #endregion
+
+        #region Quests
         /// <summary>
         /// Saves all of the quests in the quest log
         /// </summary>
@@ -101,7 +192,12 @@ namespace TheChicagoProject
             }
         }
 
-        public Quest ParseQuest(string filename)
+        /// <summary>
+        /// Takes a path to a quest file and parses it to a quest object
+        /// </summary>
+        /// <param name="filename">the file path</param>
+        /// <returns>A quest</returns>
+        public static Quest ParseQuest(string filename)
         {
             Quest quest = null;
             using (StreamReader input = new StreamReader(filename))
@@ -123,7 +219,7 @@ namespace TheChicagoProject
 
                 */
                 string data = input.ReadToEnd();
-                if (data.Substring(5, 10).Contains("Storyline"))
+                if (data.Substring(5, 12).Contains("Storyline"))
                 {
                     //load individual quests
                 }
@@ -148,13 +244,13 @@ namespace TheChicagoProject
 
                     //get reward
                     index = data.IndexOf("Reward:");
-                    index = data.IndexOf("Cash Reward:", index) + 12;
+                    index = data.IndexOf("Cash:", index) + 12;
                     end = data.IndexOf("\n", index);
                     attribute = data.Substring(index, end - index);
                     int cash;
                     if (!int.TryParse(attribute, out cash))
                         cash = 0;
-                    index = data.IndexOf("Quest Reward:", index) + 13;
+                    index = data.IndexOf("Q-Points:", index) + 13;
                     end = data.IndexOf("\n", index);
                     attribute = data.Substring(index, end - index);
                     int qPoints;
@@ -178,13 +274,190 @@ namespace TheChicagoProject
                     Vector2 start = new Vector2(X, Y);
 
                     //get the win condition
-                    index = data.IndexOf("Condition:", index) + 10;
+                    index = data.IndexOf("Condition:") + 10;
                     end = data.IndexOf("\n", index);
+                    attribute = data.Substring(index, end - index);
+                    WinCondition condition; //win state
+                    switch (attribute)
+                    {
+                        case "EnemyDies":
+                            condition = WinCondition.EnemyDies;
+                            break;   
+                        case "ObtainItem":
+                            condition = WinCondition.ObtainItem;
+                            break;
+                        case "DeliverItem":
+                            condition = WinCondition.DeliverItem;
+                            break;
+                        case "AllEnemiesDead":
+                        default:
+                            condition = WinCondition.AllEnemiesDead;
+                            break;
+                    }
 
+                    //get the id of the entity or item that satisfies the quest condition
+                    string target = "";
+                    string recipient = "";
+                    switch (condition)
+                    {
+                        case WinCondition.EnemyDies:
+                        case WinCondition.ObtainItem:
+                            //get the name of the entity
+                            index = data.IndexOf("Target:") + 7;
+                            end = data.IndexOf('\n');
+                            target = data.Substring(index, index - end);
+                            break;
+                        case WinCondition.DeliverItem:
+                            //get the target item
+                            index = data.IndexOf("Target:") + 7;
+                            end = data.IndexOf('\n');
+                            target = data.Substring(index, index - end);
+
+                            //get destination
+                            index = data.IndexOf("Recipient:") + 10;
+                            end = data.IndexOf('\n');
+                            recipient = data.Substring(index, index - end);
+                            break;
+                    }
+#region Read Enemies
+                    //read all of the living entities
+                    Dictionary<string, Entity.LivingEntity> livingEntities = new Dictionary<string, Entity.LivingEntity>();
+                    int endEntity = data.Length;
+                    FloatRectangle EntityRect;
+                    AI.AI ai;
+                    while((index = data.IndexOf("Living Entitiy:", index)) > 0)
+                    {
+                        ai = null;
+                        endEntity = data.IndexOf("End Living Enity", index);
+                        
+                        //get the id
+                        index = data.IndexOf("ID:", index) + 8;
+                        end = data.IndexOf('"', index);
+                        string id = data.Substring(index, end - index);
+
+                        //get the start position
+                        //get start point
+                        index = data.IndexOf("Start:", index);
+                        index = data.IndexOf("X:", index) + 2;
+                        end = data.IndexOf("\n", index);
+                        attribute = data.Substring(index, end - index);
+                        int sX;
+                        if (!int.TryParse(attribute, out sX))
+                            sX = 10;
+                        index = data.IndexOf("Y:", index) + 2;
+                        end = data.IndexOf("\n", index);
+                        attribute = data.Substring(index, end - index);
+                        int sY;
+                        if (!int.TryParse(attribute, out sY))
+                            sY = 10;
+                        
+                        //get texture
+                        index = data.IndexOf("Texture:", index) + 9;
+                        end = data.IndexOf('"', index);
+                        string texturePath = data.Substring(index, end - index);
+                        GUI.Sprite sprite = GUI.Sprites.spritesDictionary[texturePath];
+
+                        //create rectangle
+                        EntityRect = new FloatRectangle(sX, sY, sprite.Width, sprite.Height);
+
+                        //get the health
+                        index = data.IndexOf("Health:", index) + 7;
+                        end = data.IndexOf('\n', index);
+                        attribute = data.Substring(index, end - index);
+                        int health;
+                        if(!int.TryParse(attribute, out health))
+                        {
+                            health = 0;
+                        }
+
+                        livingEntities[id] = new Entity.LivingEntity(EntityRect, sprite, health, null);
+                        //get the ai
+                        index = data.IndexOf("AI:", index) + 7;
+                        end = data.IndexOf('\n', index);
+                        if (index < endEntity)
+                        {
+                            attribute = data.Substring(index, end - index);
+                            
+                            switch (attribute)
+                            {
+                                case "Low":
+                                    ai = new AI.LowAI(livingEntities[id]);
+                                    break;
+                                case "Mid":
+                                    ai = new AI.HighAI(livingEntities[id]);
+                                    break;
+                                case "High":
+                                    ai = new AI.HighAI(livingEntities[id]);
+                                    break;
+                                default:
+                                    ai = null;
+                                    break;
+                            }
+
+                            livingEntities[id].ai = ai;
+
+                        }
+
+                        
+                        
+                    }
+
+#endregion
+
+#region Read Items
+                    Dictionary<string, QuestItem> items = new Dictionary<string,QuestItem>();
+                    index = 0;
+                    int endItem = data.Length;
+                    while((index = data.IndexOf("Item:", index)) > 0)
+                    {
+                        endItem = data.IndexOf("End Item", index);
+
+                        //get the id
+                        index = data.IndexOf("ID:", index) + 3;
+                        end = data.IndexOf('\n', index);
+                        string id = data.Substring(index, end - index);
+
+                        //get the texture
+                        index = data.IndexOf("Texture:", index) + 9;
+                        end = data.IndexOf('"', index);
+                        string texturePath = data.Substring(index, end - index);
+                        GUI.Sprite sprite = GUI.Sprites.spritesDictionary[texturePath];
+
+                        //create item
+                        items[id] = new QuestItem(id);
+                        items[id].Item = new Item.Item();
+                        items[id].Item.image = sprite.Texture;
+
+                        
+                    }
+#endregion
+
+                    //Create the quest
+                    quest = new Quest(name, objective, description, start, null, null, condition, qPoints, cash);
+
+                    switch (condition)
+                    {
+                        case WinCondition.EnemyDies:
+                            quest.EnemyToKill = livingEntities[target];
+                            break;
+                        case WinCondition.AllEnemiesDead:
+                            break;
+                        case WinCondition.ObtainItem:
+                            quest.FindThis = items[target].Item;
+                            break;
+                        case WinCondition.DeliverItem:
+                            quest.Delivery = items[target].Item;
+                            quest.Recipient = livingEntities[recipient];
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
             }
             return quest;
         }
+
+        #endregion
     }
 }

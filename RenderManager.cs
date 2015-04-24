@@ -98,13 +98,22 @@ namespace TheChicagoProject
 
         private Player player;
 
+        // DEBUG QUEST
+        private QuestUI tempQuest;
+
         // Width and height for everyones use.
         private static int viewportWidth;
         private static int viewportHeight;
 
+        private static int viewportDeltaWidth;
+        private static int viewportDeltaHeight;
+
         // Static props so no need to make a render manager...
         public static int ViewportWidth { get { return viewportWidth; } }
         public static int ViewportHeight { get { return viewportHeight; } }
+
+        public static int ViewportDeltaWidth { get { return viewportDeltaWidth; } }
+        public static int ViewportDeltaHeight { get { return viewportDeltaHeight; } }
 
 
         /// <summary>
@@ -113,21 +122,48 @@ namespace TheChicagoProject
         /// <param name="spriteBatch">MonoGames SpriteBatch object.</param>
         /// <param name="graphics">MonoGames GraphicsDevice object.</param>
         /// <param name="mainGame">Game1 class to interact with other managers.</param>
-        public RenderManager(SpriteBatch spriteBatch, GraphicsDevice graphics, Game1 mainGame, WorldManager worldManager)
+        public RenderManager(SpriteBatch spriteBatch, GraphicsDevice graphics, WorldManager worldManager)
         {
             this.spriteBatch = spriteBatch;
             this.graphics = graphics;
             this.worldManager = worldManager;
-            this.mainGame = mainGame;
+            this.mainGame = Game1.Instance;
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
+
+            viewportDeltaWidth = 0;
+            viewportDeltaHeight = 0;
+
+            mainGame.Window.ClientSizeChanged += Window_ClientSizeChanged;
 
             // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
+        }
+
+        void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            viewportDeltaWidth = graphics.Viewport.Width - viewportWidth;
+            viewportDeltaHeight = graphics.Viewport.Height - viewportHeight;
+
+            if (viewportDeltaHeight == 0 && viewportDeltaWidth == 0)
+                return;
+            
+
+            viewportHeight = graphics.Viewport.Height;
+            viewportWidth = graphics.Viewport.Width;
+
+            Console.WriteLine("{0}/{1}", viewportDeltaWidth, viewportDeltaHeight);
+
+            //Controls.guiElements["inventoryMenu"].ScreenSizeChange();
+
+            
+            foreach (Control c in Controls.guiElements.Values)
+                c.ScreenSizeChange();
+
         }
 
         // LOAD TEXTURES
@@ -157,24 +193,104 @@ namespace TheChicagoProject
             //------SPRITES-------
 
             //--------GUI----------
+            // technically this shouldnt be here but casting is very slow so doing a cast
+            // then checking is living entity is set in this element in update would slow
+            // the game by a little.
+
+            // its placed above the loading of textures and content so text aligns properly.
+            (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
-            {
-                c.Value.LoadTextures(graphics);
-                c.Value.LoadContent(mainGame.Content);
-            }
+                c.Value.LoadVisuals(mainGame.Content, graphics);
+            
             //--------GUI----------
+            
+            
 
         }
 
         public void Update(GameTime gameTime)
         {
+            // Switch statement needed for on the fly texture loading
+            // OTF texture loading will only be done for game generated textures, they will not be loaded from files!
+            // Things that are loaded from texture files are found in spriteDicitionary.
+            // (one exception is Font files, this will be fixed later on)
+            switch (Game1.state)
+            {
+                case GameState.Menu:
+                    //Controls.guiElements["mainMenu"].Update(gameTime);
+                    break;
+
+                case GameState.Pause:
+                    //Controls.guiElements["pauseMenu"].Update(gameTime);
+                    break;
+
+                    // START FROM HERE
+
+                case GameState.Inventory:
+                    InventoryMenu inventoryMenu = Controls.guiElements["inventoryMenu"] as InventoryMenu;
+                    if (!inventoryMenu.IsInventoryLoaded)
+                    {
+                        inventoryMenu.Load(player.inventory);
+                        inventoryMenu.LoadVisuals(mainGame.Content, graphics);
+                        inventoryMenu.Update(gameTime);
+                    }
+
+                    //Controls.guiElements["inventoryMenu"].Update(gameTime);
+                    break;
+
+                case GameState.FastTravel:
+                    break;
+
+                case GameState.Game:
+                    // casting takes a lot of time, a way to check if user changed weapon??
+                    // UI (health, current wep, other stuff)
+                    if (player.inventory.ActiveWeapon != -1)
+                        (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
+                    else
+                        (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
+
+                    
+
+                    //Controls.guiElements["weaponInfoUI"].Update(gameTime);
+                    //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
+                    break;
+
+                case GameState.QuestLog:
+                    if(tempQuest == null)
+                    {
+                        tempQuest = new QuestUI();
+                        //tempQuest.Load()
+                        tempQuest.LoadVisuals(mainGame.Content, graphics);
+                        tempQuest.Update(gameTime);
+                    }
+                    break;
+
+                case GameState.Shop:
+                    break;
+
+                case GameState.WeaponWheel:
+                    WeaponWheelUI weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUI;
+                    if (!weaponWheelUI.IsInventoryLoaded)
+                    {
+                        weaponWheelUI.Load(player.inventory);
+                        weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
+                        weaponWheelUI.Update(gameTime);
+                    }
+                    //Controls.guiElements["weaponWheel"].Update(gameTime);
+                    //weapons come from holster
+                    break;
+            }
+
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
             // if the GUI is not visible, dont update it.
+            
+            
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
-            {
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
-            }
+             
+             
            
         }
         
@@ -200,13 +316,13 @@ namespace TheChicagoProject
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, cameraMatrix);
                 DrawWorld();
 
-                // Entities
-                DrawEntities();
-
                 #region debug
                 // DEBUG DRAWS
                 mainGame.collisionManager.Draw(spriteBatch);
                 #endregion
+
+                // Entities
+                DrawEntities();
 
                 spriteBatch.End();
             }
@@ -229,9 +345,11 @@ namespace TheChicagoProject
         {
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
-            {
-                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.direction);
-            }
+                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+
+            // the above used e.Direction
+            // ASHWIN please set e.FaceDirection AND e.Direction in your AI to the same thing if you
+            // want basic rotation on AI.
         }
 
 
@@ -256,29 +374,34 @@ namespace TheChicagoProject
                 case GameState.Pause:
                     // Transparent fadeout.
                     Controls.guiElements["pauseMenu"].Draw(spriteBatch, gameTime);
-                    
                     break;
 
                 case GameState.Inventory:
                     Controls.guiElements["inventoryMenu"].Draw(spriteBatch, gameTime);
                     break;
-                    
+
+                // if we get to it.
                 case GameState.FastTravel:
                     break;
 
                 case GameState.Game:
-                    // UI (health, current wep, other stuff)
+                    Controls.guiElements["weaponInfoUI"].Draw(spriteBatch, gameTime);
+                    Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
                     break;
 
+                // if we get to it.
                 case GameState.QuestLog:
+                    if (tempQuest != null)
+                        tempQuest.Draw(spriteBatch, gameTime);
                     break;
 
+                // if we get to it.
                 case GameState.Shop:
                     break;
 
+                // if we get to it
                 case GameState.WeaponWheel:
-
-                    //weapons come from holster
+                    Controls.guiElements["weaponWheel"].Draw(spriteBatch, gameTime);
                     break;
             }
             
