@@ -65,8 +65,8 @@ namespace TheChicagoProject
         /// <param name="y">The attacker y location</param>
         /// <param name="i">The i component of the direction vector</param>
         /// <param name="j">The j component of the direction vector</param>
-        public void FireBullet(float x, float y, float i, float j, int damage) {
-            Vector2 bullet = new Vector2(x, y);
+        public void FireBullet(float x, float y, float i, float j, int damage, LivingEntity shooter) {
+            Vector2 bullet = new Vector2(x + i, y + j);
 
             #region Screen Bounds
             int right = WorldManager.player.location.IntX + (RenderManager.ViewportWidth / 2);
@@ -91,7 +91,7 @@ namespace TheChicagoProject
                     if(entities[cntr].location.Contains(bullet))
                     {
                         go = false;
-                        if(entities[cntr] is LivingEntity && !(entities[cntr] is Player))
+                        if(entities[cntr] is LivingEntity && !entities[cntr].Equals(shooter))
                         {
                             (entities[cntr] as LivingEntity).health -= damage;
                         }
