@@ -79,8 +79,34 @@ namespace TheChicagoProject
                 }
 
                 //get the items in the inventory
+                List<string> items = new List<string>();
                 Item.Inventory inventory = player.inventory;
-                
+                foreach(Item.Item item in inventory)
+                {
+                    items.Add(item.name);
+                }
+
+                //store all of the data in the file
+                output.Write(world);
+                output.Write(playerX);
+                output.Write(playerY);
+                output.Write(playerHealth);
+                output.Write(pCash);
+                output.Write(pQuestPoints);
+                output.Write(questStatuses.Length);
+                for(int i = 0; i < questStatuses.Length; i++)
+                {
+                    output.Write((string)questStatuses[i, 0]);
+                    output.Write((int)questStatuses[i, 1]);
+                }
+                output.Write(items.Count);
+                foreach(Item.Item item in inventory)
+                {
+                    output.Write(item.name);
+                }
+
+
+
 
             }
             catch(Exception e)
