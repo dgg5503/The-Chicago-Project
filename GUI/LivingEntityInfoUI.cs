@@ -50,8 +50,8 @@ namespace TheChicagoProject.GUI
         {
             // Properties for this class
             this.Alignment = ControlAlignment.Right;
-            this.Size = new Vector2(180, 80);
-            this.Location = new Vector2(0, RenderManager.ViewportHeight - 100);
+            this.Size = new Vector2(180, 80); 
+            this.Location = new Vector2(0, RenderManager.ViewportHeight - 80);
 
             // Holds health label and current health label
             Container healthInfoContainer = new Container();

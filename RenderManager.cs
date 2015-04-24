@@ -260,7 +260,7 @@ namespace TheChicagoProject
                     if(tempQuest == null)
                     {
                         tempQuest = new QuestUI();
-                        //tempQuest.Load()
+                        tempQuest.Load(player.log.GetByStatus(1)[0]);
                         tempQuest.LoadVisuals(mainGame.Content, graphics);
                         tempQuest.Update(gameTime);
                     }
