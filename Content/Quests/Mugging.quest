@@ -6,8 +6,17 @@ Start:
 	X:0
 	Y:0
 Reward:
-	Cash:10
+	Cash:0
 	Q-Points:0
 
-Condition:EnemyDies
-Target:
+Living Entity:
+	ID:Mugger
+	Start:
+		X:100
+		Y:100
+	Texture:"mugger"
+	Health:4
+	AI:Low
+End Living Entity
+
+Condition:AllEnemiesDead

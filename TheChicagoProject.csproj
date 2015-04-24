@@ -144,7 +144,9 @@
     <None Include="Content\Font\TimesNewRoman12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Quests\Mugging.quest" />
+    <None Include="Content\Quests\Mugging.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Sprites\playerArt.ai" />
     <None Include="Quests\QuestFormat.quest" />
   </ItemGroup>
@@ -158,6 +160,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
