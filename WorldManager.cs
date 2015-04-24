@@ -72,7 +72,8 @@ namespace TheChicagoProject
             mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
             worlds["main"].manager.AddEntity(player);
-            
+
+            player.log.Add(SaveManager.ParseQuest("\\Content\\Quests\\Mugging.quest")); 
 #endif
             #endregion
             worldQuests = new QuestLog();
