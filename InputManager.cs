@@ -15,17 +15,14 @@ namespace TheChicagoProject
     /// </summary>
     public class InputManager
     {
-        private Game1 mainGame;
         private static bool lastFrameFired;
         private static KeyboardState previousState;
 
         /// <summary>
         /// Makes a new Input manager
         /// </summary>
-        /// <param name="mainGame">Instance of the Game1</param>
         public InputManager()
         {
-            this.mainGame = Game1.Instance;
             lastFrameFired = true;
         }
 
@@ -204,7 +201,7 @@ namespace TheChicagoProject
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
                 //WorldManager.player.Interact();
-                mainGame.worldManager.CurrentWorld.playerMap.printMap();
+                Game1.Instance.worldManager.CurrentWorld.playerMap.printMap();
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
