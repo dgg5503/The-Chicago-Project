@@ -50,7 +50,7 @@ namespace TheChicagoProject
             Player player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
             
             // this calculation is being done twice.....
-            int excess = 1;
+            int excess = 3;
 
             int xLowBound = ((player.location.IntX / Tile.SIDE_LENGTH)) - ((mainGame.GraphicsDevice.Viewport.Width / Tile.SIDE_LENGTH) / 2);
             int yLowBound = ((player.location.IntY / Tile.SIDE_LENGTH)) - ((mainGame.GraphicsDevice.Viewport.Height / Tile.SIDE_LENGTH) / 2) - excess;
