@@ -34,7 +34,7 @@ namespace TheChicagoProject.Entity
             : base(rect, sprite) {
             inventory = new Inventory();
             time = new GameTime();
-            lastShot = 0D;
+            lastShot = 60000D;
             this.health = health;
             this.ai = ai;
         }
@@ -51,7 +51,7 @@ namespace TheChicagoProject.Entity
                 ai.Update(time, manager);
 
             this.time = time;
-            lastShot += time.ElapsedGameTime.Milliseconds;
+            lastShot += time.ElapsedGameTime.TotalMilliseconds;
         }
 
         /// <summary>
@@ -61,10 +61,12 @@ namespace TheChicagoProject.Entity
         /// <param name="weapon">The weapon with which they are attacking</param>
         public virtual void Attack(int type, Weapon weapon = null) {
             if (type == 0) {
-                if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D) {
+                if (lastShot > (60000D / (weapon.rateOfFire))) {
+                    lastShot = 0D;
                     double trajectory = faceDirection;
                     trajectory += ((rand.NextDouble() - .5) * 2) * weapon.accuracy;
                     Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
+                    weapon.LoadedAmmo--;
                 }
             }
         }

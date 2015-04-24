@@ -45,7 +45,7 @@ namespace TheChicagoProject
         /// loads the world from a given path
         /// </summary>
         /// <param name="worldPath">The path to the world</param>
-        private void LoadWorld(String worldPath) {
+        public World LoadWorld(String worldPath) {
 
             Stream worldStream = File.OpenRead(".\\Content\\" + worldPath + ".txt");
             StreamReader worldReader = new StreamReader(worldStream);
@@ -89,7 +89,8 @@ namespace TheChicagoProject
                 line = worldReader.ReadLine();
             }
 
-            MainGame.worldManager.worlds.Add(worldPath, tmpWorld);
+            //MainGame.worldManager.worlds.Add(worldPath, tmpWorld);
+            return tmpWorld;
         }
         #endregion
 
@@ -213,9 +214,39 @@ namespace TheChicagoProject
                 }
 
                 //make the world
-                LoadWorld(world);
+                MainGame.worldManager.worlds.Add("main", LoadWorld(world));
 
+                //set the player in the world
+                Player player = new Player(
+                    new FloatRectangle(pX, pY, 32, 32),
+                    Sprites.spritesDictionary["player"]
+                    );
+                player.Cash = pCash;
+                player.health = pHealth;
+                player.QuestPoints = pQuestPoitns;
 
+                //load the quest status
+                string quest;
+                QuestLog log = player.log;
+                for(int i = 0; i < numQuests; i++)
+                {
+                    quest = (string)quests[i,0];
+                    if(log.ContainsQuest(quest))
+                        log[quest].Status = (int)quests[i,1];
+                }
+                
+                //load the items
+                Item.Inventory inventory = player.inventory;
+                Item.Item newItem;
+                for(int i = 0; i < numItems; i++)
+                {
+                    newItem = new Item.Item();
+                    newItem.name = items[i];
+                    newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                }
+
+                //add the player to the world
+                MainGame.worldManager.CurrentWorld.manager.AddEntity(player);
             }
             catch(Exception e)
             {
