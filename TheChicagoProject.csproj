@@ -145,6 +145,7 @@
     <None Include="Content\Font\TimesNewRoman12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Quests\Mugging.quest" />
     <None Include="Content\Sprites\playerArt.ai" />
     <None Include="Quests\QuestFormat.quest" />
   </ItemGroup>

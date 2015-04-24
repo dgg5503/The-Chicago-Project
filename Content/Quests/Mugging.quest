@@ -1,0 +1,13 @@
+Type:"Quest"
+Name:"Mugging"
+Objective:"Kill the mugger"
+Description:"You are being attacked by a mugger."
+Start:
+	X:0
+	Y:0
+Reward:
+	Cash:10
+	Q-Points:0
+
+Condition:EnemyDies
+Target:
