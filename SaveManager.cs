@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using TheChicagoProject.Entity;
+using TheChicagoProject.GUI;
 
 namespace TheChicagoProject
 {
@@ -35,7 +37,6 @@ namespace TheChicagoProject
         public void Load()
         {
             LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
-            LoadWorld("main");
             LoadSave();
         }
 
@@ -45,7 +46,50 @@ namespace TheChicagoProject
         /// </summary>
         /// <param name="worldPath">The path to the world</param>
         private void LoadWorld(String worldPath) {
-            //using(BinaryReader reader = new BinaryReader())
+
+            Stream worldStream = File.OpenRead(".\\Content\\" + worldPath + ".txt");
+            StreamReader worldReader = new StreamReader(worldStream);
+
+            World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
+
+            string line = worldReader.ReadLine();
+            int row = 0;
+            while (line != null)
+            {
+                for (int col = 0; col < line.Length; ++col)
+                {
+                    switch (line[col])
+                    {
+                        case '0':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["RoadTar"];
+                            break;
+
+                        case '1':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["RoadLine"];
+                            break;
+
+                        case '2':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["SideWalkBrick"];
+                            break;
+
+                        case '3':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingEdge"];
+                            break;
+
+                        case '4':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingRoof"];
+                            break;
+
+                        case '5':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
+                            break;
+                    }
+                }
+                row++;
+                line = worldReader.ReadLine();
+            }
+
+            MainGame.worldManager.worlds.Add(worldPath, tmpWorld);
         }
         #endregion
 
@@ -134,7 +178,55 @@ namespace TheChicagoProject
         /// </summary>
         public void LoadSave()
         {
+            Stream inStream = null;
+            BinaryReader input = null;
 
+            try
+            {
+                //open the file for reading
+                inStream = File.OpenRead(SAVE_LOC);
+                input = new BinaryReader(inStream);
+
+                //red the file
+                string world = input.ReadString();
+                int pX = input.ReadInt32();
+                int pY = input.ReadInt32();
+                int pHealth = input.ReadInt32();
+                int pCash = input.ReadInt32();
+                int pQuestPoitns = input.Read();
+
+                //read the quests
+                int numQuests = input.ReadInt32();
+                object[,] quests = new object[numQuests,2];
+                for(int i = 0; i < numQuests; i++)
+                {
+                    quests[i, 0] = input.ReadString();
+                    quests[i, 1] = input.ReadInt32();
+                }
+
+                //read the inventory
+                int numItems = input.ReadInt32();
+                string[] items = new string[numItems];
+                for(int i = 0 ; i < numItems; i++)
+                {
+                    items[i] = input.ReadString();
+                }
+
+                //make the world
+                LoadWorld(world);
+
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error reading file: " + e.Message);
+            }
+            finally
+            {
+                if (input != null)
+                    input.Close();
+            }
+            
         }
 
         #endregion
