@@ -73,7 +73,8 @@ namespace TheChicagoProject
             worlds["main"].manager.AddEntity(mugger);
             worlds["main"].manager.AddEntity(player);
 
-            player.log.Add(SaveManager.ParseQuest("\\Content\\Quests\\Mugging.quest")); 
+            player.log.Add(SaveManager.ParseQuest(".\\Content\\Quests\\Mugging.quest"));
+            player.log["Mugging"].Status = 1;
 #endif
             #endregion
             worldQuests = new QuestLog();
