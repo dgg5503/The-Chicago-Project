@@ -36,12 +36,20 @@ namespace TheChicagoProject
         {
             LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
             LoadWorld("main");
+            LoadSave();
         }
 
+        #region load world
+        /// <summary>
+        /// loads the world from a given path
+        /// </summary>
+        /// <param name="worldPath">The path to the world</param>
         private void LoadWorld(String worldPath) {
             //using(BinaryReader reader = new BinaryReader())
         }
+        #endregion
 
+        #region Save File
         /// <summary>
         /// saves the game
         /// </summary>
@@ -121,6 +129,17 @@ namespace TheChicagoProject
             
         }
 
+        /// <summary>
+        /// loads a save file
+        /// </summary>
+        public void LoadSave()
+        {
+
+        }
+
+        #endregion
+
+        #region Quests
         /// <summary>
         /// Saves all of the quests in the quest log
         /// </summary>
@@ -438,5 +457,7 @@ namespace TheChicagoProject
             }
             return quest;
         }
+
+        #endregion
     }
 }
