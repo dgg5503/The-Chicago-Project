@@ -61,52 +61,10 @@ namespace TheChicagoProject
 
             #region debug
 
+
+            if(CurrentWorld == null)
+                Game1.Instance.saveManager.LoadWorld(current);
 #if DEBUG
-
-            Stream worldStream = File.OpenRead(".\\Content\\World.txt");
-            StreamReader worldReader = new StreamReader(worldStream);
-
-            World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
-
-            string line = worldReader.ReadLine();
-            int row = 0;
-            while (line != null)
-            {
-                for (int col = 0; col < line.Length; ++col)
-                {
-                    switch (line[col])
-                    {
-                        case '0':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["RoadTar"];
-                            break;
-
-                        case '1':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["RoadLine"];
-                            break;
-
-                        case '2':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["SideWalkBrick"];
-                            break;
-
-                        case '3':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingEdge"];
-                            break;
-
-                        case '4':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingRoof"];
-                            break;
-
-                        case '5':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
-                            break;
-                    }
-                }
-                row++;
-                line = worldReader.ReadLine();
-            }
-
-            worlds.Add("main", tmpWorld);
-
             // DEBUG
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new LowAI(mugger);
@@ -114,7 +72,7 @@ namespace TheChicagoProject
             mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
             worlds["main"].manager.AddEntity(player);
-
+            
 #endif
             #endregion
             worldQuests = new QuestLog();

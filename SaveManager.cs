@@ -45,7 +45,7 @@ namespace TheChicagoProject
         /// loads the world from a given path
         /// </summary>
         /// <param name="worldPath">The path to the world</param>
-        private void LoadWorld(String worldPath) {
+        public void LoadWorld(String worldPath) {
 
             Stream worldStream = File.OpenRead(".\\Content\\" + worldPath + ".txt");
             StreamReader worldReader = new StreamReader(worldStream);
