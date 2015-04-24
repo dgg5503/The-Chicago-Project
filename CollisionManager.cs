@@ -25,9 +25,9 @@ namespace TheChicagoProject
         // Grid for coll detection...
         private CollisionTile[,] grid;
         
-        public CollisionManager(Game1 mainGame)
+        public CollisionManager()
         {
-            this.mainGame = mainGame;
+            this.mainGame = Game1.Instance;
 
             grid = new CollisionTile[mainGame.worldManager.CurrentWorld.manager.world.worldHeight, mainGame.worldManager.CurrentWorld.manager.world.worldWidth];
 

@@ -34,7 +34,7 @@ namespace TheChicagoProject.AI
             float lX = entity.lastLocation.X;
             float nX = entity.location.Center.X / Tile.SIDE_LENGTH;
             double d = Math.Abs(lX - nX);
-            if (d > 0.5) {
+            if (d > 0.75) {
                 entity.lastLocation.X = nX;
                 return (int) nX;
             }
@@ -49,7 +49,7 @@ namespace TheChicagoProject.AI
             float lY = entity.lastLocation.Y;
             float nY = entity.location.Center.Y / Tile.SIDE_LENGTH;
             double d = Math.Abs(lY - nY);
-            if (d > 0.5) {
+            if (d > 0.75) {
                 entity.lastLocation.Y = nY;
                 return (int) nY;
             }
@@ -66,18 +66,18 @@ namespace TheChicagoProject.AI
             int ex = getEntityX() - map.modX;
             int ey = getEntityY() - map.modY;
 
-            if (ex - 1 > -1)
-                if (map.Map[ex - 1][ey] == map.Map[ex][ey] - hl) //left
-                    return Direction.Left;
-            if (ex + 1 < map.Map.Length)
-                if (map.Map[ex + 1][ey] == map.Map[ex][ey] - hl) //right
-                    return Direction.Right;
             if (ey - 1 > -1)
                 if (map.Map[ex][ey - 1] == map.Map[ex][ey] - hl) //up
                     return Direction.Up;
             if (ey + 1 < map.Map[ex].Length)
                 if (map.Map[ex][ey + 1] == map.Map[ex][ey] - hl) //down
                     return Direction.Down;
+            if (ex - 1 > -1)
+                if (map.Map[ex - 1][ey] == map.Map[ex][ey] - hl) //left
+                    return Direction.Left;
+            if (ex + 1 < map.Map.Length)
+                if (map.Map[ex + 1][ey] == map.Map[ex][ey] - hl) //right
+                    return Direction.Right;
 
 
             if (ex - 1 > -1) {

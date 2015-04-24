@@ -25,21 +25,22 @@ namespace TheChicagoProject
             get { return entities; }
         }
 
-        public EntityManager(Game1 game, World world) {
+        public EntityManager(World world) {
             entities = new List<Entity.Entity>();
             playerLoc = -1;
-            this.mainGame = game;
+            this.mainGame = Game1.Instance;
             this.world = world;
         }
 
         public void AddEntity(Entity.Entity e) {
             e.currentWorld = world;
-            entities.Add(e);
             Console.WriteLine("Added Entity");
             if (e is Player) {
                 Console.WriteLine("Added Player");
-                playerLoc = entities.Count - 1;
-            }
+                playerLoc = 0;
+                entities.Insert(0, e);
+            } else
+                entities.Add(e);
         }
 
         public Player GetPlayer() {
@@ -64,9 +65,46 @@ namespace TheChicagoProject
         /// <param name="y">The attacker y location</param>
         /// <param name="i">The i component of the direction vector</param>
         /// <param name="j">The j component of the direction vector</param>
-        public static void FireBullet(float x, float y, double i, double j) {
-            //Console.WriteLine("Boom");
-            //throw new NotImplementedException();
+        public void FireBullet(float x, float y, float i, float j, int damage) {
+            Vector2 bullet = new Vector2(x, y);
+
+            #region Screen Bounds
+            int right = WorldManager.player.location.IntX + (RenderManager.ViewportWidth / 2);
+            int left = WorldManager.player.location.IntX - (RenderManager.ViewportWidth / 2);
+            int top  = WorldManager.player.location.IntY - (RenderManager.ViewportHeight / 2);
+            int bottom = WorldManager.player.location.IntY + (RenderManager.ViewportHeight / 2);
+            #endregion
+
+            bool go = true;
+            for (int t = 1; bullet.X < right && bullet.X > left && bullet.Y < bottom && bullet.Y > top && go; t++)
+            {
+                int tileX = (int)(bullet.X / GUI.Tile.SIDE_LENGTH);
+                int tileY = (int)(bullet.Y / GUI.Tile.SIDE_LENGTH);
+                
+                if(!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable)
+                {
+                    break;
+                }
+                
+                for(int cntr = 0; cntr < entities.Count; cntr ++)
+                {
+                    if(entities[cntr].location.Contains(bullet))
+                    {
+                        go = false;
+                        if(entities[cntr] is LivingEntity && !(entities[cntr] is Player))
+                        {
+                            (entities[cntr] as LivingEntity).health -= damage;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                bullet.X += i;
+                bullet.Y += j;
+            }
         }
     }
 }
