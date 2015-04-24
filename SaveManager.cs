@@ -56,24 +56,31 @@ namespace TheChicagoProject
                 outStream = File.OpenWrite(SAVE_LOC);
                 output = new BinaryWriter(outStream);
 
+                //Get the player
+                Entity.Player player = MainGame.worldManager.CurrentWorld.manager.GetPlayer();
+
                 //get the current world
                 string world = MainGame.worldManager.CurrentWorldString + ".txt";
                
                 //get the player's stats
-                int playerX = MainGame.worldManager.CurrentWorld.manager.GetPlayer().location.IntX;
-                int playerY = MainGame.worldManager.CurrentWorld.manager.GetPlayer().location.IntY;
-                int playerHealth = MainGame.worldManager.CurrentWorld.manager.GetPlayer().health;
-                int pCash = MainGame.worldManager.CurrentWorld.manager.GetPlayer().Cash;
-                int pQuestPoints = MainGame.worldManager.CurrentWorld.manager.GetPlayer().QuestPoints;
+                int playerX = player.location.IntX;
+                int playerY = player.location.IntY;
+                int playerHealth = player.health;
+                int pCash = player.Cash;
+                int pQuestPoints = player.QuestPoints;
 
                 //get the quest statuses
-                QuestLog log = MainGame.worldManager.CurrentWorld.manager.GetPlayer().log;
+                QuestLog log = player.log;
                 object[,] questStatuses = new object[log.GetLog().Count, 2];
-                foreach(Quest quest in log)
+                for(int i = 0; i < questStatuses.Length; i++)
                 {
-
+                    questStatuses[i, 0] = log[i].Name;
+                    questStatuses[i, 1] = log[i].Status;
                 }
 
+                //get the items in the inventory
+                Item.Inventory inventory = player.inventory;
+                
 
             }
             catch(Exception e)

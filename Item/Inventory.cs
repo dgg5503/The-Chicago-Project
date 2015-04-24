@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace TheChicagoProject.Item
 {
-    public class Inventory
+    public class Inventory : IEnumerable
     {
         private List<Item> inventory;
         private int[] holster;
@@ -58,6 +59,14 @@ namespace TheChicagoProject.Item
         /// <returns>The primary weapon, if any. Otherwise returns null.</returns>
         public Weapon GetEquippedPrimary() {
             return activeWeapon == -1 ? null : inventory[activeWeapon] as Weapon;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            foreach(Item item in inventory)
+            {
+                yield return item;
+            }
         }
     }
 }

@@ -20,6 +20,14 @@ namespace TheChicagoProject.Quests
         //fields
         private Dictionary<String, Quest> log;
 
+        //property
+        public Quest this[int index]{
+            get { return GetLog()[index]; }
+            set
+            {
+                Add(value);
+            }
+        }
         public QuestLog()
         {
             log = new Dictionary<String, Quest>();
@@ -30,6 +38,7 @@ namespace TheChicagoProject.Quests
         {
             log[newQuest.Name] = newQuest;
         }
+
 
         /// <summary>
         /// Gets the log for the user to access
