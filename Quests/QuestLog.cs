@@ -28,6 +28,15 @@ namespace TheChicagoProject.Quests
                 Add(value);
             }
         }
+
+        public Quest this[string name]
+        {
+            get { return log[name]; }
+            set
+            {
+                Add(value);
+            }
+        }
         public QuestLog()
         {
             log = new Dictionary<String, Quest>();
@@ -91,6 +100,26 @@ namespace TheChicagoProject.Quests
             {
                 quest.Update();
             }
+        }
+
+        /// <summary>
+        /// determines if the log has a quest of the given name
+        /// </summary>
+        /// <param name="questName"></param>
+        /// <returns></returns>
+        public bool ContainsQuest(string questName)
+        {
+            foreach(Quest quest in log.Values.ToList())
+            {
+                if (quest.Name.Equals(questName))
+                    return true;
+            }
+            return false;
+        }
+
+        public bool ContainsQuest(Quest quest)
+        {
+            return log.ContainsValue(quest);
         }
 
         public IEnumerator GetEnumerator()

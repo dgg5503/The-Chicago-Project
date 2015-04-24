@@ -214,7 +214,7 @@ namespace TheChicagoProject
                 }
 
                 //make the world
-                LoadWorld(world);
+                MainGame.worldManager.worlds.Add("main", LoadWorld(world));
 
                 //set the player in the world
                 Player player = new Player(
@@ -225,6 +225,28 @@ namespace TheChicagoProject
                 player.health = pHealth;
                 player.QuestPoints = pQuestPoitns;
 
+                //load the quest status
+                string quest;
+                QuestLog log = player.log;
+                for(int i = 0; i < numQuests; i++)
+                {
+                    quest = (string)quests[i,0];
+                    if(log.ContainsQuest(quest))
+                        log[quest].Status = (int)quests[i,1];
+                }
+                
+                //load the items
+                Item.Inventory inventory = player.inventory;
+                Item.Item newItem;
+                for(int i = 0; i < numItems; i++)
+                {
+                    newItem = new Item.Item();
+                    newItem.name = items[i];
+                    newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                }
+
+                //add the player to the world
+                MainGame.worldManager.CurrentWorld.manager.AddEntity(player);
             }
             catch(Exception e)
             {
