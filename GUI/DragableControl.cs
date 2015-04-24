@@ -22,16 +22,14 @@ namespace TheChicagoProject.GUI.Forms
         public DragableControl(Item.Item item)
         {
             this.Size = new Vector2(SIDE_LENGTH, SIDE_LENGTH);
-            this.Fill = item.image;
+            this.Fill = new FillInfo(item.image, Color.White);
 
             this.item = item;
 
             textLbl = new Label();
             textLbl.Text = item.name;
-            textLbl.Size = new Vector2(50, 10);
             textLbl.AutoResize = true;
-            textLbl.TextAlignment = TextAlignment.Center;
-            textLbl.Alignment = Forms.Alignment.Center;
+            textLbl.Alignment = ControlAlignment.Center;
             textLbl.parent = this;
             Add(textLbl);
         }
@@ -99,8 +97,8 @@ namespace TheChicagoProject.GUI.Forms
         */
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
-            spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
         }
 

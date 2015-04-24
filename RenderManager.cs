@@ -190,13 +190,19 @@ namespace TheChicagoProject
             //------SPRITES-------
 
             //--------GUI----------
-            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
-            {
-                c.Value.LoadTextures(graphics);
-                c.Value.LoadContent(mainGame.Content);
-            }
+            // technically this shouldnt be here but casting is very slow so doing a cast
+            // then checking is living entity is set in this element in update would slow
+            // the game by a little.
+
+            // its placed above the loading of textures and content so text aligns properly.
             (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+
+            foreach(KeyValuePair<string, Control> c in Controls.guiElements)
+                c.Value.LoadVisuals(mainGame.Content, graphics);
+            
             //--------GUI----------
+            
+            
 
         }
 
@@ -209,32 +215,42 @@ namespace TheChicagoProject
             switch (Game1.state)
             {
                 case GameState.Menu:
+                    //Controls.guiElements["mainMenu"].Update(gameTime);
                     break;
 
                 case GameState.Pause:
+                    //Controls.guiElements["pauseMenu"].Update(gameTime);
                     break;
+
+                    // START FROM HERE
 
                 case GameState.Inventory:
                     InventoryMenu inventoryMenu = Controls.guiElements["inventoryMenu"] as InventoryMenu;
                     if (!inventoryMenu.IsInventoryLoaded)
                     {
                         inventoryMenu.Load(player.inventory);
-                        inventoryMenu.LoadTextures(graphics);
-                        inventoryMenu.LoadContent(mainGame.Content);
+                        inventoryMenu.LoadVisuals(mainGame.Content, graphics);
+                        inventoryMenu.Update(gameTime);
                     }
+
+                    //Controls.guiElements["inventoryMenu"].Update(gameTime);
                     break;
 
                 case GameState.FastTravel:
                     break;
 
                 case GameState.Game:
+                    // casting takes a lot of time, a way to check if user changed weapon??
                     // UI (health, current wep, other stuff)
                     if (player.inventory.ActiveWeapon != -1)
-                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
+                        (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
                     else
-                        (Controls.guiElements["weaponUI"] as WeaponUI).Item = null;
+                        (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
+                    
 
+                    //Controls.guiElements["weaponInfoUI"].Update(gameTime);
+                    //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
                     break;
 
                 case GameState.QuestLog:
@@ -244,18 +260,27 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.WeaponWheel:
-
+                    WeaponWheelUI weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUI;
+                    if (!weaponWheelUI.IsInventoryLoaded)
+                    {
+                        weaponWheelUI.Load(player.inventory);
+                        weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
+                        weaponWheelUI.Update(gameTime);
+                    }
+                    //Controls.guiElements["weaponWheel"].Update(gameTime);
                     //weapons come from holster
                     break;
             }
 
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
             // if the GUI is not visible, dont update it.
+            
+            
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
-            {
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
-            }
+             
+             
            
         }
         
@@ -310,9 +335,11 @@ namespace TheChicagoProject
         {
             // Simply draw all entities in the currentWorld.
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
-            {
-                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.direction);
-            }
+                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+
+            // the above used e.Direction
+            // ASHWIN please set e.FaceDirection AND e.Direction in your AI to the same thing if you
+            // want basic rotation on AI.
         }
 
 
@@ -348,7 +375,7 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.Game:
-                    Controls.guiElements["weaponUI"].Draw(spriteBatch, gameTime);
+                    Controls.guiElements["weaponInfoUI"].Draw(spriteBatch, gameTime);
                     Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
                     break;
 
@@ -363,8 +390,7 @@ namespace TheChicagoProject
 
                 // if we get to it
                 case GameState.WeaponWheel:
-
-                    //weapons come from holster
+                    Controls.guiElements["weaponWheel"].Draw(spriteBatch, gameTime);
                     break;
             }
             

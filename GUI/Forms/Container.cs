@@ -45,8 +45,8 @@ namespace TheChicagoProject.GUI.Forms
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
-            spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             
             base.Draw(spriteBatch, gameTime);
         }

@@ -31,9 +31,7 @@ namespace TheChicagoProject.GUI.Forms
 
         // Autoresize to fit text?
         private bool autoResize;
-
-        // Alignment relative to parent
-        private TextAlignment alignment;
+        private Vector2 lastSize;
 
         /// <summary>
         /// Gets or sets the text for this label.
@@ -43,48 +41,56 @@ namespace TheChicagoProject.GUI.Forms
         /// Autoresize the control to fit the text.
         /// </summary>
         public bool AutoResize { get { return autoResize; } set { autoResize = value; } }
-        /// <summary>
-        /// Sets the alignment of this text relative to its container (parent).
-        /// </summary>
-        public TextAlignment TextAlignment { get { return alignment; } set { alignment = value; } }
 
         public Label()
         {
             text = String.Empty;
-            autoResize = false;
+
+            // size will always be automatically resized!
+            Size = Vector2.Zero;
+
+            lastSize = Vector2.Zero;
+            autoResize = true;
+            Border = null;
+            Fill = null;
         }
 
         public override void Update(GameTime gameTime)
         {
-            // If drawing, the texture has already been loaded! AutoResize here.
-            if(autoResize)
-                this.Size = Font.MeasureString(text);
+            // this is pretty meh and only applies to text
+            // I should do this check in control not just here :P...... (?)
 
-            switch(alignment)
+            this.Size = Font.MeasureString(text);
+
+            if (this.Size == Vector2.Zero)
+                this.Size = parent.Size;
+
+            if (this.Size != lastSize)
             {
-                case TextAlignment.Center:
-                    Location = new Vector2(parent.Size.X / 2 - Font.MeasureString(text).X / 2, this.Location.Y);
-                    break;
-
-                case TextAlignment.Left:
-                    Location = new Vector2(0, this.Location.Y);
-                    break;
-
-                case TextAlignment.Right:
-                    Location = new Vector2(parent.Size.X - Font.MeasureString(text).X, this.Location.Y);
-                    break;
+                this.ControlSizeChange(lastSize);
+                lastSize = this.Size;
             }
 
             base.Update(gameTime);
         }
 
+        protected override void LoadContent(ContentManager contentManager)
+        {
+            base.LoadContent(contentManager);
+
+            if (text == string.Empty)
+                this.Size = this.parent.Size; // target size?
+            else
+                this.Size = Font.MeasureString(text);
+            lastSize = this.Size;
+        }
+
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
-
             //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
-
+            spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
+            
         }
 
     }

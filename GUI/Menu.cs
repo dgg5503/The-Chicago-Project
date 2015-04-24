@@ -57,7 +57,7 @@ namespace TheChicagoProject.GUI
             startButton.Text = "START";
             startButton.Click += buttons_Click;
             startButton.Size = new Vector2(55, 20);
-            startButton.Alignment = Alignment.Center;
+            startButton.Alignment = ControlAlignment.Center;
             startButton.Location = new Vector2(0, 20);
             startButton.parent = this;
             Add(startButton);
@@ -65,7 +65,7 @@ namespace TheChicagoProject.GUI
             //Quest builder
             questBuilderButton = new Button();
             questBuilderButton.Size = new Vector2(95, 20);
-            questBuilderButton.Alignment = Alignment.Center;
+            questBuilderButton.Alignment = ControlAlignment.Center;
             questBuilderButton.Location = new Vector2(0, 120);
             questBuilderButton.Text = "Quest Builder";
             questBuilderButton.Click += OpenTool;
@@ -75,10 +75,9 @@ namespace TheChicagoProject.GUI
 
             lblHeader = new Label();
             lblHeader.Text = "MAIN MENU";
-            lblHeader.Size = new Vector2(50, 10);
             lblHeader.AutoResize = true;
-            lblHeader.Location = new Vector2((this.Size.X / 2) - (lblHeader.Size.X / 2), 10);
-            lblHeader.TextAlignment = TextAlignment.Center;
+            lblHeader.Location = new Vector2(0, -130);
+            lblHeader.Alignment = ControlAlignment.Center;
             lblHeader.parent = this;
             Add(lblHeader);
         }
@@ -108,7 +107,7 @@ namespace TheChicagoProject.GUI
          */
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
+            //spriteBatch.Draw(Border, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
         }
 

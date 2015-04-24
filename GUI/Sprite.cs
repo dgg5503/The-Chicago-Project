@@ -211,6 +211,37 @@ namespace TheChicagoProject.GUI
            
         }
 
+        public void Draw(SpriteBatch sb, int x, int y, float dir)
+        {
+
+            sb.Draw(
+                 texture,					    // - The texture to draw
+                 new Rectangle(x + (width / 2), y + (height / 2), width, height),		// - The location to draw on the screen
+                 new Rectangle(					// - The "source" rectangle
+                     frame * width,	                    //   - This rectangle specifies
+                     yOffset,		            //	   where "inside" the texture
+                     width,			            //     to get pixels (We don't want to
+                     height),		        	//     draw the whole thing)
+                 Color.White,					// - The color
+                 dir,								// - Rotation (none currently)
+                 new Vector2(width / 2, height / 2),					// - Origin inside the image (top left)
+                 SpriteEffects.None,				        // - Can be used to flip the image
+                 0);								// - Layer depth (unused)
+
+            /*
+            #region debug
+            
+            sb.Draw(
+                texture,					    // - The texture to draw
+                new Rectangle(x, y, texture.Width, texture.Height),		// - The location to draw on the screen
+                Color.White					// - The color
+            );
+             
+            #endregion
+            */
+
+        }
+
         /// <summary>
         /// Draw a sprite without rotation.
         /// </summary>
