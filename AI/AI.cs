@@ -26,14 +26,45 @@ namespace TheChicagoProject.AI
         public abstract void Update(GameTime time, EntityManager manager);
 
         /// <summary>
+        /// If the entity has mostly moved into the other tile,
+        /// return the other tile. Otherwise, assume you're here.
+        /// </summary>
+        /// <returns>the entity's 'location' X.</returns>
+        private int getEntityX() {
+            float lX = entity.lastLocation.X;
+            float nX = entity.location.Center.X / Tile.SIDE_LENGTH;
+            double d = Math.Abs(lX - nX);
+            if (d > 0.5) {
+                entity.lastLocation.X = nX;
+                return (int) nX;
+            }
+            return (int)lX;
+        }
+        /// <summary>
+        /// If the entity has mostly moved into the other tile,
+        /// return the other tile. Otherwise, assume you're here.
+        /// </summary>
+        /// <returns>the entity's 'location' Y.</returns>
+        private int getEntityY() {
+            float lY = entity.lastLocation.Y;
+            float nY = entity.location.Center.Y / Tile.SIDE_LENGTH;
+            double d = Math.Abs(lY - nY);
+            if (d > 0.5) {
+                entity.lastLocation.Y = nY;
+                return (int) nY;
+            }
+            return (int) lY;
+        }
+
+        /// <summary>
         /// Finds a position around the entity.
         /// </summary>
         /// <param name="map">The map to search.</param>
         /// <param name="hl">-1 (further) to 1 (closer)</param>
         /// <returns></returns>
         protected Direction findPos(DijkstraMap map, int hl) {
-            int ex = (int) (entity.location.Center.X / Tile.SIDE_LENGTH) - map.modX;
-            int ey = (int) (entity.location.Center.Y / Tile.SIDE_LENGTH) - map.modY;
+            int ex = getEntityX() - map.modX;
+            int ey = getEntityY() - map.modY;
 
             if (ex - 1 > -1)
                 if (map.Map[ex - 1][ey] == map.Map[ex][ey] - hl) //left

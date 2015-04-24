@@ -19,6 +19,8 @@ namespace TheChicagoProject.Entity
     {
         public FloatRectangle location;
 
+        public Vector2 lastLocation;
+
         public Direction direction;
 
         public float faceDirection;
