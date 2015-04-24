@@ -59,6 +59,7 @@
     <Compile Include="GUI\Menu.cs" />
     <Compile Include="GUI\PauseMenu.cs" />
     <Compile Include="GUI\QuestLogMenu.cs" />
+    <Compile Include="GUI\QuestUI.cs" />
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
     <Compile Include="GUI\Utils.cs" />

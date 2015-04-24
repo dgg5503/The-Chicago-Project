@@ -114,7 +114,7 @@ namespace TheChicagoProject.GUI.Forms
         private ControlAlignment alignment;
 
         // Alignment applies
-        protected bool alignApplied;
+        private bool alignApplied;
 
         // When clicked (input manager?)
         public event EventHandler Click;

@@ -157,6 +157,7 @@ namespace TheChicagoProject
 
                 // Douglas Gliner
                 #region mouse aim (move to player?)
+                
                 // mouse location relative to CENTER OF SCREEN (not player since those coords are in a different system)
                 Vector2 mousePositionVector = new Vector2(mouseState.Position.X - (RenderManager.ViewportWidth / 2), mouseState.Position.Y - (RenderManager.ViewportHeight / 2));
                 float newAngle = (float)Math.Acos(Vector2.Dot(new Vector2(0, -1), mousePositionVector) / mousePositionVector.Length()); // original angle vector length should always be 1
@@ -167,6 +168,7 @@ namespace TheChicagoProject
                     WorldManager.player.faceDirection = newAngle * -1;
                 else
                     WorldManager.player.faceDirection = newAngle;
+                 
                 #endregion
 
                 //handles mouse input

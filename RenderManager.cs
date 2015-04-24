@@ -98,6 +98,9 @@ namespace TheChicagoProject
 
         private Player player;
 
+        // DEBUG QUEST
+        private QuestUI tempQuest;
+
         // Width and height for everyones use.
         private static int viewportWidth;
         private static int viewportHeight;
@@ -254,6 +257,13 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.QuestLog:
+                    if(tempQuest == null)
+                    {
+                        tempQuest = new QuestUI();
+                        //tempQuest.Load()
+                        tempQuest.LoadVisuals(mainGame.Content, graphics);
+                        tempQuest.Update(gameTime);
+                    }
                     break;
 
                 case GameState.Shop:
@@ -381,7 +391,8 @@ namespace TheChicagoProject
 
                 // if we get to it.
                 case GameState.QuestLog:
-
+                    if (tempQuest != null)
+                        tempQuest.Draw(spriteBatch, gameTime);
                     break;
 
                 // if we get to it.
