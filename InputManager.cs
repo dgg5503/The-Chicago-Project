@@ -1,6 +1,4 @@
-﻿
-
-//Josiah S DeVizia
+﻿//Josiah S DeVizia
 
 using System;
 using System.Collections.Generic;
@@ -159,8 +157,13 @@ namespace TheChicagoProject
                 #region mouse aim (move to player?)
                 
                 // mouse location relative to CENTER OF SCREEN (not player since those coords are in a different system)
+                float newAngle = 0f;
                 Vector2 mousePositionVector = new Vector2(mouseState.Position.X - (RenderManager.ViewportWidth / 2), mouseState.Position.Y - (RenderManager.ViewportHeight / 2));
-                float newAngle = (float)Math.Acos(Vector2.Dot(new Vector2(0, -1), mousePositionVector) / mousePositionVector.Length()); // original angle vector length should always be 1
+                if (mouseState.Position.X != RenderManager.ViewportWidth / 2 || mouseState.Position.Y != RenderManager.ViewportHeight / 2)
+                {
+                    newAngle = (float)Math.Acos(Vector2.Dot(new Vector2(0, -1), mousePositionVector) / mousePositionVector.Length()); // original angle vector length should always be 1
+                }
+
                 // i dont remember how to math.........
                 // range of invCos is 0-pi, can i extend it to 2pi using multiplication or whatever? i dont remember ;-;....
                 // PERHAPS SLOW DOWN PLAYER IF NOT MOVING IN SAME DIRECTION AS FACING (as an interval of course, otherwise always slow unless at the exact angle.)
@@ -186,7 +189,7 @@ namespace TheChicagoProject
                 }
                 else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
                 {
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
                     //WorldManager.player.Attack(1, );
                 }
                 #endregion
@@ -232,6 +235,15 @@ namespace TheChicagoProject
             }
 
             previousState = keyState;
+        }
+
+        public void PauseInput(KeyboardState keyboardState)
+        {
+            if(keyboardState.IsKeyDown(Keys.Escape) && previousState.IsKeyUp(Keys.Escape))
+            {
+                Game1.state = GameState.Game;
+            }
+            previousState = keyboardState;
         }
     }
 }
