@@ -10,6 +10,16 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace TheChicagoProject.GUI.Forms
 {
+    /*
+     * Future to-do's
+     * - Padding
+     * - alternative to containers?
+     * - CenterLeft, Right, Horizontal, Vertical
+     * - resizing (i.e. build with a size and then scale from that...)
+     * - dragging of the window.
+     * - 
+     */
+
     //Douglas Gliner
     public enum ControlAlignment
     {
