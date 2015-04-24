@@ -41,6 +41,7 @@ namespace TheChicagoProject
             get { return current; }
         }
 
+        //Josiah S DeVizia, implemented world importation
         public WorldManager(Game1 game) {
             worlds = new Dictionary<String, World>();
             //TODO: Load/Save worlds.

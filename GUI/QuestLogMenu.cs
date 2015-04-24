@@ -12,6 +12,16 @@ namespace TheChicagoProject.GUI
 {
     class QuestLogMenu : Control
     {
+        public QuestLogMenu()
+        {
+            // this info...
+            this.Size = new Vector2(400, 400);
+            this.Alignment = ControlAlignment.Center;
 
+            // quick reference
+
+            // 
+            
+        }
     }
 }
