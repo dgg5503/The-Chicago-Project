@@ -29,7 +29,6 @@ namespace TheChicagoProject
         public static Player player;
         public Dictionary<String, World> worlds;
         private String current;
-        protected Game1 mainGame;
         public QuestLog worldQuests;
 
         public World CurrentWorld {
@@ -46,7 +45,6 @@ namespace TheChicagoProject
             worlds = new Dictionary<String, World>();
             //TODO: Load/Save worlds.
             current = "main";
-            this.mainGame = Game1.Instance;
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
