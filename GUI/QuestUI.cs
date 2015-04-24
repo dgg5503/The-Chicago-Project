@@ -71,7 +71,7 @@ namespace TheChicagoProject.GUI
             pointReward = new Label();
             pointReward.Alignment = ControlAlignment.Center;
             pointReward.Text = "@000";
-            pointReward.parent = questPointContainer
+            pointReward.parent = questPointContainer;
 
             questPointContainer.Add(pointReward);
 
