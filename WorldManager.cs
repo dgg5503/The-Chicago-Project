@@ -62,8 +62,8 @@ namespace TheChicagoProject
             #region debug
 
 
-            if(CurrentWorld == null)
-                Game1.Instance.saveManager.LoadWorld(current);
+            if(!worlds.ContainsKey(current))
+                worlds.Add(current, Game1.Instance.saveManager.LoadWorld(current));
 #if DEBUG
             // DEBUG
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
