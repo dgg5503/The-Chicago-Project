@@ -169,6 +169,7 @@ namespace TheChicagoProject
                     collisionManager.Update();
                     break;
                 case GameState.Pause:
+                    inputManager.PauseInput(Keyboard.GetState());
                     break;
                 case GameState.Inventory:
                     break;
