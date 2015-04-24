@@ -19,8 +19,8 @@ namespace TheChicagoProject
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
-                game.Run();
+            using (Game1.Instance)
+                Game1.Instance.Run();
         }
     }
 #endif

@@ -23,9 +23,9 @@ namespace TheChicagoProject
         /// Makes a new Input manager
         /// </summary>
         /// <param name="mainGame">Instance of the Game1</param>
-        public InputManager(Game1 mainGame)
+        public InputManager()
         {
-            this.mainGame = mainGame;
+            this.mainGame = Game1.Instance;
             lastFrameFired = true;
         }
 

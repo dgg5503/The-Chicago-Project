@@ -25,10 +25,10 @@ namespace TheChicagoProject
             get { return entities; }
         }
 
-        public EntityManager(Game1 game, World world) {
+        public EntityManager(World world) {
             entities = new List<Entity.Entity>();
             playerLoc = -1;
-            this.mainGame = game;
+            this.mainGame = Game1.Instance;
             this.world = world;
         }
 
