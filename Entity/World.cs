@@ -16,6 +16,7 @@ namespace TheChicagoProject.Entity
         public readonly int worldWidth; //Size in tiles, not pixels.
         public readonly int worldHeight;
         public DijkstraMap playerMap;
+        public DijkstraMap fleeMap;
 
         public World(int height, int width) {
             tiles = new Tile[height][];
@@ -33,11 +34,16 @@ namespace TheChicagoProject.Entity
             int pY = player.location.IntY / Tile.SIDE_LENGTH; //The actual player location.
             int width = Game1.Instance.GraphicsDevice.Viewport.Width / Tile.SIDE_LENGTH + 40;
             int height = Game1.Instance.GraphicsDevice.Viewport.Height / Tile.SIDE_LENGTH + 40;
-            if (playerMap == null)
+            if (playerMap == null) {
                 playerMap = new DijkstraMap(this, width, height, pX - 20, pY - 20, new int[] { 20, 20 });
+                fleeMap = playerMap.Clone().GenerateFleeMap(this);
+            }
             int[] pLoc = playerMap.Goals[0]; //The player location for AI's.
-            if (pX != pLoc[0] || pY != pLoc[1])
+            if (pX != pLoc[0] || pY != pLoc[1]) {
                 playerMap = new DijkstraMap(this, width, height, pX - 20, pY - 20, new int[] { 20, 20 });
+                fleeMap = playerMap.Clone().GenerateFleeMap(this);
+            }
+         
             manager.Update(time);
         }
     }
