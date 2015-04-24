@@ -118,7 +118,7 @@ namespace TheChicagoProject.Entity
                 if (lastShot > (1D / (weapon.rateOfFire)) || lastShot < 0D)
                 {
                     int magnitude = (int) Math.Sqrt(Math.Pow(cursor.X, 2) + Math.Pow(cursor.Y, 2));
-                    EntityManager.FireBullet(location.X, location.Y, (float)(cursor.X / magnitude), (float)(cursor.Y / magnitude), inventory.GetEquippedPrimary().Damage);
+                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)(cursor.X / magnitude), (float)(cursor.Y / magnitude), inventory.GetEquippedPrimary().Damage);
                 }
             }
         }
