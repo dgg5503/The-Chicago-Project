@@ -20,6 +20,9 @@ namespace TheChicagoProject.GUI
         private Label pointReward;
         private Label description;
 
+        // objectives container
+        private Container objectivesContainer;
+
         private Container objectiveImage;
         private Label objectiveName;
 
@@ -35,7 +38,7 @@ namespace TheChicagoProject.GUI
         public QuestUI()
         {
             // base
-            this.Size = new Vector2(400, 400);
+            this.Size = new Vector2(250, 250);
             this.Alignment = ControlAlignment.Center;
 
             // Name and Reward container
@@ -120,18 +123,11 @@ namespace TheChicagoProject.GUI
             // --- THERE COULD BE MULTIPLE OF THESE (stack them or side by side?) ---
             
             // Objective container
-            Container objectivesContainer = new Container();
+            objectivesContainer = new Container();
             objectivesContainer.Size = new Vector2((this.Size.X / 8) * 3, this.Size.Y - nameRewardContainer.Size.Y);
             objectivesContainer.Alignment = ControlAlignment.Right;
             objectivesContainer.parent = descObjectiveContainer;
             descObjectiveContainer.Add(objectivesContainer);
-
-            // Objective image
-
-            // Objective name container
-
-            // Objective name
-
             // --- THERE COULD BE MULTIPLE OF THESE ---
         }
 
@@ -147,11 +143,50 @@ namespace TheChicagoProject.GUI
             // load text
             name.Text = currentQuest.Name;
             description.Text = currentQuest.Description;
-            cashReward.Text = "" + currentQuest.CashReward + "";
-            pointReward.Text = "" + currentQuest.Reward + "";
+            cashReward.Text = "$" + currentQuest.CashReward + "";
+            pointReward.Text = "@" + currentQuest.Reward + "";
 
             // load objectives
-            //currentQuest.
+            ObjectivesUI tmpObjective;
+            switch(quest.WinCondition)
+            {
+                case WinCondition.AllEnemiesDead:
+                    // enemies to kill? (not sure about this one)
+                   
+                    break;
+
+                case WinCondition.DeliverItem:
+                    // deliver some item to some recipient
+                    tmpObjective = new ObjectivesUI(new Vector2(objectivesContainer.Size.X, objectivesContainer.Size.Y / 2));
+                    tmpObjective.Load("Deliver this", quest.Delivery.name, quest.Delivery.image);
+                    tmpObjective.parent = objectivesContainer;
+                    objectivesContainer.Add(tmpObjective);
+
+                    tmpObjective.Load("Recipient", "RECIP", quest.Recipient.sprite.Texture);
+                    tmpObjective.Location = new Vector2(0, objectivesContainer.Size.Y / 2);
+                    tmpObjective.parent = objectivesContainer;
+                    objectivesContainer.Add(tmpObjective);
+                    break;
+
+                case WinCondition.EnemyDies:
+                    // kill some enemy
+                    tmpObjective = new ObjectivesUI(objectivesContainer.Size);
+                    tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
+                    tmpObjective.parent = objectivesContainer;
+                    objectivesContainer.Add(tmpObjective);
+                    break;
+
+                case WinCondition.ObtainItem:
+                    // find this
+                    tmpObjective = new ObjectivesUI(objectivesContainer.Size);
+                    tmpObjective.Load("Find this item", quest.FindThis.name, quest.FindThis.image);
+                    tmpObjective.parent = objectivesContainer;
+                    objectivesContainer.Add(tmpObjective);
+                    break;
+            }
+            
+            
+            
         }
 
         public void Close()
