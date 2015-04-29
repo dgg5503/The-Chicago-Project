@@ -396,7 +396,7 @@ namespace TheChicagoProject.GUI.Forms
                 switch (alignment)
                 {
                     case ControlAlignment.Center:
-                        Location = new Vector2(this.Location.X + ((oldSize.X - this.Size.X) / 2), this.Location.Y + ((oldSize.Y - this.Size.Y) / 2));
+                        Location = new Vector2(this.Location.X + (int)((oldSize.X - this.Size.X) / 2), this.Location.Y + (int)((oldSize.Y - this.Size.Y) / 2)); // ints required here to preserve centering
                         break;
 
                     case ControlAlignment.Left:
@@ -404,7 +404,7 @@ namespace TheChicagoProject.GUI.Forms
                         break;
 
                     case ControlAlignment.Right:
-                        Location = new Vector2(this.Location.X + (oldSize.X - this.Size.X), this.Location.Y + (oldSize.Y - this.Size.Y));
+                        Location = new Vector2(this.Location.X + (oldSize.X - this.Size.X), this.Location.Y + (oldSize.Y - this.Size.Y)); // ints needed here?
                         break;
                 }
             }

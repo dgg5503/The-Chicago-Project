@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
+using TheChicagoProject.GUI.Particles;
 using TheChicagoProject.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -101,6 +102,11 @@ namespace TheChicagoProject
         // DEBUG QUEST
         private QuestUI tempQuest;
 
+        
+
+        // Particle list
+        private List<Line> particles;
+
         // Width and height for everyones use.
         private static int viewportWidth;
         private static int viewportHeight;
@@ -108,12 +114,17 @@ namespace TheChicagoProject
         private static int viewportDeltaWidth;
         private static int viewportDeltaHeight;
 
+        // pixel for global use.
+        private static Texture2D pixel;
+
         // Static props so no need to make a render manager...
         public static int ViewportWidth { get { return viewportWidth; } }
         public static int ViewportHeight { get { return viewportHeight; } }
 
         public static int ViewportDeltaWidth { get { return viewportDeltaWidth; } }
         public static int ViewportDeltaHeight { get { return viewportDeltaHeight; } }
+
+        public static Texture2D Pixel { get { return pixel; } }
 
 
         /// <summary>
@@ -128,6 +139,8 @@ namespace TheChicagoProject
             this.graphics = graphics;
             this.worldManager = worldManager;
             this.mainGame = Game1.Instance;
+
+            particles = new List<Line>();
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
@@ -202,7 +215,9 @@ namespace TheChicagoProject
 
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
                 c.Value.LoadVisuals(mainGame.Content, graphics);
-            
+
+            pixel = new Texture2D(graphics, 1, 1);
+            pixel.GenColorTexture(1, 1, Color.White);
             //--------GUI----------
             
             
@@ -250,7 +265,15 @@ namespace TheChicagoProject
                     else
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
-                    
+                    // PARTICLES
+                    for (int i = 0; i < particles.Count; i++ )
+                    {
+                        if (particles[i].CurrentTime <= 0) // possible problems (?)
+                            particles.Remove(particles[i]);
+                        else
+                            particles[i].Update(gameTime);
+                    }
+                        
 
                     //Controls.guiElements["weaponInfoUI"].Update(gameTime);
                     //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
@@ -289,8 +312,7 @@ namespace TheChicagoProject
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
-             
-             
+
            
         }
         
@@ -323,7 +345,7 @@ namespace TheChicagoProject
 
                 // Entities
                 DrawEntities();
-
+                DrawParticles();
                 spriteBatch.End();
             }
 
@@ -405,6 +427,17 @@ namespace TheChicagoProject
                     break;
             }
             
+        }
+
+        public void DrawParticles()
+        {
+            foreach (Line l in particles)
+                l.Draw(spriteBatch);
+        }
+
+        public void EmitParticle(Line line)
+        {
+            particles.Add(line);
         }
 
         // World drawing

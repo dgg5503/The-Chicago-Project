@@ -102,7 +102,7 @@ namespace TheChicagoProject.GUI
 
             // Ammo top
             ammoCurrentInClipLbl = new Label();
-            ammoCurrentInClipLbl.Location = new Vector2(0, 20);
+            ammoCurrentInClipLbl.Location = new Vector2(0, -20);
             ammoCurrentInClipLbl.Text = "";
             ammoCurrentInClipLbl.Alignment = ControlAlignment.Center;
             ammoCurrentInClipLbl.parent = ammoInfoContainer;
@@ -118,14 +118,14 @@ namespace TheChicagoProject.GUI
 
             // Ammo bottom
             ammoTotalLbl = new Label();
-            ammoTotalLbl.Location = new Vector2(0, -20);
+            ammoTotalLbl.Location = new Vector2(0, 20);
             ammoTotalLbl.Text = "";
             ammoTotalLbl.Alignment = ControlAlignment.Center;
             ammoTotalLbl.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoTotalLbl);
 
         }
-        
+
         public override void Update(GameTime gameTime)
         {
             //weaponNameLbl;

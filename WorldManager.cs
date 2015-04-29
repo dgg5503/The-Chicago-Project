@@ -50,13 +50,13 @@ namespace TheChicagoProject
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 5D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "Knife", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test1", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test2", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test3", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test4", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test5", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test6", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Test7", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "w", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "ww", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "www", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwww", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwwww", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwwwww", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwwwwww", 30, 5D));
             player.inventory.ActiveWeapon = 0;
 
             #region debug

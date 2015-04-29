@@ -58,6 +58,7 @@
     <Compile Include="GUI\LivingEntityInfoUI.cs" />
     <Compile Include="GUI\Menu.cs" />
     <Compile Include="GUI\ObjectivesUI.cs" />
+    <Compile Include="GUI\Particles\Line.cs" />
     <Compile Include="GUI\PauseMenu.cs" />
     <Compile Include="GUI\QuestLogMenu.cs" />
     <Compile Include="GUI\QuestUI.cs" />

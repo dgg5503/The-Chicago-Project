@@ -61,11 +61,15 @@ namespace TheChicagoProject.Entity
         /// <param name="weapon">The weapon with which they are attacking</param>
         public virtual void Attack(int type, Weapon weapon = null) {
             if (type == 0) {
-                if (lastShot > (60000D / (weapon.rateOfFire))) {
+                if (weapon.LoadedAmmo > 0 && lastShot > (60000D / (weapon.rateOfFire))) {
                     lastShot = 0D;
-                    double trajectory = faceDirection;
-                    trajectory += ((rand.NextDouble() - .5) * 2) * weapon.accuracy;
-                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
+                    double trajectory = faceDirection + ((rand.NextDouble() - .5) * 2) * weapon.accuracy; // replace weapon.accuracy with 0 to see perfect alignment.
+
+                    // need to get FRONT face, location will not work since that is not rotated, only the sprite is.
+                    // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
+                    //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
+                    // Douglas Gliner
+                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int)(sprite.Texture.Width / 2) * (float)Math.Cos(faceDirection - Math.PI / 2)) + location.Center.X, ((int)(sprite.Texture.Height / 2) * (float)Math.Sin(faceDirection - Math.PI / 2)) + location.Center.Y, (float)Math.Cos(trajectory - Math.PI / 2), (float)Math.Sin(trajectory - Math.PI / 2), inventory.GetEquippedPrimary().Damage, this);
                     weapon.LoadedAmmo--;
                 }
             }

@@ -23,13 +23,6 @@ namespace TheChicagoProject.GUI
         // objectives container
         private Container objectivesContainer;
 
-        private Container objectiveImage;
-        private Label objectiveName;
-
-        // Only if wincondition delivery
-        private Container objective2Image;
-        private Label objective2Name;
-
         // Current quest in this questUI
         private Quest currentQuest;
 

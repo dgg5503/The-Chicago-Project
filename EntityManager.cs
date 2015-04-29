@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
+using TheChicagoProject.GUI.Particles;
 using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject
@@ -88,10 +89,10 @@ namespace TheChicagoProject
                 
                 for(int cntr = 0; cntr < entities.Count; cntr ++)
                 {
-                    if(entities[cntr].location.Contains(bullet))
+                    if (entities[cntr].location.Contains(bullet) && !entities[cntr].Equals(shooter))
                     {
                         go = false;
-                        if(entities[cntr] is LivingEntity && !entities[cntr].Equals(shooter))
+                        if(entities[cntr] is LivingEntity)
                         {
                             (entities[cntr] as LivingEntity).health -= damage;
                         }
@@ -105,6 +106,9 @@ namespace TheChicagoProject
                 bullet.X += i;
                 bullet.Y += j;
             }
+
+            // line is from x,y to bullet hit
+            Game1.Instance.renderManager.EmitParticle(new Line(Color.LightGoldenrodYellow, 1, new Vector2(x, y), bullet, .05));
         }
     }
 }

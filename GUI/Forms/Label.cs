@@ -73,8 +73,6 @@ namespace TheChicagoProject.GUI.Forms
             if (this.Size == Vector2.Zero)
                 this.Size = parent.Size;
 
-            // WORD WRAP AGAIN HERE.
-
             if (this.Size != lastSize)
             {
                 this.ControlSizeChange(lastSize);

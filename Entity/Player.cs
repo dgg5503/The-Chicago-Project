@@ -102,6 +102,7 @@ namespace TheChicagoProject.Entity
             throw new NotImplementedException();
         }
 
+        /*
         /// <summary>
         /// Attacks
         /// </summary>
@@ -117,11 +118,16 @@ namespace TheChicagoProject.Entity
                 }
                 if (lastShot > (60000D / (weapon.rateOfFire)))
                 {
-                    int magnitude = (int) Math.Sqrt(Math.Pow(cursor.X, 2) + Math.Pow(cursor.Y, 2));
-                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)(cursor.X / magnitude), (float)(cursor.Y / magnitude), inventory.GetEquippedPrimary().Damage, this);
+                    //int magnitude = (int) Math.Sqrt(Math.Pow(cursor.X, 2) + Math.Pow(cursor.Y, 2));
+                    //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)(cursor.X / magnitude), (float)(cursor.Y / magnitude), inventory.GetEquippedPrimary().Damage, this);
+
+                    // need to get FRONT face, location will not work since that is not rotated, only the sprite is.
+                    // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
+                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet((16 * (float)Math.Cos(faceDirection - Math.PI / 2)) + location.Center.X, (16 * (float)Math.Sin(faceDirection - Math.PI / 2)) + location.Center.Y, (float)Math.Cos(faceDirection - Math.PI / 2), (float)Math.Sin(faceDirection - Math.PI / 2), inventory.GetEquippedPrimary().Damage, this);
                 }
             }
         }
+        */
 
         //Sean Levorse
         /// <summary>
