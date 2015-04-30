@@ -14,7 +14,7 @@ namespace TheChicagoProject.GUI
     class LivingEntityInfoUI : Control
     {
         // Important GUI controls that will need to be updated
-        private Label healthLbl;
+        private ProgressBar healthBar;
         private Label moneyLbl;
 
         // Entity to track
@@ -34,13 +34,13 @@ namespace TheChicagoProject.GUI
             {
                 if (value != null)
                 {
-                    //moneyLbl.Text = "" + value + "";
-                    healthLbl.Text = "" + value.health + "";
+                    moneyLbl.Text = String.Format("${0,5:D8}", value.Cash);
+                    healthBar.CurrentValue = value.health;
                 }
                 else
                 {
-                    //moneyLbl.Text = "";
-                    healthLbl.Text = "";
+                    moneyLbl.Text = "$00000000";
+                    healthBar.CurrentValue = 0;
                 }
                 livingEntity = value;
             }
@@ -58,6 +58,8 @@ namespace TheChicagoProject.GUI
             healthInfoContainer.Size = new Vector2(this.Size.X - 20, 30);
             healthInfoContainer.Location = new Vector2(0, -15);
             healthInfoContainer.Alignment = ControlAlignment.Center;
+            healthInfoContainer.parent = this;
+            Add(healthInfoContainer);
 
             Container healthTxtLblContainer = new Container();
             healthTxtLblContainer.Size = new Vector2(50, 30);
@@ -77,17 +79,23 @@ namespace TheChicagoProject.GUI
             healthLblContainer.Alignment = ControlAlignment.Right;
             healthLblContainer.parent = healthInfoContainer;
             healthInfoContainer.Add(healthLblContainer);
-
+            /*
             healthLbl = new Label();
-            //healthLbl.Size = new Vector2(1, 1);
             healthLbl.AutoResize = true;
             healthLbl.Text = "";
             healthLbl.Alignment = ControlAlignment.Center;
             healthLbl.parent = healthLblContainer;
             healthLblContainer.Add(healthLbl);
+            */
+            healthBar = new ProgressBar();
+            healthBar.Size = healthLblContainer.Size;
+            healthBar.Alignment = ControlAlignment.Center;
+            healthBar.ProgressColor = Color.Green;
+            healthBar.MaxVale = 4;
+            healthBar.parent = healthLblContainer;
+            healthLblContainer.Add(healthBar);
 
-            healthInfoContainer.parent = this;
-            Add(healthInfoContainer);
+            
 
             // Holds money label and current money label
             Container moneyInfoContainer = new Container();
@@ -130,13 +138,13 @@ namespace TheChicagoProject.GUI
         {
             if (livingEntity != null)
             {
-                healthLbl.Text = "" + livingEntity.health + "";
-                //moneyLbl.Text = "" + livingEntity.money + "";
+                healthBar.CurrentValue = livingEntity.health;
+                moneyLbl.Text = String.Format("${0,5:D8}", livingEntity.Cash);
             }
             else
             {
-                healthLbl.Text = "";
-                moneyLbl.Text = "";
+                healthBar.CurrentValue = 0;
+                moneyLbl.Text = "$00000000";
             }
 
             base.Update(gameTime);

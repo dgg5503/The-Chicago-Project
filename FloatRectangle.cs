@@ -217,6 +217,19 @@ namespace TheChicagoProject
             this.Height = size.Y;
         }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="FloatRectangle"/> struct, with the specified
+        /// location and size.
+        /// </summary>
+        /// <param name="rectangle">The integer rectangle to convert to float rectangle.<see cref="FloatRectangle"/>.</param>
+        public FloatRectangle(Rectangle rectangle)
+        {
+            this.X = rectangle.X;
+            this.Y = rectangle.Y;
+            this.Width = rectangle.X;
+            this.Height = rectangle.Y;
+        }
+
         #endregion
 
         #region Operators

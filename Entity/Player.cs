@@ -30,7 +30,7 @@ namespace TheChicagoProject.Entity
 
     public class Player : LivingEntity
     {
-        private int cash;
+        
         private int questPoints;
         private int lives;
         private Random rand;
@@ -43,9 +43,9 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="location">A rectangle representing the location of the player</param>
         /// <param name="fileName">The location of the sprite in the files</param>
-        public Player(FloatRectangle location, Sprite sprite) : base(location, sprite, 10)
+        public Player(FloatRectangle location, Sprite sprite) : base(location, sprite, 10, null, 40)
         {
-            cash = 40;
+            //cash = 40;
             questPoints = 0;
             lives = 4;
             direction = Direction.Up;
@@ -59,19 +59,7 @@ namespace TheChicagoProject.Entity
             set { cursor = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the amount of cash the player has
-        /// </summary>
-        public int Cash
-        {
-            get { return Cash; }
-            set
-            {
-                if(value < 0)
-                    cash = value;
-            }
-        }
-
+        
         //Sean Levorse
         public int QuestPoints { get { return questPoints; } 
             set 
@@ -97,10 +85,12 @@ namespace TheChicagoProject.Entity
         /// <summary>
         /// Interacts with the environment
         /// </summary>
+        /*
         public void Interact()
         {
             throw new NotImplementedException();
         }
+         */
 
         /*
         /// <summary>

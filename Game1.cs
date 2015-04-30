@@ -158,10 +158,12 @@ namespace TheChicagoProject
                 case GameState.Menu:
                     break;
                 case GameState.Game:
+                    /*
                     if(mugTemp == null)
                     {
                         mugTemp = new Mugging("mugging1", "Stop the mugger!", "you have to stop the mugger!", new Vector2(10, 10), worldManager.CurrentWorld.manager.GetPlayer(), worldManager);
                     }
+
                     if (gameTime.ElapsedGameTime.TotalSeconds > 30 && mugTemp.Status < 2)
                     {
                         mugTemp.StartQuest();
@@ -172,7 +174,8 @@ namespace TheChicagoProject
                         //Console.WriteLine("MUGGER LOC: {0}, {1}", mugTemp.entitites[0].location.X, mugTemp.entitites[0].location.Y);
                         //Console.WriteLine("PLAYER LOC: {0}, {1}", worldManager.CurrentWorld.manager.GetPlayer().location.X, worldManager.CurrentWorld.manager.GetPlayer().location.Y);
                     }
-
+                    */
+                    // need to fix fleemap lag before renabling the above.
 
                     worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
                     inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);

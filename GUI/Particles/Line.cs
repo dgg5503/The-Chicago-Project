@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace TheChicagoProject.GUI.Particles
 {
-    public class Line
+    public class Line : Particle
     {
         /*
          * To-do
@@ -26,36 +26,22 @@ namespace TheChicagoProject.GUI.Particles
          */
         
         // Fields
+
         // Graphics
         private Color color;
         private int width;
         private Vector2 source;
         private Vector2 target;
 
-        // Misc.
-        private double duration; // in seconds
-        private double currentTime;
-
-        // Property for knowing if duration is complete
-        public double CurrentTime { get { return currentTime; } }
-
-        public Line(Color color, int width, Vector2 source, Vector2 target, double duration)
+        public Line(Color color, int width, Vector2 source, Vector2 target, double duration) : base(duration, false)
         {
-            this.color = color;
             this.width = width;
             this.source = source;
             this.target = target;
-
-            this.duration = duration;
-            currentTime = duration;
+            this.color = color;
         }
 
-        public void Update(GameTime gameTime)
-        {
-            currentTime -= gameTime.ElapsedGameTime.TotalSeconds;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             float rotation = (float)Math.Atan2(target.Y - source.Y, target.X - source.X);
             Vector2 scale = new Vector2(Vector2.Distance(target, source), width);

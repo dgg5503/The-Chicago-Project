@@ -105,7 +105,7 @@ namespace TheChicagoProject
         
 
         // Particle list
-        private List<Line> particles;
+        private List<Particle> particles;
 
         // Width and height for everyones use.
         private static int viewportWidth;
@@ -140,7 +140,7 @@ namespace TheChicagoProject
             this.worldManager = worldManager;
             this.mainGame = Game1.Instance;
 
-            particles = new List<Line>();
+            particles = new List<Particle>();
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
@@ -260,6 +260,8 @@ namespace TheChicagoProject
                 case GameState.Game:
                     // casting takes a lot of time, a way to check if user changed weapon??
                     // UI (health, current wep, other stuff)
+                    Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
+
                     if (player.inventory.ActiveWeapon != -1)
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
                     else
@@ -309,6 +311,7 @@ namespace TheChicagoProject
             // if the GUI is not visible, dont update it.
             
             
+
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
                 if(c.Value.IsVisible)
                     c.Value.Update(gameTime);
@@ -340,7 +343,7 @@ namespace TheChicagoProject
 
                 #region debug
                 // DEBUG DRAWS
-                mainGame.collisionManager.Draw(spriteBatch);
+                //mainGame.collisionManager.Draw(spriteBatch);
                 #endregion
 
                 // Entities
@@ -431,13 +434,13 @@ namespace TheChicagoProject
 
         public void DrawParticles()
         {
-            foreach (Line l in particles)
-                l.Draw(spriteBatch);
+            foreach (Particle particle in particles)
+                particle.Draw(spriteBatch);
         }
 
-        public void EmitParticle(Line line)
+        public void EmitParticle(Particle particle)
         {
-            particles.Add(line);
+            particles.Add(particle);
         }
 
         // World drawing

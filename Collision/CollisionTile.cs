@@ -56,7 +56,7 @@ namespace TheChicagoProject.Collision
                 if (loc.Contains(new Vector2(globalEntities[i].location.X, globalEntities[i].location.Y)))
                 {
                     // Allow entites to know what tile they are at!
-                    globalEntities[i].CollisionTile = this;
+                    globalEntities[i].CurrentCollisionTile = this;
 
                     entities.Add(globalEntities[i]);
 
@@ -159,6 +159,60 @@ namespace TheChicagoProject.Collision
                 adjNonWalkTiles.Add(this);
 
             return adjNonWalkTiles.ToArray();
+        }
+
+        /// <summary>
+        /// Gets all tiles that interesect with a rotated rectangle
+        /// </summary>
+        /// <param name="rectangle">The rectangle to check for inteserctions with.</param>
+        /// <returns>An array of adjacent interesetcing tiles.</returns>
+        public CollisionTile[] GetAdjacentTilesFromIntersection(RotatedRectangle rectangle)
+        {
+            // list of tiles
+            List<CollisionTile> adjTiles = new List<CollisionTile>();
+
+            // the 8 cases, also checking to make sure that the 8 cases exist!
+            int up = this.GridY - 1;
+            int down = this.GridY + 1;
+            int left = this.GridX - 1;
+            int right = this.GridX + 1;
+
+            if (up >= 0)
+                if (rectangle.Intersects(grid[GridX, up].loc))
+                    adjTiles.Add(grid[GridX, up]);
+
+            if (down < grid.GetLength(1))
+                if (rectangle.Intersects(grid[GridX, down].loc))
+                    adjTiles.Add(grid[GridX, down]);
+
+            if (up >= 0 && left >= 0)
+                if (rectangle.Intersects(grid[left, up].loc))
+                    adjTiles.Add(grid[left, up]);
+
+            if (down < grid.GetLength(1) && left >= 0)
+                if (rectangle.Intersects(grid[left, down].loc))
+                    adjTiles.Add(grid[left, down]);
+
+            if (up >= 0 && right < grid.GetLength(0))
+                if (rectangle.Intersects(grid[right, up].loc))
+                    adjTiles.Add(grid[right, up]);
+
+            if (down < grid.GetLength(1) && right < grid.GetLength(0))
+                if (rectangle.Intersects(grid[right, down].loc))
+                    adjTiles.Add(grid[right, down]);
+
+            if (left >= 0)
+                if (rectangle.Intersects(grid[left, GridY].loc))
+                    adjTiles.Add(grid[left, GridY]);
+
+            if (right < grid.GetLength(0))
+                if (rectangle.Intersects(grid[right, GridY].loc))
+                    adjTiles.Add(grid[right, GridY]);
+
+            if (rectangle.Intersects(this.loc))
+                adjTiles.Add(this);
+
+            return adjTiles.ToArray();
         }
 
         public void AddEntity(Entity.Entity e)

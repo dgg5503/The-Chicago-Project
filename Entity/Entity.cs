@@ -32,7 +32,7 @@ namespace TheChicagoProject.Entity
         public World currentWorld;
 
         // The current collision tile the entity is in...
-        public CollisionTile CollisionTile;
+        public CollisionTile CurrentCollisionTile;
 
         // Applied collision vector
         public Vector2 collisionReactionVector;
@@ -113,11 +113,11 @@ namespace TheChicagoProject.Entity
             }
             // ------ EDGE OF SCREEN TEST ------
 
-            if (this.CollisionTile == null)
+            if (this.CurrentCollisionTile == null)
                 return;
 
             // ------ TILE COLLISION TEST ------
-            CollisionTile[] adjNonWalkableTiles = this.CollisionTile.GetAdjacentNonWalkableTiles();
+            CollisionTile[] adjNonWalkableTiles = this.CurrentCollisionTile.GetAdjacentNonWalkableTiles();
             
             // Time saver...
             if (adjNonWalkableTiles.Length != 0)
@@ -163,11 +163,11 @@ namespace TheChicagoProject.Entity
             }
             // ------ TILE COLLISION TEST ------
 
-            if (this.CollisionTile.EntitiesInTile.Count == 1)
+            if (this.CurrentCollisionTile.EntitiesInTile.Count == 1)
                 return;
 
             // ------- ENTITY COLLISION TEST ------
-            foreach (Entity e in this.CollisionTile.EntitiesInTile.Where(e => !(e.Equals(this))))
+            foreach (Entity e in this.CurrentCollisionTile.EntitiesInTile.Where(e => !(e.Equals(this))))
             {
                 bool isColliding;
                 FloatRectangle toCheck = e.location;
