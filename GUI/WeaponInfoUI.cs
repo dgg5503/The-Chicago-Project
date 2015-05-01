@@ -146,8 +146,8 @@ namespace TheChicagoProject.GUI
                 {
                     ammoCurrentInClipLbl.Text = "" + weapon.LoadedAmmo + "";
                     ammoTotalLbl.Text = "" + weapon.Ammo + "";
-                    reloadBar.MaxValue = weapon.ReloadTime;
-                    reloadBar.CurrentValue = weapon.ReloadTime;
+                    reloadBar.MaxValue = weapon.ReloadTime * 1000;
+                    reloadBar.CurrentValue = weapon.Reloading ? Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().LastShot : 0;
                 }
             }
             else
