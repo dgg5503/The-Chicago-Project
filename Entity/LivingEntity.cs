@@ -94,6 +94,7 @@ namespace TheChicagoProject.Entity
             lastShot += time.ElapsedGameTime.TotalMilliseconds;
             if(inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D)
             {
+                inventory.GetEquippedPrimary().Reload();
                 inventory.GetEquippedPrimary().Reloading = false;
             }
         }
