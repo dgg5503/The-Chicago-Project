@@ -88,7 +88,7 @@ namespace TheChicagoProject.GUI
             // Weapon name
             weaponNameLbl = new Label();
             weaponNameLbl.Location = new Vector2(0, 35);
-            weaponNameLbl.Text = "";
+            //weaponNameLbl.Text = "";
             weaponNameLbl.Alignment = ControlAlignment.Center;
             weaponNameLbl.parent = weaponImgInfoContainer;
             weaponImgInfoContainer.Add(weaponNameLbl);

@@ -124,7 +124,7 @@ namespace TheChicagoProject.GUI.Forms
         private ControlAlignment alignment;
 
         // Alignment applies
-        private bool alignApplied;
+        protected bool alignApplied;
 
         // When clicked (input manager?)
         public event EventHandler Click;
@@ -211,11 +211,11 @@ namespace TheChicagoProject.GUI.Forms
             if(fillInfo.isDrawn)
                 spriteBatch.Draw(fill, this.GlobalLocation(), fillInfo.color);
 
-            if (borderInfo.isDrawn)
-                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
-
             foreach (Control c in controls)
                 c.Draw(spriteBatch, gameTime);
+
+            if (borderInfo.isDrawn)
+                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
 
             
         }

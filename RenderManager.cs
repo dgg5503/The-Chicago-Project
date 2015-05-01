@@ -101,7 +101,7 @@ namespace TheChicagoProject
 
         // DEBUG QUEST
         private QuestUI tempQuest;
-
+        private ProgressBar tempBar;
         
 
         // Particle list
@@ -267,6 +267,19 @@ namespace TheChicagoProject
                     else
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
+                    if (tempBar == null)
+                    {
+                        tempBar = new ProgressBar();
+                        tempBar.Size = new Vector2(80, 30);
+                        tempBar.Alignment = ControlAlignment.Center;
+                        tempBar.ProgressColor = Color.Green;
+                        tempBar.MaxValue = 4;
+                        tempBar.IncludeText = true;
+                        tempBar.CurrentValue = 2;
+                        tempBar.LoadVisuals(mainGame.Content, graphics);
+                    }
+                    tempBar.Update(gameTime);
+
                     // PARTICLES
                     for (int i = 0; i < particles.Count; i++ )
                     {
@@ -412,6 +425,9 @@ namespace TheChicagoProject
                 case GameState.Game:
                     Controls.guiElements["weaponInfoUI"].Draw(spriteBatch, gameTime);
                     Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
+                    /*
+                    if(tempBar != null)
+                        tempBar.Draw(spriteBatch, gameTime);*/
                     break;
 
                 // if we get to it.
