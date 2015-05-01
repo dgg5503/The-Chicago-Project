@@ -150,7 +150,7 @@ namespace TheChicagoProject.AI
                     if (valid(world, modX + x, modY + y)) {
                         if (!world.tiles[modX + x][modY + y].IsWalkable)
                             continue;
-                        map[x][y] = (int)(map[x][y] * -1.2);
+                        map[x][y] = (int) (map[x][y] * -1.2);
                     }
             map = scan(world, map);
             return this;
@@ -158,12 +158,17 @@ namespace TheChicagoProject.AI
 
         public DijkstraMap Clone() {
             DijkstraMap clone = new DijkstraMap();
-            clone.goals = goals;
+            clone.goals = (int[][]) goals.Clone();
             clone.mapWidth = mapWidth;
             clone.mapHeight = mapHeight;
             clone.modX = modX;
             clone.modY = modY;
-            clone.map = map;
+            clone.map = new int[map.Length][];
+            for (int x = 0; x < map.Length; x++) {
+                clone.map[x] = new int[map[x].Length];
+                for (int y = 0; y < map[x].Length; y++)
+                    clone.map[x][y] = map[x][y];
+            }
             return clone;
         }
 
