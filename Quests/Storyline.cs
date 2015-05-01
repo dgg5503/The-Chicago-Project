@@ -45,6 +45,7 @@ namespace TheChicagoProject.Quests
         //Constructor
         public Storyline(string name, string objective, string description, Quest firstQuest, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, player, worldManager, winCondition, reward, cashReward)
         {
+            quests = new List<Quest>();
             quests.Add(firstQuest);
         }
 
