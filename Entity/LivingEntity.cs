@@ -19,6 +19,8 @@ namespace TheChicagoProject.Entity
 
         public int health;
 
+        public readonly int maxHealth;
+
         protected GameTime time;
 
         protected double lastShot;
@@ -47,6 +49,11 @@ namespace TheChicagoProject.Entity
         }
 
 
+        public double LastShot
+        {
+            get { return lastShot; }
+        }
+
         /// <summary>
         /// Creates a new Living Entity
         /// </summary>
@@ -66,6 +73,8 @@ namespace TheChicagoProject.Entity
             this.cash = cash;
             this.health = health;
             this.ai = ai;
+
+            maxHealth = health;
         }
 
         /// <summary>
@@ -81,6 +90,11 @@ namespace TheChicagoProject.Entity
 
             this.time = time;
             lastShot += time.ElapsedGameTime.TotalMilliseconds;
+            if(inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D)
+            {
+                inventory.GetEquippedPrimary().Reload();
+                inventory.GetEquippedPrimary().Reloading = false;
+            }
         }
 
         /// <summary>
@@ -90,7 +104,8 @@ namespace TheChicagoProject.Entity
         /// <param name="weapon">The weapon with which they are attacking</param>
         public virtual void Attack(int type, Weapon weapon = null) {
             if (type == 0) {
-                if (weapon.LoadedAmmo > 0 && lastShot > (60000D / (weapon.rateOfFire))) {
+                if (weapon.LoadedAmmo > 0 && lastShot > (60000D / (weapon.rateOfFire)) && !weapon.Reloading)
+                {
                     lastShot = 0D;
                     double trajectory = faceDirection + ((rand.NextDouble() * Math.PI / 2) - (Math.PI / 4)) * (weapon.spread / 100); // or we could make the cone the weapon spread amount (-weapon.spread to weapon.spread)
                     // this is just using the weapon.spread as a multiplier for a max range being -pi/2 to pi/2 relative to face direction

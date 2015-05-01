@@ -101,7 +101,6 @@ namespace TheChicagoProject
 
         // DEBUG QUEST
         private QuestUI tempQuest;
-
         
 
         // Particle list
@@ -347,7 +346,7 @@ namespace TheChicagoProject
                 #endregion
 
                 // Entities
-                DrawEntities();
+                DrawEntities(gameTime);
                 DrawParticles();
                 spriteBatch.End();
             }
@@ -366,11 +365,15 @@ namespace TheChicagoProject
 
 
         // Draws all entities
-        public void DrawEntities()
+        public void DrawEntities(GameTime gameTime)
         {
             // Simply draw all entities in the currentWorld.
+            
+
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
+            {
                 e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+            }
 
             // the above used e.Direction
             // ASHWIN please set e.FaceDirection AND e.Direction in your AI to the same thing if you

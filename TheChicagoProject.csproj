@@ -49,6 +49,7 @@
     <Compile Include="Collision\CollisionTile.cs" />
     <Compile Include="GUI\Controls.cs" />
     <Compile Include="GUI\DragableMatrix.cs" />
+    <Compile Include="GUI\Forms\Bar.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
     <Compile Include="GUI\Forms\Container.cs" />
     <Compile Include="GUI\Forms\Control.cs" />

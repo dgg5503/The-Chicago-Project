@@ -79,7 +79,8 @@ namespace TheChicagoProject.Entity
         /// </summary>
         public void Reload()
         {
-            inventory.GetEquippedPrimary().Reload(inventory.GetEquippedPrimary().maxClip);
+            inventory.GetEquippedPrimary().Reloading = true;
+            
         }
 
         /// <summary>

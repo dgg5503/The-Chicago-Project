@@ -26,6 +26,8 @@ namespace TheChicagoProject.GUI
         private Label weaponNameLbl;
         private Label ammoCurrentInClipLbl;
         private Label ammoTotalLbl;
+        private Label isReloadingLbl;
+        private ProgressBar reloadBar;
         private Container weaponImageContainer;
 
         // Weapon to track
@@ -88,7 +90,7 @@ namespace TheChicagoProject.GUI
             // Weapon name
             weaponNameLbl = new Label();
             weaponNameLbl.Location = new Vector2(0, 35);
-            weaponNameLbl.Text = "";
+            //weaponNameLbl.Text = "";
             weaponNameLbl.Alignment = ControlAlignment.Center;
             weaponNameLbl.parent = weaponImgInfoContainer;
             weaponImgInfoContainer.Add(weaponNameLbl);
@@ -109,13 +111,29 @@ namespace TheChicagoProject.GUI
             ammoInfoContainer.Add(ammoCurrentInClipLbl);
 
             // Ammo divider
+            reloadBar = new ProgressBar(new Vector2(75, 10));
+            reloadBar.ProgressColor = Color.Black;
+            reloadBar.MaxValue = 100;
+            reloadBar.CurrentValue = 0;
+            reloadBar.IncludeText = false;
+            reloadBar.Alignment = ControlAlignment.Center;
+            reloadBar.parent = ammoInfoContainer;
+            ammoInfoContainer.Add(reloadBar);
+
+            isReloadingLbl = new Label();
+            isReloadingLbl.Scale = .5f;
+            isReloadingLbl.Alignment = ControlAlignment.Center;
+            isReloadingLbl.Text = "";
+            isReloadingLbl.parent = reloadBar;
+            reloadBar.Add(isReloadingLbl);
+            /*
             Container ammoDivisorContainer = new Container();
             ammoDivisorContainer.Size = new Vector2(75, 10);
             ammoDivisorContainer.Location = new Vector2(0, 0);
             ammoDivisorContainer.Alignment = ControlAlignment.Center;
             ammoDivisorContainer.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoDivisorContainer);
-
+            */
             // Ammo bottom
             ammoTotalLbl = new Label();
             ammoTotalLbl.Location = new Vector2(0, 20);
@@ -135,13 +153,23 @@ namespace TheChicagoProject.GUI
                 if (weapon != null)
                 {
                     ammoCurrentInClipLbl.Text = "" + weapon.LoadedAmmo + "";
-                    ammoTotalLbl.Text = "" + weapon.maxClip + "";
+                    ammoTotalLbl.Text = "" + weapon.Ammo + "";
+                    reloadBar.MaxValue = weapon.ReloadTime * 1000;
+                    reloadBar.CurrentValue = weapon.Reloading ? Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().LastShot : 0;
+
+                    if (weapon.Reloading)
+                        isReloadingLbl.Text = "Reloading...";
+                    else
+                        isReloadingLbl.Text = "";
                 }
             }
             else
             {
                 ammoCurrentInClipLbl.Text = "";
                 ammoTotalLbl.Text = "";
+                isReloadingLbl.Text = "";
+                reloadBar.MaxValue = 100;
+                reloadBar.CurrentValue = 0;
             }
             //weaponImageContainer;
             base.Update(gameTime);

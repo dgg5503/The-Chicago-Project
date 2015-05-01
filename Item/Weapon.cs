@@ -17,6 +17,8 @@ namespace TheChicagoProject.Item
         public int maxClip;
         private int loadedAmmo;
         public double spread;
+        private int ammo;
+        private bool reloading = false;
 
         /// <summary>
         /// Creates a new Weapon Object
@@ -36,7 +38,13 @@ namespace TheChicagoProject.Item
             this.maxClip = maxClip;
             loadedAmmo = maxClip;
             this.spread = spread;
+            ammo = maxClip * 4;
         }
+
+        /// <summary>
+        /// Gets if the Attack should check the reload time
+        /// </summary>
+        public bool Reloading { get { return reloading; } set { reloading = value; } }
 
         /// <summary>
         /// Gets and sets the Damage of the gun
@@ -81,26 +89,34 @@ namespace TheChicagoProject.Item
         public int LoadedAmmo { get { return loadedAmmo; } set { loadedAmmo = value; } }
 
         /// <summary>
+        /// Gets the ammo usable with the gun
+        /// </summary>
+        public int Ammo { get { return ammo; } }
+
+        /// <summary>
         /// Reloads the gun
         /// </summary>
-        /// <param name="ammo"></param>
         /// <returns>The amount of ammmo loaded into the gun</returns>
-        public int Reload(int ammo)
+        public int Reload()
         {
-            if(ammo >= maxClip)
+            int loaded = 0;
+
+            int space = maxClip - loadedAmmo;
+
+            if(ammo < space)
             {
-                loadedAmmo = maxClip;
-                return maxClip;
-            }
-            else if(ammo > 0)
-            {
-                loadedAmmo = ammo;
-                return ammo;
+                loadedAmmo += ammo;
+                loaded = ammo;
+                ammo = 0;
             }
             else
             {
-                return 0;
+                loadedAmmo = maxClip;
+                ammo -= space;
+                loaded = space;
             }
+
+            return loaded;
         }
     }
 }
