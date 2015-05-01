@@ -105,7 +105,6 @@ namespace TheChicagoProject
 
         // Particle list
         private List<Particle> particles;
-        private ProgressBar healthBar;
 
         // Width and height for everyones use.
         private static int viewportWidth;

@@ -31,11 +31,13 @@ namespace TheChicagoProject.GUI.Forms
 
         // Autoresize to fit text?
         private bool autoResize;
+        private float scale;
+        private Color color;
         private Vector2 lastSize;
 
         // word wrap!
         private bool wordWrap;
-
+        
         /// <summary>
         /// Gets or sets the text for this label.
         /// </summary>
@@ -48,11 +50,20 @@ namespace TheChicagoProject.GUI.Forms
         /// Enable or disable word wrap on this label, this only works if there is an attached parrent.
         /// </summary>
         public bool WordWrap { get { return wordWrap; } set { wordWrap = true; } }
+        /// <summary>
+        /// Gets or sets the scale or size of this labels text.
+        /// </summary>
+        public float Scale { get { return scale; } set { if (scale <= 0) scale = 1; else scale = value; } }
+        /// <summary>
+        /// Get or set the color of the text.
+        /// </summary>
+        public Color Color { get { return color; } set { color = value; } }
 
         public Label()
         {
             text = String.Empty;
-
+            scale = 1;
+            color = Color.White;
             // size will always be automatically resized!
             Size = Vector2.Zero;
 
@@ -68,7 +79,7 @@ namespace TheChicagoProject.GUI.Forms
             // this is pretty meh and only applies to text
             // I should do this check in control not just here :P...... (?)
 
-            this.Size = GetTextSize();
+            this.Size = GetTextSize() * scale;
 
             if (this.Size == Vector2.Zero)
                 this.Size = parent.Size;
@@ -132,7 +143,8 @@ namespace TheChicagoProject.GUI.Forms
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
-            spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
+            //spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
+            spriteBatch.DrawString(Font, text, this.GlobalLocation(), color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             base.Draw(spriteBatch, gameTime);
             
             
