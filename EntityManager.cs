@@ -31,6 +31,7 @@ namespace TheChicagoProject
             playerLoc = -1;
             this.mainGame = Game1.Instance;
             this.world = world;
+            quests = new Quests.QuestLog();
         }
 
         public void AddEntity(Entity.Entity e) {
