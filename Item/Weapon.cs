@@ -18,6 +18,7 @@ namespace TheChicagoProject.Item
         private int loadedAmmo;
         public double spread;
         private int ammo;
+        private bool reloading = false;
 
         /// <summary>
         /// Creates a new Weapon Object
@@ -39,6 +40,11 @@ namespace TheChicagoProject.Item
             this.spread = spread;
             ammo = maxClip * 4;
         }
+
+        /// <summary>
+        /// Gets if the Attack should check the reload time
+        /// </summary>
+        public bool Reloading { get { return reloading; } set { reloading = value; } }
 
         /// <summary>
         /// Gets and sets the Damage of the gun
@@ -94,6 +100,7 @@ namespace TheChicagoProject.Item
         public int Reload()
         {
             int loaded = 0;
+            reloading = true;
 
             int space = maxClip - loadedAmmo;
 
