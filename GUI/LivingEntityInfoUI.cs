@@ -87,15 +87,14 @@ namespace TheChicagoProject.GUI
             healthLbl.parent = healthLblContainer;
             healthLblContainer.Add(healthLbl);
             */
-            healthBar = new ProgressBar();
+            healthBar = new ProgressBar(healthLblContainer.Size);
             healthBar.Size = healthLblContainer.Size;
             healthBar.Alignment = ControlAlignment.Center;
             healthBar.ProgressColor = Color.Green;
+            healthBar.IncludeText = true;
             healthBar.MaxValue = 4;
             healthBar.parent = healthLblContainer;
             healthLblContainer.Add(healthBar);
-
-            
 
             // Holds money label and current money label
             Container moneyInfoContainer = new Container();

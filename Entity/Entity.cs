@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.GUI;
+using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -36,7 +37,6 @@ namespace TheChicagoProject.Entity
 
         // Applied collision vector
         public Vector2 collisionReactionVector;
-        
 
         /// <summary>
         /// The constructor for the base entity.

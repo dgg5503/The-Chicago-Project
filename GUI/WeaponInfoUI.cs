@@ -26,6 +26,7 @@ namespace TheChicagoProject.GUI
         private Label weaponNameLbl;
         private Label ammoCurrentInClipLbl;
         private Label ammoTotalLbl;
+        private ProgressBar reloadBar;
         private Container weaponImageContainer;
 
         // Weapon to track
@@ -109,13 +110,22 @@ namespace TheChicagoProject.GUI
             ammoInfoContainer.Add(ammoCurrentInClipLbl);
 
             // Ammo divider
+            reloadBar = new ProgressBar(new Vector2(75, 10));
+            reloadBar.ProgressColor = Color.Black;
+            reloadBar.MaxValue = 100;
+            reloadBar.CurrentValue = 100;
+            reloadBar.IncludeText = false;
+            reloadBar.Alignment = ControlAlignment.Center;
+            reloadBar.parent = ammoInfoContainer;
+            ammoInfoContainer.Add(reloadBar);
+            /*
             Container ammoDivisorContainer = new Container();
             ammoDivisorContainer.Size = new Vector2(75, 10);
             ammoDivisorContainer.Location = new Vector2(0, 0);
             ammoDivisorContainer.Alignment = ControlAlignment.Center;
             ammoDivisorContainer.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoDivisorContainer);
-
+            */
             // Ammo bottom
             ammoTotalLbl = new Label();
             ammoTotalLbl.Location = new Vector2(0, 20);
@@ -135,7 +145,8 @@ namespace TheChicagoProject.GUI
                 if (weapon != null)
                 {
                     ammoCurrentInClipLbl.Text = "" + weapon.LoadedAmmo + "";
-                    ammoTotalLbl.Text = "" + weapon.maxClip + "";
+                    ammoTotalLbl.Text = "" + weapon.Ammo + "";
+                    
                 }
             }
             else

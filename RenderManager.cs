@@ -101,11 +101,11 @@ namespace TheChicagoProject
 
         // DEBUG QUEST
         private QuestUI tempQuest;
-        private ProgressBar tempBar;
         
 
         // Particle list
         private List<Particle> particles;
+        private ProgressBar healthBar;
 
         // Width and height for everyones use.
         private static int viewportWidth;
@@ -267,19 +267,6 @@ namespace TheChicagoProject
                     else
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
 
-                    if (tempBar == null)
-                    {
-                        tempBar = new ProgressBar();
-                        tempBar.Size = new Vector2(80, 30);
-                        tempBar.Alignment = ControlAlignment.Center;
-                        tempBar.ProgressColor = Color.Green;
-                        tempBar.MaxValue = 4;
-                        tempBar.IncludeText = true;
-                        tempBar.CurrentValue = 2;
-                        tempBar.LoadVisuals(mainGame.Content, graphics);
-                    }
-                    tempBar.Update(gameTime);
-
                     // PARTICLES
                     for (int i = 0; i < particles.Count; i++ )
                     {
@@ -360,7 +347,7 @@ namespace TheChicagoProject
                 #endregion
 
                 // Entities
-                DrawEntities();
+                DrawEntities(gameTime);
                 DrawParticles();
                 spriteBatch.End();
             }
@@ -379,11 +366,15 @@ namespace TheChicagoProject
 
 
         // Draws all entities
-        public void DrawEntities()
+        public void DrawEntities(GameTime gameTime)
         {
             // Simply draw all entities in the currentWorld.
+            
+
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
+            {
                 e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+            }
 
             // the above used e.Direction
             // ASHWIN please set e.FaceDirection AND e.Direction in your AI to the same thing if you
@@ -425,9 +416,6 @@ namespace TheChicagoProject
                 case GameState.Game:
                     Controls.guiElements["weaponInfoUI"].Draw(spriteBatch, gameTime);
                     Controls.guiElements["livingEntityInfoUI"].Draw(spriteBatch, gameTime);
-                    /*
-                    if(tempBar != null)
-                        tempBar.Draw(spriteBatch, gameTime);*/
                     break;
 
                 // if we get to it.
