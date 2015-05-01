@@ -65,24 +65,25 @@ namespace TheChicagoProject
             if(!worlds.ContainsKey(current))
                 worlds.Add(current, Game1.Instance.saveManager.LoadWorld(current));
             // DEBUG
-            /*
+#if DEBUG
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new LowAI(mugger);
             mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 1, 0.5));
             mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
-             * */
+             
             // need to fix fleemap lag before renabling the above.
+            //Uncommenting just to see if I can load quests again - Sean
 
             worlds["main"].manager.AddEntity(player);
 
-            //player.log.Add(SaveManager.ParseQuest("\\Content\\Quests\\Mugging.quest")); 
-            /*
+            player.log.Add(SaveManager.ParseQuest("./Content/Quests/Mugging.quest")); 
+            
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);
             test.EnemyToKill = mugger;
             test.Status = 1;
             player.log.Add(test);
-             * */
+#endif
             // need to fix fleemap lag before renabling the above.
             #endregion
             worldQuests = new QuestLog();

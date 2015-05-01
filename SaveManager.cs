@@ -21,8 +21,8 @@ namespace TheChicagoProject
     /// </summary>
     public class SaveManager
     {
-        public const string QUEST_DIRECTORY = "Quests/";
-        public const string SAVE_LOC = "SaveFiles/save.save";
+        public const string QUEST_DIRECTORY = "./Content/Quests/";
+        public const string SAVE_LOC = "./Content/SaveFiles/save.save";
         protected Game1 MainGame;
 
         //Constructor
@@ -36,6 +36,13 @@ namespace TheChicagoProject
         /// </summary>
         public void Load()
         {
+#if !DEBUG
+            if (!MainGame.worldManager.worlds.ContainsKey("main"))
+            {
+                World mainworld = LoadWorld("main");
+                MainGame.worldManager.worlds.Add("main", mainworld);
+            }
+#endif
             LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
             LoadSave();
         }
@@ -94,7 +101,7 @@ namespace TheChicagoProject
         }
         #endregion
 
-        #region Save File
+        #region .save File
         /// <summary>
         /// saves the game
         /// </summary>
@@ -177,7 +184,7 @@ namespace TheChicagoProject
         /// <summary>
         /// loads a save file
         /// </summary>
-        public void LoadSave()
+        private void LoadSave()
         {
             Stream inStream = null;
             BinaryReader input = null;
@@ -264,7 +271,7 @@ namespace TheChicagoProject
 
         #region Quests
         /// <summary>
-        /// Saves all of the quests in the quest log
+        /// Saves all of the quests in the quest log, probably won't be used since we save the quest status in the "Save()" function
         /// </summary>
         /// <param name="log">The player's quest log</param>
         public void SaveQuests(QuestLog log)
@@ -309,9 +316,18 @@ namespace TheChicagoProject
         public void LoadQuests(QuestLog log)
         {
             string[] files = Directory.GetFiles(QUEST_DIRECTORY);
+            Quest loaded;
+            //loop through all of the files in the directory
             foreach(string path in files)
             {
-                
+                //try and parse the quest from each file
+                loaded = ParseQuest(path);
+
+                //if the parse was successfull, add it to the log
+                if(loaded != null)
+                {
+                    log.Add(loaded);
+                }
             }
         }
 
