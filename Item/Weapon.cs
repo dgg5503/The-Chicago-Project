@@ -83,6 +83,11 @@ namespace TheChicagoProject.Item
         public int LoadedAmmo { get { return loadedAmmo; } set { loadedAmmo = value; } }
 
         /// <summary>
+        /// Gets the ammo usable with the gun
+        /// </summary>
+        public int Ammo { get { return ammo; } }
+
+        /// <summary>
         /// Reloads the gun
         /// </summary>
         /// <returns>The amount of ammmo loaded into the gun</returns>
