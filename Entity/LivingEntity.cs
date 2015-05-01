@@ -96,7 +96,9 @@ namespace TheChicagoProject.Entity
         /// <param name="weapon">The weapon with which they are attacking</param>
         public virtual void Attack(int type, Weapon weapon = null) {
             if (type == 0) {
-                if (weapon.LoadedAmmo > 0 && lastShot > (60000D / (weapon.rateOfFire))) {
+                if (weapon.LoadedAmmo > 0 && lastShot > (60000D / (weapon.rateOfFire)) && (weapon.Reloading? lastShot > weapon.ReloadTime * 1000D:true))
+                {
+                    weapon.Reloading = false;
                     lastShot = 0D;
                     double trajectory = faceDirection + ((rand.NextDouble() * Math.PI / 2) - (Math.PI / 4)) * (weapon.spread / 100); // or we could make the cone the weapon spread amount (-weapon.spread to weapon.spread)
                                                                                                                                      // this is just using the weapon.spread as a multiplier for a max range being -pi/2 to pi/2 relative to face direction

@@ -123,7 +123,7 @@ namespace TheChicagoProject
                 Entity.Player player = MainGame.worldManager.CurrentWorld.manager.GetPlayer();
 
                 //get the current world
-                string world = MainGame.worldManager.CurrentWorldString + ".txt";
+                string world = MainGame.worldManager.CurrentWorldString;
                
                 //get the player's stats
                 int playerX = player.location.IntX;
@@ -156,7 +156,7 @@ namespace TheChicagoProject
                 output.Write(playerHealth);
                 output.Write(pCash);
                 output.Write(pQuestPoints);
-                output.Write(log.Count);
+                output.Write((Int32)log.Count);
                 Console.WriteLine(log.Count);
                 for(int i = 0; i < log.Count; i++)
                 {
@@ -202,20 +202,27 @@ namespace TheChicagoProject
 
                 //red the file
                 string world = input.ReadString();
+                Console.WriteLine("World: " + world);
                 int pX = input.ReadInt32();
                 int pY = input.ReadInt32();
+                Console.WriteLine("X, Y: " + pX + ", " + pY);
                 int pHealth = input.ReadInt32();
+                Console.WriteLine("Health: " + pHealth);
                 int pCash = input.ReadInt32();
-                int pQuestPoitns = input.Read();
+                Console.WriteLine("Cash: " + pCash);
+                int pQuestPoints = input.ReadInt32();
+                Console.WriteLine("QuestPoints: " + pQuestPoints);
 
                 //read the quests
                 int numQuests = input.ReadInt32();
-                Console.WriteLine(numQuests);
+                Console.WriteLine("Num quests: " + numQuests);
                 object[,] quests = new object[numQuests,2];
                 for(int i = 0; i < numQuests; i++)
                 {
                     quests[i, 0] = input.ReadString();
+                    Console.WriteLine("\tName: " + quests[i, 0]);
                     quests[i, 1] = input.ReadInt32();
+                    Console.WriteLine("\tStatus: " + quests[i, 1]);
                 }
 
                 //read the inventory
@@ -227,7 +234,14 @@ namespace TheChicagoProject
                 }
 
                 //make the world
-                MainGame.worldManager.worlds.Add("main", LoadWorld(world));
+                if (MainGame.worldManager.worlds.ContainsKey(world))
+                {
+                    MainGame.worldManager.worlds[world] = LoadWorld(world);
+                }
+                else
+                {
+                    MainGame.worldManager.worlds.Add(world, LoadWorld(world));
+                }
 
                 //set the player in the world
                 Player player = new Player(
@@ -236,7 +250,7 @@ namespace TheChicagoProject
                     );
                 player.Cash = pCash;
                 player.health = pHealth;
-                player.QuestPoints = pQuestPoitns;
+                player.QuestPoints = pQuestPoints;
 
                 //load all of the quests in the quest file
                 LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
@@ -258,9 +272,10 @@ namespace TheChicagoProject
                 {
                     newItem = new Item.Item();
                     newItem.name = items[i];
+                    
                     newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
                 }
-
+                
                 //add the player to the world
                 MainGame.worldManager.CurrentWorld.manager.AddEntity(player);
             }
