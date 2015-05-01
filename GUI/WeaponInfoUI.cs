@@ -146,13 +146,16 @@ namespace TheChicagoProject.GUI
                 {
                     ammoCurrentInClipLbl.Text = "" + weapon.LoadedAmmo + "";
                     ammoTotalLbl.Text = "" + weapon.Ammo + "";
-                    
+                    reloadBar.MaxValue = weapon.ReloadTime;
+                    reloadBar.CurrentValue = weapon.ReloadTime;
                 }
             }
             else
             {
                 ammoCurrentInClipLbl.Text = "";
                 ammoTotalLbl.Text = "";
+                reloadBar.MaxValue = 100;
+                reloadBar.CurrentValue = 100;
             }
             //weaponImageContainer;
             base.Update(gameTime);

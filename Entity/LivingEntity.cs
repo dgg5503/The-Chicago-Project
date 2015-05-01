@@ -51,6 +51,11 @@ namespace TheChicagoProject.Entity
         }
 
 
+        public double LastShot
+        {
+            get { return lastShot; }
+        }
+
         /// <summary>
         /// Creates a new Living Entity
         /// </summary>
