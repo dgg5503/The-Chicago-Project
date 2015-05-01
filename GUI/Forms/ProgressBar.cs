@@ -39,33 +39,34 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public double CurrentValue { get { return currentValue; } set { if (currentValue > maxValue) { currentValue = maxValue; } else { currentValue = value; } } }
 
-        public ProgressBar()
+        public ProgressBar(Vector2 size)
         {
+            includeText = false;
+            progressColor = Color.Green;
+            maxValue = 100;
+            currentValue = 50;
+
+            this.Size = size;
+
+            bar = new Bar();
+            bar.Size = size;
+            bar.parent = this;
+            Add(bar);
+
             text = new Label();
             text.Text = String.Empty;
             text.AutoResize = true;
             text.Alignment = ControlAlignment.Center;
             text.parent = this;
             Add(text);
-
-            
         }
 
         public override void Update(GameTime gameTime)
         {
-            //scale = new Vector2(((float)currentValue * Size.X) / (float)maxValue, Size.Y);
             if (includeText)
                 text.Text = "" + currentValue + " / " + maxValue + "";
             else
                 text.Text = "";
-
-            if(bar == null)
-            {
-                bar = new Bar();
-                bar.Size = this.Size;
-                bar.parent = this;
-                Add(bar);
-            }
 
             bar.ProgressColor = progressColor;
             bar.Scale = new Vector2(((float)currentValue * Size.X) / (float)maxValue, Size.Y);
@@ -75,7 +76,6 @@ namespace TheChicagoProject.GUI.Forms
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             base.Draw(spriteBatch, gameTime);
-            //spriteBatch.Draw(RenderManager.Pixel, this.GlobalLocation(), null, progressColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
     }

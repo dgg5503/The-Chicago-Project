@@ -19,6 +19,8 @@ namespace TheChicagoProject.Entity
 
         public int health;
 
+        public readonly int maxHealth;
+
         protected GameTime time;
 
         protected double lastShot;
@@ -68,6 +70,8 @@ namespace TheChicagoProject.Entity
             this.cash = cash;
             this.health = health;
             this.ai = ai;
+
+            maxHealth = health;
         }
 
         /// <summary>

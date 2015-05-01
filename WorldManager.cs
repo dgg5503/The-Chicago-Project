@@ -43,6 +43,7 @@ namespace TheChicagoProject
         //Josiah S DeVizia, implemented world importation
         public WorldManager() {
             worlds = new Dictionary<String, World>();
+            worldQuests = new QuestLog();
             //TODO: Load/Save worlds.
             current = "main";
 
