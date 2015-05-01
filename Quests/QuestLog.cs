@@ -21,6 +21,11 @@ namespace TheChicagoProject.Quests
         private Dictionary<String, Quest> log;
 
         //property
+        /// <summary>
+        /// gets the quest by index(Use only if iterating through each quest in a log)
+        /// </summary>
+        /// <param name="index"> The index</param>
+        /// <returns>The quest at that index</returns>
         public Quest this[int index]{
             get { return GetLog()[index]; }
             set
@@ -29,6 +34,11 @@ namespace TheChicagoProject.Quests
             }
         }
 
+        /// <summary>
+        /// Gets the quest by name
+        /// </summary>
+        /// <param name="name">the name of the quest</param>
+        /// <returns>The quest with that name</returns>
         public Quest this[string name]
         {
             get { return log[name]; }
@@ -37,6 +47,12 @@ namespace TheChicagoProject.Quests
                 Add(value);
             }
         }
+        /// <summary>
+        /// A count of the number of quests in the log
+        /// </summary>
+        public int Count { get { return log.Count; } }
+
+        //constructor
         public QuestLog()
         {
             log = new Dictionary<String, Quest>();

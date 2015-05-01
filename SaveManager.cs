@@ -52,8 +52,8 @@ namespace TheChicagoProject
         /// </summary>
         /// <param name="worldPath">The path to the world</param>
         public World LoadWorld(String worldPath) {
-
-            Stream worldStream = File.OpenRead(".\\Content\\" + worldPath + ".txt");
+            
+            Stream worldStream = File.OpenRead("./Content/" + worldPath + ".txt");
             StreamReader worldReader = new StreamReader(worldStream);
 
             World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
@@ -111,6 +111,10 @@ namespace TheChicagoProject
             BinaryWriter output = null;
             try
             {
+                if(!Directory.Exists("./Content/SaveFiles"))
+                {
+                    Directory.CreateDirectory("./Content/SaveFiles");
+                }
                 //initialize them
                 outStream = File.OpenWrite(SAVE_LOC);
                 output = new BinaryWriter(outStream);
@@ -130,8 +134,8 @@ namespace TheChicagoProject
 
                 //get the quest statuses
                 QuestLog log = player.log;
-                object[,] questStatuses = new object[log.GetLog().Count, 2];
-                for(int i = 0; i < questStatuses.Length; i++)
+                object[,] questStatuses = new object[log.Count, 2];
+                for(int i = 0; i < log.Count; i++)
                 {
                     questStatuses[i, 0] = log[i].Name;
                     questStatuses[i, 1] = log[i].Status;
@@ -152,8 +156,9 @@ namespace TheChicagoProject
                 output.Write(playerHealth);
                 output.Write(pCash);
                 output.Write(pQuestPoints);
-                output.Write(questStatuses.Length);
-                for(int i = 0; i < questStatuses.Length; i++)
+                output.Write(log.Count);
+                Console.WriteLine(log.Count);
+                for(int i = 0; i < log.Count; i++)
                 {
                     output.Write((string)questStatuses[i, 0]);
                     output.Write((int)questStatuses[i, 1]);
@@ -168,6 +173,7 @@ namespace TheChicagoProject
             catch(Exception e)
             {
                 Console.WriteLine("Error while saving the game: " + e.Message);
+                Console.WriteLine("Stack: \n\t" + e.StackTrace);
             }
             finally
             {
@@ -204,6 +210,7 @@ namespace TheChicagoProject
 
                 //read the quests
                 int numQuests = input.ReadInt32();
+                Console.WriteLine(numQuests);
                 object[,] quests = new object[numQuests,2];
                 for(int i = 0; i < numQuests; i++)
                 {
@@ -260,6 +267,7 @@ namespace TheChicagoProject
             catch(Exception e)
             {
                 Console.WriteLine("Error reading file: " + e.Message);
+                Console.WriteLine("Stack: \n\t" + e.StackTrace);
             }
             finally
             {
