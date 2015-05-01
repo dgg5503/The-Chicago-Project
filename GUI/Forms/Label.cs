@@ -77,6 +77,7 @@ namespace TheChicagoProject.GUI.Forms
             {
                 this.ControlSizeChange(lastSize);
                 lastSize = this.Size;
+                alignApplied = true;
             }
 
             base.Update(gameTime);
@@ -86,7 +87,7 @@ namespace TheChicagoProject.GUI.Forms
         {
             base.LoadContent(contentManager);
 
-            if (text == string.Empty)
+            if (string.IsNullOrWhiteSpace(text))
                 this.Size = this.parent.Size; // target size?
             else
                 this.Size = GetTextSize();
@@ -133,6 +134,7 @@ namespace TheChicagoProject.GUI.Forms
             //spriteBatch.Draw(Fill, this.GlobalLocation(), Color.White);
             spriteBatch.DrawString(Font, text, this.GlobalLocation(), Color.White);
             base.Draw(spriteBatch, gameTime);
+            
             
         }
 

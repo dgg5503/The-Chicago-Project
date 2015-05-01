@@ -50,7 +50,7 @@ namespace TheChicagoProject
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 0D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Knife", 30, 5D));
+            player.inventory.Add(new Item.Weapon(400, 3, 10D, "Knife", 1, 5D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "w", 30, 100D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "ww", 30, 5D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "www", 30, 5D));

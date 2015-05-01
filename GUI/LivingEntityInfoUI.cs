@@ -91,7 +91,7 @@ namespace TheChicagoProject.GUI
             healthBar.Size = healthLblContainer.Size;
             healthBar.Alignment = ControlAlignment.Center;
             healthBar.ProgressColor = Color.Green;
-            healthBar.MaxVale = 4;
+            healthBar.MaxValue = 4;
             healthBar.parent = healthLblContainer;
             healthLblContainer.Add(healthBar);
 

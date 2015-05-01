@@ -20,6 +20,7 @@ namespace TheChicagoProject.GUI.Forms
         private double maxValue;
         private double currentValue;
         private Vector2 scale;
+        private Bar bar;
 
         /// <summary>
         /// Gets or sets the progress bars progress color.
@@ -28,11 +29,11 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Gets or sets whether or not the current over max is displayed in the center of the bar.
         /// </summary>
-        public bool IncludeText { get { return includeText; } set { includeText = value; } }
+        public bool IncludeText { get { return includeText; } set { includeText = value;  } }
         /// <summary>
         /// Gets or sets the max value for this progress bar.
         /// </summary>
-        public double MaxVale { get { return maxValue; } set { if (maxValue < currentValue) { maxValue = currentValue - maxValue; } else { maxValue = value; } } }
+        public double MaxValue { get { return maxValue; } set { if (maxValue < currentValue) { maxValue = currentValue - maxValue; } else { maxValue = value; } } }
         /// <summary>
         /// Gets or sets the current value for this progress bar.
         /// </summary>
@@ -46,21 +47,35 @@ namespace TheChicagoProject.GUI.Forms
             text.Alignment = ControlAlignment.Center;
             text.parent = this;
             Add(text);
+
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            scale = new Vector2(((float)currentValue * Size.X) / (float)maxValue, Size.Y);
+            //scale = new Vector2(((float)currentValue * Size.X) / (float)maxValue, Size.Y);
+            if (includeText)
+                text.Text = "" + currentValue + " / " + maxValue + "";
+            else
+                text.Text = "";
 
-            text.Text = String.Format("{0} / {1}", currentValue, maxValue);
+            if(bar == null)
+            {
+                bar = new Bar();
+                bar.Size = this.Size;
+                bar.parent = this;
+                Add(bar);
+            }
+
+            bar.ProgressColor = progressColor;
+            bar.Scale = new Vector2(((float)currentValue * Size.X) / (float)maxValue, Size.Y);
             base.Update(gameTime);
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(RenderManager.Pixel, this.GlobalLocation(), null, progressColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             base.Draw(spriteBatch, gameTime);
+            //spriteBatch.Draw(RenderManager.Pixel, this.GlobalLocation(), null, progressColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
     }
