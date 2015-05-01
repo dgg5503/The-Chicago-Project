@@ -54,7 +54,7 @@ namespace TheChicagoProject.GUI
         void saveButton_Click(object sender, EventArgs e)
         {
             // where does this come from? it has to be static!!!
-            throw new NotImplementedException();
+            Game1.Instance.saveManager.Save();
         }
 
         void resumeButton_Click(object sender, EventArgs e)

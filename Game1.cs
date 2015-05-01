@@ -55,7 +55,6 @@ namespace TheChicagoProject
         #endregion
 
         public static GameState state;
-        Mugging mugTemp;
 
         private static Game1 inst;
 
@@ -104,7 +103,7 @@ namespace TheChicagoProject
 
             this.IsMouseVisible = true;
             //Load the data
-            //saveManager.Load();//Currently Throws a not implemented exception
+            saveManager.Load();//Currently Throws a not implemented exception
 
             #region debug
             border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);
@@ -135,7 +134,7 @@ namespace TheChicagoProject
         /// </summary>
         protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
-            saveManager.Save();
+            //saveManager.Save();
 
             base.UnloadContent();
         }

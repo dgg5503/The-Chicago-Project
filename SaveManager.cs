@@ -21,8 +21,8 @@ namespace TheChicagoProject
     /// </summary>
     public class SaveManager
     {
-        public const string QUEST_DIRECTORY = "Quests/";
-        public const string SAVE_LOC = "SaveFiles/save.save";
+        public const string QUEST_DIRECTORY = "./Content/Quests/";
+        public const string SAVE_LOC = "./Content/SaveFiles/save.save";
         protected Game1 MainGame;
 
         //Constructor
@@ -36,7 +36,13 @@ namespace TheChicagoProject
         /// </summary>
         public void Load()
         {
-            LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
+#if !DEBUG
+            if (!MainGame.worldManager.worlds.ContainsKey("main"))
+            {
+                World mainworld = LoadWorld("main");
+                MainGame.worldManager.worlds.Add("main", mainworld);
+            }
+#endif
             LoadSave();
         }
 
@@ -46,8 +52,8 @@ namespace TheChicagoProject
         /// </summary>
         /// <param name="worldPath">The path to the world</param>
         public World LoadWorld(String worldPath) {
-
-            Stream worldStream = File.OpenRead(".\\Content\\" + worldPath + ".txt");
+            
+            Stream worldStream = File.OpenRead("./Content/" + worldPath + ".txt");
             StreamReader worldReader = new StreamReader(worldStream);
 
             World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
@@ -94,7 +100,7 @@ namespace TheChicagoProject
         }
         #endregion
 
-        #region Save File
+        #region .save File
         /// <summary>
         /// saves the game
         /// </summary>
@@ -105,6 +111,10 @@ namespace TheChicagoProject
             BinaryWriter output = null;
             try
             {
+                if(!Directory.Exists("./Content/SaveFiles"))
+                {
+                    Directory.CreateDirectory("./Content/SaveFiles");
+                }
                 //initialize them
                 outStream = File.OpenWrite(SAVE_LOC);
                 output = new BinaryWriter(outStream);
@@ -124,8 +134,8 @@ namespace TheChicagoProject
 
                 //get the quest statuses
                 QuestLog log = player.log;
-                object[,] questStatuses = new object[log.GetLog().Count, 2];
-                for(int i = 0; i < questStatuses.Length; i++)
+                object[,] questStatuses = new object[log.Count, 2];
+                for(int i = 0; i < log.Count; i++)
                 {
                     questStatuses[i, 0] = log[i].Name;
                     questStatuses[i, 1] = log[i].Status;
@@ -146,8 +156,9 @@ namespace TheChicagoProject
                 output.Write(playerHealth);
                 output.Write(pCash);
                 output.Write(pQuestPoints);
-                output.Write(questStatuses.Length);
-                for(int i = 0; i < questStatuses.Length; i++)
+                output.Write(log.Count);
+                Console.WriteLine(log.Count);
+                for(int i = 0; i < log.Count; i++)
                 {
                     output.Write((string)questStatuses[i, 0]);
                     output.Write((int)questStatuses[i, 1]);
@@ -162,6 +173,7 @@ namespace TheChicagoProject
             catch(Exception e)
             {
                 Console.WriteLine("Error while saving the game: " + e.Message);
+                Console.WriteLine("Stack: \n\t" + e.StackTrace);
             }
             finally
             {
@@ -177,7 +189,7 @@ namespace TheChicagoProject
         /// <summary>
         /// loads a save file
         /// </summary>
-        public void LoadSave()
+        private void LoadSave()
         {
             Stream inStream = null;
             BinaryReader input = null;
@@ -198,6 +210,7 @@ namespace TheChicagoProject
 
                 //read the quests
                 int numQuests = input.ReadInt32();
+                Console.WriteLine(numQuests);
                 object[,] quests = new object[numQuests,2];
                 for(int i = 0; i < numQuests; i++)
                 {
@@ -225,6 +238,9 @@ namespace TheChicagoProject
                 player.health = pHealth;
                 player.QuestPoints = pQuestPoitns;
 
+                //load all of the quests in the quest file
+                LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
+
                 //load the quest status
                 string quest;
                 QuestLog log = player.log;
@@ -251,6 +267,7 @@ namespace TheChicagoProject
             catch(Exception e)
             {
                 Console.WriteLine("Error reading file: " + e.Message);
+                Console.WriteLine("Stack: \n\t" + e.StackTrace);
             }
             finally
             {
@@ -263,44 +280,44 @@ namespace TheChicagoProject
         #endregion
 
         #region Quests
-        /// <summary>
-        /// Saves all of the quests in the quest log
-        /// </summary>
-        /// <param name="log">The player's quest log</param>
-        public void SaveQuests(QuestLog log)
-        {
-            //Loops through the quest log and save each quest
-            foreach(Quest quest in log.GetLog())
-            {
-                string filePath = QUEST_DIRECTORY + quest.Name + ".quest";
-                SaveQuest(quest, filePath);
-            }
+        ///// <summary>
+        ///// Saves all of the quests in the quest log, probably won't be used since we save the quest status in the "Save()" function
+        ///// </summary>
+        ///// <param name="log">The player's quest log</param>
+        //public void SaveQuests(QuestLog log)
+        //{
+        //    //Loops through the quest log and save each quest
+        //    foreach(Quest quest in log.GetLog())
+        //    {
+        //        string filePath = QUEST_DIRECTORY + quest.Name + ".quest";
+        //        SaveQuest(quest, filePath);
+        //    }
    
-            /*****************************************************
-             *                                                   *
-             *           Display Completion Message?             *
-             *                                                   *
-             *****************************************************/
-        }
+        //    /*****************************************************
+        //     *                                                   *
+        //     *           Display Completion Message?             *
+        //     *                                                   *
+        //     *****************************************************/
+        //}
 
-        /// <summary>
-        /// Saves a specific quest
-        /// </summary>
-        /// <param name="quest">The Quest</param>
-        /// <param name="path">Where the quest should be stored</param>
-        protected void SaveQuest(Quest quest, string path)
-        {
-            using (StreamWriter output = new StreamWriter(path))
-            {
-                output.WriteLine(quest.Name);
-                output.WriteLine(quest.Description);
-                output.WriteLine(quest.Objective);
-                output.WriteLine(quest.StartPoint.X + ", " + quest.StartPoint.Y);
-                output.WriteLine(quest.Status);
-                output.WriteLine(quest.Reward);
-                output.WriteLine(quest.CashReward);
-            }
-        }
+        ///// <summary>
+        ///// Saves a specific quest
+        ///// </summary>
+        ///// <param name="quest">The Quest</param>
+        ///// <param name="path">Where the quest should be stored</param>
+        //protected void SaveQuest(Quest quest, string path)
+        //{
+        //    using (StreamWriter output = new StreamWriter(path))
+        //    {
+        //        output.WriteLine(quest.Name);
+        //        output.WriteLine(quest.Description);
+        //        output.WriteLine(quest.Objective);
+        //        output.WriteLine(quest.StartPoint.X + ", " + quest.StartPoint.Y);
+        //        output.WriteLine(quest.Status);
+        //        output.WriteLine(quest.Reward);
+        //        output.WriteLine(quest.CashReward);
+        //    }
+        //}
 
         /// <summary>
         /// Loads the quests in the quest folder
@@ -309,9 +326,18 @@ namespace TheChicagoProject
         public void LoadQuests(QuestLog log)
         {
             string[] files = Directory.GetFiles(QUEST_DIRECTORY);
+            Quest loaded;
+            //loop through all of the files in the directory
             foreach(string path in files)
             {
-                
+                //try and parse the quest from each file
+                loaded = ParseQuest(path);
+
+                //if the parse was successfull, add it to the log
+                if(loaded != null)
+                {
+                    log.Add(loaded);
+                }
             }
         }
 

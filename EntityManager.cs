@@ -45,6 +45,10 @@ namespace TheChicagoProject
         }
 
         public Player GetPlayer() {
+            if(playerLoc < 0)
+            {
+                return null;
+            }
             return entities[playerLoc] as Player;
         }
 
