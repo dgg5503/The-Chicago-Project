@@ -25,10 +25,7 @@ namespace TheChicagoProject.Quests
         {
             get 
             {
-                if (index < 0 || index >= quests.Count)
-                    throw new IndexOutOfRangeException("Index must be between 0 and the length of the number of quests");
-                else
-                    return quests[index];
+                return quests[index];
             }
 
             set

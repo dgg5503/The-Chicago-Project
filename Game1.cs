@@ -103,7 +103,7 @@ namespace TheChicagoProject
 
             this.IsMouseVisible = true;
             //Load the data
-            //saveManager.Load();//Currently sets player to null
+//            saveManager.Load();//Currently sets player to null
 
             #region debug
             border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);

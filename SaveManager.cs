@@ -272,8 +272,8 @@ namespace TheChicagoProject
                 {
                     newItem = new Item.Item();
                     newItem.name = items[i];
-                    
                     newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                    inventory.Add(newItem);
                 }
                 
                 //add the player to the world
