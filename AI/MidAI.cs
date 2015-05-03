@@ -26,22 +26,21 @@ namespace TheChicagoProject.AI
             DijkstraMap playerMap = manager.world.playerMap;
             DijkstraMap fleeMap = manager.world.fleeMap;
             // Floats --> Ints (D.G. 4/5/15, 920pm)
-            int pX = entity.location.IntX / Tile.SIDE_LENGTH - playerMap.modX;
-            int pY = entity.location.IntY / Tile.SIDE_LENGTH - playerMap.modY;
+            int pX = (int) (entity.location.Center.X / Tile.SIDE_LENGTH) - playerMap.modX;
+            int pY = (int) (entity.location.Center.Y / Tile.SIDE_LENGTH) - playerMap.modX;
             if (pX < 0 || pY < 0 || pX >= playerMap.Map.Length || pY >= playerMap.Map[0].Length)
                 return;
             int dist = playerMap.Map[pX][pY];
             Direction furtherDir = findPos(fleeMap, 1);
             Direction closerDir = findPos(playerMap, 1);
+            //System.Diagnostics.Debug.WriteLine("pM: " + dist + "\tfM: " + fleeMap.Map[pX][pY]);
             if (dist < 3) {
                 entity.direction = furtherDir;
                 entity.Move();
             } else if (dist < 8) {
                 entity.direction = closerDir;
-                if (time.ElapsedGameTime.Milliseconds % 2 == 0)
-                    entity.Attack(0, entity.inventory.GetEquippedPrimary());
-                else
-                    entity.Attack(1);
+                entity.Attack(0, entity.inventory.GetEquippedPrimary());
+                //System.Diagnostics.Debug.WriteLine("Firing at player. " + entity.direction);
             } else {
                 entity.direction = closerDir;
                 entity.Move();

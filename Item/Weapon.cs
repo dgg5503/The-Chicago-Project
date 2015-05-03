@@ -100,7 +100,6 @@ namespace TheChicagoProject.Item
         public int Reload()
         {
             int loaded = 0;
-            reloading = true;
 
             int space = maxClip - loadedAmmo;
 

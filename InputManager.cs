@@ -103,48 +103,65 @@ namespace TheChicagoProject
                         WorldManager.player.direction = Entity.Direction.DownRight;
                     }
                 }
+                #endregion
 
+                Item.Weapon weapon = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().inventory.GetEquippedPrimary();
                 //Selects the weapon the player wants
                 #region Quick Weapon Select
+                bool switched = false;
                 if (keyState.IsKeyDown(Keys.D1))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 1;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D2))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 2;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D3))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 3;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D4))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 4;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D5))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 5;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D6))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 6;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D7))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 7;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D8))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 8;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D9))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 9;
+                    switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D0))    //Quick Weapon Select
                 {
                     WorldManager.player.inventory.ActiveWeapon = 0;
+                    switched = true;
+                }
+                if (weapon != null && weapon.Reloading && switched && !Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().inventory.GetEquippedPrimary().Equals(weapon))
+                {
+                    weapon.Reloading = false;
                 }
                 #endregion
 
@@ -152,10 +169,10 @@ namespace TheChicagoProject
 
                 // Douglas Gliner
                 #region mouse aim (move to player?)
-                
+
                 // mouse location relative to CENTER OF SCREEN (not player since those coords are in a different system)
                 //float newAngle = 0f;
-                
+
                 /*
                 if (mouseState.Position.X != RenderManager.ViewportWidth / 2 || mouseState.Position.Y != RenderManager.ViewportHeight / 2)
                 {
@@ -195,11 +212,10 @@ namespace TheChicagoProject
                     //throw new NotImplementedException();
                     //WorldManager.player.Attack(1, );
                 }
-                #endregion
             }
             if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
             {
-                if(Game1.state == GameState.Game)
+                if (Game1.state == GameState.Game)
                 {
                     Game1.state = GameState.WeaponWheel;
                 }
@@ -242,7 +258,7 @@ namespace TheChicagoProject
 
         public void PauseInput(KeyboardState keyboardState)
         {
-            if(keyboardState.IsKeyDown(Keys.Escape) && previousState.IsKeyUp(Keys.Escape))
+            if (keyboardState.IsKeyDown(Keys.Escape) && previousState.IsKeyUp(Keys.Escape))
             {
                 Game1.state = GameState.Game;
             }

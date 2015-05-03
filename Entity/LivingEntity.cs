@@ -40,11 +40,9 @@ namespace TheChicagoProject.Entity
         /// <summary>
         /// Gets or sets the amount of cash the player has
         /// </summary>
-        public int Cash
-        {
+        public int Cash {
             get { return cash; }
-            set
-            {
+            set {
                 if (value < 0)
                     cash = value;
             }
@@ -94,6 +92,7 @@ namespace TheChicagoProject.Entity
             lastShot += time.ElapsedGameTime.TotalMilliseconds;
             if(inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D)
             {
+                inventory.GetEquippedPrimary().Reload();
                 inventory.GetEquippedPrimary().Reloading = false;
             }
         }
@@ -109,13 +108,13 @@ namespace TheChicagoProject.Entity
                 {
                     lastShot = 0D;
                     double trajectory = faceDirection + ((rand.NextDouble() * Math.PI / 2) - (Math.PI / 4)) * (weapon.spread / 100); // or we could make the cone the weapon spread amount (-weapon.spread to weapon.spread)
-                                                                                                                                     // this is just using the weapon.spread as a multiplier for a max range being -pi/2 to pi/2 relative to face direction
-                   
+                    // this is just using the weapon.spread as a multiplier for a max range being -pi/2 to pi/2 relative to face direction
+
                     // need to get FRONT face, location will not work since that is not rotated, only the sprite is.
                     // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
                     //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
                     // Douglas Gliner
-                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int)(sprite.Texture.Width / 2) * (float)Math.Cos(faceDirection - Math.PI / 2)) + location.Center.X, ((int)(sprite.Texture.Height / 2) * (float)Math.Sin(faceDirection - Math.PI / 2)) + location.Center.Y, (float)Math.Cos(trajectory - Math.PI / 2), (float)Math.Sin(trajectory - Math.PI / 2), inventory.GetEquippedPrimary().Damage, this);
+                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 2)) + location.Center.X, ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 2)) + location.Center.Y, (float) Math.Cos(trajectory - Math.PI / 2), (float) Math.Sin(trajectory - Math.PI / 2), inventory.GetEquippedPrimary().Damage, this);
                     weapon.LoadedAmmo--;
                 }
             }
@@ -131,34 +130,30 @@ namespace TheChicagoProject.Entity
          *      - closest to the player or first to find?
          */
 
-        public void Interact()
-        {
+        public void Interact() {
             // ray cast
-            RotatedRectangle rayCast = new RotatedRectangle(new FloatRectangle(location.X + interactBoundsOffsetX + ((int)(sprite.Texture.Width / 2) * (float)Math.Cos(faceDirection - Math.PI / 2)), location.Y + interactBoundsOffsetY + ((int)(sprite.Texture.Height / 2) * (float)Math.Sin(faceDirection - Math.PI / 2)), sprite.Texture.Height, interactRange), faceDirection);
-            
+            RotatedRectangle rayCast = new RotatedRectangle(new FloatRectangle(location.X + interactBoundsOffsetX + ((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 2)), location.Y + interactBoundsOffsetY + ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 2)), sprite.Texture.Height, interactRange), faceDirection);
+
             // tiles to do a check for entities
             CollisionTile[] intersectingTiles = CurrentCollisionTile.GetAdjacentTilesFromIntersection(rayCast);
-            
+
             // foreach through each tile, foreach through each ent list and find ent closest to this ent.
-            float shortestDistance = (float)Math.Sqrt((interactRange * interactRange) + ((rayCast.Width * rayCast.Width) / 4));
+            float shortestDistance = (float) Math.Sqrt((interactRange * interactRange) + ((rayCast.Width * rayCast.Width) / 4));
 
             Entity entityToInteract = null;
 
-            foreach (CollisionTile tile in intersectingTiles)
-            {
-               // only look at entities that interset with raycast bounds!!
-               foreach(Entity ent in tile.EntitiesInTile.Where(ent => rayCast.Intersects(ent.location)))
-               {
-                   if (ent == this)
-                       continue;
+            foreach (CollisionTile tile in intersectingTiles) {
+                // only look at entities that interset with raycast bounds!!
+                foreach (Entity ent in tile.EntitiesInTile.Where(ent => rayCast.Intersects(ent.location))) {
+                    if (ent == this)
+                        continue;
 
-                   float tmpDist = Vector2.Distance(ent.location.Center, this.location.Center);
-                   if (tmpDist < shortestDistance)
-                   {
-                       entityToInteract = ent;
-                       shortestDistance = tmpDist;
-                   }
-               }
+                    float tmpDist = Vector2.Distance(ent.location.Center, this.location.Center);
+                    if (tmpDist < shortestDistance) {
+                        entityToInteract = ent;
+                        shortestDistance = tmpDist;
+                    }
+                }
             }
 
             // debug
@@ -182,27 +177,36 @@ namespace TheChicagoProject.Entity
             switch (direction) {
                 case Direction.Down:
                     movement = new Vector2(0, move);
-                    break;
-                case Direction.DownLeft:
-                    movement = new Vector2(-move, move);
-                    break;
-                case Direction.DownRight:
-                    movement = new Vector2(move, move);
-                    break;
-                case Direction.Left:
-                    movement = new Vector2(-move, 0);
-                    break;
-                case Direction.Right:
-                    movement = new Vector2(move, 0);
+                    this.faceDirection = 2 * (float) Math.PI / 2f;
                     break;
                 case Direction.Up:
                     movement = new Vector2(0, -move);
+                    this.faceDirection = 0 * (float) Math.PI / 2f;
+                    break;
+                case Direction.Left:
+                    movement = new Vector2(-move, 0);
+                    this.faceDirection = 3 * (float) Math.PI / 2f;
+                    break;
+                case Direction.Right:
+                    movement = new Vector2(move, 0);
+                    this.faceDirection = 1 * (float) Math.PI / 2f;
+                    break;
+
+                case Direction.DownLeft:
+                    movement = new Vector2(-move, move);
+                    this.faceDirection = 5 * (float) Math.PI / 4f;
+                    break;
+                case Direction.DownRight:
+                    movement = new Vector2(move, move);
+                    this.faceDirection = 3 * (float) Math.PI / 4f;
                     break;
                 case Direction.UpLeft:
                     movement = new Vector2(-move, -move);
+                    this.faceDirection = 7 * (float) Math.PI / 4f;
                     break;
                 case Direction.UpRight:
                     movement = new Vector2(move, -move);
+                    this.faceDirection = 1 * (float) Math.PI / 4f;
                     break;
             }
         }

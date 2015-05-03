@@ -32,13 +32,14 @@ namespace TheChicagoProject.AI
         /// <returns>the entity's 'location' X.</returns>
         private int getEntityX() {
             float lX = entity.lastLocation.X;
-            float nX = entity.location.Center.X / Tile.SIDE_LENGTH;
+            float nX = movementHack(true, (int) (entity.location.Center.X / Tile.SIDE_LENGTH));
             double d = Math.Abs(lX - nX);
+            System.Diagnostics.Debug.WriteLine("lX: " + lX + "\tnX: " + nX + "\td: " + d);
             if (d > 0.75) {
                 entity.lastLocation.X = nX;
                 return (int) nX;
             }
-            return (int)lX;
+            return (int) lX;
         }
         /// <summary>
         /// If the entity has mostly moved into the other tile,
@@ -47,13 +48,42 @@ namespace TheChicagoProject.AI
         /// <returns>the entity's 'location' Y.</returns>
         private int getEntityY() {
             float lY = entity.lastLocation.Y;
-            float nY = entity.location.Center.Y / Tile.SIDE_LENGTH;
+            float nY = movementHack(false, (int) (entity.location.Center.Y / Tile.SIDE_LENGTH));
             double d = Math.Abs(lY - nY);
+            System.Diagnostics.Debug.WriteLine("lY: " + lY + "\tnY: " + nY + "\td: " + d);
             if (d > 0.75) {
                 entity.lastLocation.Y = nY;
                 return (int) nY;
             }
             return (int) lY;
+        }
+
+        /// <summary>
+        /// Does some silly value modding to try and get movement working nice w/ corners.
+        /// </summary>
+        /// <param name="xy">Is it X, or Y? True = X, False = Y.</param>
+        /// <param name="val">the value to mod.</param>
+        /// <returns></returns>
+        private float movementHack(bool xy, float val) {
+            switch (entity.direction) {
+                case Direction.Down:
+                    if (!xy)
+                        return val - 0.5f;
+                    break;
+                case Direction.Up:
+                    if (!xy)
+                        return val + 0.5f;
+                    break;
+                case Direction.Left:
+                    if (xy)
+                        return val + 0.5f;
+                    break;
+                case Direction.Right:
+                    if (xy)
+                        return val - 0.5f;
+                    break;
+            }
+            return val;
         }
 
         /// <summary>

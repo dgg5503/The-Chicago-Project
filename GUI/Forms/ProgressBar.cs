@@ -19,7 +19,6 @@ namespace TheChicagoProject.GUI.Forms
         // Progress bar stuff
         private double maxValue;
         private double currentValue;
-        private Vector2 scale;
         private Bar bar;
 
         /// <summary>
