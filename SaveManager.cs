@@ -629,11 +629,48 @@ namespace TheChicagoProject
         /// <summary>
         /// loads an item based on the item file
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">the filepath of the item</param>
+        /// <returns>The item</returns>
         public Item.Item LoadItem(string path)
         {
             Item.Item newItem = null;
+            using(Stream inStream = File.OpenRead(path))
+            {
+                using(BinaryReader input = new BinaryReader(inStream))
+                {
+                    string type = input.ReadString();
+                    if(type.ToUpper() == "WEAPON")
+                    {
+                        int rof = input.ReadInt32();            //
+                        int damage = input.ReadInt32();         //
+                        double reload = input.ReadDouble();     //
+                        int clip = input.ReadInt32();           //
+                        double spread = input.ReadDouble();     //
+                        int loadedAmmo = input.ReadInt32();     //
+                        int ammo = input.ReadInt32();           //
+                        string name = input.ReadString();       //
+                        string sprite = input.ReadString();     //
+                        newItem = new Item.Weapon(rof, damage, reload, name, clip, spread);
+
+                        (newItem as Item.Weapon).Ammo = ammo;
+                        (newItem as Item.Weapon).LoadedAmmo = loadedAmmo;
+
+                        if (Sprites.spritesDictionary.ContainsKey(sprite))
+                            newItem.image = Sprites.spritesDictionary[sprite].Texture;
+                        else
+                            newItem.image = Sprites.spritesDictionary["NULL"].Texture;
+                    }
+                    else
+                    {
+                        newItem = new Item.Item();
+                        string name = input.ReadString();      
+                        string sprite = input.ReadString();    
+                    }
+                }
+            }
+            /*
+            inStream = File.OpenRead(SAVE_LOC);
+            input = new BinaryReader(inStream);
             using(StreamReader input = new StreamReader(path))
             {
                 string data = input.ReadLine();
@@ -692,7 +729,7 @@ namespace TheChicagoProject
                     }
                 }
             }
-
+            */
             return newItem;
         }
 
