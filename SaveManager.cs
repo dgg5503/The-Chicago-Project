@@ -166,7 +166,8 @@ namespace TheChicagoProject
                 output.Write(items.Count);
                 foreach(Item.Item item in inventory)
                 {
-                    output.Write(item.name);
+                    if(SaveItem(item))
+                        output.Write(item.name);
                 }
 
             }
@@ -270,9 +271,9 @@ namespace TheChicagoProject
                 Item.Item newItem;
                 for(int i = 0; i < numItems; i++)
                 {
-                    newItem = new Item.Item();
-                    newItem.name = items[i];
-                    newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                    string name = items[i];
+                    //newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                    newItem = LoadItem("./Content/SaveFiles/Inventory/" + name + ".item");
                     inventory.Add(newItem);
                 }
                 
@@ -641,15 +642,15 @@ namespace TheChicagoProject
                     string type = input.ReadString();
                     if(type.ToUpper() == "WEAPON")
                     {
-                        int rof = input.ReadInt32();            //
-                        int damage = input.ReadInt32();         //
-                        double reload = input.ReadDouble();     //
-                        int clip = input.ReadInt32();           //
-                        double spread = input.ReadDouble();     //
-                        int loadedAmmo = input.ReadInt32();     //
-                        int ammo = input.ReadInt32();           //
-                        string name = input.ReadString();       //
-                        string sprite = input.ReadString();     //
+                        int rof = input.ReadInt32();       
+                        int damage = input.ReadInt32();    
+                        double reload = input.ReadDouble();
+                        int clip = input.ReadInt32();      
+                        double spread = input.ReadDouble();
+                        int loadedAmmo = input.ReadInt32();
+                        int ammo = input.ReadInt32();      
+                        string name = input.ReadString();  
+                        string sprite = input.ReadString();
                         newItem = new Item.Weapon(rof, damage, reload, name, clip, spread);
 
                         (newItem as Item.Weapon).Ammo = ammo;
@@ -668,76 +669,14 @@ namespace TheChicagoProject
                     }
                 }
             }
-            /*
-            inStream = File.OpenRead(SAVE_LOC);
-            input = new BinaryReader(inStream);
-            using(StreamReader input = new StreamReader(path))
-            {
-                string data = input.ReadLine();
-                if (data.ToUpper().Contains("WEAPON")) 
-                {
-                    data = input.ReadLine();
-                    data = data.Substring(4);
-                    int rof = 0;
-                    if (!int.TryParse(data, out rof))
-                        rof = 400;
-                    data = input.ReadLine();
-                    data = data.Substring(7);
-                    int damage = 0;
-                    if (!int.TryParse(data, out damage))
-                        damage = 1;
-                    data = input.ReadLine();
-                    data = data.Substring(7);
-                    double reload = 0;
-                    if (!double.TryParse(data, out reload))
-                        reload = 3.0;
-                    data = input.ReadLine();
-                    string name = data.Substring(5);
-                    name = name.Substring(0, name.Length - 1);
-                    data = input.ReadLine();
-                    data = data.Substring(4);
-                    int clip;
-                    if (!int.TryParse(data, out clip))
-                        clip = 30;
-                    data = input.ReadLine();
-                    data = data.Substring(6);
-                    double spread;
-                    if (!double.TryParse(data, out spread))
-                        spread = 5;
-
-                    //create the weapon
-                    newItem = new Item.Weapon(rof, damage, reload, name, clip, spread);
-                    newItem.image = Sprites.spritesDictionary["NULL"].Texture;
-                }
-                else
-                {
-                    data = input.ReadLine();
-                    data = data.Substring(5);
-                    string name = data.Substring(0, data.Length - 1);
-                    data = input.ReadLine();
-                    data = data.Substring(8);
-                    string texture = data.Substring(0, data.Length - 1);
-                    newItem = new Item.Item();
-                    newItem.name = name;
-                    if (Sprites.spritesDictionary.ContainsKey(texture))
-                    {
-                        newItem.image = Sprites.spritesDictionary[texture].Texture;
-                    }
-                    else
-                    {
-                        newItem.image = Sprites.spritesDictionary["NULL"].Texture;
-                    }
-                }
-            }
-            */
             return newItem;
         }
 
         /// <summary>
         /// writes to a file the details behind an item
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">the item to save</param>
+        /// <returns>if the save was successful</returns>
         public bool SaveItem(Item.Item item)
         {
             // Create a stream, then a writer
