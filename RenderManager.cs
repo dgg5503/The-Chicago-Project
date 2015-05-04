@@ -99,10 +99,6 @@ namespace TheChicagoProject
 
         private Player player;
 
-        // DEBUG QUEST
-        private QuestUI tempQuest;
-        
-
         // Particle list
         private List<Particle> particles;
 
@@ -281,6 +277,16 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.QuestLog:
+
+                    QuestLogUI questLogUI = Controls.guiElements["questLog"] as QuestLogUI;
+                    if (!questLogUI.IsQuestLogLoaded)
+                    {
+                        questLogUI.Load(player.log);
+                        questLogUI.LoadVisuals(mainGame.Content, graphics);
+                        questLogUI.Update(gameTime);
+                    }
+                    //Controls.guiElements["questLog"]
+                    /*
                     if(tempQuest == null)
                     {
                         tempQuest = new QuestUI();
@@ -288,6 +294,7 @@ namespace TheChicagoProject
                         tempQuest.LoadVisuals(mainGame.Content, graphics);
                         tempQuest.Update(gameTime);
                     }
+                     * */
                     break;
 
                 case GameState.Shop:
@@ -419,8 +426,7 @@ namespace TheChicagoProject
 
                 // if we get to it.
                 case GameState.QuestLog:
-                    if (tempQuest != null)
-                        tempQuest.Draw(spriteBatch, gameTime);
+                    Controls.guiElements["questLog"].Draw(spriteBatch, gameTime);
                     break;
 
                 // if we get to it.

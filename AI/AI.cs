@@ -34,7 +34,7 @@ namespace TheChicagoProject.AI
             float lX = entity.lastLocation.X;
             float nX = movementHack(true, (int) (entity.location.Center.X / Tile.SIDE_LENGTH));
             double d = Math.Abs(lX - nX);
-            System.Diagnostics.Debug.WriteLine("lX: " + lX + "\tnX: " + nX + "\td: " + d);
+            //System.Diagnostics.Debug.WriteLine("lX: " + lX + "\tnX: " + nX + "\td: " + d);
             if (d > 0.75) {
                 entity.lastLocation.X = nX;
                 return (int) nX;
@@ -50,7 +50,7 @@ namespace TheChicagoProject.AI
             float lY = entity.lastLocation.Y;
             float nY = movementHack(false, (int) (entity.location.Center.Y / Tile.SIDE_LENGTH));
             double d = Math.Abs(lY - nY);
-            System.Diagnostics.Debug.WriteLine("lY: " + lY + "\tnY: " + nY + "\td: " + d);
+            //System.Diagnostics.Debug.WriteLine("lY: " + lY + "\tnY: " + nY + "\td: " + d);
             if (d > 0.75) {
                 entity.lastLocation.Y = nY;
                 return (int) nY;

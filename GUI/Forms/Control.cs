@@ -215,9 +215,7 @@ namespace TheChicagoProject.GUI.Forms
                 c.Draw(spriteBatch, gameTime);
 
             if (borderInfo.isDrawn)
-                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
-
-            
+                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);  
         }
 
         protected virtual void LoadTextures(GraphicsDevice graphics)

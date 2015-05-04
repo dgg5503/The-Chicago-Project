@@ -64,7 +64,8 @@
     <Compile Include="GUI\Particles\Particle.cs" />
     <Compile Include="GUI\Particles\RectangleOutline.cs" />
     <Compile Include="GUI\PauseMenu.cs" />
-    <Compile Include="GUI\QuestLogMenu.cs" />
+    <Compile Include="GUI\QuestInfoBarUI.cs" />
+    <Compile Include="GUI\QuestLogUI.cs" />
     <Compile Include="GUI\QuestUI.cs" />
     <Compile Include="GUI\Sprite.cs" />
     <Compile Include="GUI\Sprites.cs" />
