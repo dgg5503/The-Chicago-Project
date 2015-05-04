@@ -48,6 +48,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Collision\CollisionTile.cs" />
     <Compile Include="GUI\Controls.cs" />
+    <Compile Include="GUI\Door.cs" />
     <Compile Include="GUI\DragableMatrix.cs" />
     <Compile Include="GUI\Forms\Bar.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
@@ -116,6 +117,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\speakeasy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\credits.txt" />
     <Content Include="Content\Sprites\mugger.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -131,6 +135,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tiles\BuildingRoof.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Tiles\door.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tiles\RoadLine.png">

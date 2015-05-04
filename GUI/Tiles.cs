@@ -28,6 +28,15 @@ namespace TheChicagoProject.GUI
             AddTile("Water", new Tile(false, "Water.png")); //5
         }
 
+        /// <summary>
+        /// Makes a new door
+        /// </summary>
+        /// <param name="fileName">The destination world</param>
+        public Door NewDoor(string fileName)
+        {
+            return new Door(fileName);
+        }
+
         private static void AddTile(String mapName, Tile tile) {
             Console.WriteLine("[TileLoader] Mapping " + mapName + " to " + open);
             tilesDictionary.Add(mapName, tile);
