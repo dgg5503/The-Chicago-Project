@@ -91,7 +91,7 @@ namespace TheChicagoProject.Item
         /// <summary>
         /// Gets the ammo usable with the gun
         /// </summary>
-        public int Ammo { get { return ammo; } }
+        public int Ammo { get { return ammo; } set { ammo = value; } }
 
         /// <summary>
         /// Reloads the gun

@@ -89,6 +89,10 @@ namespace TheChicagoProject
                         case '5':
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
                             break;
+
+                        case '6':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Door"];
+                            break;
                     }
                 }
                 row++;
@@ -166,7 +170,8 @@ namespace TheChicagoProject
                 output.Write(items.Count);
                 foreach(Item.Item item in inventory)
                 {
-                    output.Write(item.name);
+                    if(SaveItem(item))
+                        output.Write(item.name);
                 }
 
             }
@@ -270,9 +275,9 @@ namespace TheChicagoProject
                 Item.Item newItem;
                 for(int i = 0; i < numItems; i++)
                 {
-                    newItem = new Item.Item();
-                    newItem.name = items[i];
-                    newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                    string name = items[i];
+                    //newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
+                    newItem = LoadItem("./Content/SaveFiles/Inventory/" + name + ".item");
                     inventory.Add(newItem);
                 }
                 
@@ -620,6 +625,124 @@ namespace TheChicagoProject
 
             }
             return quest;
+        }
+
+        #endregion
+
+        #region Items
+
+        /// <summary>
+        /// loads an item based on the item file
+        /// </summary>
+        /// <param name="path">the filepath of the item</param>
+        /// <returns>The item</returns>
+        public Item.Item LoadItem(string path)
+        {
+            Item.Item newItem = null;
+            using(Stream inStream = File.OpenRead(path))
+            {
+                using(BinaryReader input = new BinaryReader(inStream))
+                {
+                    string type = input.ReadString();
+                    if(type.ToUpper() == "WEAPON")
+                    {
+                        int rof = input.ReadInt32();       
+                        int damage = input.ReadInt32();    
+                        double reload = input.ReadDouble();
+                        int clip = input.ReadInt32();      
+                        double spread = input.ReadDouble();
+                        int loadedAmmo = input.ReadInt32();
+                        int ammo = input.ReadInt32();      
+                        string name = input.ReadString();  
+                        string sprite = input.ReadString();
+                        newItem = new Item.Weapon(rof, damage, reload, name, clip, spread);
+
+                        (newItem as Item.Weapon).Ammo = ammo;
+                        (newItem as Item.Weapon).LoadedAmmo = loadedAmmo;
+
+                        if (Sprites.spritesDictionary.ContainsKey(sprite))
+                            newItem.image = Sprites.spritesDictionary[sprite].Texture;
+                        else
+                            newItem.image = Sprites.spritesDictionary["NULL"].Texture;
+                    }
+                    else
+                    {
+                        newItem = new Item.Item();
+                        string name = input.ReadString();      
+                        string sprite = input.ReadString();    
+                    }
+                }
+            }
+            return newItem;
+        }
+
+        /// <summary>
+        /// writes to a file the details behind an item
+        /// </summary>
+        /// <param name="item">the item to save</param>
+        /// <returns>if the save was successful</returns>
+        public bool SaveItem(Item.Item item)
+        {
+            // Create a stream, then a writer
+            Stream outStream = null;
+            BinaryWriter output = null;
+            bool successful;
+            try
+            {
+                if (!Directory.Exists("./Content/SaveFiles/Inventory"))
+                {
+                    Directory.CreateDirectory("./Content/SaveFiles/Inventory");
+                }
+                //initialize the binary writer
+                outStream = File.OpenWrite("./Content/SaveFiles/Inventory/" + item.name + ".item");
+                output = new BinaryWriter(outStream);
+
+                //write data
+                if(item is Item.Weapon)
+                {
+                    output.Write("Weapon");
+                    Item.Weapon weapon = (Item.Weapon)item;
+                    output.Write(weapon.rateOfFire);
+                    output.Write(weapon.Damage);
+                    output.Write(weapon.ReloadTime);
+                    output.Write(weapon.maxClip);
+                    output.Write(weapon.spread);
+                    output.Write(weapon.LoadedAmmo);
+                    output.Write(weapon.Ammo);
+                }
+                else
+                {
+                    output.Write("Item");
+                }
+
+                output.Write(item.name);
+
+                //get the key of the texture
+                Dictionary<String, Sprite> sDict = Sprites.spritesDictionary;
+                string key = "NULL";
+                foreach (string spriteKey in sDict.Keys.ToList())
+                {
+                    if (sDict[spriteKey].Texture == item.image)
+                    {
+                        key = spriteKey;
+                    }
+                }
+                output.Write(key);
+
+                successful = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error saving item: " + e.Message);
+                successful = false;
+            }
+            finally
+            {
+                if (output != null)
+                    output.Close();
+            }
+
+            return successful;
         }
 
         #endregion

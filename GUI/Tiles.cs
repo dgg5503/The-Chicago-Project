@@ -26,6 +26,16 @@ namespace TheChicagoProject.GUI
             AddTile("BuildingEdge", new Tile(false, "BuildingEdge.png")); // 3
             AddTile("BuildingRoof", new Tile(false, "BuildingRoof.png")); // 4
             AddTile("Water", new Tile(false, "Water.png")); //5
+            AddTile("Door", new Tile(true, "door.png"));    //6, will be changed later
+        }
+
+        /// <summary>
+        /// Makes a new door
+        /// </summary>
+        /// <param name="fileName">The destination world</param>
+        public static Door NewDoor(string fileName)
+        {
+            return new Door(fileName);
         }
 
         private static void AddTile(String mapName, Tile tile) {

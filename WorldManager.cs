@@ -28,7 +28,7 @@ namespace TheChicagoProject
     {
         public static Player player;
         public Dictionary<String, World> worlds;
-        private String current;
+        public String current;
         public QuestLog worldQuests;
 
         public World CurrentWorld {
