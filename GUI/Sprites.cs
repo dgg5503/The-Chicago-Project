@@ -16,7 +16,8 @@ namespace TheChicagoProject.GUI
         public readonly static Dictionary<string, Sprite> spritesDictionary = new Dictionary<string, Sprite>
         {
             {"mugger", new Sprite(32, 32, 0, "mugger.png")},
-            {"player", new Sprite(32, 32, 0, "player.png")}
+            {"player", new Sprite(32, 32, 0, "player.png")},
+            {"NULL", new Sprite(64, 64, 0, "NULL.png")}
         };
     }
 }

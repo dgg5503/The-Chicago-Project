@@ -623,5 +623,129 @@ namespace TheChicagoProject
         }
 
         #endregion
+
+        #region Items
+
+        /// <summary>
+        /// loads an item based on the item file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public Item.Item LoadItem(string path)
+        {
+            Item.Item newItem = null;
+            using(StreamReader input = new StreamReader(path))
+            {
+                string data = input.ReadLine();
+                if (data.ToUpper().Contains("WEAPON")) 
+                {
+                    data = input.ReadLine();
+                    data = data.Substring(4);
+                    int rof = 0;
+                    if (!int.TryParse(data, out rof))
+                        rof = 400;
+                    data = input.ReadLine();
+                    data = data.Substring(7);
+                    int damage = 0;
+                    if (!int.TryParse(data, out damage))
+                        damage = 1;
+                    data = input.ReadLine();
+                    data = data.Substring(7);
+                    double reload = 0;
+                    if (!double.TryParse(data, out reload))
+                        reload = 3.0;
+                    data = input.ReadLine();
+                    string name = data.Substring(5);
+                    name = name.Substring(0, name.Length - 1);
+                    data = input.ReadLine();
+                    data = data.Substring(4);
+                    int clip;
+                    if (!int.TryParse(data, out clip))
+                        clip = 30;
+                    data = input.ReadLine();
+                    data = data.Substring(6);
+                    double spread;
+                    if (!double.TryParse(data, out spread))
+                        spread = 5;
+
+                    //create the weapon
+                    newItem = new Item.Weapon(rof, damage, reload, name, clip, spread);
+                    newItem.image = Sprites.spritesDictionary["NULL"].Texture;
+                }
+                else
+                {
+                    data = input.ReadLine();
+                    data = data.Substring(5);
+                    string name = data.Substring(0, data.Length - 1);
+                    data = input.ReadLine();
+                    data = data.Substring(8);
+                    string texture = data.Substring(0, data.Length - 1);
+                    newItem = new Item.Item();
+                    newItem.name = name;
+                    if (Sprites.spritesDictionary.ContainsKey(texture))
+                    {
+                        newItem.image = Sprites.spritesDictionary[texture].Texture;
+                    }
+                    else
+                    {
+                        newItem.image = Sprites.spritesDictionary["NULL"].Texture;
+                    }
+                }
+            }
+
+            return newItem;
+        }
+
+        /// <summary>
+        /// writes to a file the details behind an item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool SaveItem(Item.Item item)
+        {
+            // Create a stream, then a writer
+            Stream outStream = null;
+            BinaryWriter output = null;
+            bool successful;
+            try
+            {
+                if (!Directory.Exists("./Content/SaveFiles/Inventory"))
+                {
+                    Directory.CreateDirectory("./Content/SaveFiles/Inventory");
+                }
+                //initialize the binary writer
+                outStream = File.OpenWrite("./Content/SaveFiles/Inventory/" + item.name + ".item");
+                output = new BinaryWriter(outStream);
+
+                //write data
+                if(item is Item.Weapon)
+                {
+                    output.Write("Weapon");
+                    Item.Weapon weapon = (Item.Weapon)item;
+                    output.Write(weapon.rateOfFire);
+                    output.Write(weapon.Damage);
+                    output.Write(weapon.ReloadTime);
+                    output.Write(weapon.name);
+                    output.Write(weapon.maxClip);
+                    output.Write(weapon.spread);
+                    output.Write()
+                }
+
+                successful = true;
+            }
+            catch (Exception e)
+            {
+                successful = false;
+            }
+            finally
+            {
+                if (output != null)
+                    output.Close();
+            }
+
+            return successful;
+        }
+
+        #endregion
     }
 }
