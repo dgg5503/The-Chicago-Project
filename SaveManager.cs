@@ -89,6 +89,10 @@ namespace TheChicagoProject
                         case '5':
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
                             break;
+
+                        case '6':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Door"];
+                            break;
                     }
                 }
                 row++;
