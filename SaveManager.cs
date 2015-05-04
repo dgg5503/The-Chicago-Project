@@ -725,16 +725,35 @@ namespace TheChicagoProject
                     output.Write(weapon.rateOfFire);
                     output.Write(weapon.Damage);
                     output.Write(weapon.ReloadTime);
-                    output.Write(weapon.name);
                     output.Write(weapon.maxClip);
                     output.Write(weapon.spread);
-                    output.Write()
+                    output.Write(weapon.LoadedAmmo);
+                    output.Write(weapon.Ammo);
                 }
+                else
+                {
+                    output.Write("Item");
+                }
+
+                output.Write(item.name);
+
+                //get the key of the texture
+                Dictionary<String, Sprite> sDict = Sprites.spritesDictionary;
+                string key = "NULL";
+                foreach (string spriteKey in sDict.Keys.ToList())
+                {
+                    if (sDict[spriteKey].Texture == item.image)
+                    {
+                        key = spriteKey;
+                    }
+                }
+                output.Write(key);
 
                 successful = true;
             }
             catch (Exception e)
             {
+                Console.WriteLine("Error saving item: " + e.Message);
                 successful = false;
             }
             finally
