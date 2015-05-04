@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TheChicagoProject.GUI
 {
-    class Door : Tile
+    public class Door : Tile
     {
         private string world;
 

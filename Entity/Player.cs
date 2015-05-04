@@ -154,6 +154,19 @@ namespace TheChicagoProject.Entity
 
             movement.X = 0;
             movement.Y = 0;
+
+            if(Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)(location.Y / Tile.SIDE_LENGTH)] is Door)
+            {
+                Door door = (Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)(location.Y / Tile.SIDE_LENGTH)] as Door);
+                if (Game1.Instance.worldManager.worlds.ContainsKey(door.World))
+                {
+                    Game1.Instance.worldManager.current = door.World;
+                }
+                else
+                {
+                    Game1.Instance.worldManager.worlds.Add(door.World, Game1.Instance.saveManager.LoadWorld(door.World));
+                }
+            }
         }
     }
 }
