@@ -54,7 +54,24 @@ namespace TheChicagoProject.GUI
         void saveButton_Click(object sender, EventArgs e)
         {
             // where does this come from? it has to be static!!!
-            Game1.Instance.saveManager.Save();
+            // Why does it have to be static? -Sean
+            
+            //create a save file dialog
+            System.Windows.Forms.SaveFileDialog saveFDialog = new System.Windows.Forms.SaveFileDialog();
+
+            saveFDialog.InitialDirectory = "./Content/SaveFiles/";
+            saveFDialog.Filter = "Chicago Project Save files (*.save)|*.save";
+            saveFDialog.FilterIndex = 0;
+            saveFDialog.AddExtension = true;
+            saveFDialog.RestoreDirectory = true;
+
+            //check that the user clicked OK
+            if(saveFDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = saveFDialog.FileName;
+                Game1.Instance.saveManager.SAVE_LOC = fileName;
+                Game1.Instance.saveManager.Save();
+            }
         }
 
         void resumeButton_Click(object sender, EventArgs e)

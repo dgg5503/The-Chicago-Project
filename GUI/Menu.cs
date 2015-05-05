@@ -92,6 +92,10 @@ namespace TheChicagoProject.GUI
             Add(lblHeader);
         }
 
+        //Sean
+        /// <summary>
+        /// Opens an open dialog to determine which file to load and loads it
+        /// </summary>
         private void load_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFDia = new System.Windows.Forms.OpenFileDialog();
@@ -111,11 +115,7 @@ namespace TheChicagoProject.GUI
                     Game1.Instance.saveManager.Load();
                 }
                 Game1.state = GameState.Game;
-                
-                
             }
-
-
         }
 
         /*
