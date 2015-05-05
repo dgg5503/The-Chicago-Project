@@ -22,13 +22,14 @@ namespace TheChicagoProject
     public class SaveManager
     {
         public const string QUEST_DIRECTORY = "./Content/Quests/";
-        public const string SAVE_LOC = "./Content/SaveFiles/save.save";
+        public string SAVE_LOC;
         protected Game1 MainGame;
 
         //Constructor
         public SaveManager()
         {
             MainGame = Game1.Instance;
+            SAVE_LOC = "./Content/SaveFiles/save.save";
         }
 
         /// <summary>

@@ -28,6 +28,7 @@ namespace TheChicagoProject.GUI
 
         // Buttons on the menu
         private Button startButton;
+        private Button loadButton;
         private Button questBuilderButton;
 
         //---- CONTROLS ----
@@ -54,13 +55,22 @@ namespace TheChicagoProject.GUI
              */
 
             startButton = new Button();
-            startButton.Text = "START";
+            startButton.Text = "NEW GAME";
             startButton.Click += buttons_Click;
-            startButton.Size = new Vector2(55, 20);
+            startButton.Size = new Vector2(95, 20);
             startButton.Alignment = ControlAlignment.Center;
             startButton.Location = new Vector2(0, 20);
             startButton.parent = this;
             Add(startButton);
+
+            loadButton = new Button();
+            loadButton.Text = "LOAD GAME";
+            loadButton.Click += load_Click;
+            loadButton.Size = new Vector2(95, 20);
+            loadButton.Alignment = ControlAlignment.Center;
+            loadButton.Location = new Vector2(0, 45);
+            loadButton.parent = this;
+            Add(loadButton);
 
             //Quest builder
             questBuilderButton = new Button();
@@ -80,6 +90,31 @@ namespace TheChicagoProject.GUI
             lblHeader.Alignment = ControlAlignment.Center;
             lblHeader.parent = this;
             Add(lblHeader);
+        }
+
+        private void load_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog openFDia = new System.Windows.Forms.OpenFileDialog();
+
+            openFDia.InitialDirectory = "./Content/SaveFiles/";
+            openFDia.Filter = "Chicago Project Save files (*.save)|*.save";
+            openFDia.FilterIndex = 0;
+            openFDia.RestoreDirectory = true;
+
+            if(openFDia.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = openFDia.FileName;
+                if(fileName.EndsWith(".save"))
+                {
+                    Game1.Instance.saveManager.SAVE_LOC = fileName;
+                    Game1.Instance.saveManager.Load();
+                }
+                Game1.state = GameState.Game;
+                
+                
+            }
+
+
         }
 
         /*
