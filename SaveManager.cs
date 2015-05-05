@@ -173,6 +173,7 @@ namespace TheChicagoProject
                     if(SaveItem(item))
                         output.Write(item.name);
                 }
+                output.Write(inventory.ActiveWeapon);
 
             }
             catch(Exception e)
@@ -237,6 +238,7 @@ namespace TheChicagoProject
                 {
                     items[i] = input.ReadString();
                 }
+                int activeItem = input.ReadInt32();
 
                 //make the world
                 if (MainGame.worldManager.worlds.ContainsKey(world))
@@ -280,6 +282,7 @@ namespace TheChicagoProject
                     newItem = LoadItem("./Content/SaveFiles/Inventory/" + name + ".item");
                     inventory.Add(newItem);
                 }
+                inventory.ActiveWeapon = activeItem;
                 
                 //add the player to the world
                 MainGame.worldManager.CurrentWorld.manager.AddEntity(player);

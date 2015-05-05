@@ -85,7 +85,7 @@ namespace TheChicagoProject
             worldManager = new WorldManager();
 
             //Load the data
-            //saveManager.Load();
+            saveManager.Load();
             
 
             inputManager = new InputManager();

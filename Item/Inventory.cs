@@ -61,6 +61,7 @@ namespace TheChicagoProject.Item
             return activeWeapon == -1 ? null : inventory[activeWeapon] as Weapon;
         }
 
+        //Because for each is life -Sean
         IEnumerator IEnumerable.GetEnumerator()
         {
             foreach(Item item in inventory)

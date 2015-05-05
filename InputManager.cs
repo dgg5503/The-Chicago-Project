@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using TheChicagoProject.Entity;
 
 namespace TheChicagoProject
 {
@@ -18,12 +19,15 @@ namespace TheChicagoProject
         private static bool lastFrameFired;
         private static KeyboardState previousState;
 
+        private Player player;
+
         /// <summary>
         /// Makes a new Input manager
         /// </summary>
         public InputManager()
         {
             lastFrameFired = true;
+            player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
         }
 
         /// <summary>
@@ -44,63 +48,63 @@ namespace TheChicagoProject
                 if (keyState.IsKeyDown(Keys.W))    //Move up
                 {
                     //deltaY -= speed;
-                    WorldManager.player.movement.Y = speed * -1;
+                    player.movement.Y = speed * -1;
                 }
                 if (keyState.IsKeyDown(Keys.A))    //move down
                 {
                     //deltaX -= speed;
-                    WorldManager.player.movement.X = speed * -1;
+                    player.movement.X = speed * -1;
                 }
                 if (keyState.IsKeyDown(Keys.S))    //move left
                 {
                     //deltaY += speed;
-                    WorldManager.player.movement.Y = speed;
+                    player.movement.Y = speed;
                 }
                 if (keyState.IsKeyDown(Keys.D))    //move right
                 {
                     //deltaX += speed;
-                    WorldManager.player.movement.X = speed;
+                    player.movement.X = speed;
                 }
 
-                if (WorldManager.player.movement.X == 0)
+                if (player.movement.X == 0)
                 {
-                    if (WorldManager.player.movement.Y < 0)
+                    if (player.movement.Y < 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.Up;
+                        player.direction = Entity.Direction.Up;
                     }
-                    else if (WorldManager.player.movement.Y > 0)
+                    else if (player.movement.Y > 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.Down;
+                        player.direction = Entity.Direction.Down;
                     }
                 }
-                else if (WorldManager.player.movement.X < 0)
+                else if (player.movement.X < 0)
                 {
-                    if (WorldManager.player.movement.Y < 0)
+                    if (player.movement.Y < 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.UpLeft;
+                        player.direction = Entity.Direction.UpLeft;
                     }
-                    else if (WorldManager.player.movement.Y == 0)
+                    else if (player.movement.Y == 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.Left;
+                        player.direction = Entity.Direction.Left;
                     }
-                    else if (WorldManager.player.movement.Y > 0)
+                    else if (player.movement.Y > 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.DownLeft;
+                        player.direction = Entity.Direction.DownLeft;
                     }
                 }
                 else
                 {
-                    if (WorldManager.player.movement.Y < 0)
+                    if (player.movement.Y < 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.UpRight;
+                        player.direction = Entity.Direction.UpRight;
                     }
-                    else if (WorldManager.player.movement.Y == 0)
+                    else if (player.movement.Y == 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.Right;
+                        player.direction = Entity.Direction.Right;
                     }
-                    else if (WorldManager.player.movement.Y > 0)
+                    else if (player.movement.Y > 0)
                     {
-                        WorldManager.player.direction = Entity.Direction.DownRight;
+                        player.direction = Entity.Direction.DownRight;
                     }
                 }
                 #endregion
@@ -111,52 +115,52 @@ namespace TheChicagoProject
                 bool switched = false;
                 if (keyState.IsKeyDown(Keys.D1))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 1;
+                    player.inventory.ActiveWeapon = 1;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D2))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 2;
+                    player.inventory.ActiveWeapon = 2;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D3))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 3;
+                    player.inventory.ActiveWeapon = 3;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D4))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 4;
+                    player.inventory.ActiveWeapon = 4;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D5))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 5;
+                    player.inventory.ActiveWeapon = 5;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D6))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 6;
+                    player.inventory.ActiveWeapon = 6;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D7))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 7;
+                    player.inventory.ActiveWeapon = 7;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D8))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 8;
+                    player.inventory.ActiveWeapon = 8;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D9))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 9;
+                    player.inventory.ActiveWeapon = 9;
                     switched = true;
                 }
                 if (keyState.IsKeyDown(Keys.D0))    //Quick Weapon Select
                 {
-                    WorldManager.player.inventory.ActiveWeapon = 0;
+                    player.inventory.ActiveWeapon = 0;
                     switched = true;
                 }
                 if (weapon != null && weapon.Reloading && switched && !Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().inventory.GetEquippedPrimary().Equals(weapon))
@@ -165,7 +169,7 @@ namespace TheChicagoProject
                 }
                 #endregion
 
-                WorldManager.player.cursor = mouseState.Position;
+                player.cursor = mouseState.Position;
 
                 // Douglas Gliner
                 #region mouse aim (move to player?)
@@ -190,7 +194,7 @@ namespace TheChicagoProject
 
                 // Its this simple!!
                 Vector2 mousePositionVector = new Vector2(mouseState.Position.X - (RenderManager.ViewportWidth / 2), mouseState.Position.Y - (RenderManager.ViewportHeight / 2));
-                WorldManager.player.faceDirection = (float)(Math.Atan2(mousePositionVector.Y, mousePositionVector.X) + (Math.PI / 2));
+                player.faceDirection = (float)(Math.Atan2(mousePositionVector.Y, mousePositionVector.X) + (Math.PI / 2));
 
                 #endregion
 
@@ -199,7 +203,7 @@ namespace TheChicagoProject
                 {
                     if (!lastFrameFired)
                     {
-                        WorldManager.player.Attack(0, WorldManager.player.inventory.GetEquippedPrimary());
+                        player.Attack(0, player.inventory.GetEquippedPrimary());
                         lastFrameFired = true;
                     }
                     else
@@ -222,12 +226,12 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.E))    //Interact
             {
-                WorldManager.player.Interact();
+                player.Interact();
                 //Game1.Instance.worldManager.CurrentWorld.playerMap.printMap();
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
-                WorldManager.player.Reload();
+                player.Reload();
             }
             if (keyState.IsKeyDown(Keys.I))    //Inventory
             {
