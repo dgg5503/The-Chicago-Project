@@ -83,6 +83,11 @@ namespace TheChicagoProject
             state = GameState.Menu;
             saveManager = new SaveManager();
             worldManager = new WorldManager();
+
+            //Load the data
+            //saveManager.Load();
+            
+
             inputManager = new InputManager();
             collisionManager = new CollisionManager();
             
@@ -96,14 +101,14 @@ namespace TheChicagoProject
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
 
             // RenderManager is created here
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
             renderManager = new RenderManager(spriteBatch, GraphicsDevice, worldManager);
 
             this.IsMouseVisible = true;
-            //Load the data
-            //saveManager.Load();//Currently sets player to null
+            
 
             #region debug
             border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);

@@ -257,6 +257,9 @@ namespace TheChicagoProject
                     // UI (health, current wep, other stuff)
                     Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
 
+                    // WHAT IF PLAYER CHANGES WORLD (?) -Fixed?(Sean)
+                    player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
+
                     if (player.inventory.ActiveWeapon != -1)
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
                     else
