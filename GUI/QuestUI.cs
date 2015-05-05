@@ -27,11 +27,12 @@ namespace TheChicagoProject.GUI
         private Quest currentQuest;
 
         public bool IsQuestLoaded { get { if(currentQuest == null){return false;} return true;} }
+        public Quest LoadedQuest { get { return currentQuest; } }
 
-        public QuestUI()
+        public QuestUI(Vector2 size)
         {
             // base
-            this.Size = new Vector2(250, 250);
+            this.Size = size;
             this.Alignment = ControlAlignment.Center;
 
             // Name and Reward container
@@ -108,7 +109,7 @@ namespace TheChicagoProject.GUI
             // Description label
             description = new Label();
             description.Alignment = ControlAlignment.Left;
-            description.Text = "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description ";
+            //description.Text = "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description ";
             description.WordWrap = true;
             description.parent = descriptionContainer;
             descriptionContainer.Add(description);
@@ -184,6 +185,11 @@ namespace TheChicagoProject.GUI
 
         public void Close()
         {
+            name.Text = "Quest Name";
+            description.Text = String.Empty;
+            cashReward.Text = "$000";
+            pointReward.Text = "@000";
+
             currentQuest = null;
         }
 

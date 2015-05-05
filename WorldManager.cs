@@ -71,7 +71,7 @@ namespace TheChicagoProject
             mugger.ai = new LowAI(mugger);
             mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 1, 0.5));
             mugger.inventory.ActiveWeapon = 0;
-            worlds["main"].manager.AddEntity(mugger);
+            //worlds["main"].manager.AddEntity(mugger);
              
             // need to fix fleemap lag before renabling the above.
             //Uncommenting just to see if I can load quests again - Sean
@@ -82,6 +82,7 @@ namespace TheChicagoProject
             
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);
             test.EnemyToKill = mugger;
+            test.entitites.Add(mugger);
             test.Status = 1;
             player.log.Add(test);
 #endif

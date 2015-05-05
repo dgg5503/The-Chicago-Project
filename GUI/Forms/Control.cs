@@ -105,6 +105,9 @@ namespace TheChicagoProject.GUI.Forms
         private Texture2D fill;
         private FillInfo fillInfo;
 
+        // inactive overlay
+        private Texture2D inactiveAlpha;
+
         // Default spriteFont
         private SpriteFont font;
 
@@ -113,6 +116,8 @@ namespace TheChicagoProject.GUI.Forms
 
         // Is this control visible?
         private bool isVisible;
+
+        private bool isActive;
 
         // Location relative to container
         private Rectangle locAndSize;
@@ -181,11 +186,11 @@ namespace TheChicagoProject.GUI.Forms
         /// Sets the alignment of this control relative to its parent.
         /// </summary>
         public ControlAlignment Alignment { get { return alignment; } set { alignment = value; } }
-        //public bool RequiresOTFLoad { get { if(fill == null || border == null){return true;} return false; } }
         /// <summary>
         /// Returns whether or not this control is being drawn on screen.
         /// </summary>
         public bool IsVisible { get { return isVisible; }}
+        public bool IsActive { get { return isActive; } set { isActive = value; } }
 
         public Control(string fontFile = "TimesNewRoman12")
         {
@@ -194,6 +199,7 @@ namespace TheChicagoProject.GUI.Forms
             firstClickLoc = Vector2.Zero;
             alignment = ControlAlignment.Left;
             isVisible = true;
+            isActive = true;
             alignApplied = false;
             parent = null;
             this.fontFile = fontFile;
@@ -215,7 +221,12 @@ namespace TheChicagoProject.GUI.Forms
                 c.Draw(spriteBatch, gameTime);
 
             if (borderInfo.isDrawn)
-                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);  
+                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
+
+            if (!isActive)
+            {
+                spriteBatch.Draw(inactiveAlpha, this.GlobalLocation(), Color.White);
+            }
         }
 
         protected virtual void LoadTextures(GraphicsDevice graphics)
@@ -237,6 +248,12 @@ namespace TheChicagoProject.GUI.Forms
             }
             else
                 border = borderInfo.texture; // update size?
+
+            if (inactiveAlpha == null)
+            {
+                inactiveAlpha = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+                inactiveAlpha.GenColorTexture((int)this.Size.X, (int)this.Size.Y, new Color(Color.Gray, 90));
+            }
 
             foreach (Control c in controls)
                 c.LoadTextures(graphics);
@@ -266,38 +283,41 @@ namespace TheChicagoProject.GUI.Forms
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
         {
-            currentFrameMouseState = Mouse.GetState();
-
-            if (currentFrameMouseState.LeftButton == ButtonState.Pressed)
-                if (firstClickLoc == Vector2.Zero)
-                    firstClickLoc = new Vector2(currentFrameMouseState.Position.X, currentFrameMouseState.Position.Y);
-
-            // hover
-            if (GlobalRectangle.Contains(currentFrameMouseState.Position))
+            if (isActive)
             {
-                if (Hover != null)
-                    Hover(this, EventArgs.Empty);
+                currentFrameMouseState = Mouse.GetState();
 
-                // pressed
-                if (lastFrameMouseState.LeftButton == ButtonState.Pressed)
+                if (currentFrameMouseState.LeftButton == ButtonState.Pressed)
+                    if (firstClickLoc == Vector2.Zero)
+                        firstClickLoc = new Vector2(currentFrameMouseState.Position.X, currentFrameMouseState.Position.Y);
+
+                // hover
+                if (GlobalRectangle.Contains(currentFrameMouseState.Position))
                 {
-                    if (Pressed != null)
-                        Pressed(this, EventArgs.Empty);
+                    if (Hover != null)
+                        Hover(this, EventArgs.Empty);
 
-                    // released / click
-                    if (currentFrameMouseState.LeftButton == ButtonState.Released)
+                    // pressed
+                    if (lastFrameMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (Click != null && GlobalRectangle.Contains(firstClickLoc))
-                            Click(this, EventArgs.Empty);
+                        if (Pressed != null)
+                            Pressed(this, EventArgs.Empty);
+
+                        // released / click
+                        if (currentFrameMouseState.LeftButton == ButtonState.Released)
+                        {
+                            if (Click != null && GlobalRectangle.Contains(firstClickLoc))
+                                Click(this, EventArgs.Empty);
+                        }
+
                     }
-                    
                 }
+
+                if (currentFrameMouseState.LeftButton == ButtonState.Released)
+                    firstClickLoc = Vector2.Zero;
+
+                lastFrameMouseState = currentFrameMouseState;
             }
-
-            if (currentFrameMouseState.LeftButton == ButtonState.Released)
-                firstClickLoc = Vector2.Zero;
-
-            lastFrameMouseState = currentFrameMouseState;
 
             if (!alignApplied)
             {

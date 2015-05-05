@@ -18,10 +18,12 @@ namespace TheChicagoProject.GUI
         private Label questNameLabel;
         private Label questRewardPointLabel;
         private Label questRewardMoneyLabel;
-        //private Label questWindConditionLabel;
+        private Label questStatusLabel;
 
         // Quest this bar holds.
-        private Quest currentQuest; 
+        private Quest currentQuest;
+
+        public Quest LoadedQuest { get { return currentQuest; } }
 
         public QuestInfoBarUI(Vector2 size)
         {
@@ -71,14 +73,14 @@ namespace TheChicagoProject.GUI
             questRewardPointLabel.parent = questInfoContainer;
             questInfoContainer.Add(questRewardPointLabel);
 
-            /*
+            
             // condition label
-            questWindConditionLabel = new Label();
-            questWindConditionLabel.Alignment = ControlAlignment.Right;
-            questWindConditionLabel.Text = "Win Condition";
-            questWindConditionLabel.parent = questInfoContainer;
-            questInfoContainer.Add(questWindConditionLabel);
-            */
+            questStatusLabel = new Label();
+            questStatusLabel.Alignment = ControlAlignment.Center;
+            questStatusLabel.Text = "Unavailable";
+            questStatusLabel.parent = questInfoContainer;
+            questInfoContainer.Add(questStatusLabel);
+            
         }
 
         /// <summary>
@@ -94,11 +96,60 @@ namespace TheChicagoProject.GUI
             questNameLabel.Text = currentQuest.Name;
             questRewardMoneyLabel.Text = "$" + currentQuest.CashReward + "";
             questRewardPointLabel.Text = "@" + currentQuest.Reward + "";
+            
+            switch(quest.Status)
+            {
+                //0: Unavailable, 1: Unstarted, 2: In progress, 3: complete
+                case 0:
+                    questStatusLabel.Text = "Unavailable";
+                    questStatusLabel.Color = Color.Gray;
+                    IsActive = false;
+                    break;
+                case 1:
+                    questStatusLabel.Text = "Available";
+                    questStatusLabel.Color = Color.Blue;
+                    break;
+                case 2:
+                    questStatusLabel.Text = "In Progress";
+                    questStatusLabel.Color = Color.Yellow;
+                    break;
+                case 3:
+                    questStatusLabel.Text = "Complete";
+                    questStatusLabel.Color = Color.Green;
+                    break;
+            }
+
         }
 
         public override void Update(GameTime gameTime)
         {
+
+            switch (currentQuest.Status)
+            {
+                //0: Unavailable, 1: Unstarted, 2: In progress, 3: complete
+                case 0:
+                    questStatusLabel.Text = "Unavailable";
+                    questStatusLabel.Color = Color.Gray;
+                    IsActive = false;
+                    break;
+                case 1:
+                    questStatusLabel.Text = "Available";
+                    questStatusLabel.Color = Color.Blue;
+                    break;
+                case 2:
+                    questStatusLabel.Text = "In Progress";
+                    questStatusLabel.Color = Color.Yellow;
+                    break;
+                case 3:
+                    questStatusLabel.Text = "Complete";
+                    questStatusLabel.Color = Color.Green;
+                    break;
+            }
+
             base.Update(gameTime);
+
+            
+
             questRewardMoneyLabel.Location = new Vector2(questRewardMoneyLabel.Location.X, questRewardMoneyLabel.parent.Size.Y / 2 - questRewardMoneyLabel.Size.Y / 2);
             questRewardPointLabel.Location = new Vector2(questRewardPointLabel.Location.X, questRewardPointLabel.parent.Size.Y / 2 - questRewardPointLabel.Size.Y / 2);
         }

@@ -86,6 +86,7 @@ namespace TheChicagoProject.Quests
             this.player = player;
             this.worldManager = worldManager;
             this.winCondition = winCondition;
+            entitites = new List<Entity.Entity>();
             status = 0;
         }
 

@@ -102,15 +102,19 @@ namespace TheChicagoProject.Entity
                 location.Y = 0;
             }
 
-            if (location.X + location.Width > currentWorld.worldWidth * Tile.SIDE_LENGTH)
+            
+            // world loading flips width and height...
+            if (location.X + location.Width > (currentWorld.worldHeight * Tile.SIDE_LENGTH))
             {
-                location.X = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Width;
+                location.X = (currentWorld.worldHeight * Tile.SIDE_LENGTH) - location.Width;
             }
 
-            if (location.Y + location.Height > currentWorld.worldHeight * Tile.SIDE_LENGTH)
+            if (location.Y + location.Height > (currentWorld.worldWidth * Tile.SIDE_LENGTH))
             {
-                location.Y = currentWorld.worldWidth * Tile.SIDE_LENGTH - location.Height;
+                location.Y = (currentWorld.worldWidth * Tile.SIDE_LENGTH) - location.Height;
             }
+        
+            
             // ------ EDGE OF SCREEN TEST ------
 
             if (this.CurrentCollisionTile == null)
