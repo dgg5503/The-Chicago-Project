@@ -83,11 +83,6 @@ namespace TheChicagoProject
             state = GameState.Menu;
             saveManager = new SaveManager();
             worldManager = new WorldManager();
-
-            //Load the data
-            //saveManager.Load();
-            
-
             inputManager = new InputManager();
             collisionManager = new CollisionManager();
             

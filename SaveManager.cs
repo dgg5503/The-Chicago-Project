@@ -640,7 +640,6 @@ namespace TheChicagoProject
 
         #region Items
 
-
         /// <summary>
         /// loads an item based on the item file
         /// </summary>
@@ -656,6 +655,7 @@ namespace TheChicagoProject
                     string type = input.ReadString();
                     if(type.ToUpper() == "WEAPON")
                     {
+                        Item.Weapon newWeapon;
                         int rof = input.ReadInt32();       
                         int damage = input.ReadInt32();    
                         double reload = input.ReadDouble();
@@ -665,15 +665,17 @@ namespace TheChicagoProject
                         int ammo = input.ReadInt32();      
                         string name = input.ReadString();  
                         string sprite = input.ReadString();
-                        newItem = new Item.Weapon(rof, damage, reload, name, clip, spread);
+                        newWeapon = new Item.Weapon(rof, damage, reload, name, clip, spread);
 
-                        (newItem as Item.Weapon).Ammo = ammo;
-                        (newItem as Item.Weapon).LoadedAmmo = loadedAmmo;
+                        newWeapon.Ammo = ammo;
+                        newWeapon.LoadedAmmo = loadedAmmo;
 
                         if (Sprites.spritesDictionary.ContainsKey(sprite))
-                            newItem.image = Sprites.spritesDictionary[sprite].Texture;
+                            newWeapon.image = Sprites.spritesDictionary[sprite].Texture;
                         else
-                            newItem.image = Sprites.spritesDictionary["NULL"].Texture;
+                            newWeapon.image = Sprites.spritesDictionary["NULL"].Texture;
+
+                        return newWeapon;
                     }
                     else
                     {
