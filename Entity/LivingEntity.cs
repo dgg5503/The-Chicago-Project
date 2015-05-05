@@ -43,7 +43,7 @@ namespace TheChicagoProject.Entity
         public int Cash {
             get { return cash; }
             set {
-                if (value < 0)
+                if (value >= 0)
                     cash = value;
             }
         }
