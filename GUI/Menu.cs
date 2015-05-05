@@ -106,6 +106,7 @@ namespace TheChicagoProject.GUI
                 string fileName = openFDia.FileName;
                 if(fileName.EndsWith(".save"))
                 {
+                    Console.WriteLine(fileName);
                     Game1.Instance.saveManager.SAVE_LOC = fileName;
                     Game1.Instance.saveManager.Load();
                 }

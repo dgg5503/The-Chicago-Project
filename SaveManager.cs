@@ -198,6 +198,7 @@ namespace TheChicagoProject
         /// </summary>
         private void LoadSave()
         {
+            Console.WriteLine(SAVE_LOC);
             Stream inStream = null;
             BinaryReader input = null;
 
@@ -234,12 +235,16 @@ namespace TheChicagoProject
 
                 //read the inventory
                 int numItems = input.ReadInt32();
+                Console.WriteLine("Num Items: " + numItems);
                 string[] items = new string[numItems];
                 for(int i = 0 ; i < numItems; i++)
                 {
                     items[i] = input.ReadString();
+                    Console.WriteLine("\t" + items[i]);
                 }
+                
                 int activeItem = input.ReadInt32();
+                Console.WriteLine("Active Weapon: " + activeItem);
 
                 //make the world
                 if (MainGame.worldManager.worlds.ContainsKey(world))

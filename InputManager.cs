@@ -27,7 +27,6 @@ namespace TheChicagoProject
         public InputManager()
         {
             lastFrameFired = true;
-            player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
         }
 
         /// <summary>
@@ -35,6 +34,7 @@ namespace TheChicagoProject
         /// </summary>
         public void HandleInput(KeyboardState keyState, MouseState mouseState, GameTime time)
         {
+            player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
             if (Game1.state == GameState.Game)
             {
                 //Detects if the player wants to move
