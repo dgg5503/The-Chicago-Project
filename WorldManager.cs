@@ -78,8 +78,11 @@ namespace TheChicagoProject
 
             worlds["main"].manager.AddEntity(player);
 
-            player.log.Add(SaveManager.ParseQuest("./Content/Quests/Mugging.quest")); 
-            
+            Quest mugging = SaveManager.ParseQuest("./Content/Quests/Mugging.quest");
+            mugging.SetAvailable();
+            player.log.Add(mugging);
+            this.worldQuests.Add(mugging);
+
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);
             test.EnemyToKill = mugger;
             test.entitites.Add(mugger);

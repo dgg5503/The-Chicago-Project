@@ -341,6 +341,7 @@ namespace TheChicagoProject
         public static Quest ParseQuest(string filename)
         {
             Quest quest = null;
+            Console.WriteLine("Quest file name: \n\t" + filename);
             using (StreamReader input = new StreamReader(filename))
             {
 
