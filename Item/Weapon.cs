@@ -20,6 +20,8 @@ namespace TheChicagoProject.Item
         private int ammo;
         private bool reloading = false;
 
+        // spikes as a weapon to throw down and slow enemies :D?
+
         /// <summary>
         /// Creates a new Weapon Object
         /// </summary>
