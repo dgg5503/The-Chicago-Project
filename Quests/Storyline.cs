@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
+using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject.Quests
 {
@@ -14,6 +15,9 @@ namespace TheChicagoProject.Quests
     {
         //Fields
         private List<Quest> quests;
+        private QuestNode head;
+        private int completed;
+        public List<Quest> current;
 
         //properties
         /// <summary>
@@ -39,18 +43,64 @@ namespace TheChicagoProject.Quests
             }
         }
 
+        /// <summary>
+        /// the number of quests completed
+        /// </summary>
+        public int NumCompleted { get { return completed; } }
+
         //Constructor
-        public Storyline(string name, string objective, string description, Quest firstQuest, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 0, int cashReward = 0) : base(name, objective, description, firstQuest.StartPoint, player, worldManager, winCondition, reward, cashReward)
+        public Storyline(string name, string objective, string description, Vector2 StartPoint, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 0, int cashReward = 0) 
+            : base(name, objective, description, StartPoint, player, worldManager, winCondition, reward, cashReward)
         {
             quests = new List<Quest>();
-            quests.Add(firstQuest);
         }
 
+        /// <summary>
+        /// Adds quests to a quest log
+        /// </summary>
+        /// <param name="questToAdd">The quest</param>
+        /// <param name="prerequisites">A list of prerequisite Quests</param>
+        public void Add(Quest questToAdd, params Quest [] prerequisites)
+        {
+            if(head == null && prerequisites.Length != 0)
+            {
+                throw new ArgumentException("The first quest cannot have prerequisites");
+            }
+            else if(head == null)
+            {
+                head = new QuestNode(questToAdd);
+            }
+
+        }
+
+        ///<summary>
+        /// updates all of the quests in the storyline
+        /// </summary>
         public override void Update()
         {
             foreach(Quest quest in quests)
             {
                 quest.Update();
+                
+            }
+        }
+
+        /// <summary>
+        /// Node for building a graph of quest prerequisites
+        /// </summary>
+        private class QuestNode
+        {
+            //properties
+            public List<Quest> nextQuests;
+            public Quest data;
+            public List<Quest> prerQuests;
+
+            //constructor
+            public QuestNode(Quest quest)
+            {
+                data = quest;
+                nextQuests = new List<Quest>();
+                prerQuests = new List<Quest>();
             }
         }
     }

@@ -22,14 +22,15 @@ namespace TheChicagoProject
     public class SaveManager
     {
         public const string QUEST_DIRECTORY = "./Content/Quests/";
-        public string SAVE_LOC;
+        public static string storylineFolder;
+        public string saveLoc;
         protected Game1 MainGame;
 
         //Constructor
         public SaveManager()
         {
             MainGame = Game1.Instance;
-            SAVE_LOC = "./Content/SaveFiles/save.save";
+            saveLoc = "./Content/SaveFiles/save.save";
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace TheChicagoProject
                     Directory.CreateDirectory("./Content/SaveFiles");
                 }
                 //initialize them
-                outStream = File.OpenWrite(SAVE_LOC);
+                outStream = File.OpenWrite(saveLoc);
                 output = new BinaryWriter(outStream);
 
                 //Get the player
@@ -198,14 +199,14 @@ namespace TheChicagoProject
         /// </summary>
         private void LoadSave()
         {
-            Console.WriteLine(SAVE_LOC);
+            Console.WriteLine(saveLoc);
             Stream inStream = null;
             BinaryReader input = null;
 
             try
             {
                 //open the file for reading
-                inStream = File.OpenRead(SAVE_LOC);
+                inStream = File.OpenRead(saveLoc);
                 input = new BinaryReader(inStream);
 
                 //red the file
@@ -309,44 +310,6 @@ namespace TheChicagoProject
         #endregion
 
         #region Quests
-        ///// <summary>
-        ///// Saves all of the quests in the quest log, probably won't be used since we save the quest status in the "Save()" function
-        ///// </summary>
-        ///// <param name="log">The player's quest log</param>
-        //public void SaveQuests(QuestLog log)
-        //{
-        //    //Loops through the quest log and save each quest
-        //    foreach(Quest quest in log.GetLog())
-        //    {
-        //        string filePath = QUEST_DIRECTORY + quest.Name + ".quest";
-        //        SaveQuest(quest, filePath);
-        //    }
-   
-        //    /*****************************************************
-        //     *                                                   *
-        //     *           Display Completion Message?             *
-        //     *                                                   *
-        //     *****************************************************/
-        //}
-
-        ///// <summary>
-        ///// Saves a specific quest
-        ///// </summary>
-        ///// <param name="quest">The Quest</param>
-        ///// <param name="path">Where the quest should be stored</param>
-        //protected void SaveQuest(Quest quest, string path)
-        //{
-        //    using (StreamWriter output = new StreamWriter(path))
-        //    {
-        //        output.WriteLine(quest.Name);
-        //        output.WriteLine(quest.Description);
-        //        output.WriteLine(quest.Objective);
-        //        output.WriteLine(quest.StartPoint.X + ", " + quest.StartPoint.Y);
-        //        output.WriteLine(quest.Status);
-        //        output.WriteLine(quest.Reward);
-        //        output.WriteLine(quest.CashReward);
-        //    }
-        //}
 
         /// <summary>
         /// Loads the quests in the quest folder
@@ -363,7 +326,7 @@ namespace TheChicagoProject
                 loaded = ParseQuest(path);
 
                 //if the parse was successfull, add it to the log
-                if(loaded != null)
+                if (loaded != null)
                 {
                     log.Add(loaded);
                 }
@@ -380,26 +343,37 @@ namespace TheChicagoProject
             Quest quest = null;
             using (StreamReader input = new StreamReader(filename))
             {
-                /*
-                //read input
-                string name = input.ReadLine();
-                string description = input.ReadLine();
-                string objective = input.ReadLine();
-                string position = input.ReadLine();
-                int status = int.Parse(input.ReadLine());
-                int reward = int.Parse(input.ReadLine());
-                int cashReward = int.Parse(input.ReadLine());
 
-                //parse position
-                int X = int.Parse(position.Substring(0, position.Length - position.IndexOf(',')));
-                int Y = int.Parse(position.Substring(position.IndexOf(',') + 2));
-                Vector2 startPos = new Vector2(X, Y);
-
-                */
                 string data = input.ReadToEnd();
                 if (data.Substring(5, 12).Contains("Storyline"))
                 {
+                    /*
                     //load individual quests
+                    int index, end;
+                    index = data.IndexOf("Folder") + 8;
+                    end = data.IndexOf('"', index);
+                    string folder = data.Substring(index, end - index);
+                    storylineFolder = QUEST_DIRECTORY + folder;
+
+                    Storyline newStoryline;
+
+
+                    string[] files = Directory.GetFiles(storylineFolder);
+                    Quest loaded;
+                    
+                    //loop through all of the files in the directory
+                    foreach (string path in files)
+                    {
+                        //try and parse the quest from each file
+                        loaded = ParseQuest(path);
+
+                        //if the parse was successfull, add it to the log
+                        if (loaded != null)
+                        {
+                            newStoryline.Add(loaded);
+                        }
+                    }
+                     */
                 }
                 else
                 {
@@ -528,7 +502,7 @@ namespace TheChicagoProject
                         int sY;
                         if (!int.TryParse(attribute, out sY))
                             sY = 10;
-                        
+
                         //get texture
                         index = data.IndexOf("Texture:", index) + 9;
                         end = data.IndexOf('"', index);

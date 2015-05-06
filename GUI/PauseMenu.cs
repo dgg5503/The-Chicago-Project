@@ -69,7 +69,7 @@ namespace TheChicagoProject.GUI
             if(saveFDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string fileName = saveFDialog.FileName;
-                Game1.Instance.saveManager.SAVE_LOC = fileName;
+                Game1.Instance.saveManager.saveLoc = fileName;
                 Game1.Instance.saveManager.Save();
             }
         }

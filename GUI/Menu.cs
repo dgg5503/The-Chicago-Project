@@ -111,7 +111,7 @@ namespace TheChicagoProject.GUI
                 if(fileName.EndsWith(".save"))
                 {
                     Console.WriteLine(fileName);
-                    Game1.Instance.saveManager.SAVE_LOC = fileName;
+                    Game1.Instance.saveManager.saveLoc = fileName;
                     Game1.Instance.saveManager.Load();
                 }
                 Game1.state = GameState.Game;
