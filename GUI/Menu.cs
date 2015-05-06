@@ -124,6 +124,7 @@ namespace TheChicagoProject.GUI
         void buttons_Click(object sender, EventArgs e)
         {
             Game1.Instance.saveManager.saveLoc = "./Content/SaveFiles/default.save";
+            Game1.Instance.saveManager.Load();
             Game1.state = GameState.Game;
         }
 
