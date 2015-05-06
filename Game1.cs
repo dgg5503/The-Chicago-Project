@@ -175,7 +175,7 @@ namespace TheChicagoProject
                     }
                     */
                     // need to fix fleemap lag before renabling the above.
-
+                    worldManager.Update(gameTime);
                     worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
                     inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
                     collisionManager.Update();
@@ -202,7 +202,7 @@ namespace TheChicagoProject
 
             
 
-            worldManager.Update(gameTime);
+            
             renderManager.Update(gameTime);
             base.Update(gameTime);
         }

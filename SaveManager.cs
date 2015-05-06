@@ -266,17 +266,22 @@ namespace TheChicagoProject
                 player.health = pHealth;
                 player.QuestPoints = pQuestPoints;
 
+                
                 //load all of the quests in the quest file
-                LoadQuests(MainGame.worldManager.CurrentWorld.manager.quests);
+                LoadQuests(MainGame.worldManager.worldQuests);
 
                 //load the quest status
                 string quest;
-                QuestLog log = player.log;
+                QuestLog log = MainGame.worldManager.worldQuests;
+                QuestLog pLog = player.log;
                 for(int i = 0; i < numQuests; i++)
                 {
                     quest = (string)quests[i,0];
-                    if(log.ContainsQuest(quest))
-                        log[quest].Status = (int)quests[i,1];
+                    if (log.ContainsQuest(quest))
+                    {
+                        pLog[quest] = log[quest];
+                        pLog[quest].Status = (int)quests[i, 1];
+                    }
                 }
                 
                 //load the items
@@ -293,6 +298,12 @@ namespace TheChicagoProject
                 
                 //add the player to the world
                 MainGame.worldManager.CurrentWorld.manager.AddEntity(player);
+
+                //add the player to the quests
+                foreach(Quest loopQuest in MainGame.worldManager.worldQuests)
+                {
+                    loopQuest.player = player;
+                }
             }
             catch(Exception e)
             {
@@ -341,6 +352,7 @@ namespace TheChicagoProject
         public static Quest ParseQuest(string filename)
         {
             Quest quest = null;
+            Console.WriteLine("Quest file name: \n\t" + filename);
             using (StreamReader input = new StreamReader(filename))
             {
 

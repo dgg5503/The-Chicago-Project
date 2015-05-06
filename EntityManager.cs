@@ -19,7 +19,6 @@ namespace TheChicagoProject
         private List<Entity.Entity> entities;
         private int playerLoc;
         public Game1 mainGame;
-        public Quests.QuestLog quests;
         public World world;
 
         public List<Entity.Entity> EntityList {
@@ -31,7 +30,6 @@ namespace TheChicagoProject
             playerLoc = -1;
             this.mainGame = Game1.Instance;
             this.world = world;
-            quests = new Quests.QuestLog();
         }
 
         public void AddEntity(Entity.Entity e) {

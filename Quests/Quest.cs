@@ -31,7 +31,7 @@ namespace TheChicagoProject.Quests
         private LivingEntity recipient;
         private Item.Item delivery;
         private Item.Item findThis; //Why are variable names that mean something so hard.
-        private Player player;
+        public Player player;
 
         public List<Entity.Entity> entitites;
 
