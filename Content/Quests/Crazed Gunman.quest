@@ -1,0 +1,23 @@
+Type:"Quest"
+Name:"Crazed Gunman"
+Objective:"Kill the crazed gunman"
+Description:"A crazed gunman is attacking the people of Chicago"
+Start:
+	X:50
+	Y:50
+Reward:
+	Cash:10
+	Q-Points:2
+
+Living Entity:
+	ID:Gunman
+	Start:
+		X:83
+		Y:92
+	Texture:"mugger"
+	Health:2
+	AI:Mid
+End Living Entity
+
+Condition:EnemyDies
+Target:Gunman

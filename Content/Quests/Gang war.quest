@@ -1,0 +1,92 @@
+Type:"Quest"
+Name:"Gang war"
+Objective:"Stop the fighting by killing all of the combatants involved. "
+Description:"A shootoff has broken out between two gangs on the south western side of town."
+Start:
+	X:15
+	Y:71
+Reward:
+	Cash:20
+	Q-Points:3
+
+Living Entity:
+	ID:Gunman
+	Start:
+		X:83
+		Y:92
+	Texture:"mugger"
+	Health:2
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Fred
+	Start:
+		X:86
+		Y:55
+	Texture:"mugger"
+	Health:1
+	AI:High
+End Living Entity
+
+Living Entity:
+	ID:Fred
+	Start:
+		X:15
+		Y:71
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Bill
+	Start:
+		X:14
+		Y:71
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Joe
+	Start:
+		X:13
+		Y:71
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Darryl
+	Start:
+		X:20
+		Y:72
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Mikey
+	Start:
+		X:21
+		Y:71
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Karl
+	Start:
+		X:22
+		Y:72
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Condition:AllEnemiesDead
