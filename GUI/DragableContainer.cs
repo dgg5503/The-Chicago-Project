@@ -46,8 +46,12 @@ namespace TheChicagoProject.GUI
                 return dragableControl; 
             } 
             set 
-            { 
-                dragableControl = value; 
+            {
+                Clear();
+                dragableControl = value;
+                value.parent = this;
+                Add(value);
+                
             } 
         }
 
