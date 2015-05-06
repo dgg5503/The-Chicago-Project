@@ -164,7 +164,7 @@ namespace TheChicagoProject.GUI
             foreach(Quest quest in log)
             {
                 QuestInfoBarUI infoBar = new QuestInfoBarUI(new Vector2(200, 80));
-                infoBar.Location = new Vector2(questBarsContainer.Size.X / 2 - infoBar.Size.X / 2, (this.Size.Y * count) + 10);
+                infoBar.Location = new Vector2(questBarsContainer.Size.X / 2 - infoBar.Size.X / 2, infoBar.Size.Y * count + 5);
                 infoBar.Alignment = ControlAlignment.Left;
                 infoBar.parent = questBarsContainer;
                 infoBar.Click += infoBar_Click;

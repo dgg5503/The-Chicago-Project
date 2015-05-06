@@ -19,51 +19,111 @@ namespace TheChicagoProject.GUI
         // Fields
         // Name of control
         private string name;
+        private static HashSet<string> namesInUse = new HashSet<string>(); // every control can only have 1 unique name.
 
         // ID information
         private int myID;
         private static int id = 0;
 
         // Dragable control to hold in this container
-        private DragableControl dragableControl;
+        private DragableControl controlInContainer;
 
         // Properties
         /// <summary>
-        /// Returns name of the dragable container.
+        /// Sets or gets the name of this container (no two containers can have the same name!)
         /// </summary>
-        public string Name { get { return name; } }
+        public string Name { 
+            get 
+            { 
+                return name; 
+            }
+
+            set
+            {
+                if (namesInUse.Contains(value))
+                    throw new Exception("WARNING: CONFLICTING CONTAINER NAMES!");
+
+                if (!string.IsNullOrWhiteSpace(value))
+                    namesInUse.Add(value);
+
+                name = value;
+            }
+        }
         /// <summary>
         /// Returns the ID of this dragable container.
         /// </summary>
         public int ID { get { return myID; } }
         /// <summary>
-        /// Gets or sets the control contained in this dragbale container.
+        /// Gets the control contained in this dragbale container.
         /// </summary>
         public DragableControl ControlContained
         { 
             get 
             { 
-                return dragableControl; 
-            } 
-            set 
-            {
-                Clear();
-                dragableControl = value;
-                value.parent = this;
-                Add(value);
-                
+                return controlInContainer; 
             } 
         }
 
-        public DragableContainer(Vector2 size, DragableControl dragableControl = null, string name = null)
+        public DragableContainer(Vector2 size, DragableControl controlInContainer = null, string name = null)
         {
             this.Size = size;
 
+            if (namesInUse.Contains(name))
+                throw new Exception("WARNING: CONFLICTING CONTAINER NAMES!");
+
+            if(!string.IsNullOrWhiteSpace(name))
+                namesInUse.Add(name);
+
             this.name = name;
-            this.dragableControl = dragableControl;
+
+            this.controlInContainer = controlInContainer;
+
+            SetDragableControl(controlInContainer);
 
             myID = id++;
         }
+
+        /// <summary>
+        /// Sets the dragable control to be contained.
+        /// </summary>
+        /// <param name="controlToSet">The new control to be contained in this container.</param>
+        /// <returns>The old control contained.</returns>
+        public DragableControl SetDragableControl(DragableControl controlToSet)
+        {
+            // if given nothing, dont set anything.
+            if (controlToSet == null)
+                return null;
+
+            // should this even EVER happen?
+            if (controlToSet == controlInContainer)
+            {
+                throw new Exception("Same control being added!");
+                //return controlToSet;
+            }
+
+            DragableControl controlToReplace = controlInContainer;
+            
+            Clear();
+            
+            // All controls should be centered in their container...
+            controlInContainer = controlToSet;
+            controlToSet.Location = Vector2.Zero;
+            controlToSet.Alignment = ControlAlignment.Center;
+            controlToSet.parent = this;
+            Add(controlToSet);
+            return controlToReplace;
+
+            // parent for controlToReplace is still this.
+            // controlToReplace is no longer in this container.
+        }
+
+        public void ResetDragableLocation()
+        {
+
+        }
+
+
+        
 
 
     }

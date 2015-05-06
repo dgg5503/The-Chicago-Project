@@ -138,6 +138,8 @@ namespace TheChicagoProject.GUI.Forms
 
         public event EventHandler Hover;
 
+        public event EventHandler HoverRelease;
+
         MouseState lastFrameMouseState;
 
         MouseState currentFrameMouseState;
@@ -302,6 +304,11 @@ namespace TheChicagoProject.GUI.Forms
                     {
                         if (Pressed != null)
                             Pressed(this, EventArgs.Empty);
+
+                        // hovered over and release
+                        if (lastFrameMouseState.LeftButton == ButtonState.Pressed && currentFrameMouseState.LeftButton == ButtonState.Released)
+                            if (HoverRelease != null && !GlobalRectangle.Contains(firstClickLoc))
+                                HoverRelease(this, EventArgs.Empty);
 
                         // released / click
                         if (currentFrameMouseState.LeftButton == ButtonState.Released)

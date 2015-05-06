@@ -13,7 +13,8 @@ namespace TheChicagoProject.GUI
     //Douglas Gliner
     public class InventoryMenu : Control
     {
-        private DragableMatrix matrix;
+        //private DragableMatrix matrix;
+        private DragableMatrixV2 matrixV2;
         //private DragableMatrix equipd;
         //private DragableControl equipd;
 
@@ -35,15 +36,15 @@ namespace TheChicagoProject.GUI
         {
             isInventoryLoaded = false;
 
-            this.Size = new Vector2(600, 350);
+            this.Size = new Vector2(450, 310);
             //this.Location = new Vector2(0, 0);
             //this.Location = new Vector2((RenderManager.ViewportWidth / 2) - (this.Size.X / 2), (RenderManager.ViewportHeight / 2) - (this.Size.Y / 2));
             this.Alignment = ControlAlignment.Center;
 
             Container multiMatContainer = new Container();
             multiMatContainer.Size = new Vector2(DragableControl.SIDE_LENGTH * 5 + 100, DragableControl.SIDE_LENGTH * 3 + 20);
-            multiMatContainer.Location = new Vector2(10, (this.Size.Y / 2) - (DragableControl.SIDE_LENGTH * 3 + 20) / 2);
-            multiMatContainer.Alignment = ControlAlignment.Right;
+            //multiMatContainer.Location = new Vector2(10, (this.Size.Y / 2) - (DragableControl.SIDE_LENGTH * 3 + 20) / 2);
+            multiMatContainer.Alignment = ControlAlignment.Center;
             multiMatContainer.parent = this;
             Add(multiMatContainer);
 
@@ -54,27 +55,35 @@ namespace TheChicagoProject.GUI
             equipContainer.parent = multiMatContainer;
             multiMatContainer.Add(equipContainer);
 
-            matrix = new DragableMatrix(5, 3, 5);
+            //matrix = new DragableMatrix(5, 3, 5);
+            matrixV2 = new DragableMatrixV2(new Vector2(310, 200), 12);
             //equipd = new DragableMatrix(1, 1, 0);
             //equipd.Alignment = ControlAlignment.Center;
             //equipd.parent = equipContainer;
             //equipContainer.Add(equipd);
             //matrix.AddOutsideMatrix();
 
+            /*
             Container matrixContainer = new Container();
             matrixContainer.Size = new Vector2(DragableControl.SIDE_LENGTH * 5 + 20, DragableControl.SIDE_LENGTH * 3 + 20);
             matrixContainer.Location = new Vector2(0, (multiMatContainer.Size.Y / 2) - (DragableControl.SIDE_LENGTH * 3 + 20) / 2);
             matrixContainer.Alignment = ControlAlignment.Right;
             matrixContainer.parent = multiMatContainer;
             multiMatContainer.Add(matrixContainer);
+             * */
+            matrixV2.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - matrixV2.Size.Y / 2);
+            matrixV2.Alignment = ControlAlignment.Right;
+            matrixV2.parent = multiMatContainer;
+            multiMatContainer.Add(matrixV2);
 
-            matrix.Alignment = ControlAlignment.Center;
-            matrix.parent = matrixContainer;
-            matrixContainer.Add(matrix);
+            //matrix.Alignment = ControlAlignment.Center;
+            //matrix.parent = matrixContainer;
+            //matrixContainer.Add(matrix);
 
             Button closeButton = new Button();
             closeButton.Size = new Vector2(110, 20);
-            closeButton.Location = new Vector2(480, 300);
+            closeButton.Location = new Vector2(20, 275);
+            closeButton.Alignment = ControlAlignment.Right;
             closeButton.Text = "Close Inventory";
             closeButton.Click += closeButton_Click;
             closeButton.parent = this;
@@ -97,23 +106,25 @@ namespace TheChicagoProject.GUI
             currentInventory = inventory;
 
             foreach (Item.Item i in inventory.EntityInventory.Where(i => !(i.Equals(inventory.EntityInventory[inventory.ActiveWeapon]))))
-                matrix.AddToMatrix(new DragableControl(i));
+                matrixV2.AddToMatrix(i);
 
+            /*
             if (inventory.ActiveWeapon != -1)
-                matrix.AddOutsideMatrix(new DragableControl(inventory.EntityInventory[inventory.ActiveWeapon]), new Vector2(-90, -10));
-
+                matrixV2.AddOutsideMatrix(new DragableControl(inventory.EntityInventory[inventory.ActiveWeapon]), new Vector2(-90, -10));
+            */
             isInventoryLoaded = true;
         }
 
         public void Close()
         {
             // set active weapon if changed...
+            /*
             Item.Item item = matrix.GetItemFromLocation(new Vector2(-80,0));
             if (item != null && item != currentInventory.EntityInventory[currentInventory.ActiveWeapon])
                 currentInventory.ActiveWeapon = currentInventory.EntityInventory.IndexOf(item);
-
+            */
             currentInventory = null;
-            matrix.Clear();
+            matrixV2.Clear();
             isInventoryLoaded = false;
         }
 

@@ -19,9 +19,9 @@ namespace TheChicagoProject.GUI.Forms
 
         public Item.Item Item { get { return item; } }
 
-        public DragableControl(Item.Item item)
+        public DragableControl(Item.Item item, float sideLen = 64)
         {
-            this.Size = new Vector2(SIDE_LENGTH, SIDE_LENGTH);
+            this.Size = new Vector2(sideLen, sideLen);
             this.Fill = new FillInfo(item.image, Color.White);
 
             this.item = item;
