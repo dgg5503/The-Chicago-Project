@@ -136,6 +136,8 @@ namespace TheChicagoProject.Quests
         /// </summary>
         public virtual void Update()
         {
+            if (this.Status != 2)
+                return;
             switch (winCondition)
             {
                 case WinCondition.EnemyDies:
