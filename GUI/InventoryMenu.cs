@@ -15,6 +15,7 @@ namespace TheChicagoProject.GUI
     {
         //private DragableMatrix matrix;
         private DragableMatrixV2 matrixV2;
+        private DragableMatrixV2 currentWeaponMatrix;
         //private DragableMatrix equipd;
         //private DragableControl equipd;
 
@@ -57,6 +58,16 @@ namespace TheChicagoProject.GUI
 
             //matrix = new DragableMatrix(5, 3, 5);
             matrixV2 = new DragableMatrixV2(new Vector2(310, 200), 12);
+            matrixV2.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - matrixV2.Size.Y / 2);
+            matrixV2.Alignment = ControlAlignment.Right;
+            matrixV2.parent = multiMatContainer;
+            multiMatContainer.Add(matrixV2);
+
+            currentWeaponMatrix = new DragableMatrixV2(equipContainer.Size, 1);
+            currentWeaponMatrix.Alignment = ControlAlignment.Center;
+            currentWeaponMatrix.parent = equipContainer;
+            equipContainer.Add(currentWeaponMatrix);
+
             //equipd = new DragableMatrix(1, 1, 0);
             //equipd.Alignment = ControlAlignment.Center;
             //equipd.parent = equipContainer;
@@ -71,10 +82,7 @@ namespace TheChicagoProject.GUI
             matrixContainer.parent = multiMatContainer;
             multiMatContainer.Add(matrixContainer);
              * */
-            matrixV2.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - matrixV2.Size.Y / 2);
-            matrixV2.Alignment = ControlAlignment.Right;
-            matrixV2.parent = multiMatContainer;
-            multiMatContainer.Add(matrixV2);
+            
 
             //matrix.Alignment = ControlAlignment.Center;
             //matrix.parent = matrixContainer;
@@ -108,10 +116,10 @@ namespace TheChicagoProject.GUI
             foreach (Item.Item i in inventory.EntityInventory.Where(i => !(i.Equals(inventory.EntityInventory[inventory.ActiveWeapon]))))
                 matrixV2.AddToMatrix(i);
 
-            /*
+            
             if (inventory.ActiveWeapon != -1)
-                matrixV2.AddOutsideMatrix(new DragableControl(inventory.EntityInventory[inventory.ActiveWeapon]), new Vector2(-90, -10));
-            */
+                currentWeaponMatrix.AddToMatrix(inventory.EntityInventory[inventory.ActiveWeapon]);
+            
             isInventoryLoaded = true;
         }
 
@@ -123,6 +131,12 @@ namespace TheChicagoProject.GUI
             if (item != null && item != currentInventory.EntityInventory[currentInventory.ActiveWeapon])
                 currentInventory.ActiveWeapon = currentInventory.EntityInventory.IndexOf(item);
             */
+
+            Item.Item item = currentWeaponMatrix[0];
+            if (item != null && item != currentInventory.EntityInventory[currentInventory.ActiveWeapon])
+                currentInventory.ActiveWeapon = currentInventory.EntityInventory.IndexOf(item);
+            
+
             currentInventory = null;
             matrixV2.Clear();
             isInventoryLoaded = false;

@@ -90,36 +90,52 @@ namespace TheChicagoProject.GUI
         /// <returns>The old control contained.</returns>
         public DragableControl SetDragableControl(DragableControl controlToSet)
         {
+            //Console.WriteLine("OLD: {1} NEW: {0}", controlToSet.Item.name, this.controlInContainer.Item.name);
+            Console.WriteLine("KK {0}", this.ID);
             // if given nothing, dont set anything.
             if (controlToSet == null)
                 return null;
 
             // should this even EVER happen?
+           
             if (controlToSet == controlInContainer)
             {
-                throw new Exception("Same control being added!");
+                Console.WriteLine("Dude same");
+                controlToSet.Location = Vector2.Zero;
+                return null;
                 //return controlToSet;
             }
 
             DragableControl controlToReplace = controlInContainer;
             
+            // Clear this container.
+            // Clear the continar this came from.
+
+            // this assumes the parent is the dragable container!
+            if (controlToSet.parent != null)
+                controlToSet.parent.Clear();
             Clear();
             
             // All controls should be centered in their container...
             controlInContainer = controlToSet;
-            controlToSet.Location = Vector2.Zero;
-            controlToSet.Alignment = ControlAlignment.Center;
-            controlToSet.parent = this;
-            Add(controlToSet);
+            controlInContainer.Location = Vector2.Zero;
+            controlInContainer.Alignment = ControlAlignment.Center;
+            controlInContainer.parent = this;
+            Add(controlInContainer);
+
+            if(controlToReplace != null)
+                controlToReplace.parent = null;
+
             return controlToReplace;
 
             // parent for controlToReplace is still this.
             // controlToReplace is no longer in this container.
         }
 
-        public void ResetDragableLocation()
+        public override void Clear()
         {
-
+            controlInContainer = null;
+            base.Clear();
         }
 
 

@@ -189,9 +189,16 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public ControlAlignment Alignment { get { return alignment; } set { alignment = value; } }
         /// <summary>
+        /// Gets the root control of this control.
+        /// </summary>
+        public Control RootParent { get { return RootControl(this); } }
+        /// <summary>
         /// Returns whether or not this control is being drawn on screen.
         /// </summary>
         public bool IsVisible { get { return isVisible; }}
+        /// <summary>
+        /// Get or set the controls ability to update.
+        /// </summary>
         public bool IsActive { get { return isActive; } set { isActive = value; } }
 
         public Control(string fontFile = "TimesNewRoman12")
@@ -302,12 +309,12 @@ namespace TheChicagoProject.GUI.Forms
                     // pressed
                     if (lastFrameMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (Pressed != null)
+                        if (Pressed != null && GlobalRectangle.Contains(firstClickLoc))
                             Pressed(this, EventArgs.Empty);
 
                         // hovered over and release
                         if (lastFrameMouseState.LeftButton == ButtonState.Pressed && currentFrameMouseState.LeftButton == ButtonState.Released)
-                            if (HoverRelease != null && !GlobalRectangle.Contains(firstClickLoc))
+                            if (HoverRelease != null) // && !GlobalRectangle.Contains(firstClickLoc)
                                 HoverRelease(this, EventArgs.Empty);
 
                         // released / click
@@ -490,6 +497,18 @@ namespace TheChicagoProject.GUI.Forms
                 return location;
 
             return GlobalLocation(location + parent.Location, parent.parent);
+        }
+
+        /// <summary>
+        /// Grabs the root parent of this control.
+        /// </summary>
+        /// <param name="control">Control to start with.</param>
+        /// <returns>The root of the hierarchy.</returns>
+        private Control RootControl(Control control)
+        {
+            if (control.parent != null)
+                return RootControl(control.parent);
+            return control;
         }
 
         public virtual void Clear()
