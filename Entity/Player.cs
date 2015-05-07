@@ -166,6 +166,7 @@ namespace TheChicagoProject.Entity
                 location.X = door.Destination.X * GUI.Tile.SIDE_LENGTH;
                 location.Y = door.Destination.Y * GUI.Tile.SIDE_LENGTH;
                 Game1.Instance.worldManager.CurrentWorld.manager.AddEntity(this);
+                Game1.Instance.collisionManager.SwitchWorld();
             }
         }
     }

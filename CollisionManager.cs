@@ -39,6 +39,17 @@ namespace TheChicagoProject
                 }
         }
 
+        public void SwitchWorld()
+        {
+            grid = new CollisionTile[mainGame.worldManager.CurrentWorld.manager.world.worldHeight, mainGame.worldManager.CurrentWorld.manager.world.worldWidth];
+
+            // Setup tile grid.
+            for (int x = 0; x < grid.GetLength(0); x++)
+                for (int y = 0; y < grid.GetLength(1); y++)
+                {
+                    grid[x, y] = new CollisionTile(x * CollisionTile.SIDE_LENGTH, y * CollisionTile.SIDE_LENGTH, grid);
+                }
+        }
         
         /*
          * TO-DO:
