@@ -67,10 +67,12 @@ namespace TheChicagoProject
                 worlds.Add(current, Game1.Instance.saveManager.LoadWorld(current));
             // DEBUG
 #if DEBUG
+            /*
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new LowAI(mugger);
             mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 1, 0.5));
             mugger.inventory.ActiveWeapon = 0;
+             * */
             //worlds["main"].manager.AddEntity(mugger);
              
             // need to fix fleemap lag before renabling the above.
@@ -82,6 +84,22 @@ namespace TheChicagoProject
             mugging.SetAvailable();
             player.log.Add(mugging);
             this.worldQuests.Add(mugging);
+
+            Quest gunman = SaveManager.ParseQuest("./Content/Quests/Crazed Gunman.quest");
+            gunman.SetAvailable();
+            player.log.Add(gunman);
+            this.worldQuests.Add(gunman);
+
+            Quest war = SaveManager.ParseQuest("./Content/Quests/Gang war.quest");
+            war.SetAvailable();
+            player.log.Add(war);
+            this.worldQuests.Add(war);
+
+            Quest sniper = SaveManager.ParseQuest("./Content/Quests/Sniper.quest");
+            sniper.SetAvailable();
+            player.log.Add(sniper);
+            this.worldQuests.Add(sniper);
+
             
             /*
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);

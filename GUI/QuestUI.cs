@@ -109,7 +109,7 @@ namespace TheChicagoProject.GUI
             // Description label
             description = new Label();
             description.Alignment = ControlAlignment.Left;
-            //description.Text = "Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description ";
+            //description.Text = "Description\nDescription Description Description Description Description Description Description Description Description Description Description Description\nDescription Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description ";
             description.WordWrap = true;
             description.parent = descriptionContainer;
             descriptionContainer.Add(description);
@@ -146,7 +146,11 @@ namespace TheChicagoProject.GUI
             {
                 case WinCondition.AllEnemiesDead:
                     // enemies to kill? (not sure about this one)
-                   
+                    // foreach for #
+                    tmpObjective = new ObjectivesUI(objectivesContainer.Size);
+                    tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
+                    tmpObjective.parent = objectivesContainer;
+                    objectivesContainer.Add(tmpObjective);
                     break;
 
                 case WinCondition.DeliverItem:

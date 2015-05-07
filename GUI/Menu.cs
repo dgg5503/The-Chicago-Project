@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using TheChicagoProject.GUI.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -133,14 +135,17 @@ namespace TheChicagoProject.GUI
         //Sean Levorse
         void OpenTool(object sender, EventArgs e)
         {
-            
-                Quests.QuestGenerator.QuestBuilder tool = new Quests.QuestGenerator.QuestBuilder();
+            Thread questBuilder = new Thread(StartQuestBuilder);
+            questBuilder.Start();
+        }
+
+        public void StartQuestBuilder()
+        {
+            Quests.QuestGenerator.QuestBuilder tool = new Quests.QuestGenerator.QuestBuilder();
                 System.Windows.Forms.ApplicationContext appContext = new System.Windows.Forms.ApplicationContext();
                 appContext.MainForm = tool;
                 System.Windows.Forms.Application.Run(appContext);
-            
         }
-
 
         /*
          * - To draw border or fill simply do sb.Draw(border or fill, and then this.GlobalLocation(), color.white)
