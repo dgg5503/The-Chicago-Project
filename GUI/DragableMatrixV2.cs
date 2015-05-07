@@ -40,6 +40,17 @@ namespace TheChicagoProject.GUI
             }
         }
 
+        /// <summary>
+        /// Gets the calculated container side length.
+        /// </summary>
+        public float ContainerSideLength
+        {
+            get
+            {
+                return sideLength;
+            }
+        }
+
         public DragableMatrixV2(Vector2 size, int maxSlots)
         {
             // make sure valid w/h for number of max slots
@@ -237,6 +248,12 @@ namespace TheChicagoProject.GUI
             // hack for overlap drawing.
             if (currentDragableControl != null)
                 currentDragableControl.Draw(spriteBatch, gameTime);
+        }
+
+        public override void Clear()
+        {
+            foreach (DragableContainer container in containers)
+                container.Clear();
         }
 
         public IEnumerator<Item.Item> GetEnumerator()

@@ -14,7 +14,7 @@ namespace TheChicagoProject.GUI
     public class InventoryMenu : Control
     {
         //private DragableMatrix matrix;
-        private DragableMatrixV2 matrixV2;
+        private DragableMatrixV2 inventoryMatrix;
         private DragableMatrixV2 currentWeaponMatrix;
         //private DragableMatrix equipd;
         //private DragableControl equipd;
@@ -57,13 +57,13 @@ namespace TheChicagoProject.GUI
             multiMatContainer.Add(equipContainer);
 
             //matrix = new DragableMatrix(5, 3, 5);
-            matrixV2 = new DragableMatrixV2(new Vector2(310, 200), 12);
-            matrixV2.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - matrixV2.Size.Y / 2);
-            matrixV2.Alignment = ControlAlignment.Right;
-            matrixV2.parent = multiMatContainer;
-            multiMatContainer.Add(matrixV2);
+            inventoryMatrix = new DragableMatrixV2(new Vector2(310, 200), 12);
+            inventoryMatrix.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - inventoryMatrix.Size.Y / 2);
+            inventoryMatrix.Alignment = ControlAlignment.Right;
+            inventoryMatrix.parent = multiMatContainer;
+            multiMatContainer.Add(inventoryMatrix);
 
-            currentWeaponMatrix = new DragableMatrixV2(equipContainer.Size, 1);
+            currentWeaponMatrix = new DragableMatrixV2(new Vector2(inventoryMatrix.ContainerSideLength, inventoryMatrix.ContainerSideLength), 1);
             currentWeaponMatrix.Alignment = ControlAlignment.Center;
             currentWeaponMatrix.parent = equipContainer;
             equipContainer.Add(currentWeaponMatrix);
@@ -114,7 +114,7 @@ namespace TheChicagoProject.GUI
             currentInventory = inventory;
 
             foreach (Item.Item i in inventory.EntityInventory.Where(i => !(i.Equals(inventory.EntityInventory[inventory.ActiveWeapon]))))
-                matrixV2.AddToMatrix(i);
+                inventoryMatrix.AddToMatrix(i);
 
             
             if (inventory.ActiveWeapon != -1)
@@ -126,19 +126,15 @@ namespace TheChicagoProject.GUI
         public void Close()
         {
             // set active weapon if changed...
-            /*
-            Item.Item item = matrix.GetItemFromLocation(new Vector2(-80,0));
-            if (item != null && item != currentInventory.EntityInventory[currentInventory.ActiveWeapon])
-                currentInventory.ActiveWeapon = currentInventory.EntityInventory.IndexOf(item);
-            */
 
             Item.Item item = currentWeaponMatrix[0];
             if (item != null && item != currentInventory.EntityInventory[currentInventory.ActiveWeapon])
                 currentInventory.ActiveWeapon = currentInventory.EntityInventory.IndexOf(item);
-            
+
+            currentWeaponMatrix.Clear();
+            inventoryMatrix.Clear();
 
             currentInventory = null;
-            matrixV2.Clear();
             isInventoryLoaded = false;
         }
 
