@@ -79,8 +79,8 @@ namespace TheChicagoProject
                     grid[x, y].Clear();
                 }
 
-            for (int x = xLowBound; x < xHighBound; x++)
-                for (int y = yLowBound; y < yHighBound; y++)
+            for (int x = xLowBound; x < xHighBound && x < w.tiles.Length; x++)
+                for (int y = yLowBound; y < yHighBound && y < w.tiles[0].Length; y++)
                 {
                     // Get entities from current world.
                     if (!w.tiles[x][y].IsWalkable)

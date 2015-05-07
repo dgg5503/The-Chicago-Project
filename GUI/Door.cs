@@ -28,6 +28,7 @@ namespace TheChicagoProject.GUI
         {
             this.world = world;
             destination = new Microsoft.Xna.Framework.Vector2(x, y);
+            this.Texture = Game1.Instance.Content.Load<Microsoft.Xna.Framework.Graphics.Texture2D>("./Tiles/door.png");
         }
     }
 }

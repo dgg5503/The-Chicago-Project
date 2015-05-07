@@ -107,6 +107,14 @@ namespace TheChicagoProject
                         player.direction = Entity.Direction.DownRight;
                     }
                 }
+                /*
+                if (Game1.Instance.worldManager.CurrentWorld.tiles[(int)(player.location.X / GUI.Tile.SIDE_LENGTH)][(int)(player.location.Y / GUI.Tile.SIDE_LENGTH)] is GUI.Door)
+                {
+                    GUI.Door door = Game1.Instance.worldManager.CurrentWorld.tiles[(int)(player.location.X / GUI.Tile.SIDE_LENGTH)][(int)(player.location.Y / GUI.Tile.SIDE_LENGTH)] as GUI.Door;
+                    Game1.Instance.worldManager.current = door.World;
+                    player.location.X = door.Destination.X * GUI.Tile.SIDE_LENGTH;
+                    player.location.Y = door.Destination.Y * GUI.Tile.SIDE_LENGTH;
+                }*/
                 #endregion
 
                 Item.Weapon weapon = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().inventory.GetEquippedPrimary();
