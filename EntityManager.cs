@@ -36,9 +36,16 @@ namespace TheChicagoProject
             e.currentWorld = world;
             Console.WriteLine("Added Entity");
             if (e is Player) {
-                Console.WriteLine("Added Player");
-                playerLoc = 0;
-                entities.Insert(0, e);
+                if (playerLoc == -1)
+                {
+                    Console.WriteLine("Added Player");
+                    playerLoc = 0;
+                    entities.Insert(0, e);
+                }
+                else
+                {
+                    entities[playerLoc] = e;
+                }
             } else
                 entities.Add(e);
         }

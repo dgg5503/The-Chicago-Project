@@ -157,6 +157,7 @@ namespace TheChicagoProject.Entity
 
             if(Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)(location.Y / Tile.SIDE_LENGTH)] is Door)
             {
+                //Game1.Instance.worldManager.CurrentWorld.manager.
                 Door door = (Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)(location.Y / Tile.SIDE_LENGTH)] as Door);
                 if (!Game1.Instance.worldManager.worlds.ContainsKey(door.World))
                 {
