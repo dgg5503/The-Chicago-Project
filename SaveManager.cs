@@ -60,8 +60,16 @@ namespace TheChicagoProject
 
             World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
 
+            GUI.Door[] doors = new GUI.Door[int.Parse(worldReader.ReadLine())];
+
+            for(int x = 0; x < doors.Length; ++x)
+            {
+                doors[x] = new Door(worldReader.ReadLine(), int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
+            }
+
             string line = worldReader.ReadLine();
             int row = 0;
+            int doorCntr = 0;
             while (line != null)
             {
                 for (int col = 0; col < line.Length; ++col)
@@ -93,7 +101,8 @@ namespace TheChicagoProject
                             break;
 
                         case '6':
-                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Door"];
+                            tmpWorld.tiles[row][col] = doors[doorCntr];
+                            doorCntr++;
                             break;
                     }
                 }
