@@ -76,10 +76,7 @@ namespace TheChicagoProject.GUI.Forms
 
         public override void Update(GameTime gameTime)
         {
-            // this is pretty meh and only applies to text
-            // I should do this check in control not just here :P...... (?)
-
-            this.Size = GetTextSize() * scale;
+            this.Size = GetTextSize(); // scaling should apply to text wrap too...
 
             if (this.Size == Vector2.Zero)
                 this.Size = parent.Size;
@@ -115,10 +112,10 @@ namespace TheChicagoProject.GUI.Forms
                 string[] words = text.Split(' ');
                 StringBuilder wrappedText = new StringBuilder();
                 float linewidth = 0f;
-                float spaceWidth = Font.MeasureString(" ").X;
+                float spaceWidth = (Font.MeasureString(" ") * scale).X;
                 for (int i = 0; i < words.Length; ++i)
                 {
-                    Vector2 size = Font.MeasureString(words[i]);
+                    Vector2 size = Font.MeasureString(words[i]) * scale;
                     if (linewidth + size.X < parent.Size.X)
                     {
                         linewidth += size.X + spaceWidth;
@@ -137,7 +134,7 @@ namespace TheChicagoProject.GUI.Forms
             }
             #endregion
 
-            return Font.MeasureString(text);
+            return Font.MeasureString(text) * scale;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
