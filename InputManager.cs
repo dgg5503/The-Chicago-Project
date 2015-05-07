@@ -239,7 +239,10 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
-                player.Reload();
+                if (player.inventory.GetEquippedPrimary().LoadedAmmo != player.inventory.GetEquippedPrimary().maxClip && player.inventory.GetEquippedPrimary().Ammo > 0)
+                {
+                    player.Reload();
+                }
             }
             if (keyState.IsKeyDown(Keys.I))    //Inventory
             {
