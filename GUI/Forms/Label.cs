@@ -73,8 +73,8 @@ namespace TheChicagoProject.GUI.Forms
             lastSize = Vector2.Zero;
             wordWrap = false;
             autoResize = true;
-            //Border = null;
-           // Fill = null;
+            Border = null;
+            Fill = null;
             
         }
 
