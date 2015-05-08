@@ -19,8 +19,6 @@ namespace TheChicagoProject.GUI
         //private DragableMatrix equipd;
         //private DragableControl equipd;
 
-        private Container equipContainer;
-
         private Inventory currentInventory;
 
         private bool isInventoryLoaded;

@@ -49,8 +49,8 @@ namespace TheChicagoProject.GUI
                 {
                     weaponNameLbl.Text = value.name;
 
-                    if (value.image != null)
-                        weaponImageContainer.Fill = new FillInfo(value.image.Texture, Color.White);
+                    if (value.previewSprite != null)
+                        weaponImageContainer.Fill = new FillInfo(value.previewSprite.Texture, Color.White);
                     else
                         weaponImageContainer.Fill = null;
                 }

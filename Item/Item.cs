@@ -12,6 +12,14 @@ namespace TheChicagoProject.Item
     public class Item
     {
         public string name;
-        public Sprite image;
+        public Sprite previewSprite;
+        public Sprite equipedSprite;
+
+        // all items will now loade with default null texture to preven crashing.
+        public Item()
+        {
+            previewSprite = Sprites.spritesDictionary["NULL"];
+            equipedSprite = Sprites.spritesDictionary["NULL"];
+        }
     }
 }

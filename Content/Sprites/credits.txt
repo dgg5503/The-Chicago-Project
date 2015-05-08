@@ -3,3 +3,4 @@ guns icons:
 	https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/gatling_gun.png
 	https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/gun.png
 	https://cdn3.iconfinder.com/data/icons/ahasoft-war/512/uzi_gun-512.png
+	https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/knife.png

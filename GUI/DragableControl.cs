@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheChicagoProject.Item;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -22,7 +23,7 @@ namespace TheChicagoProject.GUI.Forms
         public DragableControl(Item.Item item, float sideLen = 64)
         {
             this.Size = new Vector2(sideLen, sideLen);
-            this.Fill = new FillInfo(item.image, Color.White);
+            this.Fill = new FillInfo(item.previewSprite.Texture, Color.White);
 
             this.item = item;
 
@@ -32,6 +33,12 @@ namespace TheChicagoProject.GUI.Forms
             textLbl.Alignment = ControlAlignment.Center;
             textLbl.parent = this;
             Add(textLbl);
+
+            Weapon testWep;
+            if ((testWep = item as Weapon) != null)
+            {
+                textLbl.Text += "\n" + testWep.LoadedAmmo + " / " + testWep.Ammo;
+            }
         }
 
         /*

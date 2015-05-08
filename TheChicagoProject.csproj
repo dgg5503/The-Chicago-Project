@@ -123,11 +123,14 @@
     <Content Include="Content\speakeasy.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\basic_gun_small.png">
+    <Content Include="Content\Sprites\basic_gun_preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\credits.txt" />
-    <Content Include="Content\Sprites\gatling_gun_small.png">
+    <Content Include="Content\Sprites\gatling_gun_preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\knife_preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\mugger.png">
@@ -140,7 +143,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Soldier.png" />
-    <Content Include="Content\Sprites\uzi_gun_small.png">
+    <Content Include="Content\Sprites\uzi_gun_preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tiles\BuildingEdge.png">

@@ -601,7 +601,7 @@ namespace TheChicagoProject
                         //create item
                         items[id] = new QuestItem(id);
                         items[id].Item = new Item.Item();
-                        items[id].Item.image = sprite;
+                        items[id].Item.previewSprite = sprite;
 
                         
                     }
@@ -682,9 +682,9 @@ namespace TheChicagoProject
                         newWeapon.LoadedAmmo = loadedAmmo;
 
                         if (Sprites.spritesDictionary.ContainsKey(sprite))
-                            newWeapon.image = Sprites.spritesDictionary[sprite];
+                            newWeapon.previewSprite = Sprites.spritesDictionary[sprite];
                         else
-                            newWeapon.image = Sprites.spritesDictionary["NULL"];
+                            newWeapon.previewSprite = Sprites.spritesDictionary["NULL"];
 
                         return newWeapon;
                     }
@@ -745,7 +745,7 @@ namespace TheChicagoProject
                 string key = "NULL";
                 foreach (string spriteKey in sDict.Keys.ToList())
                 {
-                    if (sDict[spriteKey] == item.image)
+                    if (sDict[spriteKey] == item.previewSprite)
                     {
                         key = spriteKey;
                     }

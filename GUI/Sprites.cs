@@ -18,9 +18,10 @@ namespace TheChicagoProject.GUI
         {
             {"mugger", new Sprite(32, 32, 0, "mugger.png")},
             {"player", new Sprite(32, 32, 0, "player.png")},
-            {"gatling_gun_preview", new Sprite(64, 64, 0, "gatling_gun_small.png")},
-            {"uzi_gun_preview", new Sprite(64, 64, 0, "uzi_gun_small.png")},
-            {"basic_gun_preview", new Sprite(64, 64, 0, "basic_gun_small.png")},
+            {"gatling_gun_preview", new Sprite(64, 64, 0, "gatling_gun_preview.png")},
+            {"uzi_gun_preview", new Sprite(64, 64, 0, "uzi_gun_preview.png")},
+            {"basic_gun_preview", new Sprite(64, 64, 0, "basic_gun_preview.png")},
+            {"knife_preview", new Sprite(64, 64, 0, "knife_preview.png")},
             {"NULL", new Sprite(64, 64, 0, "NULL.png")}
         };
     }

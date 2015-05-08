@@ -28,12 +28,14 @@ namespace TheChicagoProject.GUI.Forms
     {
         // Text on label
         private string text;
+        private string lastText;
 
         // Autoresize to fit text?
         private bool autoResize;
         private float scale;
         private Color color;
         private Vector2 lastSize;
+        
 
         // word wrap!
         private bool wordWrap;
@@ -49,7 +51,7 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Enable or disable word wrap on this label, this only works if there is an attached parrent.
         /// </summary>
-        public bool WordWrap { get { return wordWrap; } set { wordWrap = true; } }
+        public bool WordWrap { get { return wordWrap; } set { wordWrap = value; } }
         /// <summary>
         /// Gets or sets the scale or size of this labels text.
         /// </summary>
@@ -64,27 +66,32 @@ namespace TheChicagoProject.GUI.Forms
             text = String.Empty;
             scale = 1;
             color = Color.White;
+
             // size will always be automatically resized!
             Size = Vector2.Zero;
 
             lastSize = Vector2.Zero;
             wordWrap = false;
             autoResize = true;
-            Border = null;
-            Fill = null;
+            //Border = null;
+           // Fill = null;
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.Size = GetTextSize(); // scaling should apply to text wrap too...
+            
 
-            if (this.Size == Vector2.Zero)
+            if (this.Size == Vector2.Zero) // or string.isnull?
                 this.Size = parent.Size;
 
-            if (this.Size != lastSize)
+            if (this.Text != lastText)
             {
+                this.Size = GetTextSize(); // scaling should apply to text wrap too...
+                //text = TextAlign();
                 this.ControlSizeChange(lastSize);
                 lastSize = this.Size;
+                lastText = text;
                 alignApplied = true;
             }
 
@@ -99,7 +106,9 @@ namespace TheChicagoProject.GUI.Forms
                 this.Size = this.parent.Size; // target size?
             else
                 this.Size = GetTextSize();
+            
             lastSize = this.Size;
+            lastText = text;
         }
 
         private Vector2 GetTextSize()
@@ -130,11 +139,43 @@ namespace TheChicagoProject.GUI.Forms
                 }
 
                 text = wrappedText.ToString();
+               
                 
             }
             #endregion
-
             return Font.MeasureString(text) * scale;
+        }
+
+        public string TextAlign()
+        {
+            // get longest line of text AFTER word wrap and scaling.
+            // use that line as reference for all other text.
+                // move over other text by doing longest.X / 2 - tmpWord.X / 2
+            string[] sentances = text.Split('\n');
+            if (sentances.Length == 1)
+                return text;
+
+            // find longest line.
+            float longestLine = 0;
+            foreach (String s in sentances)
+                if (Font.MeasureString(s).X > longestLine)
+                    longestLine = Font.MeasureString(s).X;
+
+            // foreach through all text lines and center via spaces.
+            StringBuilder sb = new StringBuilder();
+            float spaceWidth = (Font.MeasureString(" ")).X;
+            foreach(String s in sentances)
+            {
+                float distanceFromCenter = longestLine / 2 - Font.MeasureString(s).X / 2;
+                int numOfSpaces = (int)distanceFromCenter / (int)spaceWidth;
+                string centeredText = "";
+                for (int i = 0; i < numOfSpaces; i++)
+                    centeredText += ' ';
+                centeredText += s;
+                sb.Append(centeredText + "\n");
+            }
+
+            return sb.ToString();
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

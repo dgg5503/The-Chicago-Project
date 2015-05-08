@@ -224,7 +224,9 @@ namespace TheChicagoProject.GUI.Forms
             isVisible = true;
 
             if(fillInfo.isDrawn)
-                spriteBatch.Draw(fill, this.GlobalLocation(), fillInfo.color);
+                spriteBatch.Draw(fill, this.GlobalLocation(), null, fillInfo.color, 0, Vector2.Zero, new Vector2(Size.X / fill.Width, Size.Y / fill.Height), SpriteEffects.None, 0);
+                //spriteBatch.Draw(fill, this.GlobalLocation(), fillInfo.color);
+            
 
             foreach (Control c in controls)
                 c.Draw(spriteBatch, gameTime);
@@ -233,9 +235,9 @@ namespace TheChicagoProject.GUI.Forms
                 spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
 
             if (!isActive)
-            {
                 spriteBatch.Draw(inactiveAlpha, this.GlobalLocation(), Color.White);
-            }
+
+            
         }
 
         protected virtual void LoadTextures(GraphicsDevice graphics)
@@ -291,6 +293,9 @@ namespace TheChicagoProject.GUI.Forms
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
         {
+            if (!isVisible)
+                return;
+
             if (isActive)
             {
                 currentFrameMouseState = Mouse.GetState();
