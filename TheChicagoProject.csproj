@@ -162,6 +162,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Windows\Debug\Content\SaveFiles\default.save" />
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\Gun.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\Knife.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\The Screwdriver.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\w.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\ww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\www.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwwwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwwwwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Font\TimesNewRoman12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
