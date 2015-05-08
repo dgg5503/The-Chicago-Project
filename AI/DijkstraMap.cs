@@ -141,7 +141,7 @@ namespace TheChicagoProject.AI
         }
 
         public bool valid(World world, int x, int y) {
-            return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles.Length;
+            return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles[0].Length;
         }
 
         public DijkstraMap GenerateFleeMap(World world) {
@@ -178,17 +178,17 @@ namespace TheChicagoProject.AI
             Console.WriteLine("" + mapWidth + "/" + mapHeight + ": " + modX + ", " + modY + " | " + goals[0][0] + ", " + goals[0][1]);
             for (int x = 0; x < map.Length; x++) {
                 for (int y = 0; y < map[x].Length; y++)
-                    Console.Write(format(map[x][y]) + " ");
+                    Console.Write(format(map[x][y]));
                 Console.WriteLine();
             }
         }
 
         private String format(int num) {
             if (num < 10)
-                return "  " + num;
-            if (num < 99)
                 return " " + num;
-            return "" + num;
+            if (num < 99)
+                return "" + num;
+            return "..";
         }
 
 
