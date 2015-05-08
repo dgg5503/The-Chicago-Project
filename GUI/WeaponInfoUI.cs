@@ -48,12 +48,14 @@ namespace TheChicagoProject.GUI
                 if (value != null)
                 {
                     weaponNameLbl.Text = value.name;
-                    //weaponImageContainer.Fill = value.image;
+
+                    if (value.image != null)
+                        weaponImageContainer.Fill = new FillInfo(value.image.Texture, Color.White);
                 }
                 else
                 {
                     weaponNameLbl.Text = "";
-                    //weaponImageContainer.Fill = empty;
+                    weaponImageContainer.Fill = new FillInfo(Color.Gray);
                 }
                 item = value;
             }

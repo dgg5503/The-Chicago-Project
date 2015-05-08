@@ -156,7 +156,7 @@ namespace TheChicagoProject.GUI
                 case WinCondition.DeliverItem:
                     // deliver some item to some recipient
                     tmpObjective = new ObjectivesUI(new Vector2(objectivesContainer.Size.X, objectivesContainer.Size.Y / 2));
-                    tmpObjective.Load("Deliver this", quest.Delivery.name, quest.Delivery.image);
+                    tmpObjective.Load("Deliver this", quest.Delivery.name, quest.Delivery.image.Texture);
                     tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
 
@@ -177,7 +177,7 @@ namespace TheChicagoProject.GUI
                 case WinCondition.ObtainItem:
                     // find this
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
-                    tmpObjective.Load("Find this item", quest.FindThis.name, quest.FindThis.image);
+                    tmpObjective.Load("Find this item", quest.FindThis.name, quest.FindThis.image.Texture);
                     tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;

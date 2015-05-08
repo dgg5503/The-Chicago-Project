@@ -106,8 +106,10 @@ namespace TheChicagoProject
             
 
             #region debug
+            /*
             border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);
             border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
+             */
             #endregion
 
             //Stack Overflow code (see below)
