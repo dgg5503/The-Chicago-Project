@@ -417,13 +417,13 @@ namespace TheChicagoProject
 
                     //get reward
                     index = data.IndexOf("Reward:");
-                    index = data.IndexOf("Cash:", index) + 12;
+                    index = data.IndexOf("Cash:", index) + 5;
                     end = data.IndexOf("\n", index);
                     attribute = data.Substring(index, end - index);
                     int cash;
                     if (!int.TryParse(attribute, out cash))
                         cash = 0;
-                    index = data.IndexOf("Q-Points:", index) + 13;
+                    index = data.IndexOf("Q-Points:", index) + 9;
                     end = data.IndexOf("\n", index);
                     attribute = data.Substring(index, end - index);
                     int qPoints;
@@ -439,7 +439,7 @@ namespace TheChicagoProject
                     if (!int.TryParse(attribute, out X))
                         X = 10;
                     index = data.IndexOf("Y:", index) + 2;
-                    end = data.IndexOf("\n", index);
+                    end = data.IndexOf("\r", index);
                     attribute = data.Substring(index, end - index);
                     int Y;
                     if (!int.TryParse(attribute, out Y))
@@ -448,7 +448,7 @@ namespace TheChicagoProject
 
                     //get the win condition
                     index = data.IndexOf("Condition:") + 10;
-                    end = data.IndexOf("\n", index);
+                    end = data.IndexOf("\r", index);
                     attribute = data.Substring(index, end - index);
                     WinCondition condition; //win state
                     switch (attribute)
@@ -477,14 +477,14 @@ namespace TheChicagoProject
                         case WinCondition.ObtainItem:
                             //get the name of the entity
                             index = data.IndexOf("Target:") + 7;
-                            end = data.IndexOf('\n');
-                            target = data.Substring(index, index - end);
+                            string test = data.Substring(index);
+                            end = data.IndexOf('\n', index) - 1;
+                            target = data.Substring(index, end - index);
                             break;
                         case WinCondition.DeliverItem:
                             //get the target item
                             index = data.IndexOf("Target:") + 7;
-                            end = data.IndexOf('\n');
-                            target = data.Substring(index, index - end);
+                            target = data.Substring(index);
 
                             //get destination
                             index = data.IndexOf("Recipient:") + 10;
@@ -498,14 +498,16 @@ namespace TheChicagoProject
                     int endEntity = data.Length;
                     FloatRectangle EntityRect;
                     AI.AI ai;
-                    while((index = data.IndexOf("Living Entitiy:", index)) > 0)
+                    //string test = data.Substring(index, 10);
+                    index = 1;
+                    while((index = data.IndexOf("Living Entity:", index)) > 0)
                     {
                         ai = null;
                         endEntity = data.IndexOf("End Living Enity", index);
                         
                         //get the id
-                        index = data.IndexOf("ID:", index) + 8;
-                        end = data.IndexOf('"', index);
+                        index = data.IndexOf("ID:", index) + 3;
+                        end = data.IndexOf('\r', index);
                         string id = data.Substring(index, end - index);
 
                         //get the start position
@@ -518,7 +520,7 @@ namespace TheChicagoProject
                         if (!int.TryParse(attribute, out sX))
                             sX = 10;
                         index = data.IndexOf("Y:", index) + 2;
-                        end = data.IndexOf("\n", index);
+                        end = data.IndexOf("\r", index);
                         attribute = data.Substring(index, end - index);
                         int sY;
                         if (!int.TryParse(attribute, out sY))
@@ -607,6 +609,20 @@ namespace TheChicagoProject
 
                     //Create the quest
                     quest = new Quest(name, objective, description, start, null, null, condition, qPoints, cash);
+
+                    //add the entities to the quests entitiy list
+                    foreach (Entity.LivingEntity entity in livingEntities.Values.ToList())
+                    {
+                        quest.entitites.Add(entity);
+                    }
+                    
+                    //items too
+                    /* Quest needs to be updated
+                    foreach(Item.Item item in items.Values.ToArray())
+                    {
+                        quest.
+                    }
+                     */
 
                     switch (condition)
                     {
