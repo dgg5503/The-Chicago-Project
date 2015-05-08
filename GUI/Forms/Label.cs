@@ -116,7 +116,7 @@ namespace TheChicagoProject.GUI.Forms
             #region word wrap
             // Thanks to https://gist.github.com/Sankra/5585584
             // Runar Ovesen Hjerpbakk
-            if (wordWrap == true && parent != null && lastSize.X > parent.Size.X)
+            if (wordWrap == true && parent != null && Font.MeasureString(text).X > parent.Size.X)
             {
                 string[] words = text.Split(' ');
                 StringBuilder wrappedText = new StringBuilder();

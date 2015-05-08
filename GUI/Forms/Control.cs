@@ -293,9 +293,6 @@ namespace TheChicagoProject.GUI.Forms
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
         {
-            if (!isVisible)
-                return;
-
             if (isActive)
             {
                 currentFrameMouseState = Mouse.GetState();

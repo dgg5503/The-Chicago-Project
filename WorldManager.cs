@@ -49,9 +49,9 @@ namespace TheChicagoProject
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
             player.inventory.Add(new Item.Weapon(1000, 1, 3D, "The Screwdriver", 30, 0D) { previewSprite = Sprites.spritesDictionary["gatling_gun_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D) { previewSprite = Sprites.spritesDictionary["uzi_gun_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 3, 10D, "Knife", 1, 5D) { previewSprite = Sprites.spritesDictionary["basic_gun_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "w", 30, 100D));
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D) { previewSprite = Sprites.spritesDictionary["basic_gun_preview"] });
+            player.inventory.Add(new Item.Weapon(400, 3, 10D, "Knife", 1, 5D) { previewSprite = Sprites.spritesDictionary["knife_preview"] });
+            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Uzi", 30, 100D) { previewSprite = Sprites.spritesDictionary["uzi_gun_preview"] });
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "ww", 30, 5D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "www", 30, 5D));
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwww", 30, 5D));
@@ -98,6 +98,20 @@ namespace TheChicagoProject
             player.log.Add(sniper);
             this.worldQuests.Add(sniper);
 
+            Quest sniper1 = SaveManager.ParseQuest("./Content/Quests/Sniper1.quest");
+            sniper1.SetAvailable();
+            player.log.Add(sniper1);
+            this.worldQuests.Add(sniper1);
+
+            Quest sniper2 = SaveManager.ParseQuest("./Content/Quests/Sniper2.quest");
+            sniper2.SetAvailable();
+            player.log.Add(sniper2);
+            this.worldQuests.Add(sniper2);
+
+            Quest sniper3 = SaveManager.ParseQuest("./Content/Quests/Sniper3.quest");
+            sniper3.SetAvailable();
+            player.log.Add(sniper3);
+            this.worldQuests.Add(sniper3);
             
             /*
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);

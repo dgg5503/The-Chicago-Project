@@ -1,0 +1,33 @@
+Type:"Quest"
+Name:"Sniper3"
+Objective:"Take out the sniper to make the streets safer for your fellow law enforcement."
+Description:"A Sniper is taking police officers in the southeast side of town. He is rumored to be protecting the entrance to a wellknown speakeasy. "
+Start:
+	X:86
+	Y:55
+Reward:
+	Cash:15
+	Q-Points:3
+
+Living Entity:
+	ID:Gunman
+	Start:
+		X:83
+		Y:92
+	Texture:"mugger"
+	Health:2
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Fred
+	Start:
+		X:86
+		Y:55
+	Texture:"mugger"
+	Health:1
+	AI:High
+End Living Entity
+
+Condition:EnemyDies
+Target:Fred

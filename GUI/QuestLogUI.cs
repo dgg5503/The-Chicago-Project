@@ -18,13 +18,18 @@ namespace TheChicagoProject.GUI
         private QuestUI questUI;
         private Button startQuestButton;
         private Button stopQuestButton;
+        private Button pageForwardButton;
+        private Button pageBackwardButton;
         private Container questBarsContainer;
         //private Container questUIContainer;
         private Container questActionsContainer;
 
         // List of quest bars for each quest...
         private QuestLog questLog;
-        
+
+        // "pages"
+        private List<QuestInfoBarUI> questInfoBars;
+        private int currentIndex;
 
         public bool IsQuestLogLoaded
         {
@@ -38,6 +43,10 @@ namespace TheChicagoProject.GUI
 
         public QuestLogUI()
         {
+            // Quest pages
+            questInfoBars = new List<QuestInfoBarUI>();
+            currentIndex = 0;
+
             // this info...
             this.Size = new Vector2(600, 400);
             this.Alignment = ControlAlignment.Center;
@@ -70,7 +79,7 @@ namespace TheChicagoProject.GUI
             // Quest bar container
             questBarsContainer = new Container();
             questBarsContainer.Alignment = ControlAlignment.Left;
-            questBarsContainer.Size = new Vector2(this.Size.X / 2, this.Size.Y - headerContainer.Size.Y);
+            questBarsContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .85f);
             questBarsContainer.Location = new Vector2(0, headerContainer.Size.Y);
             questBarsContainer.parent = this;
             Add(questBarsContainer);
@@ -78,7 +87,7 @@ namespace TheChicagoProject.GUI
             // Forward backward button container
 
             // Quest UI to display more info on the quest.
-            questUI = new QuestUI(new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .80f));
+            questUI = new QuestUI(new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .85f));
             //questUI.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .80f);
             questUI.Alignment = ControlAlignment.Right;
             questUI.Location = new Vector2(0, headerContainer.Size.Y);
@@ -88,7 +97,7 @@ namespace TheChicagoProject.GUI
             // quest buttons container.
             questActionsContainer = new Container();
             questActionsContainer.Alignment = ControlAlignment.Right;
-            questActionsContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .20f);
+            questActionsContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .15f);
             questActionsContainer.Location = new Vector2(0, questUI.Size.Y + headerContainer.Size.Y);
             questActionsContainer.parent = this;
             Add(questActionsContainer);
@@ -113,13 +122,90 @@ namespace TheChicagoProject.GUI
             stopQuestButton.Click += stopQuestButton_Click;
             stopQuestButton.parent = questActionsContainer;
             questActionsContainer.Add(stopQuestButton);
+
+            // page button container
+            Container pageButtonContainer = new Container();
+            pageButtonContainer.Alignment = ControlAlignment.Left;
+            pageButtonContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .15f);
+            pageButtonContainer.Location = new Vector2(0, questUI.Size.Y + headerContainer.Size.Y);
+            pageButtonContainer.parent = this;
+            Add(pageButtonContainer);
+
+            // forward button
+            pageForwardButton = new Button();
+            pageForwardButton.Alignment = ControlAlignment.Center;
+            pageForwardButton.Size = new Vector2(100, 50);
+            pageForwardButton.Location = new Vector2(60, 0);
+            pageForwardButton.IsActive = false;
+            pageForwardButton.Text = "Forward >";
+            pageForwardButton.Click += pageForwardButton_Click;
+            pageForwardButton.parent = pageButtonContainer;
+            pageButtonContainer.Add(pageForwardButton);
+
+            // back button
+            pageBackwardButton = new Button();
+            pageBackwardButton.Alignment = ControlAlignment.Center;
+            pageBackwardButton.Size = new Vector2(100, 50);
+            pageBackwardButton.Location = new Vector2(-60, 0);
+            pageBackwardButton.IsActive = false;
+            pageBackwardButton.Text = "< Backward";
+            pageBackwardButton.Click += pageBackwardButton_Click;
+            pageBackwardButton.parent = pageButtonContainer;
+            pageButtonContainer.Add(pageBackwardButton);
+        }
+
+        void pageBackwardButton_Click(object sender, EventArgs e)
+        {
+            // hide last that were on and toggle last four.
+            questBarsContainer.Clear();
+            
+            //questBarsContainer.Add(infoBar);
+            
+            throw new NotImplementedException();
+        }
+
+        void pageForwardButton_Click(object sender, EventArgs e)
+        {
+            // hide last that were on and toggle next four.
+            questBarsContainer.Clear();
+
+            int newMax = currentIndex;
+
+            if (newMax + 4 > questInfoBars.Count)
+                newMax = questInfoBars.Count - newMax;
+            else
+                newMax += 4;
+
+            // isvisible????
+
+            for (int i = currentIndex; i < newMax; i++)
+            {
+                questBarsContainer.Add(questInfoBars[i]);
+            }
+            currentIndex = newMax - 1;
         }
 
         void startQuestButton_Click(object sender, EventArgs e)
         {
             if(questUI.LoadedQuest != null && questUI.LoadedQuest.Status == 1)
             {
-                // quest start code here.
+                questBarsContainer.Clear();
+
+                int newMax = currentIndex;
+
+                if (newMax - 4 < 0)
+                    newMax = questInfoBars.Count - newMax;
+                else
+                    newMax -= 4;
+
+                // isvisible????
+
+                for (int i = currentIndex; i < newMax; i++)
+                {
+                    questBarsContainer.Add(questInfoBars[i]);
+                }
+                currentIndex = newMax - 1;
+
                 questUI.LoadedQuest.StartQuest();
             }
         }
@@ -153,6 +239,12 @@ namespace TheChicagoProject.GUI
                     stopQuestButton.IsActive = false;
             }
 
+            if(questInfoBars.Count > 4)
+            {
+                pageBackwardButton.IsActive = true;
+                pageForwardButton.IsActive = true;
+            }
+
             base.Update(gameTime);
             
             questLogHeaderLabel.Location = new Vector2(questLogHeaderLabel.parent.Size.X / 2 - questLogHeaderLabel.Size.X / 2, questLogHeaderLabel.Location.Y);
@@ -160,21 +252,30 @@ namespace TheChicagoProject.GUI
 
         public void Load(QuestLog log)
         {
+            
             int count = 0;
             foreach(Quest quest in log)
             {
+                if (count > 4)
+                    count = 0;
+
                 QuestInfoBarUI infoBar = new QuestInfoBarUI(new Vector2(200, 80));
-                infoBar.Location = new Vector2(questBarsContainer.Size.X / 2 - infoBar.Size.X / 2, infoBar.Size.Y * count + 5);
+                infoBar.Location = new Vector2(questBarsContainer.Size.X / 2 - infoBar.Size.X / 2, infoBar.Size.Y * count);
                 infoBar.Alignment = ControlAlignment.Left;
                 infoBar.parent = questBarsContainer;
                 infoBar.Click += infoBar_Click;
-                questBarsContainer.Add(infoBar);
                 infoBar.Load(quest);
 
+                if (questInfoBars.Count < 4)
+                    questBarsContainer.Add(infoBar);
+
+                questInfoBars.Add(infoBar);
                 count++;
             }
             questLog = log; 
         }
+
+        
 
         // on click, take quest info from bar and pass to a quest ui.
         private void infoBar_Click(object sender, EventArgs e)

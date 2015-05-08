@@ -92,6 +92,9 @@ namespace TheChicagoProject
         // for loading textures
         private GraphicsDevice graphics;
 
+        // Last weapon (this is mess)
+        private int lastWep;
+
         // The game1 class.
         private Game1 mainGame;
 
@@ -129,9 +132,7 @@ namespace TheChicagoProject
         /// <param name="graphics">MonoGames GraphicsDevice object.</param>
         /// <param name="mainGame">Game1 class to interact with other managers.</param>
         public RenderManager(SpriteBatch spriteBatch, GraphicsDevice graphics, WorldManager worldManager)
-        {
-            graphics.ResourceCreated += graphics_ResourceCreated;
-            
+        {   
             this.spriteBatch = spriteBatch;
             this.graphics = graphics;
             this.worldManager = worldManager;
@@ -147,16 +148,13 @@ namespace TheChicagoProject
 
             mainGame.Window.ClientSizeChanged += Window_ClientSizeChanged;
 
+            lastWep = -1;
+
             // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
             
             // Load all textures once (constructor will only be called once, so will this method)
             LoadTextures();
-        }
-
-        void graphics_ResourceCreated(object sender, ResourceCreatedEventArgs e)
-        {
-            Console.WriteLine("res created");
         }
 
         void Window_ClientSizeChanged(object sender, EventArgs e)
@@ -252,7 +250,7 @@ namespace TheChicagoProject
                     {
                         inventoryMenu.Load(player.inventory);
                         inventoryMenu.LoadVisuals(mainGame.Content, graphics);
-                        //inventoryMenu.Update(gameTime);
+                        inventoryMenu.Update(gameTime);
                     }
 
                     //Controls.guiElements["inventoryMenu"].Update(gameTime);
@@ -268,15 +266,16 @@ namespace TheChicagoProject
 
                     // WHAT IF PLAYER CHANGES WORLD (?) -Fixed?(Sean)
                     player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
-
-                    if (player.inventory.ActiveWeapon != -1)
+                    
+                    if (player.inventory.ActiveWeapon >= 0)
                     {
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
                         //Controls.guiElements["weaponInfoUI"].LoadVisuals(mainGame.Content, graphics);
-                        //Controls.guiElements["weaponInfoUI"].Update(gameTime);
+                        Controls.guiElements["weaponInfoUI"].Update(gameTime);
                     }
                     else
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = null;
+
 
                     // PARTICLES
                     for (int i = 0; i < particles.Count; i++ )
@@ -299,7 +298,7 @@ namespace TheChicagoProject
                     {
                         questLogUI.Load(player.log);
                         questLogUI.LoadVisuals(mainGame.Content, graphics);
-                        //questLogUI.Update(gameTime);
+                        questLogUI.Update(gameTime);
                     }
                     //Controls.guiElements["questLog"]
                     /*
@@ -322,7 +321,7 @@ namespace TheChicagoProject
                     {
                         weaponWheelUI.Load(player.inventory);
                         weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
-                        //weaponWheelUI.Update(gameTime);
+                        weaponWheelUI.Update(gameTime);
                     }
                     //Controls.guiElements["weaponWheel"].Update(gameTime);
                     //weapons come from holster
@@ -332,8 +331,8 @@ namespace TheChicagoProject
             // DO THIS FOR SPRITES AND OTHER MOVING THINGS
             // if the GUI is not visible, dont update it.
             foreach (KeyValuePair<string, Control> c in Controls.guiElements)
-                //if (c.Value.IsVisible) // or just loaded.
-                c.Value.Update(gameTime);
+                if (c.Value.IsVisible) // or just loaded.
+                    c.Value.Update(gameTime);
 
             
 

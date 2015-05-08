@@ -34,6 +34,9 @@ namespace TheChicagoProject.GUI.Forms
             textLbl.parent = this;
             Add(textLbl);
 
+            
+
+
             Weapon testWep;
             if ((testWep = item as Weapon) != null)
             {
