@@ -48,7 +48,7 @@ namespace TheChicagoProject
             current = "main";
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "The Screwdriver", 30, 0D) { image = Sprites.spritesDictionary["gatling_gun_preview"] });
+            player.inventory.Add(new Item.Weapon(1000, 1, 3D, "The Screwdriver", 30, 0D) { image = Sprites.spritesDictionary["gatling_gun_preview"] });
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D) { image = Sprites.spritesDictionary["uzi_gun_preview"] });
             player.inventory.Add(new Item.Weapon(400, 3, 10D, "Knife", 1, 5D) { image = Sprites.spritesDictionary["basic_gun_preview"] });
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "w", 30, 100D));
