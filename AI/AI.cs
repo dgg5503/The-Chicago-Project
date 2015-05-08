@@ -30,7 +30,7 @@ namespace TheChicagoProject.AI
         /// return the other tile. Otherwise, assume you're here.
         /// </summary>
         /// <returns>the entity's 'location' X.</returns>
-        private int getEntityX() {
+        protected int getEntityX() {
             float lX = entity.lastLocation.X;
             float nX = movementHack(true, (int) (entity.location.Center.X / Tile.SIDE_LENGTH));
             double d = Math.Abs(lX - nX);
@@ -46,7 +46,7 @@ namespace TheChicagoProject.AI
         /// return the other tile. Otherwise, assume you're here.
         /// </summary>
         /// <returns>the entity's 'location' Y.</returns>
-        private int getEntityY() {
+        protected int getEntityY() {
             float lY = entity.lastLocation.Y;
             float nY = movementHack(false, (int) (entity.location.Center.Y / Tile.SIDE_LENGTH));
             double d = Math.Abs(lY - nY);
@@ -66,13 +66,13 @@ namespace TheChicagoProject.AI
         /// <returns></returns>
         private float movementHack(bool xy, float val) {
             switch (entity.direction) {
-                case Direction.Down:
-                    if (!xy)
-                        return val - 0.5f;
-                    break;
                 case Direction.Up:
                     if (!xy)
                         return val + 0.5f;
+                    break;
+                case Direction.Down:
+                    if (!xy)
+                        return val - 0.5f;
                     break;
                 case Direction.Left:
                     if (xy)
@@ -111,16 +111,18 @@ namespace TheChicagoProject.AI
 
 
             if (ex - 1 > -1) {
-                if (map.Map[ex - 1][ey - 1] == map.Map[ex][ey] - hl) //upleft
-                    return Direction.UpLeft;
+                if (ey - 1 > -1)
+                    if (map.Map[ex - 1][ey - 1] == map.Map[ex][ey] - hl) //upleft
+                        return Direction.UpLeft;
                 if (ey + 1 < map.Map[ex].Length)
                     if (map.Map[ex - 1][ey + 1] == map.Map[ex][ey] - hl) //downleft
                         return Direction.DownLeft;
             }
 
             if (ex + 1 < map.Map.Length) {
-                if (map.Map[ex + 1][ey - 1] == map.Map[ex][ey] - hl) //upright
-                    return Direction.UpRight;
+                if (ey - 1 > -1)
+                    if (map.Map[ex + 1][ey - 1] == map.Map[ex][ey] - hl) //upright
+                        return Direction.UpRight;
                 if (ey + 1 < map.Map[ex].Length)
                     if (map.Map[ex + 1][ey + 1] == map.Map[ex][ey] - hl) //downright
                         return Direction.DownRight;
