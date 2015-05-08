@@ -19,4 +19,5 @@ Living Entity:
 	AI:Low
 End Living Entity
 
-Condition:AllEnemiesDead
+Condition:EnemyDies
+Target:Mugger
