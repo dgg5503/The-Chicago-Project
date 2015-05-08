@@ -51,11 +51,13 @@ namespace TheChicagoProject.GUI
 
                     if (value.image != null)
                         weaponImageContainer.Fill = new FillInfo(value.image.Texture, Color.White);
+                    else
+                        weaponImageContainer.Fill = null;
                 }
                 else
                 {
                     weaponNameLbl.Text = "";
-                    weaponImageContainer.Fill = new FillInfo(Color.Gray);
+                    weaponImageContainer.Fill = null;
                 }
                 item = value;
             }
@@ -83,6 +85,7 @@ namespace TheChicagoProject.GUI
 
             // Weapon image
             weaponImageContainer = new Container();
+            weaponImageContainer.Fill = null;
             weaponImageContainer.Size = new Vector2(64, 64);
             weaponImageContainer.Location = new Vector2(0, -5);
             weaponImageContainer.Alignment = ControlAlignment.Center;

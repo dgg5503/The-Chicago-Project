@@ -166,12 +166,12 @@ namespace TheChicagoProject.GUI.Forms
         /// The border texture for controls, only shows if borderEnabled is true.
         /// </summary>
         //public Texture2D Border { get { return border; } set { border = value; } }
-        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; } } } // do OTF load...
+        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; if (borderInfo.texture != null) { border = borderInfo.texture; } } } } // do OTF load...
         /// <summary>
         /// Sets the fill of the control to some given Texture2D
         /// </summary>
         //public Texture2D Fill { get { return fill; } set { fill = value; } }
-        public FillInfo? Fill { get { return fillInfo; } set { if (value == null) { fillInfo.isDrawn = false; } else { fillInfo = (FillInfo)value; } } } // do OTF load...
+        public FillInfo? Fill { get { return fillInfo; } set { if (value == null) { fillInfo.isDrawn = false; } else { fillInfo = (FillInfo)value; if (fillInfo.texture != null) { fill = fillInfo.texture; } } } } // do OTF load...
         /// <summary>
         /// Gets this frames mouse state
         /// </summary>
@@ -241,22 +241,21 @@ namespace TheChicagoProject.GUI.Forms
         protected virtual void LoadTextures(GraphicsDevice graphics)
         {
             // Fill creation
+             // update size?
             if (fillInfo.texture == null)
             {
                 fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
                 fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
-            }
-            else
-                fill = fillInfo.texture; // update size?
+            }   
 
             // Border creation
+            border = borderInfo.texture; // update size?
             if (borderInfo.texture == null)
             {
                 border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
                 border.CreateBorder(borderInfo.width, Color.White); 
             }
-            else
-                border = borderInfo.texture; // update size?
+                
 
             if (inactiveAlpha == null)
             {

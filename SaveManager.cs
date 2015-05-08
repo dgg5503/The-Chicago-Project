@@ -45,7 +45,7 @@ namespace TheChicagoProject
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
 #endif
-            LoadSave();
+            //LoadSave();
         }
 
         #region load world
