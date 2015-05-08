@@ -91,7 +91,6 @@ namespace TheChicagoProject.GUI
         public DragableControl SetDragableControl(DragableControl controlToSet)
         {
             //Console.WriteLine("OLD: {1} NEW: {0}", controlToSet.Item.name, this.controlInContainer.Item.name);
-            Console.WriteLine("KK {0}", this.ID);
             // if given nothing, dont set anything.
             if (controlToSet == null)
                 return null;
@@ -100,7 +99,6 @@ namespace TheChicagoProject.GUI
            
             if (controlToSet == controlInContainer)
             {
-                Console.WriteLine("Dude same");
                 controlToSet.Location = Vector2.Zero;
                 return null;
                 //return controlToSet;

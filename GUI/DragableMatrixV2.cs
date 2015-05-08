@@ -172,7 +172,6 @@ namespace TheChicagoProject.GUI
             // Check to see if the container released over has a control in it
                 // if so, swap
                 // else add.
-            Console.WriteLine("yhes");
             if (currentDragableControl != null)
             {
                 DragableContainer hoveringOver = sender as DragableContainer;
