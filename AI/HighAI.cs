@@ -23,20 +23,21 @@ namespace TheChicagoProject.AI
         }
 
         public override void Update(GameTime time, EntityManager manager) {
-            DijkstraMap map = manager.world.playerMap;
-            // Float --> int
-            int pX = entity.location.IntX / Tile.SIDE_LENGTH - map.modX;
-            int pY = entity.location.IntY / Tile.SIDE_LENGTH - map.modY;
-            if (pX < 0 || pY < 0 || pX >= map.Map.Length || pY >= map.Map[0].Length)
+            DijkstraMap playerMap = manager.world.playerMap;
+            DijkstraMap fleeMap = manager.world.fleeMap;
+            // Floats --> Ints (D.G. 4/5/15, 920pm)
+            int pX = this.getEntityX() - playerMap.modX;
+            int pY = this.getEntityY() - playerMap.modY;
+            if (pX < 0 || pY < 0 || pX >= playerMap.Map.Length || pY >= playerMap.Map[0].Length)
                 return;
-            int dist = map.Map[pX][pY];
-            Direction furtherDir = findPos(map, -1);
-            Direction closerDir = findPos(map, 1);
+            int dist = playerMap.Map[pX][pY];
+            Direction furtherDir = findPos(fleeMap, -1);
+            Direction closerDir = findPos(playerMap, 1);
             if (dist < 8) {
                 entity.direction = furtherDir;
                 entity.Move();
+                entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else if (dist < 10) {
-                entity.direction = closerDir;
                 entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else {
                 entity.direction = closerDir;

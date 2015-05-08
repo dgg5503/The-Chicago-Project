@@ -67,15 +67,13 @@ namespace TheChicagoProject
                 worlds.Add(current, Game1.Instance.saveManager.LoadWorld(current));
             // DEBUG
 #if DEBUG
-            /*
+
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
-            mugger.ai = new LowAI(mugger);
-            mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 1, 0.5));
+            mugger.ai = new MidAI(mugger);
+            mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 100, 0.5));
             mugger.inventory.ActiveWeapon = 0;
-             * */
-            //worlds["main"].manager.AddEntity(mugger);
+            worlds["main"].manager.AddEntity(mugger);
              
-            // need to fix fleemap lag before renabling the above.
             //Uncommenting just to see if I can load quests again - Sean
 
             worlds["main"].manager.AddEntity(player);
