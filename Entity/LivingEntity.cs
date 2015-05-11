@@ -23,7 +23,7 @@ namespace TheChicagoProject.Entity
 
         protected GameTime time;
 
-        protected double lastShot;
+        public double lastShot;
 
         private static Random rand = new Random();
 
@@ -89,7 +89,7 @@ namespace TheChicagoProject.Entity
 
             this.time = time;
             lastShot += time.ElapsedGameTime.TotalMilliseconds;
-            if (inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D) {
+            if (inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D && inventory.GetEquippedPrimary().Reloading) {
                 inventory.GetEquippedPrimary().Reload();
                 inventory.GetEquippedPrimary().Reloading = false;
             }
