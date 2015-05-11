@@ -298,7 +298,7 @@ namespace TheChicagoProject.Entity
         }
 
         //Ashwin Ganapathiraju
-        public static class InteractionData
+        public class InteractionData
         {
             private List<String> dialogues;
 
