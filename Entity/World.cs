@@ -29,9 +29,11 @@ namespace TheChicagoProject.Entity
         }
 
         //Let's get a random list of valid goal points for civvies to walk towards!
-        private int[][] getRandomGoals() {
+        private int[][] getRandomGoals(int baseNum = 7) {
+            if (baseNum < 0)
+                return null;
             Random random = Game1.Instance.random;
-            int[][] list = new int[random.Next(5) + 4][];
+            int[][] list = new int[random.Next(5) + baseNum][];
             for (int k = 0; k < list.Length; k++) {
                 int x = random.Next(0, worldWidth);
                 int y = random.Next(0, worldHeight);
@@ -44,6 +46,17 @@ namespace TheChicagoProject.Entity
             return list;
         }
 
+        public void SpawnCivilians() {
+            int[][] spawns = this.getRandomGoals(47 - manager.civilianCount);
+            if (spawns == null)
+                return;
+            Console.WriteLine("Spawning : " + spawns.Length + " entities!");
+            foreach (int[] locs in spawns) {
+                NPC civvie = new NPC(new FloatRectangle(locs[0] * Tile.SIDE_LENGTH, locs[1] * Tile.SIDE_LENGTH, 32, 32), Sprites.spritesDictionary["player"], 4);
+                manager.AddEntity(civvie);
+            }
+        }
+
         //Updates the world every frame.
         public void tick(GameTime time) {
             if (civilianMaps == null) { //Initial Setup of the Civilian Walk maps.
@@ -51,6 +64,7 @@ namespace TheChicagoProject.Entity
                 civilianMaps[0] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
                 civilianMaps[1] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
             }
+            SpawnCivilians();
 
             Player player = manager.GetPlayer();
             int pX = player.location.IntX / Tile.SIDE_LENGTH; //The actual player location.
