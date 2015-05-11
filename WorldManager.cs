@@ -77,6 +77,7 @@ namespace TheChicagoProject
 
             LivingEntity civvie = new LivingEntity(new FloatRectangle(384, 247, 32, 32), Sprites.spritesDictionary["player"], 4);
             civvie.ai = new CivilianAI(civvie);
+            civvie.interactData = new Entity.Entity.InteractionData(new List<String>() { "pls no." });
             worlds["main"].manager.AddEntity(civvie);
 
             worlds["main"].manager.AddEntity(player);

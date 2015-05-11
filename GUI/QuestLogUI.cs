@@ -29,7 +29,6 @@ namespace TheChicagoProject.GUI
 
         // "pages"
         private List<QuestInfoBarUI> questInfoBars;
-        private int currentIndex;
         private int topIndex;
         private int botIndex;
 
@@ -47,7 +46,7 @@ namespace TheChicagoProject.GUI
         {
             // Quest pages
             questInfoBars = new List<QuestInfoBarUI>();
-            currentIndex = 0;
+            //currentIndex = 0;
 
             // this info...
             this.Size = new Vector2(600, 400);
@@ -293,7 +292,7 @@ namespace TheChicagoProject.GUI
                 {
                     questBarsContainer.Add(infoBar);
                     topIndex = 4;
-                    currentIndex = 4;
+                    //currentIndex = 4;
                 }
 
                 questInfoBars.Add(infoBar);

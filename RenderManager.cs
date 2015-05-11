@@ -93,7 +93,7 @@ namespace TheChicagoProject
         private GraphicsDevice graphics;
 
         // Last weapon (this is mess)
-        private int lastWep;
+        //private int lastWep;
 
         // The game1 class.
         private Game1 mainGame;
@@ -148,7 +148,7 @@ namespace TheChicagoProject
 
             mainGame.Window.ClientSizeChanged += Window_ClientSizeChanged;
 
-            lastWep = -1;
+            //lastWep = -1;
 
             // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
@@ -398,7 +398,7 @@ namespace TheChicagoProject
 
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection, e.color);
             }
 
             // the above used e.Direction
