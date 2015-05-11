@@ -181,8 +181,9 @@ namespace TheChicagoProject
                     // need to fix fleemap lag before renabling the above.
                     worldManager.Update(gameTime);
                     collisionManager.Update();
-                    worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
                     inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+                    worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
+                    
                     //collisionManager.Update();
                     break;
                 case GameState.Pause:

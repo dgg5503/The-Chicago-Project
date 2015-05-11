@@ -58,7 +58,11 @@ namespace TheChicagoProject
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
                 if (e.markforDelete)
+                {
+                    if (e is Player)
+                        Game1.state = GameState.Menu;
                     entities.Remove(e);
+                }
                 else
                     e.Update(time, this);
             }

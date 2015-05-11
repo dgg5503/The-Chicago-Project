@@ -74,7 +74,6 @@ namespace TheChicagoProject
             mugger.inventory.ActiveWeapon = 0;
             worlds["main"].manager.AddEntity(mugger);
              
-            //Uncommenting just to see if I can load quests again - Sean
 
             worlds["main"].manager.AddEntity(player);
 

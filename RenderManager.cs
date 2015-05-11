@@ -263,7 +263,6 @@ namespace TheChicagoProject
                     // casting takes a lot of time, a way to check if user changed weapon??
                     // UI (health, current wep, other stuff)
                     //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
-
                     // WHAT IF PLAYER CHANGES WORLD (?) -Fixed?(Sean)
                     player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
                     
