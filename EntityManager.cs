@@ -97,7 +97,7 @@ namespace TheChicagoProject
                     return;
                 }
 
-                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable) {
+                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable && !mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].FileName.Equals("Water.png")) {
                     break;
                 }
 
