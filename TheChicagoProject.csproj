@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\CivilianAI.cs" />
     <Compile Include="AI\HighAI.cs" />
     <Compile Include="AI\LowAI.cs" />
     <Compile Include="AI\MidAI.cs" />
