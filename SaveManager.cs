@@ -44,6 +44,10 @@ namespace TheChicagoProject
                 World mainworld = LoadWorld("main");
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
+            else
+            {
+                LoadSave();
+            }
 #endif
             //LoadSave();
         }

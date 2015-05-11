@@ -72,6 +72,7 @@ namespace TheChicagoProject
             mugger.ai = new MidAI(mugger);
             mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 100, 0.5));
             mugger.inventory.ActiveWeapon = 0;
+            mugger.interactData = new Entity.Entity.InteractionData(new List<String>() { "I bite my thumb at you, sir!" });
             worlds["main"].manager.AddEntity(mugger);
              
 
