@@ -47,7 +47,7 @@ namespace TheChicagoProject.Entity
         {
             //cash = 40;
             questPoints = 0;
-            lives = 4;
+            lives = 10;
             direction = Direction.Up;
             rand = new Random();
             log = new Quests.QuestLog();

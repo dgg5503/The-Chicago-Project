@@ -36,6 +36,7 @@ namespace TheChicagoProject.GUI
                 {
                     moneyLbl.Text = String.Format("${0,5:D8}", value.Cash);
                     healthBar.CurrentValue = value.health;
+                    healthBar.MaxValue = value.maxHealth;
                 }
                 else
                 {

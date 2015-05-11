@@ -60,13 +60,13 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(FloatRectangle rect, Sprite sprite, int health, AI.AI ai = null, int cash = 0, int interactRange = 20, int interactBoundsOffsetY = 20, int interactBoundsOffsetX = 0)
+        public LivingEntity(FloatRectangle rect, Sprite sprite, int health, AI.AI ai = null, int cash = 0, int interactBoundsOffsetY = 0, int interactBoundsOffsetX = 0)
             : base(rect, sprite) {
             inventory = new Inventory();
             time = new GameTime();
             lastShot = 60000D;
 
-            this.interactRange = interactRange;
+            interactRange = 32;
             // the below depend on texture, this should not be needed ever but because of the player texture it is...
             this.interactBoundsOffsetY = interactBoundsOffsetY;
             this.interactBoundsOffsetX = interactBoundsOffsetX;
@@ -136,14 +136,26 @@ namespace TheChicagoProject.Entity
          *      - closest to the player or first to find?
          */
 
+        // spending too much time on making this versatile, this can only be 32 units away from player.
         public void Interact() {
             // ray cast
-            RotatedRectangle rayCast = new RotatedRectangle(new FloatRectangle(location.X + interactBoundsOffsetX + ((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 2)), location.Y + interactBoundsOffsetY + ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 2)), sprite.Texture.Height, interactRange), faceDirection);
+            RotatedRectangle rayCast = new RotatedRectangle(new FloatRectangle((location.Center.X + (((sprite.Texture.Width) * (float)Math.Cos(faceDirection - Math.PI / 2))) - (sprite.Texture.Width / 2)), (location.Center.Y + (((sprite.Texture.Height) * (float)Math.Sin(faceDirection - Math.PI / 2))) - (interactRange / 2)), sprite.Texture.Width * 2, interactRange * 2), faceDirection);
 
+            //FloatRectangle rectangleToRotate = new FloatRectangle(location.X + 5 + (sprite.Texture.Width * (float)Math.Cos(faceDirection - Math.PI / 2)), location.Y + 5 + (sprite.Texture.Height * (float)Math.Sin(faceDirection - Math.PI / 2)), sprite.Texture.Width, interactRange);
+
+            //FloatRectangle rectangleToRotate = new FloatRectangle(location.Center.X - sprite.Texture.Width / 2, location.Center.Y - interactRange / 2, sprite.Texture.Width, interactRange);
+            //RotatedRectangle rayCast = new RotatedRectangle(rectangleToRotate, faceDirection);
+            
+
+            //Console.WriteLine("Radius: {0}", Vector2.Distance(location.Location, rayCast.UpperLeftCorner()));
+            //Console.WriteLine("X: {0}, Y: {1} Theta: {2}", rayCast.X - location.X, rayCast.Y - location.Y, faceDirection);
+            //Console.Write("ThisX: {0}, ThisY: {1}", location.X, locat)
             // tiles to do a check for entities
             CollisionTile[] intersectingTiles = CurrentCollisionTile.GetAdjacentTilesFromIntersection(rayCast);
-
+             
             // foreach through each tile, foreach through each ent list and find ent closest to this ent.
+            // starts with distance from edge midpoint closest to player to top left corner.
+            // the closer items are to player, that item will be acted upon.
             float shortestDistance = (float) Math.Sqrt((interactRange * interactRange) + ((rayCast.Width * rayCast.Width) / 4));
 
             Entity entityToInteract = null;

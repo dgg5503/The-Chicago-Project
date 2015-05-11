@@ -211,7 +211,7 @@ namespace TheChicagoProject
             // the game by a little.
 
             // its placed above the loading of textures and content so text aligns properly.
-            (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+            
 
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
                 c.Value.LoadVisuals(mainGame.Content, graphics);
@@ -263,9 +263,13 @@ namespace TheChicagoProject
                     // casting takes a lot of time, a way to check if user changed weapon??
                     // UI (health, current wep, other stuff)
                     //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
+                    
                     // WHAT IF PLAYER CHANGES WORLD (?) -Fixed?(Sean)
                     player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
-                    
+
+                    // VV Very Slow VV
+                    (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+
                     if (player.inventory.ActiveWeapon >= 0)
                     {
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];

@@ -46,6 +46,7 @@ namespace TheChicagoProject.Entity
             return list;
         }
 
+        /*
         public void SpawnCivilians() {
             int[][] spawns = this.getRandomGoals(47 - manager.civilianCount);
             if (spawns == null)
@@ -55,7 +56,7 @@ namespace TheChicagoProject.Entity
                 NPC civvie = new NPC(new FloatRectangle(locs[0] * Tile.SIDE_LENGTH, locs[1] * Tile.SIDE_LENGTH, 32, 32), Sprites.spritesDictionary["player"], 4);
                 manager.AddEntity(civvie);
             }
-        }
+        }*/
 
         //Updates the world every frame.
         public void tick(GameTime time) {
@@ -64,7 +65,7 @@ namespace TheChicagoProject.Entity
                 civilianMaps[0] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
                 civilianMaps[1] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
             }
-            SpawnCivilians();
+            //SpawnCivilians();
 
             Player player = manager.GetPlayer();
             int pX = player.location.IntX / Tile.SIDE_LENGTH; //The actual player location.
