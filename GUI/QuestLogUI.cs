@@ -265,6 +265,7 @@ namespace TheChicagoProject.GUI
                 infoBar.parent = questBarsContainer;
                 infoBar.Click += infoBar_Click;
                 infoBar.Load(quest);
+                infoBar.LoadVisuals();
 
                 if (questInfoBars.Count < 4)
                     questBarsContainer.Add(infoBar);
