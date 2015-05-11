@@ -15,6 +15,7 @@ namespace TheChicagoProject.AI
         public CivilianAI(LivingEntity entity)
             : base(entity) {
             mapToUse = Game1.Instance.random.Next(0, 2);
+            entity.color = Color.Green;
             //Console.WriteLine(entity.GetType().FullName + " #" + entity.GetHashCode() + " is using map: " + mapToUse + "!");
         }
 
