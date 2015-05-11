@@ -218,6 +218,15 @@
     <None Include="Content\Quests\Mugging.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Quests\Mugging1.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Quests\Mugging2.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Quests\Mugging3.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Quests\Sniper.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

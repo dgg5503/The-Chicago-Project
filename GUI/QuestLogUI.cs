@@ -161,86 +161,29 @@ namespace TheChicagoProject.GUI
             // hide last that were on and toggle last four.
             questBarsContainer.Clear();
 
-            //int newBot = botIndex + 4;
             if (botIndex == 0)
             {
                 topIndex = questInfoBars.Count;
-                botIndex = questInfoBars.Count - 3;
+                botIndex = questInfoBars.Count - (questInfoBars.Count % 4);
             }
             else
             {
                 if (botIndex - 4 < 0)
-                    botIndex = questInfoBars.Count - 3;
+                    botIndex -= questInfoBars.Count % 4;
                 else
                     botIndex -= 4;
-                
+
                 if (topIndex - 4 < 0)
                     topIndex = questInfoBars.Count;
                 else
-                    topIndex -= 3;
+                    topIndex = botIndex + 4;
                  
-               // topIndex -= 4;
             }
-            /*
-            //currentIndex += 4;
-            int newMax = currentIndex;
 
-            if (newMax == questInfoBars.Count)
-            {
-                newMax = 4;
-                currentIndex = 0;
-            }
-            else
-            {
-                if (newMax + 4 > questInfoBars.Count)
-                    newMax += questInfoBars.Count - newMax;
-            }
-            */
-            // isvisible????
-            //int lastFoundIndex = currentIndex;
             for (int i = botIndex; i < topIndex; i++)
             {
                 questBarsContainer.Add(questInfoBars[i]);
-                //lastFoundIndex = i;
             }
-
-            /*
-            int newMax = currentIndex;
-
-            if (newMax - 4 <= 0)
-            {
-                newMax = questInfoBars.Count;
-                currentIndex = questInfoBars.Count - 3;
-            }
-            else
-                currentIndex -= 4;
-
-            // isvisible????
-            int lastFoundIndex = currentIndex;
-            for (int i = currentIndex; i < newMax && i < questInfoBars.Count; i++)
-            {
-                questBarsContainer.Add(questInfoBars[i]);
-                lastFoundIndex = i;
-            }
-            newMax = currentIndex;
-            */
-            /*
-            int newMax = currentIndex;
-
-            if (newMax - 4 < 0)
-                newMax = questInfoBars.Count - newMax;
-            else
-                newMax -= 4;
-
-            // isvisible????
-            int lastFoundIndex = currentIndex;
-            for (int i = currentIndex; i < newMax && i < questInfoBars.Count; i++)
-            {
-                questBarsContainer.Add(questInfoBars[i]);
-                lastFoundIndex = i;
-            }
-            currentIndex = lastFoundIndex;
-             * */
         }
 
         void pageForwardButton_Click(object sender, EventArgs e)
@@ -248,7 +191,6 @@ namespace TheChicagoProject.GUI
             // hide last that were on and toggle next four.
             questBarsContainer.Clear();
 
-            //int newBot = botIndex + 4;
             if (topIndex == questInfoBars.Count)
             {
                 topIndex = 4;
@@ -266,30 +208,11 @@ namespace TheChicagoProject.GUI
                 else
                     topIndex += 4;
             }
-            /*
-            //currentIndex += 4;
-            int newMax = currentIndex;
 
-            if (newMax == questInfoBars.Count)
-            {
-                newMax = 4;
-                currentIndex = 0;
-            }
-            else
-            {
-                if (newMax + 4 > questInfoBars.Count)
-                    newMax += questInfoBars.Count - newMax;
-            }
-            */
-            // isvisible????
-            //int lastFoundIndex = currentIndex;
             for (int i = botIndex; i < topIndex; i++)
             {
                 questBarsContainer.Add(questInfoBars[i]);
-                //lastFoundIndex = i;
             }
-            //currentIndex = lastFoundIndex + 1;
-            
         }
 
         void startQuestButton_Click(object sender, EventArgs e)

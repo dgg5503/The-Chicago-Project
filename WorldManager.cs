@@ -116,6 +116,21 @@ namespace TheChicagoProject
             sniper3.SetAvailable();
             player.log.Add(sniper3);
             this.worldQuests.Add(sniper3);
+
+            Quest mugging1 = SaveManager.ParseQuest("./Content/Quests/Mugging1.quest");
+            mugging1.SetAvailable();
+            player.log.Add(mugging1);
+            this.worldQuests.Add(mugging1);
+
+            Quest mugging2 = SaveManager.ParseQuest("./Content/Quests/Mugging2.quest");
+            mugging2.SetAvailable();
+            player.log.Add(mugging2);
+            this.worldQuests.Add(mugging2);
+
+            Quest mugging3 = SaveManager.ParseQuest("./Content/Quests/Mugging3.quest");
+            mugging3.SetAvailable();
+            player.log.Add(mugging3);
+            this.worldQuests.Add(mugging3);
             
             /*
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);
