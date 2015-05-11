@@ -223,10 +223,11 @@ namespace TheChicagoProject
             renderManager.Draw(gameTime);
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(debugFont, "(" + worldManager.CurrentWorld.manager.GetPlayer().location.X + ", " + worldManager.CurrentWorld.manager.GetPlayer().location.Y + ")",
-                new Vector2(10f, GraphicsDevice.Viewport.Height - 16),
-                Color.HotPink
-                );
+            if(worldManager.CurrentWorld.manager.GetPlayer() != null)
+                spriteBatch.DrawString(debugFont, "(" + worldManager.CurrentWorld.manager.GetPlayer().location.X + ", " + worldManager.CurrentWorld.manager.GetPlayer().location.Y + ")",
+                    new Vector2(10f, GraphicsDevice.Viewport.Height - 16),
+                    Color.HotPink
+                    );
             spriteBatch.End();
 
             base.Draw(gameTime);
