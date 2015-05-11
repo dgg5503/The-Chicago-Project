@@ -296,11 +296,12 @@ namespace TheChicagoProject.Entity
             throw new NotImplementedException();
         }
 
-        public virtual void Action(LivingEntity interactor) {
-            if (interactData == null)
-                return;
+        public virtual bool Action(LivingEntity interactor) {
+            if (interactData == null || markforDelete)
+                return false;
             foreach(String s in interactData.Dialogue)
                 Console.WriteLine(s);
+            return true;
         }
 
         //Ashwin Ganapathiraju
