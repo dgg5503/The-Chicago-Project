@@ -15,13 +15,13 @@ namespace TheChicagoProject.Entity
                 this.item = item;
         }
 
-        public override void Action(LivingEntity interactor) {
-            if (item == null)
-                return;
-            base.Action(interactor);
+        public override bool Action(LivingEntity interactor) {
+            if (item == null || !base.Action(interactor))
+                return false;
             interactor.inventory.Add(item);
             this.item = null;
             this.markforDelete = true;
+            return true;
         }
     }
 }
