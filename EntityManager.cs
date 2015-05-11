@@ -63,6 +63,10 @@ namespace TheChicagoProject
                 Entity.Entity e = entities[x];
                 if (e is LivingEntity && ((LivingEntity) e).health < 1) {
                     entities.Remove(e);
+                    if(e is Player)
+                    {
+                        Game1.state = GameState.Menu;
+                    }
                 } else {
                     e.Update(time, this);
                 }
