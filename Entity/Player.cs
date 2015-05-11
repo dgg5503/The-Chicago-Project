@@ -52,6 +52,7 @@ namespace TheChicagoProject.Entity
             rand = new Random();
             log = new Quests.QuestLog();
             health = lives;
+            color = Color.White;
         }
 
         public Point Cursor

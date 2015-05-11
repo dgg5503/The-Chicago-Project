@@ -37,6 +37,8 @@ namespace TheChicagoProject.Entity
 
         private float interactBoundsOffsetX;
 
+        public Color color;
+
         /// <summary>
         /// Gets or sets the amount of cash the player has
         /// </summary>
@@ -74,6 +76,8 @@ namespace TheChicagoProject.Entity
             this.ai = ai;
 
             maxHealth = health;
+
+            color = Color.Red;
         }
 
         /// <summary>

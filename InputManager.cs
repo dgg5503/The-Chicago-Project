@@ -244,7 +244,7 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
-                if (player.inventory.GetEquippedPrimary().LoadedAmmo != player.inventory.GetEquippedPrimary().maxClip && player.inventory.GetEquippedPrimary().Ammo > 0)
+                if (player.inventory.GetEquippedPrimary().LoadedAmmo != player.inventory.GetEquippedPrimary().maxClip && player.inventory.GetEquippedPrimary().Ammo > 0 && !player.inventory.GetEquippedPrimary().Reloading)
                 {
                     player.Reload();
                 }
