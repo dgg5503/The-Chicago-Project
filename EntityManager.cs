@@ -59,10 +59,16 @@ namespace TheChicagoProject
                 Entity.Entity e = entities[x];
                 if (e.markforDelete)
                 {
-                    entities.Remove(e);
+                    
                     if (e is Player)
                     {
                         Game1.state = GameState.Menu;
+                        (e as Player).health = 4;
+                        e.markforDelete = false;
+                    }
+                    else
+                    {
+                        entities.Remove(e);
                     }
                     
                 }
