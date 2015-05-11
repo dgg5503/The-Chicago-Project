@@ -80,6 +80,7 @@ namespace TheChicagoProject
 
             Quest mugging = SaveManager.ParseQuest("./Content/Quests/Mugging.quest");
             mugging.SetAvailable();
+            mugging.worldManager = this;
             player.log.Add(mugging);
             this.worldQuests.Add(mugging);
 

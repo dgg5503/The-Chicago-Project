@@ -50,7 +50,7 @@ namespace TheChicagoProject.Quests
 
         //Constructor
         public Storyline(string name, string objective, string description, Vector2 StartPoint, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 0, int cashReward = 0) 
-            : base(name, objective, description, StartPoint, player, worldManager, winCondition, reward, cashReward)
+            : base(name, objective, description, StartPoint, player, winCondition, reward, cashReward)
         {
             quests = new List<Quest>();
         }
