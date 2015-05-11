@@ -294,11 +294,12 @@ namespace TheChicagoProject.Entity
         }
 
         public virtual void Action(LivingEntity interactor) {
-
+            foreach(String s in interactData.Dialogue)
+                Console.WriteLine(s);
         }
 
         //Ashwin Ganapathiraju
-        public static class InteractionData
+        public class InteractionData
         {
             private List<String> dialogues;
 
