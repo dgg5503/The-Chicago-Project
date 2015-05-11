@@ -297,6 +297,8 @@ namespace TheChicagoProject.Entity
         }
 
         public virtual void Action(LivingEntity interactor) {
+            if (interactData == null)
+                return;
             foreach(String s in interactData.Dialogue)
                 Console.WriteLine(s);
         }
