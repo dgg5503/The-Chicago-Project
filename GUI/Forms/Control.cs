@@ -94,6 +94,12 @@ namespace TheChicagoProject.GUI.Forms
     // Douglas Gliner
     public abstract class Control
     {
+        // Graphics manager used to load stuff into this control
+        private GraphicsDevice graphics;
+
+        // Content manager used to load stuff into this control.
+        private ContentManager contentManager;
+
         // Private list of controls.
         private List<Control> controls;
 
@@ -242,7 +248,12 @@ namespace TheChicagoProject.GUI.Forms
 
         protected virtual void LoadTextures(GraphicsDevice graphics)
         {
+            if(graphics == null)
+                throw new Exception("No graphics device defined!");
+
             // Fill creation
+            this.graphics = graphics;
+
              // update size?
             if (fillInfo.texture == null)
             {
@@ -273,6 +284,11 @@ namespace TheChicagoProject.GUI.Forms
         protected virtual void LoadContent(ContentManager contentManager)
         {
             // PERHAPS MAKE INTERFACE FOR OBJECTS REQUIRING TEXT? (?)
+            if(contentManager == null)
+                throw new Exception("No content manager defined!");
+
+            this.contentManager = contentManager;
+
             font = contentManager.Load<SpriteFont>("Font/" + fontFile);
 
             foreach (Control c in controls)
@@ -284,9 +300,14 @@ namespace TheChicagoProject.GUI.Forms
         {
             if (contentManager != null)
                 LoadContent(contentManager);
+            else
+                LoadContent(RootControl(this).contentManager);
+
 
             if (graphics != null)
                 LoadTextures(graphics);
+            else
+                LoadTextures(RootControl(this).graphics);
         }
         
 

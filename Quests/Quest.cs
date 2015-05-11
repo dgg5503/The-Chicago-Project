@@ -25,7 +25,7 @@ namespace TheChicagoProject.Quests
         private Vector2 startPoint;
         private int reward;
         private int cashReward;
-        private WorldManager worldManager;
+        public WorldManager worldManager;
         private WinCondition winCondition;
         private LivingEntity enemyToKill;
         private LivingEntity recipient;
@@ -75,7 +75,7 @@ namespace TheChicagoProject.Quests
         public Item.Item FindThis { get { return findThis; } set { findThis = value; } }
 
         //Constructor
-        public Quest(string name, string objective, string description, Vector2 start, Player player, WorldManager worldManager, WinCondition winCondition, int reward = 1, int cashReward = 10)
+        public Quest(string name, string objective, string description, Vector2 start, Player player, WinCondition winCondition, int reward = 1, int cashReward = 10)
         {
             this.name = name;
             this.objective = objective;
@@ -84,7 +84,7 @@ namespace TheChicagoProject.Quests
             this.Reward = reward;
             this.CashReward = cashReward;
             this.player = player;
-            this.worldManager = worldManager;
+            this.worldManager = Game1.Instance.worldManager;
             this.winCondition = winCondition;
             entitites = new List<Entity.Entity>();
             status = 0;

@@ -207,6 +207,8 @@ namespace TheChicagoProject.GUI
                 currentIndex = newMax - 1;
 
                 questUI.LoadedQuest.StartQuest();
+
+                Game1.state = GameState.Game;
             }
         }
 
@@ -265,6 +267,7 @@ namespace TheChicagoProject.GUI
                 infoBar.parent = questBarsContainer;
                 infoBar.Click += infoBar_Click;
                 infoBar.Load(quest);
+                infoBar.LoadVisuals();
 
                 if (questInfoBars.Count < 4)
                     questBarsContainer.Add(infoBar);

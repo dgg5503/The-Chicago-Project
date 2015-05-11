@@ -26,7 +26,7 @@ namespace TheChicagoProject.Quests
 
 
         //constructor
-        public Mugging(string name, string objective, string description, Vector2 start, Player player, WorldManager manager) : base(name, objective, description, start, player, manager, WinCondition.EnemyDies, 0, 10)
+        public Mugging(string name, string objective, string description, Vector2 start, Player player) : base(name, objective, description, start, player, WinCondition.EnemyDies, 0, 10)
         {
             
             mugger = new LivingEntity(new FloatRectangle(start.X, start.Y, MUGGER_WIDTH, MUGGER_WIDTH), Sprites.spritesDictionary["mugger"], 10);

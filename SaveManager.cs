@@ -608,7 +608,7 @@ namespace TheChicagoProject
 #endregion
 
                     //Create the quest
-                    quest = new Quest(name, objective, description, start, null, null, condition, qPoints, cash);
+                    quest = new Quest(name, objective, description, start, null, condition, qPoints, cash);
 
                     //add the entities to the quests entitiy list
                     foreach (Entity.LivingEntity entity in livingEntities.Values.ToList())
