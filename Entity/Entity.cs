@@ -41,6 +41,9 @@ namespace TheChicagoProject.Entity
         //Interaction Data for Quests / Action-Interact
         public InteractionData interactData;
 
+        //Remove this entity if true!
+        public bool markforDelete;
+
         /// <summary>
         /// The constructor for the base entity.
         /// </summary>

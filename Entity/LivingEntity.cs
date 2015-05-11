@@ -84,6 +84,11 @@ namespace TheChicagoProject.Entity
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
 
+            if (this.health <= 0) {
+                this.markforDelete = true;
+                return;
+            }
+
             if (ai != null)
                 ai.Update(time, manager);
 
