@@ -158,10 +158,43 @@ namespace TheChicagoProject.GUI
         {
             // hide last that were on and toggle last four.
             questBarsContainer.Clear();
-            
-            //questBarsContainer.Add(infoBar);
-            
-            throw new NotImplementedException();
+
+            int newMax = currentIndex;
+
+            if (newMax - 4 <= 0)
+            {
+                newMax = questInfoBars.Count;
+                currentIndex = questInfoBars.Count - 3;
+            }
+            else
+                newMax -= 4;
+
+            // isvisible????
+            int lastFoundIndex = currentIndex;
+            for (int i = currentIndex; i < newMax && i < questInfoBars.Count; i++)
+            {
+                questBarsContainer.Add(questInfoBars[i]);
+                lastFoundIndex = i;
+            }
+            currentIndex = newMax + 1;
+
+            /*
+            int newMax = currentIndex;
+
+            if (newMax - 4 < 0)
+                newMax = questInfoBars.Count - newMax;
+            else
+                newMax -= 4;
+
+            // isvisible????
+            int lastFoundIndex = currentIndex;
+            for (int i = currentIndex; i < newMax && i < questInfoBars.Count; i++)
+            {
+                questBarsContainer.Add(questInfoBars[i]);
+                lastFoundIndex = i;
+            }
+            currentIndex = lastFoundIndex;
+             * */
         }
 
         void pageForwardButton_Click(object sender, EventArgs e)
@@ -169,42 +202,36 @@ namespace TheChicagoProject.GUI
             // hide last that were on and toggle next four.
             questBarsContainer.Clear();
 
+            //currentIndex += 4;
             int newMax = currentIndex;
 
-            if (newMax + 4 > questInfoBars.Count)
-                newMax = questInfoBars.Count - newMax;
+            if (newMax == questInfoBars.Count)
+            {
+                newMax = 4;
+                currentIndex = 0;
+            }
             else
-                newMax += 4;
+            {
+                if (newMax + 4 > questInfoBars.Count)
+                    newMax += questInfoBars.Count - newMax;
+            }
 
             // isvisible????
-
-            for (int i = currentIndex; i < newMax; i++)
+            int lastFoundIndex = currentIndex;
+            for (int i = currentIndex; i < newMax && i < questInfoBars.Count; i++)
             {
                 questBarsContainer.Add(questInfoBars[i]);
+                lastFoundIndex = i;
             }
-            currentIndex = newMax - 1;
+            currentIndex = lastFoundIndex + 1;
+            
         }
 
         void startQuestButton_Click(object sender, EventArgs e)
         {
             if(questUI.LoadedQuest != null && questUI.LoadedQuest.Status == 1)
             {
-                questBarsContainer.Clear();
-
-                int newMax = currentIndex;
-
-                if (newMax - 4 < 0)
-                    newMax = questInfoBars.Count - newMax;
-                else
-                    newMax -= 4;
-
-                // isvisible????
-
-                for (int i = currentIndex; i < newMax; i++)
-                {
-                    questBarsContainer.Add(questInfoBars[i]);
-                }
-                currentIndex = newMax - 1;
+                
 
                 questUI.LoadedQuest.StartQuest();
             }
@@ -256,7 +283,7 @@ namespace TheChicagoProject.GUI
             int count = 0;
             foreach(Quest quest in log)
             {
-                if (count > 4)
+                if (count == 4)
                     count = 0;
 
                 QuestInfoBarUI infoBar = new QuestInfoBarUI(new Vector2(200, 80));
@@ -268,7 +295,10 @@ namespace TheChicagoProject.GUI
                 infoBar.LoadVisuals();
 
                 if (questInfoBars.Count < 4)
+                {
                     questBarsContainer.Add(infoBar);
+                    currentIndex = 4;
+                }
 
                 questInfoBars.Add(infoBar);
                 count++;

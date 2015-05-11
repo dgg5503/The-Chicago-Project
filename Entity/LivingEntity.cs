@@ -164,6 +164,7 @@ namespace TheChicagoProject.Entity
 
             // do interact method here... (events or method?)
             Game1.Instance.renderManager.EmitParticle(new RectangleOutline(new RotatedRectangle(entityToInteract.location, 0), Color.Purple, 1));
+            
         }
 
         /// <summary>

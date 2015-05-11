@@ -117,6 +117,9 @@ namespace TheChicagoProject.GUI.Forms
         // Default spriteFont
         private SpriteFont font;
 
+        // Gametime for this control
+        private GameTime gameTime;
+
         // Font XNB file.
         private string fontFile;
 
@@ -259,15 +262,19 @@ namespace TheChicagoProject.GUI.Forms
             {
                 fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
                 fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
-            }   
+            }
+            else
+                fill = fillInfo.texture;
 
             // Border creation
             border = borderInfo.texture; // update size?
             if (borderInfo.texture == null)
             {
                 border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-                border.CreateBorder(borderInfo.width, Color.White); 
+                border.CreateBorder(borderInfo.width, Color.White);
             }
+            else
+                border = borderInfo.texture;
                 
 
             if (inactiveAlpha == null)
@@ -289,7 +296,8 @@ namespace TheChicagoProject.GUI.Forms
 
             this.contentManager = contentManager;
 
-            font = contentManager.Load<SpriteFont>("Font/" + fontFile);
+            if(font == null)
+                font = contentManager.Load<SpriteFont>("Font/" + fontFile);
 
             foreach (Control c in controls)
                 c.LoadContent(contentManager);
@@ -314,6 +322,7 @@ namespace TheChicagoProject.GUI.Forms
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
         {
+            this.gameTime = gameTime;
             if (isActive)
             {
                 currentFrameMouseState = Mouse.GetState();
@@ -545,7 +554,13 @@ namespace TheChicagoProject.GUI.Forms
                 throw new InvalidOperationException();
 
             controls.Add(control);
-        
+            /*
+            if(RootControl(this).graphics != null && RootControl(this).contentManager != null)
+                control.LoadVisuals();
+            
+            if(RootControl(this).gameTime != null)
+                control.Update(RootControl(this).gameTime);
+             */
             //controls.Add(control.parent = this);
         }
     }
