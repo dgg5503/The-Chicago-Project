@@ -294,7 +294,8 @@ namespace TheChicagoProject.Entity
         }
 
         public virtual void Action(LivingEntity interactor) {
-
+            foreach(String s in interactData.Dialogue)
+                Console.WriteLine(s);
         }
 
         //Ashwin Ganapathiraju
