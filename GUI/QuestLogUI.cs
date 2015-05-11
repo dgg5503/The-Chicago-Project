@@ -57,7 +57,7 @@ namespace TheChicagoProject.GUI
             Container headerContainer = new Container();
             headerContainer.Size = new Vector2(this.Size.X, 20);
             headerContainer.Alignment = ControlAlignment.Left;
-            headerContainer.parent = this;
+            //headerContainer.parent = this;
             Add(headerContainer);
 
             // Exit quest log
@@ -67,7 +67,7 @@ namespace TheChicagoProject.GUI
             closeButton.Alignment = ControlAlignment.Right;
             closeButton.Text = "X";
             closeButton.Click += closeButton_Click;
-            closeButton.parent = headerContainer;
+            //closeButton.parent = headerContainer;
             headerContainer.Add(closeButton);
 
             // Header
@@ -75,7 +75,7 @@ namespace TheChicagoProject.GUI
             questLogHeaderLabel.Alignment = ControlAlignment.Center;
             questLogHeaderLabel.Text = "QUEST LOG";
             questLogHeaderLabel.Color = Color.Black;
-            questLogHeaderLabel.parent = headerContainer;
+            //questLogHeaderLabel.parent = headerContainer;
             Add(questLogHeaderLabel);
 
             // Quest bar container
@@ -83,7 +83,7 @@ namespace TheChicagoProject.GUI
             questBarsContainer.Alignment = ControlAlignment.Left;
             questBarsContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .85f);
             questBarsContainer.Location = new Vector2(0, headerContainer.Size.Y);
-            questBarsContainer.parent = this;
+            //questBarsContainer.parent = this;
             Add(questBarsContainer);
 
             // Forward backward button container
@@ -93,7 +93,7 @@ namespace TheChicagoProject.GUI
             //questUI.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .80f);
             questUI.Alignment = ControlAlignment.Right;
             questUI.Location = new Vector2(0, headerContainer.Size.Y);
-            questUI.parent = this;
+            //questUI.parent = this;
             Add(questUI);
 
             // quest buttons container.
@@ -101,7 +101,7 @@ namespace TheChicagoProject.GUI
             questActionsContainer.Alignment = ControlAlignment.Right;
             questActionsContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .15f);
             questActionsContainer.Location = new Vector2(0, questUI.Size.Y + headerContainer.Size.Y);
-            questActionsContainer.parent = this;
+            //questActionsContainer.parent = this;
             Add(questActionsContainer);
             
             // the buttons...
@@ -112,7 +112,7 @@ namespace TheChicagoProject.GUI
             startQuestButton.IsActive = false;
             startQuestButton.Text = "Start Quest";
             startQuestButton.Click += startQuestButton_Click;
-            startQuestButton.parent = questActionsContainer;
+            //startQuestButton.parent = questActionsContainer;
             questActionsContainer.Add(startQuestButton);
 
             stopQuestButton = new Button();
@@ -122,7 +122,7 @@ namespace TheChicagoProject.GUI
             stopQuestButton.IsActive = false;
             stopQuestButton.Text = "Stop Quest";
             stopQuestButton.Click += stopQuestButton_Click;
-            stopQuestButton.parent = questActionsContainer;
+            //stopQuestButton.parent = questActionsContainer;
             questActionsContainer.Add(stopQuestButton);
 
             // page button container
@@ -130,7 +130,7 @@ namespace TheChicagoProject.GUI
             pageButtonContainer.Alignment = ControlAlignment.Left;
             pageButtonContainer.Size = new Vector2(this.Size.X / 2, (this.Size.Y - headerContainer.Size.Y) * .15f);
             pageButtonContainer.Location = new Vector2(0, questUI.Size.Y + headerContainer.Size.Y);
-            pageButtonContainer.parent = this;
+            //pageButtonContainer.parent = this;
             Add(pageButtonContainer);
 
             // forward button
@@ -141,7 +141,7 @@ namespace TheChicagoProject.GUI
             pageForwardButton.IsActive = false;
             pageForwardButton.Text = "Forward >";
             pageForwardButton.Click += pageForwardButton_Click;
-            pageForwardButton.parent = pageButtonContainer;
+            //pageForwardButton.parent = pageButtonContainer;
             pageButtonContainer.Add(pageForwardButton);
 
             // back button
@@ -152,7 +152,7 @@ namespace TheChicagoProject.GUI
             pageBackwardButton.IsActive = false;
             pageBackwardButton.Text = "< Backward";
             pageBackwardButton.Click += pageBackwardButton_Click;
-            pageBackwardButton.parent = pageButtonContainer;
+            //pageBackwardButton.parent = pageButtonContainer;
             pageButtonContainer.Add(pageBackwardButton);
         }
 
@@ -267,6 +267,10 @@ namespace TheChicagoProject.GUI
             questLogHeaderLabel.Location = new Vector2(questLogHeaderLabel.parent.Size.X / 2 - questLogHeaderLabel.Size.X / 2, questLogHeaderLabel.Location.Y);
         }
 
+        /// <summary>
+        /// WARNING, hard coded for only 4 quest info bars to display at a time!!
+        /// </summary>
+        /// <param name="log"></param>
         public void Load(QuestLog log)
         {
             
@@ -283,7 +287,7 @@ namespace TheChicagoProject.GUI
                 infoBar.parent = questBarsContainer;
                 infoBar.Click += infoBar_Click;
                 infoBar.Load(quest);
-                infoBar.LoadVisuals();
+                //infoBar.LoadVisuals();
 
                 if (questInfoBars.Count < 4)
                 {
@@ -313,7 +317,7 @@ namespace TheChicagoProject.GUI
                     questUI.Load(infoBar.LoadedQuest);
 
                     // load visuals
-                    questUI.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
+                    //questUI.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
 
                     // show actions buttons based on quest info.
                     // start stop quest buttons.

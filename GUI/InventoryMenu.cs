@@ -73,7 +73,7 @@ namespace TheChicagoProject.GUI
             Container multiMatContainer = new Container();
             multiMatContainer.Size = new Vector2(this.Size.X * .90f, this.Size.Y * .80f);
             multiMatContainer.Alignment = ControlAlignment.Center;
-            multiMatContainer.parent = this;
+            //multiMatContainer.parent = this;
             
 
             // Action button container.
@@ -93,21 +93,21 @@ namespace TheChicagoProject.GUI
             closeButton.Alignment = ControlAlignment.Right;
             closeButton.Text = "Close Inventory";
             closeButton.Click += closeButton_Click;
-            closeButton.parent = actionButtonsContainer;
+            //closeButton.parent = actionButtonsContainer;
             actionButtonsContainer.Add(closeButton);
 
             // Inventory matrix.
             inventoryMatrix = new DragableMatrixV2(new Vector2(multiMatContainer.Size.X * .80f, multiMatContainer.Size.Y * .75f), 12);
             inventoryMatrix.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - inventoryMatrix.Size.Y / 2);
             inventoryMatrix.Alignment = ControlAlignment.Right;
-            inventoryMatrix.parent = multiMatContainer;
+            //inventoryMatrix.parent = multiMatContainer;
             multiMatContainer.Add(inventoryMatrix);
 
             // Current wep matrix.
             currentWeaponMatrix = new DragableMatrixV2(new Vector2(inventoryMatrix.ContainerSideLength, inventoryMatrix.ContainerSideLength), 1);
             currentWeaponMatrix.Location = new Vector2(10, multiMatContainer.Size.Y / 2 - inventoryMatrix.Size.Y / 2);
             currentWeaponMatrix.Alignment = ControlAlignment.Left;
-            currentWeaponMatrix.parent = multiMatContainer;
+            //currentWeaponMatrix.parent = multiMatContainer;
             multiMatContainer.Add(currentWeaponMatrix);
 
             // Add down here for overlap.

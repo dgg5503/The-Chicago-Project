@@ -49,14 +49,14 @@ namespace TheChicagoProject.GUI.Forms
 
             bar = new Bar();
             bar.Size = size;
-            bar.parent = this;
+            //bar.parent = this;
             Add(bar);
 
             text = new Label();
             text.Text = String.Empty;
             text.AutoResize = true;
             text.Alignment = ControlAlignment.Center;
-            text.parent = this;
+            //text.parent = this;
             Add(text);
         }
 

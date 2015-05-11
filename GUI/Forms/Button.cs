@@ -58,7 +58,7 @@ namespace TheChicagoProject.GUI.Forms
             text.Text = String.Empty;
             text.AutoResize = true;
             text.Alignment = ControlAlignment.Center;
-            text.parent = this;
+            //text.parent = this;
             Add(text);
         }
 

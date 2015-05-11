@@ -249,8 +249,8 @@ namespace TheChicagoProject
                     if (!inventoryMenu.IsInventoryLoaded)
                     {
                         inventoryMenu.Load(player.inventory);
-                        inventoryMenu.LoadVisuals(mainGame.Content, graphics);
-                        inventoryMenu.Update(gameTime);
+                        //inventoryMenu.LoadVisuals(mainGame.Content, graphics);
+                        //inventoryMenu.Update(gameTime);
                     }
 
                     //Controls.guiElements["inventoryMenu"].Update(gameTime);
@@ -300,8 +300,8 @@ namespace TheChicagoProject
                     if (!questLogUI.IsQuestLogLoaded)
                     {
                         questLogUI.Load(player.log);
-                        questLogUI.LoadVisuals(mainGame.Content, graphics);
-                        questLogUI.Update(gameTime);
+                        //questLogUI.LoadVisuals(mainGame.Content, graphics);
+                        //questLogUI.Update(gameTime);
                     }
                     //Controls.guiElements["questLog"]
                     /*
@@ -323,8 +323,8 @@ namespace TheChicagoProject
                     if (!weaponWheelUI.IsInventoryLoaded)
                     {
                         weaponWheelUI.Load(player.inventory);
-                        weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
-                        weaponWheelUI.Update(gameTime);
+                        //weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
+                        //weaponWheelUI.Update(gameTime);
                     }
                     //Controls.guiElements["weaponWheel"].Update(gameTime);
                     //weapons come from holster

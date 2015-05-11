@@ -267,7 +267,7 @@ namespace TheChicagoProject.GUI.Forms
                 fill = fillInfo.texture;
 
             // Border creation
-            border = borderInfo.texture; // update size?
+            //border = borderInfo.texture; // update size?
             if (borderInfo.texture == null)
             {
                 border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
@@ -553,7 +553,32 @@ namespace TheChicagoProject.GUI.Forms
             if (control == this)
                 throw new InvalidOperationException();
 
+            // set parent to this.
+
+            // get other loaded stuff from root control
+            control.parent = this;
+
+            /*
+            if(control.graphics == null)
+                control.graphics = RootControl(control).graphics;
+
+            if(control.contentManager == null)
+                control.contentManager = RootControl(control).contentManager;
+
+            // get loaded font from root.
+            if(control.font == null)
+                control.font = RootControl(this).font;
+            */
+
+            // see if controls need to have textures loaded.
+            if (RootControl(this).graphics != null && RootControl(this).contentManager != null)
+                control.LoadVisuals();
+
             controls.Add(control);
+
+            if (RootControl(control).gameTime != null)
+                control.Update(RootControl(control).gameTime);
+            
             /*
             if(RootControl(this).graphics != null && RootControl(this).contentManager != null)
                 control.LoadVisuals();

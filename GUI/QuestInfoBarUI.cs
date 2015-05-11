@@ -35,14 +35,14 @@ namespace TheChicagoProject.GUI
             nameContainer.Size = new Vector2(this.Size.X - 40, this.Size.Y / 3);
             nameContainer.Location = new Vector2(0, -this.Size.Y / 5);
             nameContainer.Alignment = ControlAlignment.Center;
-            nameContainer.parent = this;
+            //nameContainer.parent = this;
             Add(nameContainer);
 
             // Name label
             questNameLabel = new Label();
             questNameLabel.Alignment = ControlAlignment.Center;
             questNameLabel.Text = "Quest Name";
-            questNameLabel.parent = nameContainer;
+            //questNameLabel.parent = nameContainer;
             nameContainer.Add(questNameLabel);
 
 
@@ -51,7 +51,7 @@ namespace TheChicagoProject.GUI
             questInfoContainer.Size = new Vector2(this.Size.X - 40, this.Size.Y / 3);
             questInfoContainer.Location = new Vector2(0, this.Size.Y / 5);
             questInfoContainer.Alignment = ControlAlignment.Center;
-            questInfoContainer.parent = this;
+            //questInfoContainer.parent = this;
             Add(questInfoContainer);
 
 
@@ -61,7 +61,7 @@ namespace TheChicagoProject.GUI
             questRewardMoneyLabel.Alignment = ControlAlignment.Left;
             //questRewardMoneyLabel.Location = new Vector2(0, questInfoContainer.Size.Y / 2);
             questRewardMoneyLabel.Text = "$0000";
-            questRewardMoneyLabel.parent = questInfoContainer;
+            //questRewardMoneyLabel.parent = questInfoContainer;
             questInfoContainer.Add(questRewardMoneyLabel);
             
             // quest point label
@@ -70,7 +70,7 @@ namespace TheChicagoProject.GUI
             questRewardPointLabel.Alignment = ControlAlignment.Right;
             //questRewardPointLabel.Location = new Vector2(0, questInfoContainer.Size.Y / 2);
             questRewardPointLabel.Text = "@0000";
-            questRewardPointLabel.parent = questInfoContainer;
+            //questRewardPointLabel.parent = questInfoContainer;
             questInfoContainer.Add(questRewardPointLabel);
 
             
@@ -78,7 +78,7 @@ namespace TheChicagoProject.GUI
             questStatusLabel = new Label();
             questStatusLabel.Alignment = ControlAlignment.Center;
             questStatusLabel.Text = "Unavailable";
-            questStatusLabel.parent = questInfoContainer;
+            //questStatusLabel.parent = questInfoContainer;
             questInfoContainer.Add(questStatusLabel);
             
         }

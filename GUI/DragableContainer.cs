@@ -118,7 +118,7 @@ namespace TheChicagoProject.GUI
             controlInContainer = controlToSet;
             controlInContainer.Location = Vector2.Zero;
             controlInContainer.Alignment = ControlAlignment.Center;
-            controlInContainer.parent = this;
+            //controlInContainer.parent = this;
             Add(controlInContainer);
 
             if(controlToReplace != null)

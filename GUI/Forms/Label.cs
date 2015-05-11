@@ -101,7 +101,7 @@ namespace TheChicagoProject.GUI.Forms
         protected override void LoadContent(ContentManager contentManager)
         {
             base.LoadContent(contentManager);
-
+            
             if (string.IsNullOrWhiteSpace(text))
                 this.Size = this.parent.Size; // target size?
             else
@@ -109,6 +109,7 @@ namespace TheChicagoProject.GUI.Forms
             
             lastSize = this.Size;
             lastText = text;
+             
         }
 
         private Vector2 GetTextSize()

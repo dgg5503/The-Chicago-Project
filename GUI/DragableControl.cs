@@ -31,7 +31,7 @@ namespace TheChicagoProject.GUI.Forms
             textLbl.Text = item.name;
             textLbl.AutoResize = true;
             textLbl.Alignment = ControlAlignment.Center;
-            textLbl.parent = this;
+            //textLbl.parent = this;
             Add(textLbl);
 
             
