@@ -51,6 +51,7 @@ namespace TheChicagoProject
         public SaveManager saveManager;
         public CollisionManager collisionManager;
         #region debug
+        public SpriteFont debugFont;
         public static Texture2D border;
         #endregion
 
@@ -110,6 +111,7 @@ namespace TheChicagoProject
             border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);
             border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
              */
+            debugFont = Content.Load<SpriteFont>("Font/TimesNewRoman12");
             #endregion
 
             //Stack Overflow code (see below)
@@ -218,7 +220,14 @@ namespace TheChicagoProject
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             renderManager.Draw(gameTime);
-            
+
+            spriteBatch.Begin();
+            spriteBatch.DrawString(debugFont, "(" + worldManager.CurrentWorld.manager.GetPlayer().location.X + ", " + worldManager.CurrentWorld.manager.GetPlayer().location.Y + ")",
+                new Vector2(10f, GraphicsDevice.Viewport.Height - 16),
+                Color.HotPink
+                );
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
