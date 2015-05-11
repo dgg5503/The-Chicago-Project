@@ -211,5 +211,7 @@ namespace TheChicagoProject.Entity
             actual -= (float) Math.PI / 2f;
             this.faceDirection = actual;
         }
+
+        
     }
 }

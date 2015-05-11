@@ -38,13 +38,15 @@ namespace TheChicagoProject.Entity
         // Applied collision vector
         public Vector2 collisionReactionVector;
 
+        //Interaction Data for Quests / Action-Interact
+        public InteractionData interactData;
+
         /// <summary>
         /// The constructor for the base entity.
         /// </summary>
         /// <param name="fileName">The texture filename for the entity.</param>
         /// <param name="location">The height, width, and X and Y location.</param>
-        public Entity(FloatRectangle location, Sprite sprite)
-        {
+        public Entity(FloatRectangle location, Sprite sprite) {
             this.location = location;
 
             /*
@@ -68,8 +70,7 @@ namespace TheChicagoProject.Entity
         /// The constructor for the base entity.
         /// </summary>
         /// <param name="sprite">Sprite object.</param>
-        public Entity(Sprite sprite)
-        {
+        public Entity(Sprite sprite) {
             this.sprite = sprite;
             movement = Vector2.Zero;
         }
@@ -79,8 +80,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="time">The game Time</param>
         /// <param name="manager">The EntityManager that links to the player</param>
-        public virtual void Update(GameTime time, EntityManager manager)
-        {
+        public virtual void Update(GameTime time, EntityManager manager) {
             // ------- COLLISION TEST ------
 
             location.X += movement.X;
@@ -92,29 +92,25 @@ namespace TheChicagoProject.Entity
              * - Include all edges of the world
              *      - What if we need to hit the edge of a world to load the next one???
              */
-            if (location.X < 0)
-            {
+            if (location.X < 0) {
                 location.X = 0;
             }
 
-            if (location.Y < 0)
-            {
+            if (location.Y < 0) {
                 location.Y = 0;
             }
 
-            
+
             // world loading flips width and height...
-            if (location.X + location.Width > (currentWorld.worldHeight * Tile.SIDE_LENGTH))
-            {
+            if (location.X + location.Width > (currentWorld.worldHeight * Tile.SIDE_LENGTH)) {
                 location.X = (currentWorld.worldHeight * Tile.SIDE_LENGTH) - location.Width;
             }
 
-            if (location.Y + location.Height > (currentWorld.worldWidth * Tile.SIDE_LENGTH))
-            {
+            if (location.Y + location.Height > (currentWorld.worldWidth * Tile.SIDE_LENGTH)) {
                 location.Y = (currentWorld.worldWidth * Tile.SIDE_LENGTH) - location.Height;
             }
-        
-            
+
+
             // ------ EDGE OF SCREEN TEST ------
 
             if (this.CurrentCollisionTile == null)
@@ -122,17 +118,14 @@ namespace TheChicagoProject.Entity
 
             // ------ TILE COLLISION TEST ------
             CollisionTile[] adjNonWalkableTiles = this.CurrentCollisionTile.GetAdjacentNonWalkableTiles();
-            
+
             // Time saver...
-            if (adjNonWalkableTiles.Length != 0)
-            {
+            if (adjNonWalkableTiles.Length != 0) {
                 // if this intersects with a non walkable tile, react
                 // Find rectangles entity is intersecting with...
                 List<CollisionTile> intersectingTiles = new List<CollisionTile>();
-                foreach (CollisionTile colTile in adjNonWalkableTiles)
-                {
-                    if (this.location.Intersects(colTile.Rectangle))
-                    {
+                foreach (CollisionTile colTile in adjNonWalkableTiles) {
+                    if (this.location.Intersects(colTile.Rectangle)) {
                         intersectingTiles.Add(colTile);
                     }
                 }
@@ -140,23 +133,18 @@ namespace TheChicagoProject.Entity
 
                 // Find rectangles in rows, if none do the next thing
                 List<CollisionTile> verticalRects = new List<CollisionTile>();
-                foreach (CollisionTile colTileIntersectingVertSearch in intersectingTiles)
-                {
+                foreach (CollisionTile colTileIntersectingVertSearch in intersectingTiles) {
                     int GridYToLookFor = colTileIntersectingVertSearch.GridY;
-                    foreach (CollisionTile colTileIntersectingVertDoubleSearch in intersectingTiles)
-                    {
+                    foreach (CollisionTile colTileIntersectingVertDoubleSearch in intersectingTiles) {
                         if (GridYToLookFor + 1 == colTileIntersectingVertDoubleSearch.GridY || GridYToLookFor - 1 == colTileIntersectingVertDoubleSearch.GridY)
                             verticalRects.Add(colTileIntersectingVertDoubleSearch);
                     }
                 }
 
-                if (verticalRects.Count == 0)
-                {
+                if (verticalRects.Count == 0) {
                     foreach (CollisionTile colTileIntersecting in intersectingTiles)
                         CollisionReaction(colTileIntersecting.Rectangle);
-                }
-                else
-                {
+                } else {
                     // do X reaction instead of Y...
                     foreach (CollisionTile colTileIntersecting in verticalRects)
                         CollisionReaction(colTileIntersecting.Rectangle, 1);
@@ -171,8 +159,7 @@ namespace TheChicagoProject.Entity
                 return;
 
             // ------- ENTITY COLLISION TEST ------
-            foreach (Entity e in this.CurrentCollisionTile.EntitiesInTile.Where(e => !(e.Equals(this))))
-            {
+            foreach (Entity e in this.CurrentCollisionTile.EntitiesInTile.Where(e => !(e.Equals(this)))) {
                 bool isColliding;
                 FloatRectangle toCheck = e.location;
                 this.location.Intersects(ref toCheck, out isColliding);
@@ -183,18 +170,16 @@ namespace TheChicagoProject.Entity
                  * Fast object handling - NOT IMPLEMENTED, should consider optimizing current code before even considering this!
                  * 
                  */
-                if (isColliding)
-                {
-                   
+                if (isColliding) {
+
                     CollisionReaction(toCheck);
                 }
-                
+
             }
             // ------- COLLISION TEST ------
         }
 
-        private void CollisionReaction(FloatRectangle toCheck, int cornerCollisionCase = 0)
-        {
+        private void CollisionReaction(FloatRectangle toCheck, int cornerCollisionCase = 0) {
             // http://www.metanetsoftware.com/technique/tutorialA.html#section0
             // pretty much learned this in a class im taking right now but im
             // too dumb to realize the application :*(...
@@ -241,67 +226,55 @@ namespace TheChicagoProject.Entity
             //Console.WriteLine("FLOAT X SCALAR: {0:0.00}", (projXThisWidth.Length() + projXToTestWidth.Length()) - projXCenters.Length());
             //Console.WriteLine("FLOAT Y SCALAR: {0:0.00}", (projYThisHeight.Length() + projYToTestHeight.Length()) - projYCenters.Length());
 
-            if (xScalarFinal > yScalarFinal)
-            {
+            if (xScalarFinal > yScalarFinal) {
                 // DEBUG
                 //Console.WriteLine("INT Y SCALAR: {0}", yScalarFinal * Math.Sign(DeltaY));
                 collisionReactionVector = new Vector2(0, yScalarFinal * Math.Sign(movement.Y));
                 //location.Y -= yScalarFinal * Math.Sign(movement.Y);
-            }
-            else
-            {
+            } else {
                 if (xScalarFinal == yScalarFinal) // corner collision
                 {
                     float diff = 0;
-                    switch(cornerCollisionCase)
-                    { 
+                    switch (cornerCollisionCase) {
                         // y dummy reaction
                         case 0:
-                            if (this.location.Center.Y < toCheck.Center.Y)
-                            {
+                            if (this.location.Center.Y < toCheck.Center.Y) {
                                 // on top
                                 diff = (this.location.Y + this.location.Height) - toCheck.Location.Y;
                                 collisionReactionVector = new Vector2(0, diff);
                                 //location.Y -= diff;
                                 //Console.WriteLine("GOING UP");
 
-                            }
-                            else
-                            {
+                            } else {
                                 // on bottom
                                 diff = (toCheck.Location.Y + toCheck.Height) - this.location.Y;
                                 collisionReactionVector = new Vector2(0, diff * -1);
                                 //location.Y += diff;
                                 //Console.WriteLine("GOING DOWN");
                             }
-                        break;
+                            break;
 
                         // x dummy reaction
                         case 1:
-                            if (this.location.Center.X < toCheck.Center.X)
-                            {
+                            if (this.location.Center.X < toCheck.Center.X) {
                                 // on top
                                 diff = (this.location.X + this.location.Width) - toCheck.Location.X;
                                 collisionReactionVector = new Vector2(diff, 0);
                                 //location.X -= diff;
                                 //Console.WriteLine("GOING LEFT");
 
-                            }
-                            else
-                            {
+                            } else {
                                 // on bottom
                                 diff = (toCheck.Location.X + toCheck.Width) - this.location.X;
                                 collisionReactionVector = new Vector2(diff * -1, 0);
                                 //location.X += diff;
                                 //Console.WriteLine("GOING RIGHT");
                             }
-                        break;
-                     }
+                            break;
+                    }
 
                     //Console.WriteLine("CORNER {0}", new Random().NextDouble());
-                }
-                else
-                {
+                } else {
                     //Console.WriteLine("INT X SCALAR: {0}", xScalarFinal * Math.Sign(DeltaY));
                     collisionReactionVector = new Vector2(xScalarFinal * Math.Sign(movement.X), 0);
                     //location.X -= xScalarFinal * Math.Sign(movement.X);
@@ -309,16 +282,33 @@ namespace TheChicagoProject.Entity
             }
 
             location.Location -= collisionReactionVector;
-            
+
 
         }
 
         /// <summary>
         /// Moves the Entity
         /// </summary>
-        public virtual void Move()
-        {
+        public virtual void Move() {
             throw new NotImplementedException();
+        }
+
+        public virtual void Action(LivingEntity interactor) {
+
+        }
+
+        //Ashwin Ganapathiraju
+        public static class InteractionData
+        {
+            private List<String> dialogues;
+
+            public List<String> Dialogue {
+                get { return dialogues; }
+            }
+
+            public InteractionData(List<String> dialogue) {
+                this.dialogues = dialogue;
+            }
         }
     }
 }
