@@ -61,9 +61,12 @@ namespace TheChicagoProject
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
                 if (e.markforDelete) {
-                    entities.Remove(e);
                     if (e is Player) {
                         Game1.state = GameState.Menu;
+                        (e as Player).health = 4;
+                        e.markforDelete = false;
+                    } else {
+                        entities.Remove(e);
                     }
                     if (e is NPC)
                         civilianCount--;
@@ -99,7 +102,7 @@ namespace TheChicagoProject
                     return;
                 }
 
-                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable) {
+                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable && !mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].FileName.Equals("Water.png")) {
                     break;
                 }
 
