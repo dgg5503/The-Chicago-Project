@@ -207,6 +207,8 @@ namespace TheChicagoProject.GUI
                 currentIndex = newMax - 1;
 
                 questUI.LoadedQuest.StartQuest();
+
+                Game1.state = GameState.Game;
             }
         }
 
