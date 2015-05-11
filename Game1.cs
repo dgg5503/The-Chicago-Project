@@ -50,7 +50,9 @@ namespace TheChicagoProject
         public InputManager inputManager;
         public SaveManager saveManager;
         public CollisionManager collisionManager;
+        public Random random;
         #region debug
+        public SpriteFont debugFont;
         public static Texture2D border;
         #endregion
 
@@ -81,6 +83,7 @@ namespace TheChicagoProject
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             state = GameState.Menu;
+            random = new Random();
             saveManager = new SaveManager();
             worldManager = new WorldManager();
             inputManager = new InputManager();
@@ -110,6 +113,7 @@ namespace TheChicagoProject
             border = new Texture2D(GraphicsDevice, Tile.SIDE_LENGTH, Tile.SIDE_LENGTH);
             border.CreateBorder(1, Microsoft.Xna.Framework.Color.Black);
              */
+            debugFont = Content.Load<SpriteFont>("Font/TimesNewRoman12");
             #endregion
 
             //Stack Overflow code (see below)
@@ -178,9 +182,11 @@ namespace TheChicagoProject
                     */
                     // need to fix fleemap lag before renabling the above.
                     worldManager.Update(gameTime);
-                    worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
-                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
                     collisionManager.Update();
+                    inputManager.HandleInput(Keyboard.GetState(), Mouse.GetState(), gameTime);
+                    worldManager.CurrentWorld.tick(gameTime); // should only appear here unless ticking while paused (?)
+                    
+                    //collisionManager.Update();
                     break;
                 case GameState.Pause:
                     inputManager.PauseInput(Keyboard.GetState());
@@ -218,7 +224,15 @@ namespace TheChicagoProject
 
             // Everything is drawn with this line (we'll probably pass gameTime in for proper animation...)
             renderManager.Draw(gameTime);
-            
+
+            spriteBatch.Begin();
+            if(worldManager.CurrentWorld.manager.GetPlayer() != null)
+                spriteBatch.DrawString(debugFont, "(" + worldManager.CurrentWorld.manager.GetPlayer().location.X + ", " + worldManager.CurrentWorld.manager.GetPlayer().location.Y + ")",
+                    new Vector2(10f, GraphicsDevice.Viewport.Height - 16),
+                    Color.HotPink
+                    );
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

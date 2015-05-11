@@ -23,7 +23,7 @@ namespace TheChicagoProject.Entity
 
         protected GameTime time;
 
-        protected double lastShot;
+        public double lastShot;
 
         private static Random rand = new Random();
 
@@ -58,7 +58,7 @@ namespace TheChicagoProject.Entity
         /// </summary>
         /// <param name="rect">The rectangle that represents the location and width and height of the entity</param>
         /// <param name="fileName">the location of the sprite for this entity</param>
-        public LivingEntity(FloatRectangle rect, Sprite sprite, int health, AI.AI ai = null, int cash = 0, int interactRange = 20, int interactBoundsOffsetY = 5, int interactBoundsOffsetX = 0)
+        public LivingEntity(FloatRectangle rect, Sprite sprite, int health, AI.AI ai = null, int cash = 0, int interactRange = 20, int interactBoundsOffsetY = 20, int interactBoundsOffsetX = 0)
             : base(rect, sprite) {
             inventory = new Inventory();
             time = new GameTime();
@@ -84,12 +84,17 @@ namespace TheChicagoProject.Entity
         public override void Update(GameTime time, EntityManager manager) {
             base.Update(time, manager);
 
+            if (this.health <= 0) {
+                this.markforDelete = true;
+                return;
+            }
+
             if (ai != null)
                 ai.Update(time, manager);
 
             this.time = time;
             lastShot += time.ElapsedGameTime.TotalMilliseconds;
-            if (inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D) {
+            if (inventory.GetEquippedPrimary() != null && lastShot >= inventory.GetEquippedPrimary().ReloadTime * 1000D && inventory.GetEquippedPrimary().Reloading) {
                 inventory.GetEquippedPrimary().Reload();
                 inventory.GetEquippedPrimary().Reloading = false;
             }
@@ -146,7 +151,7 @@ namespace TheChicagoProject.Entity
                         continue;
 
                     float tmpDist = Vector2.Distance(ent.location.Center, this.location.Center);
-                    if (tmpDist < shortestDistance) {
+                    if (tmpDist < shortestDistance && ent.interactData != null) {
                         entityToInteract = ent;
                         shortestDistance = tmpDist;
                     }
@@ -162,6 +167,8 @@ namespace TheChicagoProject.Entity
             if (entityToInteract == null)
                 return;
 
+            entityToInteract.Action(this);
+            
             // do interact method here... (events or method?)
             Game1.Instance.renderManager.EmitParticle(new RectangleOutline(new RotatedRectangle(entityToInteract.location, 0), Color.Purple, 1));
             
@@ -212,5 +219,7 @@ namespace TheChicagoProject.Entity
             actual -= (float) Math.PI / 2f;
             this.faceDirection = actual;
         }
+
+        
     }
 }

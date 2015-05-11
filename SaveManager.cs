@@ -44,8 +44,12 @@ namespace TheChicagoProject
                 World mainworld = LoadWorld("main");
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
+            else
+            {
+                LoadSave();
+            }
 #endif
-            //LoadSave();
+            LoadSave();
         }
 
         #region load world
@@ -547,9 +551,9 @@ namespace TheChicagoProject
 
                         livingEntities[id] = new Entity.LivingEntity(EntityRect, sprite, health, null);
                         //get the ai
-                        index = data.IndexOf("AI:", index) + 7;
-                        end = data.IndexOf('\n', index);
-                        if (index < endEntity)
+                        index = data.IndexOf("AI:", index) + 3;
+                        end = data.IndexOf('\n', index) - 1;
+                        if (index >= 0)
                         {
                             attribute = data.Substring(index, end - index);
                             
@@ -570,6 +574,8 @@ namespace TheChicagoProject
                             }
 
                             livingEntities[id].ai = ai;
+                            livingEntities[id].inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 100, 0.5));
+                            livingEntities[id].inventory.ActiveWeapon = 0;
 
                         }
 

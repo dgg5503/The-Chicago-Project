@@ -234,6 +234,8 @@ namespace TheChicagoProject.GUI
                 
 
                 questUI.LoadedQuest.StartQuest();
+
+                Game1.state = GameState.Game;
             }
         }
 

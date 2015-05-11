@@ -36,14 +36,11 @@ namespace TheChicagoProject
             e.currentWorld = world;
             Console.WriteLine("Added Entity");
             if (e is Player) {
-                if (playerLoc == -1)
-                {
+                if (playerLoc == -1) {
                     Console.WriteLine("Added Player");
                     playerLoc = 0;
                     entities.Insert(0, e);
-                }
-                else
-                {
+                } else {
                     entities[playerLoc] = e;
                 }
             } else
@@ -51,8 +48,7 @@ namespace TheChicagoProject
         }
 
         public Player GetPlayer() {
-            if(playerLoc < 0)
-            {
+            if (playerLoc < 0) {
                 return null;
             }
             return entities[playerLoc] as Player;
@@ -61,11 +57,17 @@ namespace TheChicagoProject
         public void Update(GameTime time) {
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
-                if (e is LivingEntity && ((LivingEntity) e).health < 1) {
+                if (e.markforDelete)
+                {
                     entities.Remove(e);
-                } else {
-                    e.Update(time, this);
+                    if (e is Player)
+                    {
+                        Game1.state = GameState.Menu;
+                    }
+                    
                 }
+                else
+                    e.Update(time, this);
             }
         }
 
@@ -82,37 +84,29 @@ namespace TheChicagoProject
             #region Screen Bounds
             int right = WorldManager.player.location.IntX + (RenderManager.ViewportWidth / 2);
             int left = WorldManager.player.location.IntX - (RenderManager.ViewportWidth / 2);
-            int top  = WorldManager.player.location.IntY - (RenderManager.ViewportHeight / 2);
+            int top = WorldManager.player.location.IntY - (RenderManager.ViewportHeight / 2);
             int bottom = WorldManager.player.location.IntY + (RenderManager.ViewportHeight / 2);
             #endregion
 
             bool go = true;
-            for (int t = 1; bullet.X < right && bullet.X > left && bullet.Y < bottom && bullet.Y > top && go; t++)
-            {
-                int tileX = (int)(bullet.X / GUI.Tile.SIDE_LENGTH);
-                int tileY = (int)(bullet.Y / GUI.Tile.SIDE_LENGTH);
+            for (int t = 1; bullet.X < right && bullet.X > left && bullet.Y < bottom && bullet.Y > top && go; t++) {
+                int tileX = (int) (bullet.X / GUI.Tile.SIDE_LENGTH);
+                int tileY = (int) (bullet.Y / GUI.Tile.SIDE_LENGTH);
 
-                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY)
-                {
+                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
                     return;
                 }
-                
-                if(!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable)
-                {
+
+                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable) {
                     break;
                 }
-                
-                for(int cntr = 0; cntr < entities.Count; cntr ++)
-                {
-                    if (entities[cntr].location.Contains(bullet) && !entities[cntr].Equals(shooter))
-                    {
+
+                for (int cntr = 0; cntr < entities.Count; cntr++) {
+                    if (entities[cntr].location.Contains(bullet) && !entities[cntr].Equals(shooter)) {
                         go = false;
-                        if(entities[cntr] is LivingEntity)
-                        {
+                        if (entities[cntr] is LivingEntity) {
                             (entities[cntr] as LivingEntity).health -= damage;
-                        }
-                        else
-                        {
+                        } else {
                             break;
                         }
                     }

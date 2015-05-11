@@ -37,11 +37,11 @@ namespace TheChicagoProject.AI
                 entity.direction = furtherDir;
                 entity.Move();
                 entity.Attack(0, entity.inventory.GetEquippedPrimary());
-            } else if (dist < 10) {
-                entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else {
                 entity.direction = closerDir;
                 entity.Move();
+                if (dist < 10)
+                    entity.Attack(0, entity.inventory.GetEquippedPrimary());
             }
         }
     }

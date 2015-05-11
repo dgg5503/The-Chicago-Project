@@ -36,12 +36,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\CivilianAI.cs" />
     <Compile Include="AI\HighAI.cs" />
     <Compile Include="AI\LowAI.cs" />
     <Compile Include="AI\MidAI.cs" />
     <Compile Include="CollisionManager.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Entity\EntityItem.cs" />
     <Compile Include="Entity\LivingEntity.cs" />
     <Compile Include="Entity\Player.cs" />
     <Compile Include="FloatRectangle.cs" />

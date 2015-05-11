@@ -48,7 +48,7 @@ namespace TheChicagoProject
             current = "main";
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
-            player.inventory.Add(new Item.Weapon(1000, 1, 3D, "The Screwdriver", 30, 0D) { previewSprite = Sprites.spritesDictionary["gatling_gun_preview"] });
+            player.inventory.Add(new Item.Weapon(600, 1, 3D, "The Screwdriver", 30, 0D) { previewSprite = Sprites.spritesDictionary["gatling_gun_preview"] });
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D) { previewSprite = Sprites.spritesDictionary["basic_gun_preview"] });
             player.inventory.Add(new Item.Weapon(400, 3, 10D, "Knife", 1, 5D) { previewSprite = Sprites.spritesDictionary["knife_preview"] });
             player.inventory.Add(new Item.Weapon(400, 1, 3D, "Uzi", 30, 100D) { previewSprite = Sprites.spritesDictionary["uzi_gun_preview"] });
@@ -72,9 +72,12 @@ namespace TheChicagoProject
             mugger.ai = new MidAI(mugger);
             mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 100, 0.5));
             mugger.inventory.ActiveWeapon = 0;
+            mugger.interactData = new Entity.Entity.InteractionData(new List<String>() { "I bite my thumb at you, sir!" });
             worlds["main"].manager.AddEntity(mugger);
-             
-            //Uncommenting just to see if I can load quests again - Sean
+
+            LivingEntity civvie = new LivingEntity(new FloatRectangle(384, 247, 32, 32), Sprites.spritesDictionary["player"], 4);
+            civvie.ai = new CivilianAI(civvie);
+            worlds["main"].manager.AddEntity(civvie);
 
             worlds["main"].manager.AddEntity(player);
 

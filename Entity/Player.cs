@@ -80,6 +80,7 @@ namespace TheChicagoProject.Entity
         public void Reload()
         {
             inventory.GetEquippedPrimary().Reloading = true;
+            lastShot = 0D;
             
         }
 
@@ -92,33 +93,6 @@ namespace TheChicagoProject.Entity
             throw new NotImplementedException();
         }
          */
-
-        /*
-        /// <summary>
-        /// Attacks
-        /// </summary>
-        /// <param name="type">Type of Fire</param>
-        /// <param name="weapon">Weapon used to fire, cannot be null if primary fire</param>
-        public override void Attack(int type, Weapon weapon = null)
-        {
-            if (type == 0)
-            {
-                if(weapon == null)
-                {
-                    throw new ArgumentException();
-                }
-                if (lastShot > (60000D / (weapon.rateOfFire)))
-                {
-                    //int magnitude = (int) Math.Sqrt(Math.Pow(cursor.X, 2) + Math.Pow(cursor.Y, 2));
-                    //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)(cursor.X / magnitude), (float)(cursor.Y / magnitude), inventory.GetEquippedPrimary().Damage, this);
-
-                    // need to get FRONT face, location will not work since that is not rotated, only the sprite is.
-                    // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
-                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet((16 * (float)Math.Cos(faceDirection - Math.PI / 2)) + location.Center.X, (16 * (float)Math.Sin(faceDirection - Math.PI / 2)) + location.Center.Y, (float)Math.Cos(faceDirection - Math.PI / 2), (float)Math.Sin(faceDirection - Math.PI / 2), inventory.GetEquippedPrimary().Damage, this);
-                }
-            }
-        }
-        */
 
         //Sean Levorse
         /// <summary>
@@ -168,6 +142,11 @@ namespace TheChicagoProject.Entity
                 location.Y = door.Destination.Y * GUI.Tile.SIDE_LENGTH;
                 Game1.Instance.worldManager.CurrentWorld.manager.AddEntity(this);
                 Game1.Instance.collisionManager.SwitchWorld();
+            }
+
+            if(inventory.GetEquippedPrimary().LoadedAmmo == 0 && !inventory.GetEquippedPrimary().Reloading)
+            {
+                Reload();
             }
         }
     }
