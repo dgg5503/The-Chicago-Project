@@ -147,6 +147,18 @@ namespace TheChicagoProject.GUI
                 case WinCondition.AllEnemiesDead:
                     // enemies to kill? (not sure about this one)
                     // foreach for #
+
+                    // tmp dict.
+                    /*
+                    Dictionary<string, Entity.LivingEntity> objectiveEntities = new Dictionary<string, Entity.LivingEntity>();
+                    foreach(Entity.Entity ent in quest.entitites)
+                    {
+                        Console.WriteLine(ent.GetType());
+                    }
+                    */
+
+                    // Currently no way to get entity names or group them by types (no mugger class etc...) (?)
+
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
                     tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
                     //tmpObjective.parent = objectivesContainer;

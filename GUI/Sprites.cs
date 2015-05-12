@@ -26,5 +26,11 @@ namespace TheChicagoProject.GUI
             {"knife_preview", new Sprite(64, 64, 0, Color.White, "knife_preview.png")},
             {"NULL", new Sprite(64, 64, 0, Color.White, "NULL.png")}
         };
+
+        public readonly static Dictionary<string, Sprite> guiSpritesDictionary = new Dictionary<string, Sprite>
+        {
+            {"weapon_border", new Sprite(32, 32, 0, Color.White, "weaponBorder.png")},
+            {"weapon_image_container_border", new Sprite(32, 32, 0, Color.White, "weps.png")}
+        };
     }
 }

@@ -215,7 +215,14 @@ namespace TheChicagoProject
             // the game by a little.
 
             // its placed above the loading of textures and content so text aligns properly.
-            
+            /*foreach (KeyValuePair<string, Sprite> kvp in Sprites.guiSpritesDictionary)
+            {
+                using (Stream imageStream = TitleContainer.OpenStream("./Content/GUI/" + kvp.Value.FileName))
+                {
+                    kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
+
+                }
+            }*/
 
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
                 c.Value.LoadVisuals(mainGame.Content, graphics);
