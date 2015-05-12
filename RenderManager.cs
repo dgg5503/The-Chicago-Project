@@ -105,6 +105,9 @@ namespace TheChicagoProject
         // Particle list
         private List<Particle> particles;
 
+        // GUI Dialogs. 
+        private static List<DialogBox> dialogs;
+
         // Width and height for everyones use.
         private static int viewportWidth;
         private static int viewportHeight;
@@ -139,6 +142,7 @@ namespace TheChicagoProject
             this.mainGame = Game1.Instance;
 
             particles = new List<Particle>();
+            dialogs = new List<DialogBox>();
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
@@ -337,10 +341,13 @@ namespace TheChicagoProject
                 if (c.Value.IsVisible) // or just loaded.
                     c.Value.Update(gameTime);
 
-            
-
-            
-
+            for (int i = 0; i < dialogs.Count; i++)
+            {
+                if (dialogs[i].EventsCompleted == true) // possible problems (?)
+                    dialogs.Remove(dialogs[i]);
+                else
+                    dialogs[i].Update(gameTime);
+            }
            
         }
         
@@ -457,7 +464,16 @@ namespace TheChicagoProject
                     Controls.guiElements["weaponWheel"].Draw(spriteBatch, gameTime);
                     break;
             }
+
+            foreach (Control dialog in dialogs)
+                 dialog.Draw(spriteBatch, gameTime);
             
+        }
+
+        public static void AddDialog(DialogBox dialogBox)
+        {
+            dialogBox.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
+            dialogs.Add(dialogBox);
         }
 
         public void DrawParticles()
