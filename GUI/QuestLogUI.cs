@@ -15,6 +15,7 @@ namespace TheChicagoProject.GUI
     {
         // Controls to be modified
         private Label questLogHeaderLabel;
+        private Label currentPageLabel;
         private QuestUI questUI;
         private Button startQuestButton;
         private Button stopQuestButton;
@@ -26,6 +27,9 @@ namespace TheChicagoProject.GUI
 
         // List of quest bars for each quest...
         private QuestLog questLog;
+
+        // Currently selected infobar.
+        private QuestInfoBarUI currentInfoBar;
 
         // "pages"
         private List<QuestInfoBarUI> questInfoBars;
@@ -75,7 +79,7 @@ namespace TheChicagoProject.GUI
             questLogHeaderLabel.Text = "QUEST LOG";
             questLogHeaderLabel.Color = Color.Black;
             //questLogHeaderLabel.parent = headerContainer;
-            Add(questLogHeaderLabel);
+            headerContainer.Add(questLogHeaderLabel);
 
             // Quest bar container
             questBarsContainer = new Container();
@@ -136,7 +140,7 @@ namespace TheChicagoProject.GUI
             pageForwardButton = new Button();
             pageForwardButton.Alignment = ControlAlignment.Center;
             pageForwardButton.Size = new Vector2(100, 50);
-            pageForwardButton.Location = new Vector2(60, 0);
+            pageForwardButton.Location = new Vector2(70, 0);
             pageForwardButton.IsActive = false;
             pageForwardButton.Text = "Forward >";
             pageForwardButton.Click += pageForwardButton_Click;
@@ -147,12 +151,19 @@ namespace TheChicagoProject.GUI
             pageBackwardButton = new Button();
             pageBackwardButton.Alignment = ControlAlignment.Center;
             pageBackwardButton.Size = new Vector2(100, 50);
-            pageBackwardButton.Location = new Vector2(-60, 0);
+            pageBackwardButton.Location = new Vector2(-70, 0);
             pageBackwardButton.IsActive = false;
             pageBackwardButton.Text = "< Backward";
             pageBackwardButton.Click += pageBackwardButton_Click;
             //pageBackwardButton.parent = pageButtonContainer;
             pageButtonContainer.Add(pageBackwardButton);
+
+            currentPageLabel = new Label();
+            currentPageLabel.Alignment = ControlAlignment.Center;
+            currentPageLabel.Text = "{0} / {1}";
+            pageButtonContainer.Add(currentPageLabel);
+
+            
         }
 
         void pageBackwardButton_Click(object sender, EventArgs e)
@@ -183,6 +194,8 @@ namespace TheChicagoProject.GUI
             {
                 questBarsContainer.Add(questInfoBars[i]);
             }
+
+            currentPageLabel.Text = String.Format("{0} / {1}", Math.Ceiling(topIndex / 4.0), Math.Ceiling(questInfoBars.Count / 4.0));
         }
 
         void pageForwardButton_Click(object sender, EventArgs e)
@@ -212,6 +225,8 @@ namespace TheChicagoProject.GUI
             {
                 questBarsContainer.Add(questInfoBars[i]);
             }
+
+            currentPageLabel.Text = String.Format("{0} / {1}", Math.Ceiling(topIndex / 4.0), Math.Ceiling(questInfoBars.Count / 4.0));
         }
 
         void startQuestButton_Click(object sender, EventArgs e)
@@ -298,6 +313,7 @@ namespace TheChicagoProject.GUI
                 questInfoBars.Add(infoBar);
                 count++;
             }
+            currentPageLabel.Text = String.Format(currentPageLabel.Text, 1, Math.Ceiling(questInfoBars.Count / 4.0));
             questLog = log; 
         }
 
@@ -312,14 +328,27 @@ namespace TheChicagoProject.GUI
                 // make sure the current quest isnt already loaded!
                 if (questUI.LoadedQuest != infoBar.LoadedQuest)
                 {
+
+                    // get last bar and set that to black
+                    // set new one to purple
+                    // set last to new.
+
+                    if(currentInfoBar != null)
+                        currentInfoBar.DefaultBorder = new BorderInfo(1, Color.Black);
+
+                    infoBar.DefaultBorder = new BorderInfo(5, Color.Purple);
+                    currentInfoBar = infoBar;
+                    
+                    //infoBar.DefaultBorder = new BorderInfo(1, Color.Purple);
+                    
                     // load the quest
                     questUI.Load(infoBar.LoadedQuest);
 
                     // load visuals
                     //questUI.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
 
-                    // show actions buttons based on quest info.
-                    // start stop quest buttons.
+                    // highlight this infobar.
+                    
                     
                     
                 }

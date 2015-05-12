@@ -175,7 +175,7 @@ namespace TheChicagoProject.GUI.Forms
         /// The border texture for controls, only shows if borderEnabled is true.
         /// </summary>
         //public Texture2D Border { get { return border; } set { border = value; } }
-        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; if (borderInfo.texture != null) { border = borderInfo.texture; } } } } // do OTF load...
+        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; if (borderInfo.texture != null) { border = borderInfo.texture; } else UpdateBorder(); } } } // do OTF load for new border width...
         /// <summary>
         /// Sets the fill of the control to some given Texture2D
         /// </summary>
@@ -285,6 +285,12 @@ namespace TheChicagoProject.GUI.Forms
 
             foreach (Control c in controls)
                 c.LoadTextures(graphics);
+        }
+
+        private void UpdateBorder()
+        {
+            border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            border.CreateBorder(borderInfo.width, Color.White);
         }
 
         // For loading XNB related files...
