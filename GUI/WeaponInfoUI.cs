@@ -80,14 +80,15 @@ namespace TheChicagoProject.GUI
             // Holds weapon img and name
             Container weaponImgInfoContainer = new Container();
             weaponImgInfoContainer.Size = new Vector2(100, 90);
-            weaponImgInfoContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["weapon_border"]);
+            weaponImgInfoContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
+            
             //weaponImgInfoContainer.parent = weaponAmmoContainer;
             weaponAmmoContainer.Add(weaponImgInfoContainer);
 
             // Weapon image
             weaponImageContainer = new Container();
             weaponImageContainer.Fill = null;
-            
+            weaponImageContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
             weaponImageContainer.Size = new Vector2(64, 64);
             weaponImageContainer.Location = new Vector2(0, -5);
             weaponImageContainer.Alignment = ControlAlignment.Center;

@@ -30,7 +30,8 @@ namespace TheChicagoProject.GUI
         public readonly static Dictionary<string, Sprite> guiSpritesDictionary = new Dictionary<string, Sprite>
         {
             {"weapon_border", new Sprite(32, 32, 0, Color.White, "weaponBorder.png")},
-            {"weapon_image_container_border", new Sprite(32, 32, 0, Color.White, "weps.png")}
+            {"weapon_image_container_border", new Sprite(32, 32, 0, Color.White, "weps.png")},
+            {"circle_border", new Sprite(32, 32, 0, Color.White, "circle.png")}
         };
     }
 }
