@@ -7,9 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Item;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
+    
     /// <summary>
     /// TO-DO:
     /// - Weapon image

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Particles
 {
     public class Line : Particle

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.GUI.Forms;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
     public static class Controls
     {
 

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
     /*
@@ -19,8 +20,6 @@ namespace TheChicagoProject.GUI.Forms
      * - dragging of the window.
      * - 
      */
-
-    //Douglas Gliner
     public enum ControlAlignment
     {
         Left,

@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Entity;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
     class LivingEntityInfoUI : Control
     {
         // Important GUI controls that will need to be updated

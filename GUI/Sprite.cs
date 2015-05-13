@@ -6,10 +6,9 @@ using TheChicagoProject.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
-
     /*
      * FOR ENTTIY COLLISION, GET STUFF IN TILE AND CHECK BETWEEN WHATS IN THAT TILE WITH THE PLAYER....
      */

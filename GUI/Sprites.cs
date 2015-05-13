@@ -5,9 +5,9 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
     static class Sprites
     {
         // Dictionary of sprites and their file name.

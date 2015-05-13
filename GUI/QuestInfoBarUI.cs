@@ -9,6 +9,7 @@ using TheChicagoProject.Quests;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     class QuestInfoBarUI : Button

@@ -9,6 +9,7 @@ using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Entity;
 using TheChicagoProject.Quests;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     class QuestLogUI : Control
