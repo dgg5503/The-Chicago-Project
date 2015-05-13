@@ -45,6 +45,7 @@
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityItem.cs" />
     <Compile Include="Entity\LivingEntity.cs" />
+    <Compile Include="Entity\NPC.cs" />
     <Compile Include="Entity\Player.cs" />
     <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />

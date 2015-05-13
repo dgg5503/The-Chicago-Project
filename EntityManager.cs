@@ -44,8 +44,8 @@ namespace TheChicagoProject
                     entities[playerLoc] = e;
                 }
             } else {
-                //if (e is NPC)
-                   // civilianCount++;
+                if (e is NPC)
+                    civilianCount++;
                 entities.Add(e);
             }
         }
@@ -68,8 +68,8 @@ namespace TheChicagoProject
                     } else {
                         entities.Remove(e);
                     }
-                    //if (e is NPC)
-                       // civilianCount--;
+                    if (e is NPC)
+                       civilianCount--;
 
                 } else
                     e.Update(time, this);
