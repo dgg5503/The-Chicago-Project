@@ -304,7 +304,12 @@ namespace TheChicagoProject
                 {
                     string name = items[i];
                     //newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
-                    newItem = LoadItem("./Content/SaveFiles/Inventory/" + name + ".item");
+                    //figure out the save path
+                    int startname = saveLoc.LastIndexOf('/') + 1;
+                    int endname = saveLoc.LastIndexOf('.');
+                    string filename = saveLoc.Substring(startname, endname - startname);
+                    string directory = saveLoc.Substring(0, startname) + "/" + filename;
+                    newItem = LoadItem(directory + "/" + name + ".item");
                     inventory.Add(newItem);
                 }
                 inventory.ActiveWeapon = activeItem;
