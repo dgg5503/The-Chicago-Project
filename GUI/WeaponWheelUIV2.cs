@@ -71,12 +71,6 @@ namespace TheChicagoProject.GUI
             weaponStatsContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["weapon_wheel_border"]);
             weaponStatsContainer.Alignment = ControlAlignment.Center;
             Add(weaponStatsContainer);
-
-            //radius = 10;
-
-            // 
-
-
         }
 
         // <summary>
