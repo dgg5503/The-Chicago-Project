@@ -5,10 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
-
     /*
      * Tile Notes:
      * - All tiles will be 64x64 in size.

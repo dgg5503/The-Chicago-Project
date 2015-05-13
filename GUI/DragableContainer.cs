@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
 
-
+// Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     /// <summary>
@@ -32,10 +32,11 @@ namespace TheChicagoProject.GUI
         /// <summary>
         /// Sets or gets the name of this container (no two containers can have the same name!)
         /// </summary>
-        public string Name { 
-            get 
-            { 
-                return name; 
+        public string Name
+        {
+            get
+            {
+                return name;
             }
 
             set
@@ -57,11 +58,11 @@ namespace TheChicagoProject.GUI
         /// Gets the control contained in this dragbale container.
         /// </summary>
         public DragableControl ControlContained
-        { 
-            get 
-            { 
-                return controlInContainer; 
-            } 
+        {
+            get
+            {
+                return controlInContainer;
+            }
         }
 
         public DragableContainer(Vector2 size, DragableControl controlInContainer = null, string name = null)
@@ -71,7 +72,7 @@ namespace TheChicagoProject.GUI
             if (namesInUse.Contains(name))
                 throw new Exception("WARNING: CONFLICTING CONTAINER NAMES!");
 
-            if(!string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrWhiteSpace(name))
                 namesInUse.Add(name);
 
             this.name = name;
@@ -96,7 +97,7 @@ namespace TheChicagoProject.GUI
                 return null;
 
             // should this even EVER happen?
-           
+
             if (controlToSet == controlInContainer)
             {
                 controlToSet.Location = Vector2.Zero;
@@ -105,7 +106,7 @@ namespace TheChicagoProject.GUI
             }
 
             DragableControl controlToReplace = controlInContainer;
-            
+
             // Clear this container.
             // Clear the continar this came from.
 
@@ -113,7 +114,7 @@ namespace TheChicagoProject.GUI
             if (controlToSet.parent != null)
                 controlToSet.parent.Clear();
             Clear();
-            
+
             // All controls should be centered in their container...
             controlInContainer = controlToSet;
             controlInContainer.Location = Vector2.Zero;
@@ -121,7 +122,7 @@ namespace TheChicagoProject.GUI
             //controlInContainer.parent = this;
             Add(controlInContainer);
 
-            if(controlToReplace != null)
+            if (controlToReplace != null)
                 controlToReplace.parent = null;
 
             return controlToReplace;
@@ -137,7 +138,7 @@ namespace TheChicagoProject.GUI
         }
 
 
-        
+
 
 
     }

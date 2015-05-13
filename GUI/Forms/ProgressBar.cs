@@ -5,9 +5,10 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
-    // Douglas Gliner
+    
     class ProgressBar : Control
     {
         // Fields

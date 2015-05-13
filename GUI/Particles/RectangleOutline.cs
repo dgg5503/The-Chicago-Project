@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Particles
 {
     class RectangleOutline : Particle

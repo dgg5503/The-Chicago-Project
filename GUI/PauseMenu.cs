@@ -6,9 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
+
     public class PauseMenu : Control
     {
         // Header of the menu

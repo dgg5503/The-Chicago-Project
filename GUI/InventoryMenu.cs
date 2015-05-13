@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.Item;
 using TheChicagoProject.GUI.Forms;
 
-
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
+    
     public class InventoryMenu : Control
     {
         //private DragableMatrix matrix;

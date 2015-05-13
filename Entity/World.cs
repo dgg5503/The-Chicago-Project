@@ -46,7 +46,7 @@ namespace TheChicagoProject.Entity
             return list;
         }
 
-        /*
+        
         public void SpawnCivilians() {
             int[][] spawns = this.getRandomGoals(47 - manager.civilianCount);
             if (spawns == null)
@@ -56,7 +56,7 @@ namespace TheChicagoProject.Entity
                 NPC civvie = new NPC(new FloatRectangle(locs[0] * Tile.SIDE_LENGTH, locs[1] * Tile.SIDE_LENGTH, 32, 32), Sprites.spritesDictionary["player"], 4);
                 manager.AddEntity(civvie);
             }
-        }*/
+        }
 
         //Updates the world every frame.
         public void tick(GameTime time) {

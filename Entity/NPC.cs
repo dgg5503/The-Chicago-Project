@@ -15,8 +15,8 @@ namespace TheChicagoProject.Entity
 {
     class NPC : LivingEntity
     {
-        public NPC(FloatRectangle rect, Sprite sprite, int health, int interactRange = 20, int interactBoundsOffsetY = 20, int interactBoundsOffsetX = 0) :
-            base(rect, sprite, health, null, interactRange, interactBoundsOffsetY, interactBoundsOffsetX) {
+        public NPC(FloatRectangle rect, Sprite sprite, int health) :
+            base(rect, sprite, health, null) {
             this.ai = new CivilianAI(this);
         }
 

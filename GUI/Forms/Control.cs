@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
     /*
@@ -19,8 +20,6 @@ namespace TheChicagoProject.GUI.Forms
      * - dragging of the window.
      * - 
      */
-
-    //Douglas Gliner
     public enum ControlAlignment
     {
         Left,
@@ -31,34 +30,47 @@ namespace TheChicagoProject.GUI.Forms
     public struct BorderInfo
     {
         public int width;
+        //public float offsetX;
+        //public float offsetY;
         public Color color;
-        public Texture2D texture;
+        public Sprite sprite;
+        //public Texture2D texture;
         public bool isDrawn;
 
         public BorderInfo(int width, Color color)
         {
             this.width = width;
             this.color = color;
-            texture = null;
-            isDrawn = true;
+            this.sprite = null;
+            /*
+            this.offsetX = 0;
+            this.offsetY = 0;
+             * */
+            //texture = null;
+            this.isDrawn = true;
             if (width < 1)
-                width = 1;
+                this.width = 1;
 
             if (color == null)
-                color = Color.Black;
+                this.color = Color.Black;
         }
 
-        public BorderInfo(Texture2D texture)
+        public BorderInfo(Sprite sprite)
         {
-            width = 0;
-            color = Color.White;
-            this.texture = texture;
-            isDrawn = true;
-            if(texture == null)
+            this.width = 1;
+            this.color = Color.White;
+            this.sprite = sprite;
+            /*
+            this.offsetX = 0;
+            this.offsetY = 0;
+            if(sprite.Texture != null)
             {
-                width = 1;
-                color = Color.Black;
-            }
+                this.offsetX = sprite.Texture.Width / 2;
+                this.offsetY = sprite.Texture.Height / 2;
+            }*/
+
+            
+            isDrawn = true;
         }
     }
 
@@ -175,7 +187,27 @@ namespace TheChicagoProject.GUI.Forms
         /// The border texture for controls, only shows if borderEnabled is true.
         /// </summary>
         //public Texture2D Border { get { return border; } set { border = value; } }
-        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; if (borderInfo.texture != null) { border = borderInfo.texture; } } } } // do OTF load...
+        public BorderInfo? Border {
+            get {
+                return borderInfo; 
+            } 
+            set {
+                if (value == null) {
+                    borderInfo.isDrawn = false;
+                } 
+                else {
+                    borderInfo = (BorderInfo)value;
+                    
+                    if (borderInfo.sprite != null && borderInfo.sprite.Texture != null) 
+                    {
+                        border = borderInfo.sprite.Texture;
+                    }
+                    else
+                        if(border != null)
+                            UpdateBorder(); 
+                } 
+            } 
+        } // do OTF load for new border width...
         /// <summary>
         /// Sets the fill of the control to some given Texture2D
         /// </summary>
@@ -241,7 +273,8 @@ namespace TheChicagoProject.GUI.Forms
                 c.Draw(spriteBatch, gameTime);
 
             if (borderInfo.isDrawn)
-                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
+                spriteBatch.Draw(border, this.GlobalLocation(), null, borderInfo.color, 0, Vector2.Zero, new Vector2(Size.X / border.Width, Size.Y / border.Height), SpriteEffects.None, 0);
+                //spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
 
             if (!isActive)
                 spriteBatch.Draw(inactiveAlpha, this.GlobalLocation(), Color.White);
@@ -264,17 +297,29 @@ namespace TheChicagoProject.GUI.Forms
                 fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
             }
             else
+            {
                 fill = fillInfo.texture;
+            }
 
             // Border creation
             //border = borderInfo.texture; // update size?
-            if (borderInfo.texture == null)
+            
+            if (borderInfo.sprite == null)
             {
                 border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
                 border.CreateBorder(borderInfo.width, Color.White);
             }
             else
-                border = borderInfo.texture;
+            {
+
+                if (borderInfo.sprite.Texture == null)
+                {
+                    //borderInfo.sprite.Texture = new Texture2D(graphics, borderInfo.sprite.Width, borderInfo.sprite.Height);
+                    borderInfo.sprite.Texture = contentManager.Load<Texture2D>("./GUI/" + borderInfo.sprite.FileName);
+                }
+
+                border = borderInfo.sprite.Texture;
+            }
                 
 
             if (inactiveAlpha == null)
@@ -285,6 +330,31 @@ namespace TheChicagoProject.GUI.Forms
 
             foreach (Control c in controls)
                 c.LoadTextures(graphics);
+        }
+
+        private void UpdateBorder()
+        {
+
+            if (borderInfo.sprite == null)
+            {
+                border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+                border.CreateBorder(borderInfo.width, Color.White);
+            }
+            else
+            {
+
+                if (borderInfo.sprite.Texture == null)
+                {
+                    //borderInfo.sprite.Texture = new Texture2D(graphics, borderInfo.sprite.Width, borderInfo.sprite.Height);
+                    borderInfo.sprite.Texture = contentManager.Load<Texture2D>("./GUI/" + borderInfo.sprite.FileName);
+                }
+
+                border = borderInfo.sprite.Texture;
+            }
+            /*
+            border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            border.CreateBorder(borderInfo.width, Color.White);
+             * */
         }
 
         // For loading XNB related files...
@@ -500,7 +570,7 @@ namespace TheChicagoProject.GUI.Forms
                 fill = fillInfo.texture; // update size?
 
             // Border creation
-            if (borderInfo.texture == null)
+            if (borderInfo.sprite == null)
             {
                 if (border != null)
                 {
@@ -509,7 +579,16 @@ namespace TheChicagoProject.GUI.Forms
                 }
             }
             else
-                border = borderInfo.texture; // update size?
+            {
+
+                if (borderInfo.sprite.Texture == null)
+                {
+                    //borderInfo.sprite.Texture = new Texture2D(graphics, borderInfo.sprite.Width, borderInfo.sprite.Height);
+                    borderInfo.sprite.Texture = contentManager.Load<Texture2D>("./GUI/" + borderInfo.sprite.FileName);
+                }
+
+                border = borderInfo.sprite.Texture;
+            }
              
             // REMAKE BORDERS AND STUFF
         }

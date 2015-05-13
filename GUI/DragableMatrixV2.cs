@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     class DragableMatrixV2 : Control, IEnumerable<Item.Item>

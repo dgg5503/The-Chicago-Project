@@ -7,9 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
+// Douglas Gliner, Ashwin G.
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
+    
 
     public static class Tiles
     {

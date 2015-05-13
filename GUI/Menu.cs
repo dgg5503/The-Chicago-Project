@@ -11,11 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
-
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
-
     // Each GUI overlay is its own Form (think of Windows forms, but the desktop being the game and the forms being these menus)
 
 

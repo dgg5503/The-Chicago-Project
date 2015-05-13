@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Entity;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
     class LivingEntityInfoUI : Control
     {
         // Important GUI controls that will need to be updated
@@ -35,8 +35,9 @@ namespace TheChicagoProject.GUI
                 if (value != null)
                 {
                     moneyLbl.Text = String.Format("${0,5:D8}", value.Cash);
-                    healthBar.CurrentValue = value.health;
                     healthBar.MaxValue = value.maxHealth;
+                    healthBar.CurrentValue = value.health;
+                    
                 }
                 else
                 {

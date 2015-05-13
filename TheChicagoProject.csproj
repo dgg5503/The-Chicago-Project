@@ -45,6 +45,7 @@
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityItem.cs" />
     <Compile Include="Entity\LivingEntity.cs" />
+    <Compile Include="Entity\NPC.cs" />
     <Compile Include="Entity\Player.cs" />
     <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />
@@ -52,7 +53,6 @@
     <Compile Include="GUI\Controls.cs" />
     <Compile Include="GUI\Door.cs" />
     <Compile Include="GUI\DragableContainer.cs" />
-    <Compile Include="GUI\DragableMatrix.cs" />
     <Compile Include="GUI\DragableMatrixV2.cs" />
     <Compile Include="GUI\Forms\Bar.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
@@ -123,6 +123,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\GUI\circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\weaponBorder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\weps.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\speakeasy.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -210,6 +219,8 @@
     <None Include="Content\Font\TimesNewRoman12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\GUI\sidebar.ai" />
+    <None Include="Content\GUI\weps.ai" />
     <None Include="Content\Quests\Crazed Gunman.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

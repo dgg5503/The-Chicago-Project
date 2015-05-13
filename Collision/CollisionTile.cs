@@ -7,9 +7,9 @@ using TheChicagoProject.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+//Douglas Gliner
 namespace TheChicagoProject.Collision
 {
-    //Douglas Gliner
     public class CollisionTile
     {
         // Grid reference
