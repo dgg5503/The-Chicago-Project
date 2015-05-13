@@ -274,6 +274,7 @@ namespace TheChicagoProject.GUI.Forms
             foreach (Control c in controls)
                 c.Draw(spriteBatch, gameTime);
 
+            // border offset for placing border outside of control?
             if (borderInfo.isDrawn)
                 spriteBatch.Draw(border, this.GlobalLocation(), null, borderInfo.color, 0, Vector2.Zero, new Vector2(Size.X / border.Width, Size.Y / border.Height), SpriteEffects.None, 0);
                 //spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
