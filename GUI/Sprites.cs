@@ -31,7 +31,8 @@ namespace TheChicagoProject.GUI
         {
             {"weapon_border", new Sprite(32, 32, 0, Color.White, "weaponBorder.png")},
             {"weapon_image_container_border", new Sprite(32, 32, 0, Color.White, "weps.png")},
-            {"circle_border", new Sprite(32, 32, 0, Color.White, "circle.png")}
+            {"circle_border", new Sprite(32, 32, 0, Color.White, "circle.png")},
+            {"weapon_wheel_border", new Sprite(500, 500, 0, Color.White, "wepwheel2.png")}
         };
     }
 }
