@@ -18,10 +18,13 @@ namespace TheChicagoProject.GUI.Forms
         Right,
         Center
     }
+    
     /*
      * TO-DO:
-     * - Auto resize the control to fit the text size.
-     * - 
+     * + Auto resize the control to fit the text size.
+     * - Automatic text scaling based on parent
+     * - Wordwrap based on characters, not spaces.
+     * - Text based alignment (justified, centered, etc...)
      */
 
     //Douglas Gliner

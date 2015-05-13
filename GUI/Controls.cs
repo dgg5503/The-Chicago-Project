@@ -17,7 +17,7 @@ namespace TheChicagoProject.GUI
             {"inventoryMenu", new InventoryMenu()},
             {"weaponInfoUI", new WeaponInfoUI()},
             {"livingEntityInfoUI", new LivingEntityInfoUI()},
-            {"weaponWheel", new WeaponWheelUI()},
+            {"weaponWheel", new WeaponWheelUIV2(400)},
             {"questLog", new QuestLogUI()}
         };
     }

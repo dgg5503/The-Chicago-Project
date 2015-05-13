@@ -10,7 +10,12 @@ using TheChicagoProject.GUI.Forms;
 //Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    
+    // TO-DO:
+    // - Context menus for information
+    // - Labels above stuff...
+    // - First time opening dialog boxs.
+    // - Dragging items outside of the inventory menu to drop them.
+    // - Compensate for size i.e. if really small, dont display name only images.
     public class InventoryMenu : Control
     {
         //private DragableMatrix matrix;

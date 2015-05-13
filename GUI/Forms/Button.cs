@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Storage;
 namespace TheChicagoProject.GUI.Forms
 {
     
-    class Button : Control
+    public class Button : Control
     {
         // Label on button
         private Label text;

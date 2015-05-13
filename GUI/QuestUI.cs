@@ -59,7 +59,7 @@ namespace TheChicagoProject.GUI
             // Cash label
             cashReward = new Label();
             cashReward.Alignment = ControlAlignment.Center;
-            cashReward.Text = "$000";
+            cashReward.Text = "";
             //cashReward.parent = cashRewardContainer;
             cashRewardContainer.Add(cashReward);
 
@@ -73,7 +73,7 @@ namespace TheChicagoProject.GUI
             // Quest point label
             pointReward = new Label();
             pointReward.Alignment = ControlAlignment.Center;
-            pointReward.Text = "@000";
+            pointReward.Text = "";
             //pointReward.parent = questPointContainer;
 
             questPointContainer.Add(pointReward);
@@ -88,7 +88,7 @@ namespace TheChicagoProject.GUI
             // Name Label
             name = new Label();
             name.Alignment = ControlAlignment.Center;
-            name.Text = "Quest Name";
+            name.Text = "";
             //name.parent = nameLabelContainer;
             nameLabelContainer.Add(name);
 
@@ -110,6 +110,7 @@ namespace TheChicagoProject.GUI
             // Description label
             description = new Label();
             description.Alignment = ControlAlignment.Left;
+            description.Text = "Click on a quest on the left to see information about it here!";
             //description.Text = "Description\nDescription Description Description Description Description Description Description Description Description Description Description Description\nDescription Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description ";
             description.WordWrap = true;
             //description.parent = descriptionContainer;

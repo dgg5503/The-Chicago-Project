@@ -12,6 +12,10 @@ using TheChicagoProject.Quests;
 //Douglas Gliner
 namespace TheChicagoProject.GUI
 {
+
+    // TO-DO:
+    // - First time opening dialog boxs.
+    // - Multiple objectives UI.
     class QuestLogUI : Control
     {
         // Controls to be modified

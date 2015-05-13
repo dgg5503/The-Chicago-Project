@@ -18,7 +18,8 @@ namespace TheChicagoProject.GUI.Forms
      * - CenterLeft, Right, Horizontal, Vertical
      * - resizing (i.e. build with a size and then scale from that...)
      * - dragging of the window.
-     * - 
+     * - Text scaling
+     * - Border/fill offset.
      */
     public enum ControlAlignment
     {

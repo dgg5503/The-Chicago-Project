@@ -330,7 +330,8 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.WeaponWheel:
-                    WeaponWheelUI weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUI;
+                   
+                    WeaponWheelUIV2 weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUIV2;
                     if (!weaponWheelUI.IsInventoryLoaded)
                     {
                         weaponWheelUI.Load(player.inventory);
