@@ -63,7 +63,7 @@ namespace TheChicagoProject
                 if (e.markforDelete) {
                     if (e is Player) {
                         Game1.state = GameState.Menu;
-                        (e as Player).health = 4;
+                        (e as Player).health = (e as Player).maxHealth;
                         e.markforDelete = false;
                     } else {
                         entities.Remove(e);
