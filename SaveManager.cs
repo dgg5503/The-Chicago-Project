@@ -718,12 +718,18 @@ namespace TheChicagoProject
             bool successful;
             try
             {
-                if (!Directory.Exists("./Content/SaveFiles/Inventory"))
+                //figure out the save path
+                int startname = saveLoc.LastIndexOf('/') + 1;
+                int endname = saveLoc.LastIndexOf('.');
+                string name = saveLoc.Substring(startname, endname - startname);
+                string directory = saveLoc.Substring(0, startname) + "/" + name;
+
+                if (!Directory.Exists(directory))
                 {
-                    Directory.CreateDirectory("./Content/SaveFiles/Inventory");
+                    Directory.CreateDirectory(directory);
                 }
                 //initialize the binary writer
-                outStream = File.OpenWrite("./Content/SaveFiles/Inventory/" + item.name + ".item");
+                outStream = File.OpenWrite(directory+ item.name + ".item");
                 output = new BinaryWriter(outStream);
 
                 //write data
