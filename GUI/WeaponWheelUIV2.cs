@@ -45,7 +45,8 @@ namespace TheChicagoProject.GUI
         } 
 
         // Controls to be modified
-        private Container weaponStatsContainer;
+        private ItemStatsUI weaponStatsContainer;
+
 
         // Wheely stuff
         // radius from center of weapon stat square to a weapon button!
@@ -66,8 +67,8 @@ namespace TheChicagoProject.GUI
             this.Alignment = ControlAlignment.Center;
 
             // Weapon stats container
-            weaponStatsContainer = new Container();
-            weaponStatsContainer.Size = this.Size / 3;
+            weaponStatsContainer = new ItemStatsUI(this.Size * .4f);
+            weaponStatsContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["weapon_wheel_border"]);
             weaponStatsContainer.Alignment = ControlAlignment.Center;
             Add(weaponStatsContainer);
 
@@ -113,6 +114,7 @@ namespace TheChicagoProject.GUI
                 if(weapon == currentInventory.EntityInventory[currentInventory.ActiveWeapon])
                 {
                     weaponButton.DefaultBorder = new BorderInfo(5, Color.Purple);
+                    weaponStatsContainer.Load(weapon);
                     currentWeaponButton = weaponButton;
                 }
                 
@@ -138,6 +140,7 @@ namespace TheChicagoProject.GUI
                 currentWeaponButton.DefaultBorder = new BorderInfo(1, Color.Black);
                 tmpButton.DefaultBorder = new BorderInfo(5, Color.Purple);
                 currentWeaponButton = tmpButton;
+                weaponStatsContainer.Load(tmpButton.Data);
             }
         }
 

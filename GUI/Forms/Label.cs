@@ -47,8 +47,8 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Gets or sets the text for this label.
         /// </summary>
-        public string Text { get { return text; } set { text = value; } }
-        /// <summary>
+        public string Text { get { return text; } set { text = value; if(gameTime != null){ this.Update(gameTime); } } }
+        /// <summary> 
         /// Autoresize the control to fit the text.
         /// </summary>
         public bool AutoResize { get { return autoResize; } set { autoResize = value; } }

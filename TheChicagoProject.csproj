@@ -64,6 +64,7 @@
     <Compile Include="GUI\Forms\Label.cs" />
     <Compile Include="GUI\Forms\ProgressBar.cs" />
     <Compile Include="GUI\InventoryMenu.cs" />
+    <Compile Include="GUI\ItemStatsUI.cs" />
     <Compile Include="GUI\LivingEntityInfoUI.cs" />
     <Compile Include="GUI\Menu.cs" />
     <Compile Include="GUI\ObjectivesUI.cs" />

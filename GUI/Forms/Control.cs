@@ -25,7 +25,8 @@ namespace TheChicagoProject.GUI.Forms
     {
         Left,
         Right,
-        Center
+        Center,
+        CenterX
     }
 
     public struct BorderInfo
@@ -131,7 +132,7 @@ namespace TheChicagoProject.GUI.Forms
         private SpriteFont font;
 
         // Gametime for this control
-        private GameTime gameTime;
+        protected GameTime gameTime;
 
         // Font XNB file.
         private string fontFile;
@@ -461,6 +462,10 @@ namespace TheChicagoProject.GUI.Forms
                         Location = new Vector2((parent.Size.X / 2 - this.Size.X / 2) + this.Location.X, (parent.Size.Y / 2 - this.Size.Y / 2) + this.Location.Y);
                         break;
 
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2((parent.Size.X / 2 - this.Size.X / 2) + this.Location.X, this.Location.Y);
+                        break;
+
                     case ControlAlignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
@@ -483,6 +488,10 @@ namespace TheChicagoProject.GUI.Forms
                 {
                     case ControlAlignment.Center:
                         Location = new Vector2(((RenderManager.ViewportWidth / 2) - (this.Size.X / 2)) - this.Location.X, ((RenderManager.ViewportHeight / 2) - (this.Size.Y / 2)) - this.Location.Y);
+                        break;
+
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2(((RenderManager.ViewportWidth / 2) - (this.Size.X / 2)) - this.Location.X, this.Location.Y);
                         break;
 
                     case ControlAlignment.Left:
@@ -509,6 +518,11 @@ namespace TheChicagoProject.GUI.Forms
                         Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth / 2, this.Location.Y + RenderManager.ViewportDeltaHeight / 2);
                         break;
 
+                        // needed?
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth / 2, this.Location.Y);
+                        break;
+
                     case ControlAlignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
@@ -532,6 +546,11 @@ namespace TheChicagoProject.GUI.Forms
                     case ControlAlignment.Center:
                         Location = new Vector2(this.Location.X + (int)((oldSize.X - this.Size.X) / 2), this.Location.Y + (int)((oldSize.Y - this.Size.Y) / 2)); // ints required here to preserve centering
                         break;
+
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2(this.Location.X + (int)((oldSize.X - this.Size.X) / 2), this.Location.Y); // ints required here to preserve centering
+                        break;
+
 
                     case ControlAlignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
