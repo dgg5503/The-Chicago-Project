@@ -303,6 +303,15 @@ namespace TheChicagoProject
                         pLog[quest].Status = (int)quests[i, 1];
                     }
                 }
+
+                //add new quests to quest log
+                foreach(Quest newQuest in log)
+                {
+                    if(!pLog.ContainsQuest(newQuest))
+                    {
+                        pLog.Add(newQuest);
+                    }
+                }
                 
                 //load the items
                 Item.Inventory inventory = player.inventory;
@@ -635,7 +644,7 @@ namespace TheChicagoProject
                     //Create the quest
                     quest = new Quest(name, objective, description, start, null, condition, qPoints, cash);
                     quest.worldKey = key;
-
+                    quest.Status = 1;
                     //add the entities to the quests entitiy list
                     foreach (Entity.LivingEntity entity in livingEntities.Values.ToList())
                     {

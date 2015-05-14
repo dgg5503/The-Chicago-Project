@@ -1,0 +1,234 @@
+Type:"Quest"
+Name:"Speakeasy"
+World:"speakeasy"
+Objective:"Shut down the speakesy underneath Tom's appartment in the southeast corner of town."
+Description:"Word on the street says Tom's hosting an illlegal liquor joint in his basement. Head over to Tom's residence and check for any suspicious activity. Don't be afraid to defend yourself if things get messy."
+Start:
+	X:4500
+	Y:5400
+Reward:
+	Cash:16
+	Q-Points:6
+
+Living Entity:
+	ID:Tom
+	Start:
+		X:84
+		Y:272
+	Texture:"player"
+	Health:13
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Phil
+	Start:
+		X:84
+		Y:362
+	Texture:"mugger"
+	Health:6
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Dan
+	Start:
+		X:86
+		Y:491
+	Texture:"mugger"
+	Health:5
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Shiela
+	Start:
+		X:84
+		Y:612
+	Texture:"mugger"
+	Health:5
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Dave
+	Start:
+		X:75
+		Y:740
+	Texture:"mugger"
+	Health:5
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Jerry
+	Start:
+		X:85
+		Y:1111
+	Texture:"mugger"
+	Health:5
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Terry
+	Start:
+		X:81
+		Y:1450
+	Texture:"mugger"
+	Health:4
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Joe
+	Start:
+		X:85
+		Y:1750
+	Texture:"mugger"
+	Health:4
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Sam
+	Start:
+		X:106
+		Y:2432
+	Texture:"mugger"
+	Health:3
+	AI:High
+End Living Entity
+
+Living Entity:
+	ID:Tina
+	Start:
+		X:316
+		Y:2300
+	Texture:"mugger"
+	Health:3
+	AI:High
+End Living Entity
+
+Living Entity:
+	ID:Harold
+	Start:
+		X:506
+		Y:2180
+	Texture:"mugger"
+	Health:3
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Frank
+	Start:
+		X:316
+		Y:1950
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Tim
+	Start:
+		X:286
+		Y:1580
+	Texture:"mugger"
+	Health:3
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Jean
+	Start:
+		X:306
+		Y:1180
+	Texture:"mugger"
+	Health:3
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Nancy
+	Start:
+		X:476
+		Y:980
+	Texture:"mugger"
+	Health:3
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Dean
+	Start:
+		X:306
+		Y:792
+	Texture:"mugger"
+	Health:3
+	AI:Mid
+End Living Entity
+
+Living Entity:
+	ID:Bubba
+	Start:
+		X:515
+		Y:142
+	Texture:"mugger"
+	Health:7
+	AI:Low
+End Living Entity
+
+Living Entity:
+	ID:Fred
+	Start:
+		X:274
+		Y:320
+	Texture:"mugger"
+	Health:2
+	AI:
+End Living Entity
+
+Living Entity:
+	ID:Gary
+	Start:
+		X:344
+		Y:320
+	Texture:"mugger"
+	Health:2
+	AI:
+End Living Entity
+
+Living Entity:
+	ID:Sharon
+	Start:
+		X:416
+		Y:392
+	Texture:"mugger"
+	Health:2
+	AI:
+End Living Entity
+
+Living Entity:
+	ID:Ben
+	Start:
+		X:206
+		Y:584
+	Texture:"mugger"
+	Health:2
+	AI:
+End Living Entity
+
+Living Entity:
+	ID:Walter
+	Start:
+		X:66
+		Y:158
+	Texture:"mugger"
+	Health:2
+	AI:High
+End Living Entity
+
+Condition:EnemyDies
+Target:Tom
