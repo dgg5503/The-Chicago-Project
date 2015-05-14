@@ -298,7 +298,10 @@ namespace TheChicagoProject.GUI.Forms
         protected virtual void LoadTextures(GraphicsDevice graphics)
         {
             if(graphics == null)
-                throw new Exception("No graphics device defined!");
+            {
+                return;
+            }
+                //throw new Exception("No graphics device defined!");
 
             // Fill creation
             this.graphics = graphics;
