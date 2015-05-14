@@ -87,6 +87,7 @@ namespace TheChicagoProject
             mugging.worldManager = this;
             player.log.Add(mugging);
             this.worldQuests.Add(mugging);
+            mugging.player = player;
 
             Quest gunman = SaveManager.ParseQuest("./Content/Quests/Crazed Gunman.quest");
             gunman.SetAvailable();
@@ -102,7 +103,7 @@ namespace TheChicagoProject
             sniper.SetAvailable();
             player.log.Add(sniper);
             this.worldQuests.Add(sniper);
-
+            /*
             Quest sniper1 = SaveManager.ParseQuest("./Content/Quests/Sniper1.quest");
             sniper1.SetAvailable();
             player.log.Add(sniper1);
@@ -132,7 +133,7 @@ namespace TheChicagoProject
             mugging3.SetAvailable();
             player.log.Add(mugging3);
             this.worldQuests.Add(mugging3);
-            
+            */
             /*
             Quest test = new Quest("Mugging", "Kill the mugger", "You are being attacked", new Vector2(100, 1000), player, this, WinCondition.EnemyDies, 4, 50);
             test.EnemyToKill = mugger;
