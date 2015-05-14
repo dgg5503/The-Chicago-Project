@@ -468,7 +468,6 @@ namespace TheChicagoProject.GUI.Forms
                 currentFrameKeyboardState = Keyboard.GetState();
                 Keys[] clickedKeys = lastFrameKeyboardState.GetPressedKeys().Except(currentFrameKeyboardState.GetPressedKeys()).ToArray();
 
-                
                 if (KeyClicked != null)
                     KeyClicked(this, new KeysEventArgs(clickedKeys));
                 

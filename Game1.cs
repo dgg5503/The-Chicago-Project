@@ -197,6 +197,7 @@ namespace TheChicagoProject
                 case GameState.QuestLog:
                     break;
                 case GameState.WeaponWheel:
+                    inputManager.WheelInput(Keyboard.GetState());
                     break;
                 case GameState.FastTravel:
                     break;
