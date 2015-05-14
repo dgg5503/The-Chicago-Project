@@ -85,12 +85,12 @@ namespace TheChicagoProject
         /// <param name="j">The j component of the direction vector</param>
         public void FireBullet(float x, float y, float i, float j, int damage, LivingEntity shooter) {
             Vector2 bullet = new Vector2(x + i, y + j);
-
+            Player player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
             #region Screen Bounds
-            int right = WorldManager.player.location.IntX + (RenderManager.ViewportWidth / 2);
-            int left = WorldManager.player.location.IntX - (RenderManager.ViewportWidth / 2);
-            int top = WorldManager.player.location.IntY - (RenderManager.ViewportHeight / 2);
-            int bottom = WorldManager.player.location.IntY + (RenderManager.ViewportHeight / 2);
+            int right = player.location.IntX + (RenderManager.ViewportWidth / 2);
+            int left = player.location.IntX - (RenderManager.ViewportWidth / 2);
+            int top = player.location.IntY - (RenderManager.ViewportHeight / 2);
+            int bottom = player.location.IntY + (RenderManager.ViewportHeight / 2);
             #endregion
 
             bool go = true;
