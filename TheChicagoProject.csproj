@@ -67,6 +67,7 @@
     <Compile Include="GUI\ItemStatsUI.cs" />
     <Compile Include="GUI\LivingEntityInfoUI.cs" />
     <Compile Include="GUI\Menu.cs" />
+    <Compile Include="GUI\NPCTalkUI.cs" />
     <Compile Include="GUI\ObjectivesUI.cs" />
     <Compile Include="GUI\Particles\Line.cs" />
     <Compile Include="GUI\Particles\Particle.cs" />
