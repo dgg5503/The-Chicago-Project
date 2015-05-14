@@ -15,6 +15,9 @@ namespace TheChicagoProject.GUI
 {
     class DragableMatrixV2 : Control, IEnumerable<Item.Item>
     {
+        // TO-DO:
+        // - Add two context menus, one for weapon hovering one for holding
+
         // Matrix handling
         private List<DragableContainer> containers;
         private int maxSlots;
@@ -171,7 +174,7 @@ namespace TheChicagoProject.GUI
 
             if (container == null || container.ControlContained == null || container.ControlContained.Item == null)
             {
-                Console.WriteLine("nothing");
+                //Console.WriteLine("nothing");
                 //contextMenu.IsDrawn = false;
                 return;
             }
@@ -180,8 +183,13 @@ namespace TheChicagoProject.GUI
             Item.Item item = container.ControlContained.Item;
 
             // menu location
-            contextMenu.Location = new Vector2(this.CurrentFrameMouseState.Position.X, this.CurrentFrameMouseState.Position.Y);
-            
+            if (currentDragableContainer == null)
+                contextMenu.Location = new Vector2(this.CurrentFrameMouseState.Position.X, this.CurrentFrameMouseState.Position.Y);
+            else
+                contextMenu.Location = new Vector2(currentDragableControl.GlobalLocation().X + currentDragableControl.Size.X, currentDragableControl.GlobalLocation().Y);
+
+
+
             // load item info
             if (contextMenu.Item != item)
                 contextMenu.Load(item);
@@ -201,11 +209,14 @@ namespace TheChicagoProject.GUI
 
             if (currentDragableControl == null && clickedOn.ControlContained != null)
             {
+                
+
                 if (currentDragableContainer == null)
                     currentDragableContainer = clickedOn;
 
                 currentDragableControl = clickedOn.ControlContained;
                 mouseOrigin = new Vector2(this.CurrentFrameMouseState.Position.X - currentDragableControl.Location.X, this.CurrentFrameMouseState.Position.Y - currentDragableControl.Location.Y);
+                
             }
         }
 
