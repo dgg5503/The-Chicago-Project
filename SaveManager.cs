@@ -44,10 +44,6 @@ namespace TheChicagoProject
                 World mainworld = LoadWorld("main");
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
-            else
-            {
-                LoadSave();
-            }
 #endif
             LoadSave();
         }
@@ -555,6 +551,8 @@ namespace TheChicagoProject
                         }
 
                         livingEntities[id] = new Entity.LivingEntity(EntityRect, sprite, health, null);
+                        livingEntities[id].Name = id;
+
                         //get the ai
                         index = data.IndexOf("AI:", index) + 3;
                         end = data.IndexOf('\n', index) - 1;
