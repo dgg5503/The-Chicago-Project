@@ -7,7 +7,7 @@ namespace TheChicagoProject.GUI.Forms
 {
     public abstract class Dialog : Control
     {
-        protected bool eventsCompleted;
+        protected bool eventsCompleted = false;
 
         /// <summary>
         /// Gets whether or not the events for this dialog have completed.

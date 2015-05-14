@@ -18,6 +18,7 @@ namespace TheChicagoProject.GUI.Forms
         private Label nameOfNPCLabel;
         private Label textToSpeakLabel;
         private Label proceedingLabel;
+        private Container textContainer;
 
         int pages = 1;
 
@@ -51,7 +52,7 @@ namespace TheChicagoProject.GUI.Forms
             headerContainer.Add(nameOfNPCLabel);
 
             // Text container
-            Container textContainer = new Container();
+            textContainer = new Container();
             textContainer.Size = new Vector2(doubleBorderContainer.Size.X, doubleBorderContainer.Size.Y * .8f);
             textContainer.Location = new Vector2(0, doubleBorderContainer.Size.Y * .1f);
             textContainer.Alignment = ControlAlignment.Left;
@@ -102,6 +103,10 @@ namespace TheChicagoProject.GUI.Forms
             base.LoadContent(contentManager);
 
             // check text size and calculate pages!
+            if(textToSpeakLabel.Size.X > textContainer.Size.X || textToSpeakLabel.Size.Y > textContainer.Size.Y)
+            {
+
+            }
 
         }
 

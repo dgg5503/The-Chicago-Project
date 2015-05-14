@@ -270,7 +270,6 @@ namespace TheChicagoProject
                     //test.yesEvent += test_yesEvent;
                     //test.noEvent += test_noEvent;
                     //NPCTalkUI test = new NPCTalkUI(new Vector2(200, 150), "TESTER", "lololo wow ok hi XD!!");
-                    
                     //RenderManager.AddDialog(test);
                      
                     Game1.state = GameState.QuestLog;

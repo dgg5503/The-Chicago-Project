@@ -32,10 +32,12 @@ namespace TheChicagoProject.GUI.Forms
             this.Size = size;
             this.type = type;
 
-            eventsCompleted = false;
+            //eventsCompleted = false;
 
             if (location != null)
                 this.Location = (Vector2)location;
+            else
+                this.Alignment = ControlAlignment.Center;
 
             // Header container
             Container headerContainer = new Container();
