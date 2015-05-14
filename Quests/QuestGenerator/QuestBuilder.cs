@@ -32,6 +32,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
             this.sprite = sprite;
             this.health = health;
             this.ai = ai;
+            
         }
     }
 
@@ -66,7 +67,6 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         List<LivingEntityData> livingEntities;
         List<QuestItemData> items;
-
 
         public QuestBuilder()
         {
@@ -129,7 +129,6 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
             livingEntities = new List<LivingEntityData>();
             items = new List<QuestItemData>();
-             
 
         }
 
@@ -148,6 +147,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
             //store this information somewhere
             livingEntities.Add(new LivingEntityData(name, x, y, sprite, health, ai));
+            lsbEntities.Items.Add(name);
 
             if (chkRecipient.Checked)
                 recipient = name;
@@ -162,6 +162,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
             cmbLivingEntityAI.Text = "";
             chkTarget.Checked = false;
             chkRecipient.Checked = false;
+
 
         }
 
