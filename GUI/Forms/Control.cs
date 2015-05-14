@@ -29,6 +29,18 @@ namespace TheChicagoProject.GUI.Forms
         CenterX
     }
 
+    // http://stackoverflow.com/questions/4254636/how-to-create-a-custom-event-handling-class-like-eventargs
+    public class KeysEventArgs : EventArgs
+    {
+        private Keys[] keys;
+        public KeysEventArgs(Keys[] keys)
+        {
+            this.keys = keys;
+        }
+
+        public Keys[] Keys { get { return keys; } }
+    }
+
     public struct BorderInfo
     {
         public int width;
@@ -165,7 +177,7 @@ namespace TheChicagoProject.GUI.Forms
 
         public event EventHandler HoverRelease;
 
-        public event EventHandler<TextInputEventArgs> KeyClicked;
+        public event EventHandler<KeysEventArgs> KeyClicked;
 
         private MouseState lastFrameMouseState;
 
@@ -454,7 +466,11 @@ namespace TheChicagoProject.GUI.Forms
                 lastFrameMouseState = currentFrameMouseState;
 
                 currentFrameKeyboardState = Keyboard.GetState();
-                Keys[] clickedKeys = currentFrameKeyboardState.GetPressedKeys().Union(lastFrameKeyboardState.GetPressedKeys()).ToArray();
+                Keys[] clickedKeys = lastFrameKeyboardState.GetPressedKeys().Except(currentFrameKeyboardState.GetPressedKeys()).ToArray();
+
+                
+                if (KeyClicked != null)
+                    KeyClicked(this, new KeysEventArgs(clickedKeys));
                 
             }
 
