@@ -65,7 +65,7 @@ namespace TheChicagoProject.Entity
                 civilianMaps[0] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
                 civilianMaps[1] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
             }
-            //SpawnCivilians();
+            SpawnCivilians();
 
             Player player = manager.GetPlayer();
             int pX = player.location.IntX / Tile.SIDE_LENGTH; //The actual player location.

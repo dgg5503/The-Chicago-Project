@@ -27,7 +27,7 @@ namespace TheChicagoProject.AI
                 return;
             if (!manager.world.tiles[x][y].IsWalkable)
                 entity.markforDelete = true;
-            if (map.Map[x][y] <= 5) {
+            if (map.Map[x][y] <= 2) {
                 //mapToUse = (mapToUse == 1 ? 0 : 1);
                 //Console.WriteLine(entity.GetType().FullName + " #" + entity.GetHashCode() + " is dying now!");
                 entity.markforDelete = true;
