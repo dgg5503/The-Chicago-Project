@@ -296,6 +296,15 @@ namespace TheChicagoProject
         }
         */
 
+        public void WheelInput(KeyboardState keyboardState)
+        {
+            if(keyboardState.IsKeyDown(Keys.Escape) || (keyboardState.IsKeyDown(Keys.Q) && previousState.IsKeyUp(Keys.Q))
+            {
+                Game1.state = GameState.Game;
+            }
+            previousState = keyboardState;
+        }
+
         public void PauseInput(KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.Escape) && previousState.IsKeyUp(Keys.Escape))
