@@ -68,19 +68,19 @@ namespace TheChicagoProject.AI
             switch (entity.direction) {
                 case Direction.Up:
                     if (!xy)
-                        return val + 0.5f;
+                        return val + 0.75f;
                     break;
                 case Direction.Down:
                     if (!xy)
-                        return val - 0.5f;
+                        return val - 0.75f;
                     break;
                 case Direction.Left:
                     if (xy)
-                        return val + 0.5f;
+                        return val + 0.75f;
                     break;
                 case Direction.Right:
                     if (xy)
-                        return val - 0.5f;
+                        return val - 0.75f;
                     break;
             }
             return val;
@@ -95,6 +95,8 @@ namespace TheChicagoProject.AI
         protected Direction findPos(DijkstraMap map, int hl) {
             int ex = getEntityX()*map.scale - map.modX;
             int ey = getEntityY()*map.scale - map.modY;
+            if (ex < 0 || ey < 0 || ex >= map.Map.Length || ey >= map.Map[ex].Length)
+                return entity.direction;
 
             if (ey - 1 > -1)
                 if (map.Map[ex][ey - 1] == map.Map[ex][ey] - hl) //up
