@@ -48,6 +48,8 @@ namespace TheChicagoProject.Entity
         //Remove this entity if true!
         public bool markForDelete;
 
+        public List<Entity> collidingEntites;
+
         /// <summary>
         /// The constructor for the base entity.
         /// </summary>
@@ -72,6 +74,7 @@ namespace TheChicagoProject.Entity
             collisionReactionVector = Vector2.Zero;
             movement = Vector2.Zero;
             color = Color.White;
+            collidingEntites = new List<Entity>();
         }
 
         /// <summary>
@@ -90,6 +93,7 @@ namespace TheChicagoProject.Entity
         /// <param name="manager">The EntityManager that links to the player</param>
         public virtual void Update(GameTime time, EntityManager manager) {
             // ------- COLLISION TEST ------
+            collidingEntites.Clear();
 
             location.X += movement.X;
             location.Y += movement.Y;
@@ -179,8 +183,9 @@ namespace TheChicagoProject.Entity
                  * 
                  */
                 if (isColliding) {
-
+                    collidingEntites.Add(e);
                     CollisionReaction(toCheck);
+
                 }
 
             }
@@ -292,6 +297,13 @@ namespace TheChicagoProject.Entity
             location.Location -= collisionReactionVector;
 
 
+        }
+
+        public bool IsCollidingWith(Entity entity)
+        {
+            if (collidingEntites.Contains(entity))
+                return true;
+            return false;
         }
 
         /// <summary>
