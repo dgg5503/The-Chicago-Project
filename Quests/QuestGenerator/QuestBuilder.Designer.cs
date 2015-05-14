@@ -103,7 +103,7 @@
             // treeQuests
             // 
             this.treeQuests.Location = new System.Drawing.Point(9, 24);
-            this.treeQuests.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeQuests.Margin = new System.Windows.Forms.Padding(2);
             this.treeQuests.Name = "treeQuests";
             this.treeQuests.Size = new System.Drawing.Size(120, 271);
             this.treeQuests.TabIndex = 1;
@@ -227,7 +227,7 @@
             // 
             this.textBoxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxName.Location = new System.Drawing.Point(189, 24);
-            this.textBoxName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(146, 26);
             this.textBoxName.TabIndex = 4;
@@ -298,7 +298,7 @@
             // 
             this.textBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDescription.Location = new System.Drawing.Point(132, 86);
-            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -309,7 +309,7 @@
             // 
             this.textBoxObjective.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxObjective.Location = new System.Drawing.Point(132, 207);
-            this.textBoxObjective.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxObjective.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxObjective.Multiline = true;
             this.textBoxObjective.Name = "textBoxObjective";
             this.textBoxObjective.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -320,7 +320,7 @@
             // 
             this.nudCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCash.Location = new System.Drawing.Point(418, 24);
-            this.nudCash.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudCash.Margin = new System.Windows.Forms.Padding(2);
             this.nudCash.Name = "nudCash";
             this.nudCash.Size = new System.Drawing.Size(80, 26);
             this.nudCash.TabIndex = 7;
@@ -329,7 +329,7 @@
             // 
             this.nudQPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudQPoints.Location = new System.Drawing.Point(614, 24);
-            this.nudQPoints.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudQPoints.Margin = new System.Windows.Forms.Padding(2);
             this.nudQPoints.Name = "nudQPoints";
             this.nudQPoints.Size = new System.Drawing.Size(63, 26);
             this.nudQPoints.TabIndex = 8;
@@ -338,7 +338,7 @@
             // 
             this.nudStartX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudStartX.Location = new System.Drawing.Point(746, 24);
-            this.nudStartX.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudStartX.Margin = new System.Windows.Forms.Padding(2);
             this.nudStartX.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -352,7 +352,7 @@
             // 
             this.nudStartY.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudStartY.Location = new System.Drawing.Point(829, 24);
-            this.nudStartY.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudStartY.Margin = new System.Windows.Forms.Padding(2);
             this.nudStartY.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -368,7 +368,7 @@
             this.cmbConditions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbConditions.FormattingEnabled = true;
             this.cmbConditions.Location = new System.Drawing.Point(137, 322);
-            this.cmbConditions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbConditions.Margin = new System.Windows.Forms.Padding(2);
             this.cmbConditions.Name = "cmbConditions";
             this.cmbConditions.Size = new System.Drawing.Size(168, 28);
             this.cmbConditions.TabIndex = 10;
@@ -389,7 +389,7 @@
             this.butCreateLivingEntity.Enabled = false;
             this.butCreateLivingEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butCreateLivingEntity.Location = new System.Drawing.Point(137, 353);
-            this.butCreateLivingEntity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.butCreateLivingEntity.Margin = new System.Windows.Forms.Padding(2);
             this.butCreateLivingEntity.Name = "butCreateLivingEntity";
             this.butCreateLivingEntity.Size = new System.Drawing.Size(197, 36);
             this.butCreateLivingEntity.TabIndex = 11;
@@ -416,7 +416,7 @@
             this.panLivingEntitiy.Controls.Add(this.txtLivingEntityName);
             this.panLivingEntitiy.Controls.Add(this.label8);
             this.panLivingEntitiy.Location = new System.Drawing.Point(137, 392);
-            this.panLivingEntitiy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panLivingEntitiy.Margin = new System.Windows.Forms.Padding(2);
             this.panLivingEntitiy.Name = "panLivingEntitiy";
             this.panLivingEntitiy.Size = new System.Drawing.Size(750, 123);
             this.panLivingEntitiy.TabIndex = 12;
@@ -426,7 +426,7 @@
             this.chkRecipient.AutoSize = true;
             this.chkRecipient.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkRecipient.Location = new System.Drawing.Point(16, 95);
-            this.chkRecipient.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkRecipient.Margin = new System.Windows.Forms.Padding(2);
             this.chkRecipient.Name = "chkRecipient";
             this.chkRecipient.Size = new System.Drawing.Size(348, 22);
             this.chkRecipient.TabIndex = 14;
@@ -439,7 +439,7 @@
             this.chkTarget.AutoSize = true;
             this.chkTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTarget.Location = new System.Drawing.Point(16, 68);
-            this.chkTarget.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkTarget.Margin = new System.Windows.Forms.Padding(2);
             this.chkTarget.Name = "chkTarget";
             this.chkTarget.Size = new System.Drawing.Size(264, 22);
             this.chkTarget.TabIndex = 13;
@@ -457,7 +457,7 @@
             "Mid",
             "High"});
             this.cmbLivingEntityAI.Location = new System.Drawing.Point(296, 39);
-            this.cmbLivingEntityAI.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbLivingEntityAI.Margin = new System.Windows.Forms.Padding(2);
             this.cmbLivingEntityAI.Name = "cmbLivingEntityAI";
             this.cmbLivingEntityAI.Size = new System.Drawing.Size(92, 25);
             this.cmbLivingEntityAI.TabIndex = 12;
@@ -477,7 +477,7 @@
             // 
             this.nudLivingEntityHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLivingEntityHealth.Location = new System.Drawing.Point(116, 41);
-            this.nudLivingEntityHealth.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudLivingEntityHealth.Margin = new System.Windows.Forms.Padding(2);
             this.nudLivingEntityHealth.Name = "nudLivingEntityHealth";
             this.nudLivingEntityHealth.Size = new System.Drawing.Size(90, 24);
             this.nudLivingEntityHealth.TabIndex = 10;
@@ -497,7 +497,7 @@
             // 
             this.picEntity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.picEntity.Location = new System.Drawing.Point(642, 9);
-            this.picEntity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.picEntity.Margin = new System.Windows.Forms.Padding(2);
             this.picEntity.Name = "picEntity";
             this.picEntity.Size = new System.Drawing.Size(97, 105);
             this.picEntity.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -509,7 +509,7 @@
             this.cmbLivingEntitySprite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbLivingEntitySprite.FormattingEnabled = true;
             this.cmbLivingEntitySprite.Location = new System.Drawing.Point(495, 11);
-            this.cmbLivingEntitySprite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbLivingEntitySprite.Margin = new System.Windows.Forms.Padding(2);
             this.cmbLivingEntitySprite.Name = "cmbLivingEntitySprite";
             this.cmbLivingEntitySprite.Size = new System.Drawing.Size(144, 25);
             this.cmbLivingEntitySprite.TabIndex = 7;
@@ -530,7 +530,7 @@
             // 
             this.nudLivingEntityStartY.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLivingEntityStartY.Location = new System.Drawing.Point(358, 10);
-            this.nudLivingEntityStartY.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudLivingEntityStartY.Margin = new System.Windows.Forms.Padding(2);
             this.nudLivingEntityStartY.Name = "nudLivingEntityStartY";
             this.nudLivingEntityStartY.Size = new System.Drawing.Size(73, 24);
             this.nudLivingEntityStartY.TabIndex = 5;
@@ -550,7 +550,7 @@
             // 
             this.nudLivingEntityStartX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLivingEntityStartX.Location = new System.Drawing.Point(260, 11);
-            this.nudLivingEntityStartX.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudLivingEntityStartX.Margin = new System.Windows.Forms.Padding(2);
             this.nudLivingEntityStartX.Name = "nudLivingEntityStartX";
             this.nudLivingEntityStartX.Size = new System.Drawing.Size(73, 24);
             this.nudLivingEntityStartX.TabIndex = 3;
@@ -570,7 +570,7 @@
             // 
             this.txtLivingEntityName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLivingEntityName.Location = new System.Drawing.Point(64, 9);
-            this.txtLivingEntityName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLivingEntityName.Margin = new System.Windows.Forms.Padding(2);
             this.txtLivingEntityName.Name = "txtLivingEntityName";
             this.txtLivingEntityName.Size = new System.Drawing.Size(134, 24);
             this.txtLivingEntityName.TabIndex = 1;
@@ -598,7 +598,7 @@
             this.panItem.Controls.Add(this.txtItemName);
             this.panItem.Controls.Add(this.label14);
             this.panItem.Location = new System.Drawing.Point(138, 562);
-            this.panItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panItem.Margin = new System.Windows.Forms.Padding(2);
             this.panItem.Name = "panItem";
             this.panItem.Size = new System.Drawing.Size(740, 141);
             this.panItem.TabIndex = 13;
@@ -608,7 +608,7 @@
             this.chkDelivery.AutoSize = true;
             this.chkDelivery.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDelivery.Location = new System.Drawing.Point(15, 75);
-            this.chkDelivery.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkDelivery.Margin = new System.Windows.Forms.Padding(2);
             this.chkDelivery.Name = "chkDelivery";
             this.chkDelivery.Size = new System.Drawing.Size(206, 22);
             this.chkDelivery.TabIndex = 6;
@@ -621,7 +621,7 @@
             this.chkGoalItem.AutoSize = true;
             this.chkGoalItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkGoalItem.Location = new System.Drawing.Point(15, 46);
-            this.chkGoalItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkGoalItem.Margin = new System.Windows.Forms.Padding(2);
             this.chkGoalItem.Name = "chkGoalItem";
             this.chkGoalItem.Size = new System.Drawing.Size(331, 22);
             this.chkGoalItem.TabIndex = 5;
@@ -633,7 +633,7 @@
             // 
             this.picItem.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.picItem.Location = new System.Drawing.Point(346, 13);
-            this.picItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.picItem.Margin = new System.Windows.Forms.Padding(2);
             this.picItem.Name = "picItem";
             this.picItem.Size = new System.Drawing.Size(97, 105);
             this.picItem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -645,7 +645,7 @@
             this.cmbItemSprite.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbItemSprite.FormattingEnabled = true;
             this.cmbItemSprite.Location = new System.Drawing.Point(202, 13);
-            this.cmbItemSprite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbItemSprite.Margin = new System.Windows.Forms.Padding(2);
             this.cmbItemSprite.Name = "cmbItemSprite";
             this.cmbItemSprite.Size = new System.Drawing.Size(132, 25);
             this.cmbItemSprite.TabIndex = 3;
@@ -666,7 +666,7 @@
             // 
             this.txtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtItemName.Location = new System.Drawing.Point(64, 11);
-            this.txtItemName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtItemName.Margin = new System.Windows.Forms.Padding(2);
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.Size = new System.Drawing.Size(76, 24);
             this.txtItemName.TabIndex = 1;
@@ -688,7 +688,7 @@
             this.butCreatItem.Enabled = false;
             this.butCreatItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butCreatItem.Location = new System.Drawing.Point(139, 522);
-            this.butCreatItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.butCreatItem.Margin = new System.Windows.Forms.Padding(2);
             this.butCreatItem.Name = "butCreatItem";
             this.butCreatItem.Size = new System.Drawing.Size(197, 36);
             this.butCreatItem.TabIndex = 11;
@@ -731,7 +731,7 @@
             this.Controls.Add(this.treeQuests);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "QuestBuilder";
             this.Text = "QuestBuilder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestBuilder_FormClosing);

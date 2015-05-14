@@ -1,5 +1,6 @@
 Type:"Quest"
 Name:"Sniper"
+World:"main"
 Objective:"Take out the sniper to make the streets safer for your fellow law enforcement."
 Description:"A Sniper is taking police officers in the southeast side of town. He is rumored to be protecting the entrance to a wellknown speakeasy. "
 Start:
@@ -15,7 +16,7 @@ Living Entity:
 		X:83
 		Y:92
 	Texture:"mugger"
-	Health:2
+	Health:6
 	AI:Mid
 End Living Entity
 

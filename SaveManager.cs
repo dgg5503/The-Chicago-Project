@@ -419,6 +419,11 @@ namespace TheChicagoProject
                     end = data.IndexOf('"', index);
                     string name = data.Substring(index, end - index);
 
+                    //get world key
+                    index = data.IndexOf("World:") + 7;
+                    end = data.IndexOf('"', index);
+                    string key = data.Substring(index, end - index); 
+
                     //get the description
                     index = data.IndexOf("Description:") + 13;
                     end = data.IndexOf('"', index);
@@ -627,6 +632,7 @@ namespace TheChicagoProject
 
                     //Create the quest
                     quest = new Quest(name, objective, description, start, null, condition, qPoints, cash);
+                    quest.worldKey = key;
 
                     //add the entities to the quests entitiy list
                     foreach (Entity.LivingEntity entity in livingEntities.Values.ToList())

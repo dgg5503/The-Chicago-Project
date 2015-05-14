@@ -1,5 +1,6 @@
 Type:"Quest"
 Name:"Crazed Gunman"
+World:"main"
 Objective:"Kill the crazed gunman"
 Description:"A crazed gunman is attacking the people of Chicago"
 Start:

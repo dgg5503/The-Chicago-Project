@@ -34,6 +34,7 @@ namespace TheChicagoProject.AI
             Direction furtherDir = findPos(fleeMap, -1);
             Direction closerDir = findPos(playerMap, 1);
             if (dist < 4) {
+                entity.direction = closerDir;
                 entity.Attack(0, entity.inventory.GetEquippedPrimary());
             } else {
                 entity.direction = closerDir;

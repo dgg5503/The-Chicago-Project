@@ -209,10 +209,6 @@ namespace TheChicagoProject
 
             // For sprite and GUI animations
             
-
-            
-
-            
             renderManager.Update(gameTime);
             base.Update(gameTime);
         }
