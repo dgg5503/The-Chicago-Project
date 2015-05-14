@@ -60,11 +60,11 @@ namespace TheChicagoProject
         public void Update(GameTime time) {
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
-                if (e.markforDelete) {
+                if (e.markForDelete) {
                     if (e is Player) {
                         Game1.state = GameState.Menu;
                         (e as Player).health = (e as Player).maxHealth;
-                        e.markforDelete = false;
+                        e.markForDelete = false;
                     } else {
                         entities.Remove(e);
                     }
@@ -85,12 +85,12 @@ namespace TheChicagoProject
         /// <param name="j">The j component of the direction vector</param>
         public void FireBullet(float x, float y, float i, float j, int damage, LivingEntity shooter) {
             Vector2 bullet = new Vector2(x + i, y + j);
-
+            Player player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
             #region Screen Bounds
-            int right = WorldManager.player.location.IntX + (RenderManager.ViewportWidth / 2);
-            int left = WorldManager.player.location.IntX - (RenderManager.ViewportWidth / 2);
-            int top = WorldManager.player.location.IntY - (RenderManager.ViewportHeight / 2);
-            int bottom = WorldManager.player.location.IntY + (RenderManager.ViewportHeight / 2);
+            int right = player.location.IntX + (RenderManager.ViewportWidth / 2);
+            int left = player.location.IntX - (RenderManager.ViewportWidth / 2);
+            int top = player.location.IntY - (RenderManager.ViewportHeight / 2);
+            int bottom = player.location.IntY + (RenderManager.ViewportHeight / 2);
             #endregion
 
             bool go = true;
@@ -98,8 +98,8 @@ namespace TheChicagoProject
                 int tileX = (int) (bullet.X / GUI.Tile.SIDE_LENGTH);
                 int tileY = (int) (bullet.Y / GUI.Tile.SIDE_LENGTH);
 
-                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
-                    return;
+                if (tileX < 0 || tileY < 0 || mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
+                    break;
                 }
 
                 if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable && !mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].FileName.Equals("Water.png")) {

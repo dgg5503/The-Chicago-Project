@@ -19,7 +19,7 @@ namespace TheChicagoProject.Entity
 
         public int health;
 
-        public readonly int maxHealth;
+        public int maxHealth;
 
         protected GameTime time;
 
@@ -83,7 +83,7 @@ namespace TheChicagoProject.Entity
             base.Update(time, manager);
 
             if (this.health <= 0) {
-                this.markforDelete = true;
+                this.markForDelete = true;
                 return;
             }
 
@@ -114,7 +114,12 @@ namespace TheChicagoProject.Entity
                     // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
                     //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
                     // Douglas Gliner
-                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 4)) + location.Center.X, ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 4)) + location.Center.Y, (float) Math.Cos(trajectory - Math.PI / 2), (float) Math.Sin(trajectory - Math.PI / 2), inventory.GetEquippedPrimary().Damage, this);
+                    Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 4)) + location.Center.X,
+                        ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 4)) + location.Center.Y,
+                        (float) Math.Cos(trajectory - Math.PI / 2), 
+                        (float) Math.Sin(trajectory - Math.PI / 2),
+                        inventory.GetEquippedPrimary().Damage, 
+                        this);
                     weapon.LoadedAmmo--;
                 }
             }
@@ -178,7 +183,8 @@ namespace TheChicagoProject.Entity
             if (entityToInteract == null)
                 return;
 
-            entityToInteract.Action(this);
+            //We need to fix this.
+            entityToInteract.Action(this, "");
             
             // do interact method here... (events or method?)
             Game1.Instance.renderManager.EmitParticle(new RectangleOutline(new RotatedRectangle(entityToInteract.location, 0), Color.Purple, 1));

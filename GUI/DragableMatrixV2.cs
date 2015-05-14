@@ -15,6 +15,9 @@ namespace TheChicagoProject.GUI
 {
     class DragableMatrixV2 : Control, IEnumerable<Item.Item>
     {
+        // TO-DO:
+        // - Add two context menus, one for weapon hovering one for holding
+
         // Matrix handling
         private List<DragableContainer> containers;
         private int maxSlots;
@@ -27,7 +30,7 @@ namespace TheChicagoProject.GUI
         private static DragableContainer currentDragableContainer;
 
         // Context menu!
-        private static ItemStatsUI contextMenu = new ItemStatsUI(new Vector2(150, 150));
+        private ItemStatsUI contextMenu;
 
         /// <summary>
         /// Get the item at this index.
@@ -70,8 +73,10 @@ namespace TheChicagoProject.GUI
             // setup containers relative to loc.
 
             // if this controls list doesnt have the context menu, add it once!
-            if (!Controls.Contains(contextMenu))
-                Add(contextMenu);
+            contextMenu = new ItemStatsUI(new Vector2(150, 150))
+            {
+                IsDrawn = false
+            };
 
             SetupContainers();
 
@@ -169,23 +174,27 @@ namespace TheChicagoProject.GUI
 
             if (container == null || container.ControlContained == null || container.ControlContained.Item == null)
             {
-                Console.WriteLine("nothing");
+                //Console.WriteLine("nothing");
+                //contextMenu.IsDrawn = false;
                 return;
             }
-
-            
 
             // display hovering container showing stats of item.
             Item.Item item = container.ControlContained.Item;
 
             // menu location
-            contextMenu.Location = new Vector2(CurrentFrameMouseState.Position.X - contextMenu.Size.X, CurrentFrameMouseState.Position.Y - contextMenu.Size.Y);
+            if (currentDragableContainer == null)
+                contextMenu.Location = new Vector2(this.CurrentFrameMouseState.Position.X, this.CurrentFrameMouseState.Position.Y);
+            else
+                contextMenu.Location = new Vector2(currentDragableControl.GlobalLocation().X + currentDragableControl.Size.X, currentDragableControl.GlobalLocation().Y);
+
+
 
             // load item info
             if (contextMenu.Item != item)
                 contextMenu.Load(item);
                 
-            // make sure it updates
+            // make sure it draws
             contextMenu.IsDrawn = true;
         }
 
@@ -195,14 +204,19 @@ namespace TheChicagoProject.GUI
             // If the container has a control in it, grab it
             // DONT Clear that control from the container
             DragableContainer clickedOn = sender as DragableContainer;
+
             contextMenu.IsDrawn = false;
+
             if (currentDragableControl == null && clickedOn.ControlContained != null)
             {
+                
+
                 if (currentDragableContainer == null)
                     currentDragableContainer = clickedOn;
 
                 currentDragableControl = clickedOn.ControlContained;
                 mouseOrigin = new Vector2(this.CurrentFrameMouseState.Position.X - currentDragableControl.Location.X, this.CurrentFrameMouseState.Position.Y - currentDragableControl.Location.Y);
+                
             }
         }
 
@@ -275,8 +289,9 @@ namespace TheChicagoProject.GUI
             // updated every frame so this is fine.
             hoveringDragableContaner = null;
             
-            base.Update(gameTime);
+            contextMenu.Update(gameTime);
             
+            base.Update(gameTime);
             
         }
 
@@ -293,6 +308,20 @@ namespace TheChicagoProject.GUI
             // hack for context menu
             if (contextMenu != null)
                 contextMenu.Draw(spriteBatch, gameTime);
+
+            contextMenu.IsDrawn = false;
+        }
+
+        protected override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager contentManager)
+        {
+            contextMenu.LoadVisuals(contentManager);
+            base.LoadContent(contentManager);
+        }
+
+        protected override void LoadTextures(GraphicsDevice graphics)
+        {
+            contextMenu.LoadVisuals(null, graphics);
+            base.LoadTextures(graphics);
         }
 
         public override void Clear()

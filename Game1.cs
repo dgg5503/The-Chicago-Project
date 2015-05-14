@@ -34,7 +34,8 @@ namespace TheChicagoProject
         QuestLog,
         WeaponWheel,
         FastTravel,
-        Shop
+        Shop,
+        Exiting
     }
 
     /// <summary>
@@ -196,6 +197,7 @@ namespace TheChicagoProject
                 case GameState.QuestLog:
                     break;
                 case GameState.WeaponWheel:
+                    inputManager.WheelInput(Keyboard.GetState());
                     break;
                 case GameState.FastTravel:
                     break;
@@ -234,6 +236,11 @@ namespace TheChicagoProject
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args) {
+            base.OnExiting(sender, args);
+            state = GameState.Exiting;
         }
     }
 }

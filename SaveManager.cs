@@ -67,6 +67,9 @@ namespace TheChicagoProject
                 doors[x] = new Door(worldReader.ReadLine(), int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
             }
 
+            Vector2[] doorLocs = new Vector2[doors.Length];
+
+            int y = 0;
             string line = worldReader.ReadLine();
             int row = 0;
             int doorCntr = 0;
@@ -101,15 +104,21 @@ namespace TheChicagoProject
                             break;
 
                         case '6':
+                            doorLocs[y] = new Vector2(row, col);
+                            y++;
                             tmpWorld.tiles[row][col] = doors[doorCntr];
                             doorCntr++;
+                            break;
+
+                        case '7':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Debris"];
                             break;
                     }
                 }
                 row++;
                 line = worldReader.ReadLine();
             }
-
+            tmpWorld.doors = doorLocs;
             //MainGame.worldManager.worlds.Add(worldPath, tmpWorld);
             return tmpWorld;
         }
