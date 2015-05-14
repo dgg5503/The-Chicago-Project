@@ -357,7 +357,7 @@ namespace TheChicagoProject.Entity
         {
             private String text;
             private ResponseAction action;
-            private Object data;
+            private Object data; // supa bad
 
             public String Text {
                 get { return text; }
@@ -370,6 +370,8 @@ namespace TheChicagoProject.Entity
             public Object Data {
                 get { return data; }
             }
+
+
             /// <summary>
             /// A response to being interacted with.
             /// </summary>

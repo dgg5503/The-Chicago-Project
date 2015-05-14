@@ -47,6 +47,7 @@
     <Compile Include="Entity\LivingEntity.cs" />
     <Compile Include="Entity\NPC.cs" />
     <Compile Include="Entity\Player.cs" />
+    <Compile Include="GUI\Forms\Dialog.cs" />
     <Compile Include="SpawnDaemon.cs" />
     <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="GUI\ItemStatsUI.cs" />
     <Compile Include="GUI\LivingEntityInfoUI.cs" />
     <Compile Include="GUI\Menu.cs" />
-    <Compile Include="GUI\NPCTalkUI.cs" />
+    <Compile Include="GUI\Forms\NPCTalkUI.cs" />
     <Compile Include="GUI\ObjectivesUI.cs" />
     <Compile Include="GUI\Particles\Line.cs" />
     <Compile Include="GUI\Particles\Particle.cs" />

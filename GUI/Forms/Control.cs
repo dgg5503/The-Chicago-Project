@@ -470,7 +470,7 @@ namespace TheChicagoProject.GUI.Forms
 
                 if (KeyClicked != null)
                     KeyClicked(this, new KeysEventArgs(clickedKeys));
-                
+                lastFrameKeyboardState = currentFrameKeyboardState;
             }
 
             if (!alignApplied)
