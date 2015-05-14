@@ -32,7 +32,6 @@ namespace TheChicagoProject.Entity
     {
         
         private int questPoints;
-        public int lives;
         private Random rand;
         GameTime gameTime;
         public Quests.QuestLog log;
@@ -47,11 +46,10 @@ namespace TheChicagoProject.Entity
         {
             //cash = 40;
             questPoints = 0;
-            lives = 10;
+            health = 10;
             direction = Direction.Up;
             rand = new Random();
             log = new Quests.QuestLog();
-            health = lives;
 
             color = Color.White;
         }
@@ -67,7 +65,7 @@ namespace TheChicagoProject.Entity
             set 
             { 
                 questPoints = value;
-                lives = QuestPointsToLives(questPoints);
+                this.maxHealth = QuestPointsToLives(questPoints);
                 /****************************************************
                  *                                                  *
                  *    Display Message About getting a new heart?    *

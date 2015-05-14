@@ -17,6 +17,9 @@ namespace TheChicagoProject.GUI
         // Item to display stats of
         private Item.Item item;
 
+        // get current item
+        public Item.Item Item { get { return item; } }
+
         // Controls to be modified
         private Label headerLabel;
         private Container informationContainer;
@@ -65,7 +68,7 @@ namespace TheChicagoProject.GUI
                 // spread
                 // damage
 
-                string info = "Rate of Fire: " + weapon.rateOfFire + "\nLoaded Ammo: " + weapon.LoadedAmmo + "\nAmmo Left: " + weapon.maxClip + "\nAccuracy: " + weapon.spread + "%\nDamage: " + weapon.Damage;
+                string info = "Rate of Fire: " + weapon.rateOfFire + "\nLoaded Ammo: " + weapon.LoadedAmmo + "\nAmmo Left: " + weapon.maxClip + "\nAccuracy: " + (100 - weapon.spread) + "%\nDamage: " + weapon.Damage;
 
                 Label otherInfoLabel = new Label();
                

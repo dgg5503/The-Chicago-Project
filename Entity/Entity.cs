@@ -32,6 +32,8 @@ namespace TheChicagoProject.Entity
 
         public World currentWorld;
 
+        public string Name;
+
         // The current collision tile the entity is in...
         public CollisionTile CurrentCollisionTile;
 

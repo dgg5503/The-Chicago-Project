@@ -140,6 +140,8 @@ namespace TheChicagoProject.GUI.Forms
         // Is this control visible?
         private bool isVisible;
 
+        private bool isDrawn;
+
         private bool isActive;
 
         // Location relative to container
@@ -243,6 +245,10 @@ namespace TheChicagoProject.GUI.Forms
         /// Get or set the controls ability to update.
         /// </summary>
         public bool IsActive { get { return isActive; } set { isActive = value; } }
+        /// <summary>
+        /// Gets or sets whether or not the control should be drawn.
+        /// </summary>
+        public bool IsDrawn { get { return isDrawn; } set { isDrawn = value; } }
 
         public Control(string fontFile = "TimesNewRoman12")
         {
@@ -252,6 +258,7 @@ namespace TheChicagoProject.GUI.Forms
             alignment = ControlAlignment.Left;
             isVisible = true;
             isActive = true;
+            isDrawn = true;
             alignApplied = false;
             parent = null;
             this.fontFile = fontFile;
@@ -264,6 +271,9 @@ namespace TheChicagoProject.GUI.Forms
         // This should never be called on its own, always with a base.
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            if (!isDrawn)
+                return;
+
             isVisible = true;
 
             if(fillInfo.isDrawn)
@@ -288,7 +298,10 @@ namespace TheChicagoProject.GUI.Forms
         protected virtual void LoadTextures(GraphicsDevice graphics)
         {
             if(graphics == null)
-                throw new Exception("No graphics device defined!");
+            {
+                return;
+            }
+                //throw new Exception("No graphics device defined!");
 
             // Fill creation
             this.graphics = graphics;

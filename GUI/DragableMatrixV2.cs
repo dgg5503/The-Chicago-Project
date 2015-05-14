@@ -15,6 +15,9 @@ namespace TheChicagoProject.GUI
 {
     class DragableMatrixV2 : Control, IEnumerable<Item.Item>
     {
+        // TO-DO:
+        // - Add two context menus, one for weapon hovering one for holding
+
         // Matrix handling
         private List<DragableContainer> containers;
         private int maxSlots;
@@ -27,7 +30,7 @@ namespace TheChicagoProject.GUI
         private static DragableContainer currentDragableContainer;
 
         // Context menu!
-        //private static Container contextMenu;
+        private ItemStatsUI contextMenu;
 
         /// <summary>
         /// Get the item at this index.
@@ -68,6 +71,13 @@ namespace TheChicagoProject.GUI
             this.maxSlots = maxSlots;
 
             // setup containers relative to loc.
+
+            // if this controls list doesnt have the context menu, add it once!
+            contextMenu = new ItemStatsUI(new Vector2(150, 150))
+            {
+                IsDrawn = false
+            };
+
             SetupContainers();
 
             mouseOrigin = new Vector2(-1, -1);
@@ -158,37 +168,34 @@ namespace TheChicagoProject.GUI
 
         void tmpContainer_Hover(object sender, EventArgs e)
         {
-            /*
+            
             // if this container does not have an item in it, return
             DragableContainer container = sender as DragableContainer;
 
             if (container == null || container.ControlContained == null || container.ControlContained.Item == null)
             {
-                Console.WriteLine("nothing");
+                //Console.WriteLine("nothing");
+                //contextMenu.IsDrawn = false;
                 return;
-            }
-
-            // create contextMenu
-            if (contextMenu == null)
-            {
-                contextMenu = new Container();
-                contextMenu.Size = new Vector2(100, 100);
-                Add(contextMenu);
             }
 
             // display hovering container showing stats of item.
             Item.Item item = container.ControlContained.Item;
 
-            if (item is Weapon)
-            {
-                contextMenu.Location = new Vector2(CurrentFrameMouseState.Position.X - contextMenu.Size.X, CurrentFrameMouseState.Position.Y - contextMenu.Size.Y);
-                
-                Console.WriteLine(item.name);
-            }
+            // menu location
+            if (currentDragableContainer == null)
+                contextMenu.Location = new Vector2(this.CurrentFrameMouseState.Position.X, this.CurrentFrameMouseState.Position.Y);
+            else
+                contextMenu.Location = new Vector2(currentDragableControl.GlobalLocation().X + currentDragableControl.Size.X, currentDragableControl.GlobalLocation().Y);
 
-            // other items...
-            //if(item is )
-            */
+
+
+            // load item info
+            if (contextMenu.Item != item)
+                contextMenu.Load(item);
+                
+            // make sure it draws
+            contextMenu.IsDrawn = true;
         }
 
         void tmpContainer_Pressed(object sender, EventArgs e)
@@ -198,13 +205,18 @@ namespace TheChicagoProject.GUI
             // DONT Clear that control from the container
             DragableContainer clickedOn = sender as DragableContainer;
 
+            contextMenu.IsDrawn = false;
+
             if (currentDragableControl == null && clickedOn.ControlContained != null)
             {
+                
+
                 if (currentDragableContainer == null)
                     currentDragableContainer = clickedOn;
 
                 currentDragableControl = clickedOn.ControlContained;
                 mouseOrigin = new Vector2(this.CurrentFrameMouseState.Position.X - currentDragableControl.Location.X, this.CurrentFrameMouseState.Position.Y - currentDragableControl.Location.Y);
+                
             }
         }
 
@@ -259,6 +271,7 @@ namespace TheChicagoProject.GUI
                     if (hoveringDragableContaner == null && this.RootParent.GlobalRectangle.Contains(this.CurrentFrameMouseState.Position)) // && inside the window.
                     {
                         currentDragableControl.Location = Vector2.Zero;
+                        
                         currentDragableControl = null;
                         currentDragableContainer = null;
                     }
@@ -272,11 +285,14 @@ namespace TheChicagoProject.GUI
 
                 }
             }
-
+            
             // updated every frame so this is fine.
             hoveringDragableContaner = null;
             
+            contextMenu.Update(gameTime);
+            
             base.Update(gameTime);
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -288,6 +304,24 @@ namespace TheChicagoProject.GUI
             // hack for overlap drawing.
             if (currentDragableControl != null)
                 currentDragableControl.Draw(spriteBatch, gameTime);
+
+            // hack for context menu
+            if (contextMenu != null)
+                contextMenu.Draw(spriteBatch, gameTime);
+
+            contextMenu.IsDrawn = false;
+        }
+
+        protected override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager contentManager)
+        {
+            contextMenu.LoadVisuals(contentManager);
+            base.LoadContent(contentManager);
+        }
+
+        protected override void LoadTextures(GraphicsDevice graphics)
+        {
+            contextMenu.LoadVisuals(null, graphics);
+            base.LoadTextures(graphics);
         }
 
         public override void Clear()

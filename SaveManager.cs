@@ -44,10 +44,6 @@ namespace TheChicagoProject
                 World mainworld = LoadWorld("main");
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
-            else
-            {
-                LoadSave();
-            }
 #endif
             LoadSave();
         }
@@ -555,6 +551,8 @@ namespace TheChicagoProject
                         }
 
                         livingEntities[id] = new Entity.LivingEntity(EntityRect, sprite, health, null);
+                        livingEntities[id].Name = id;
+
                         //get the ai
                         index = data.IndexOf("AI:", index) + 3;
                         end = data.IndexOf('\n', index) - 1;
@@ -678,7 +676,7 @@ namespace TheChicagoProject
                     if(type.ToUpper() == "WEAPON")
                     {
                         Item.Weapon newWeapon;
-                        int rof = input.ReadInt32();       
+                        int rof = input.ReadInt32();
                         int damage = input.ReadInt32();    
                         double reload = input.ReadDouble();
                         int clip = input.ReadInt32();      
@@ -688,6 +686,18 @@ namespace TheChicagoProject
                         string name = input.ReadString();  
                         string sprite = input.ReadString();
                         newWeapon = new Item.Weapon(rof, damage, reload, name, clip, spread);
+
+                        Console.WriteLine("ROF:\t" + rof);
+                        Console.WriteLine("Damage:\t" + damage);
+                        Console.WriteLine("Reload:\t" + reload);
+                        Console.WriteLine("Clip:\t" + clip);
+                        Console.WriteLine("Spread:\t" + spread);
+                        Console.WriteLine("Loaded Ammo:\t" + loadedAmmo);
+                        Console.WriteLine("Ammo:\t" + ammo);
+                        Console.WriteLine("Name:\t" + name);
+                        Console.WriteLine("Sprite:\t" + sprite);
+
+
 
                         newWeapon.Ammo = ammo;
                         newWeapon.LoadedAmmo = loadedAmmo;

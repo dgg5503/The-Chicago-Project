@@ -6,14 +6,14 @@ Start:
 	X:0
 	Y:0
 Reward:
-	Cash:0
-	Q-Points:0
+	Cash:50
+	Q-Points:20
 
 Living Entity:
 	ID:Mugger
 	Start:
-		X:100
-		Y:100
+		X:82
+		Y:842
 	Texture:"mugger"
 	Health:4
 	AI:Low
