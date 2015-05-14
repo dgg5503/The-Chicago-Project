@@ -160,9 +160,13 @@ namespace TheChicagoProject.GUI
                     */
 
                     // Currently no way to get entity names or group them by types (no mugger class etc...) (?)
-
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
-                    tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
+
+                    string namesOfEnemies = "";
+                    foreach (Entity.Entity e in quest.entitites)
+                        namesOfEnemies += e.Name + "\n";
+
+                    tmpObjective.Load("Kill these enemies:\n" + namesOfEnemies, "", quest.entitites[0].sprite.Texture);
                     //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;
@@ -174,7 +178,7 @@ namespace TheChicagoProject.GUI
                     //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
 
-                    tmpObjective.Load("Recipient", "RECIP", quest.Recipient.sprite.Texture);
+                    tmpObjective.Load("Recipient", quest.Recipient.Name, quest.Recipient.sprite.Texture);
                     tmpObjective.Location = new Vector2(0, objectivesContainer.Size.Y / 2);
                     //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
@@ -183,7 +187,7 @@ namespace TheChicagoProject.GUI
                 case WinCondition.EnemyDies:
                     // kill some enemy
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
-                    tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
+                    tmpObjective.Load("Kill this enemy", quest.EnemyToKill.Name, quest.EnemyToKill.sprite.Texture);
                     //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;

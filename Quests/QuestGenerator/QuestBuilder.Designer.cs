@@ -86,6 +86,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.butCreatItem = new System.Windows.Forms.Button();
             this.lsbEntities = new System.Windows.Forms.ListBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCash)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQPoints)).BeginInit();
@@ -105,7 +107,7 @@
             this.treeQuests.Location = new System.Drawing.Point(9, 24);
             this.treeQuests.Margin = new System.Windows.Forms.Padding(2);
             this.treeQuests.Name = "treeQuests";
-            this.treeQuests.Size = new System.Drawing.Size(120, 271);
+            this.treeQuests.Size = new System.Drawing.Size(120, 359);
             this.treeQuests.TabIndex = 1;
             // 
             // menuStrip1
@@ -138,39 +140,39 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&New Quest";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // newStorylineToolStripMenuItem
             // 
             this.newStorylineToolStripMenuItem.Name = "newStorylineToolStripMenuItem";
-            this.newStorylineToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.newStorylineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newStorylineToolStripMenuItem.Text = "New Story&line";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -236,7 +238,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(132, 63);
+            this.label3.Location = new System.Drawing.Point(138, 96);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 20);
@@ -247,7 +249,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(132, 183);
+            this.label4.Location = new System.Drawing.Point(138, 216);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 20);
@@ -297,7 +299,7 @@
             // textBoxDescription
             // 
             this.textBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDescription.Location = new System.Drawing.Point(132, 86);
+            this.textBoxDescription.Location = new System.Drawing.Point(138, 119);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
@@ -308,7 +310,7 @@
             // textBoxObjective
             // 
             this.textBoxObjective.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxObjective.Location = new System.Drawing.Point(132, 207);
+            this.textBoxObjective.Location = new System.Drawing.Point(138, 240);
             this.textBoxObjective.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxObjective.Multiline = true;
             this.textBoxObjective.Name = "textBoxObjective";
@@ -367,7 +369,7 @@
             // 
             this.cmbConditions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbConditions.FormattingEnabled = true;
-            this.cmbConditions.Location = new System.Drawing.Point(137, 322);
+            this.cmbConditions.Location = new System.Drawing.Point(143, 355);
             this.cmbConditions.Margin = new System.Windows.Forms.Padding(2);
             this.cmbConditions.Name = "cmbConditions";
             this.cmbConditions.Size = new System.Drawing.Size(168, 28);
@@ -377,7 +379,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(134, 299);
+            this.label2.Location = new System.Drawing.Point(140, 332);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(184, 20);
@@ -388,7 +390,7 @@
             // 
             this.butCreateLivingEntity.Enabled = false;
             this.butCreateLivingEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.butCreateLivingEntity.Location = new System.Drawing.Point(137, 353);
+            this.butCreateLivingEntity.Location = new System.Drawing.Point(143, 386);
             this.butCreateLivingEntity.Margin = new System.Windows.Forms.Padding(2);
             this.butCreateLivingEntity.Name = "butCreateLivingEntity";
             this.butCreateLivingEntity.Size = new System.Drawing.Size(197, 36);
@@ -415,7 +417,7 @@
             this.panLivingEntitiy.Controls.Add(this.label9);
             this.panLivingEntitiy.Controls.Add(this.txtLivingEntityName);
             this.panLivingEntitiy.Controls.Add(this.label8);
-            this.panLivingEntitiy.Location = new System.Drawing.Point(137, 392);
+            this.panLivingEntitiy.Location = new System.Drawing.Point(143, 425);
             this.panLivingEntitiy.Margin = new System.Windows.Forms.Padding(2);
             this.panLivingEntitiy.Name = "panLivingEntitiy";
             this.panLivingEntitiy.Size = new System.Drawing.Size(750, 123);
@@ -597,7 +599,7 @@
             this.panItem.Controls.Add(this.label15);
             this.panItem.Controls.Add(this.txtItemName);
             this.panItem.Controls.Add(this.label14);
-            this.panItem.Location = new System.Drawing.Point(138, 562);
+            this.panItem.Location = new System.Drawing.Point(144, 595);
             this.panItem.Margin = new System.Windows.Forms.Padding(2);
             this.panItem.Name = "panItem";
             this.panItem.Size = new System.Drawing.Size(740, 141);
@@ -687,7 +689,7 @@
             // 
             this.butCreatItem.Enabled = false;
             this.butCreatItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.butCreatItem.Location = new System.Drawing.Point(139, 522);
+            this.butCreatItem.Location = new System.Drawing.Point(145, 555);
             this.butCreatItem.Margin = new System.Windows.Forms.Padding(2);
             this.butCreatItem.Name = "butCreatItem";
             this.butCreatItem.Size = new System.Drawing.Size(197, 36);
@@ -698,16 +700,37 @@
             // lsbEntities
             // 
             this.lsbEntities.FormattingEnabled = true;
-            this.lsbEntities.Location = new System.Drawing.Point(9, 300);
+            this.lsbEntities.Location = new System.Drawing.Point(9, 391);
             this.lsbEntities.Name = "lsbEntities";
-            this.lsbEntities.Size = new System.Drawing.Size(120, 407);
+            this.lsbEntities.Size = new System.Drawing.Size(120, 342);
             this.lsbEntities.TabIndex = 14;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(133, 67);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(54, 20);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "World:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(189, 66);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(146, 21);
+            this.comboBox1.TabIndex = 16;
             // 
             // QuestBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(895, 713);
+            this.ClientSize = new System.Drawing.Size(895, 744);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.lsbEntities);
             this.Controls.Add(this.panItem);
             this.Controls.Add(this.panLivingEntitiy);
@@ -815,5 +838,7 @@
         private System.Windows.Forms.CheckBox chkRecipient;
         private System.Windows.Forms.CheckBox chkDelivery;
         private System.Windows.Forms.ListBox lsbEntities;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

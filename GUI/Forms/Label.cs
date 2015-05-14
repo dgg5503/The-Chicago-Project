@@ -37,8 +37,9 @@ namespace TheChicagoProject.GUI.Forms
         // Autoresize to fit text?
         private bool autoResize;
         private float scale;
+
         private Color color;
-        private Vector2 targetSize;
+        //private Vector2 targetSize;
         private Vector2 lastSize;
         
 
@@ -64,7 +65,7 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Gets or sets the target size of this label.
         /// </summary>
-        public Vector2 TargetSize { get { return targetSize; } set { targetSize = value; } }
+        //public Vector2 TargetSize { get { return targetSize; } set { targetSize = value; } }
         /// <summary>
         /// Get or set the color of the text.
         /// </summary>
@@ -78,10 +79,10 @@ namespace TheChicagoProject.GUI.Forms
 
             // size will always be automatically resized!
             Size = Vector2.Zero;
-            targetSize = Vector2.Zero;
+            //targetSize = Vector2.Zero;
             lastSize = Vector2.Zero;
             wordWrap = false;
-            autoResize = true;
+            autoResize = false;
             Border = null;
             Fill = null;
             
@@ -110,15 +111,28 @@ namespace TheChicagoProject.GUI.Forms
         protected override void LoadContent(ContentManager contentManager)
         {
             base.LoadContent(contentManager);
-
+            /*
             if (targetSize != Vector2.Zero)
+            {
                 this.Size = targetSize;
+                //this.text = GetTextFromTargetSize();
+            }
             else
-                if (string.IsNullOrWhiteSpace(text))
-                    this.Size = this.parent.Size; // target size?
-                else
-                    this.Size = GetTextSize();
+             * */
+
+            if(autoResize && parent != null)
+            {
+                // compare X and Y scalers of parent
+                // choose the smaller number for scaling
+                //scale = Math.Min(parent.Size.X)
+            }
+            if (string.IsNullOrWhiteSpace(text))
+                this.Size = this.parent.Size; // target size?
+            else
+                this.Size = GetTextSize();
             
+            
+
             lastSize = this.Size;
             lastText = text;
              
@@ -158,6 +172,47 @@ namespace TheChicagoProject.GUI.Forms
             #endregion
             return Font.MeasureString(text) * scale;
         }
+
+        /*private string GetTextFromTargetSize()
+        {
+            string excessText = "";
+            #region word wrap
+            // Thanks to https://gist.github.com/Sankra/5585584
+            // Runar Ovesen Hjerpbakk
+            if (targetSize != Vector2.Zero && Font.MeasureString(text).X > targetSize.X)
+            {   
+                string[] words = text.Split(' ');
+                StringBuilder wrappedText = new StringBuilder();
+                float linewidth = 0f;
+                float spaceWidth = (Font.MeasureString(" ") * scale).X;
+                for (int i = 0; i < words.Length; ++i)
+                {
+                    Vector2 size = Font.MeasureString(words[i]) * scale;
+                    if (linewidth + size.X < targetSize.X)
+                    {
+                        linewidth += size.X + spaceWidth;
+                    }
+                    else
+                    {
+                        wrappedText.Append("\n");
+                        linewidth = size.X + spaceWidth;
+                    }
+
+                    if (Font.MeasureString(wrappedText.ToString() + words[i]).Y > targetSize.Y)
+                        excessText = text;
+
+                    wrappedText.Append(words[i]);
+                    wrappedText.Append(" ");
+
+                    
+                }
+
+                text = wrappedText.ToString();
+            }
+            #endregion
+
+            return excessText;
+        }*/
 
         public string TextAlign()
         {
