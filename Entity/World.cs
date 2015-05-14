@@ -37,7 +37,7 @@ namespace TheChicagoProject.Entity
             for (int k = 0; k < list.Length; k++) {
                 int x = random.Next(0, worldWidth);
                 int y = random.Next(0, worldHeight);
-                while (x >= tiles.Length || y >= tiles[0].Length || !tiles[x][y].IsWalkable) {
+                while (!isTileValid(x, y)) {
                     x = random.Next(0, worldWidth);
                     y = random.Next(0, worldHeight);
                 }
@@ -46,7 +46,40 @@ namespace TheChicagoProject.Entity
             return list;
         }
 
-        
+        private bool isTileValid(int x, int y) {
+            if (x < 0 || y < 0 || x >= tiles.Length || y >= tiles[0].Length)
+                return false;
+            if (!tiles[x][y].IsWalkable)
+                return false;
+            if (x - 1 > 0) {
+                if (y - 1 > 0)
+                    if (!tiles[x - 1][y - 1].IsWalkable)
+                        return false;
+                if (!tiles[x - 1][y].IsWalkable)
+                    return false;
+                if (y + 1 < tiles[0].Length)
+                    if (tiles[x - 1][y + 1].IsWalkable)
+                        return false;
+            }
+            if (y - 1 > 0)
+                if (!tiles[x][y - 1].IsWalkable)
+                    return false;
+            if (y + 1 < tiles[0].Length)
+                if (!tiles[x][y + 1].IsWalkable)
+                    return false;
+            if (x + 1 < tiles.Length) {
+                if (y - 1 > 0)
+                    if (!tiles[x + 1][y - 1].IsWalkable)
+                        return false;
+                if (!tiles[x + 1][y].IsWalkable)
+                    return false;
+                if (y + 1 < tiles[0].Length)
+                    if (tiles[x + 1][y + 1].IsWalkable)
+                        return false;
+            }
+            return true;
+        }
+
         public void SpawnCivilians() {
             int[][] spawns = this.getRandomGoals(27 - manager.civilianCount);
             if (spawns == null)
@@ -60,12 +93,17 @@ namespace TheChicagoProject.Entity
 
         //Updates the world every frame.
         public void tick(GameTime time) {
-            if (civilianMaps == null) { //Initial Setup of the Civilian Walk maps.
-                civilianMaps = new DijkstraMap[2];
-                civilianMaps[0] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
-                civilianMaps[1] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
-            }
-            SpawnCivilians();
+            // Commenting out for now. I need to move this to a new Thread.
+            // There is a reason no game tries spawning entities on the main thread.
+            // I have run into that reason. ~Ashwin
+
+            //if (civilianMaps == null) { //Initial Setup of the Civilian Walk maps.
+            //    civilianMaps = new DijkstraMap[2];
+            //    civilianMaps[0] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
+            //    civilianMaps[1] = new DijkstraMap(this, worldWidth, worldHeight, 0, 0, getRandomGoals());
+            //}
+            //if (time.ElapsedGameTime.TotalSeconds % 10 <= 3)
+            //    SpawnCivilians();
 
             Player player = manager.GetPlayer();
             int pX = player.location.IntX / Tile.SIDE_LENGTH; //The actual player location.

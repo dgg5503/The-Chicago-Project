@@ -21,8 +21,8 @@ namespace TheChicagoProject.AI
 
         public override void Update(GameTime time, EntityManager manager) {
             DijkstraMap map = manager.world.civilianMaps[mapToUse];
-            int x = (int) entity.location.Center.X / Tile.SIDE_LENGTH;
-            int y = (int) entity.location.Center.Y / Tile.SIDE_LENGTH;
+            int x = this.getEntityX();//(int) entity.location.Center.X / Tile.SIDE_LENGTH;
+            int y = this.getEntityY();//(int) entity.location.Center.Y / Tile.SIDE_LENGTH;
             if (x < 0 || x >= map.Map.Length || y < 0 || y >= map.Map[0].Length)
                 return;
             if (!manager.world.tiles[x][y].IsWalkable)
