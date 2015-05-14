@@ -47,8 +47,12 @@ namespace TheChicagoProject.Entity
 
         //Remove this entity if true!
         public bool markForDelete;
-
+        
+        // List of entities this entity is colliding with
         public List<Entity> collidingEntites;
+
+        // List of UI controls that are attached to this entity.
+        public List<Control> controls;
 
         /// <summary>
         /// The constructor for the base entity.
@@ -71,6 +75,7 @@ namespace TheChicagoProject.Entity
              */
             //sprite = new Sprite(location.IntHeight, location.IntWidth, 0, fileName);
             this.sprite = sprite;
+            controls = new List<Control>();
             collisionReactionVector = Vector2.Zero;
             movement = Vector2.Zero;
             color = Color.White;
@@ -337,6 +342,28 @@ namespace TheChicagoProject.Entity
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Draws the base sprite for this entity.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            sprite.Draw(spriteBatch, location.IntX, location.IntY, faceDirection, color);
+        }
+
+        /// <summary>
+        /// Draws the base UI's for all entities.
+        /// </summary>
+        /// <param name="spriteBath"></param>
+        /// <param name="gameTime"></param>
+        public virtual void DrawUI(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            foreach (Control c in controls)
+                c.Draw(spriteBatch, gameTime);
+            // blah...
         }
 
         //Ashwin Ganapathiraju

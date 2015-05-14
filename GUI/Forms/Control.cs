@@ -308,7 +308,7 @@ namespace TheChicagoProject.GUI.Forms
                 //spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
 
             if (!isActive)
-                spriteBatch.Draw(inactiveAlpha, this.GlobalLocation(), Color.White);
+                spriteBatch.Draw(inactiveAlpha, this.GlobalLocation(), null, Color.White, 0, Vector2.Zero, new Vector2(Size.X / inactiveAlpha.Width, Size.Y / inactiveAlpha.Height), SpriteEffects.None, 0);
 
             
         }

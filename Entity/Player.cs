@@ -158,5 +158,10 @@ namespace TheChicagoProject.Entity
                 Reload();
             }
         }
+
+        public override void DrawUI(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            //base.DrawUI(spriteBatch, gameTime);
+        }
     }
 }
