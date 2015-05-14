@@ -47,6 +47,7 @@
     <Compile Include="Entity\LivingEntity.cs" />
     <Compile Include="Entity\NPC.cs" />
     <Compile Include="Entity\Player.cs" />
+    <Compile Include="SpawnDaemon.cs" />
     <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Collision\CollisionTile.cs" />
@@ -141,7 +142,7 @@
     <Content Include="Content\GUI\wepwheel2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-	<Content Include="Content\downtown.txt">
+    <Content Include="Content\downtown.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\speakeasy.txt">

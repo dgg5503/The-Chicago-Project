@@ -1,17 +1,18 @@
 ﻿#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using TheChicagoProject.Entity;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using TheChicagoProject.Quests;
+using TheChicagoProject.Entity;
 using TheChicagoProject.AI;
-using System.IO;
 #endregion
 // DEBUG
 using TheChicagoProject.GUI;
@@ -30,6 +31,8 @@ namespace TheChicagoProject
         public Dictionary<String, World> worlds;
         public String current;
         public QuestLog worldQuests;
+        public SpawnDaemon spawnDaemon;
+        public Thread spawnThread;
 
         public World CurrentWorld {
             get { return worlds[current]; }
@@ -72,7 +75,7 @@ namespace TheChicagoProject
             mugger.ai = new MidAI(mugger);
             mugger.inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 100, 0.5));
             mugger.inventory.ActiveWeapon = 0;
-            mugger.interactData = new Entity.Entity.InteractionData(new List<String>() { "I bite my thumb at you, sir!" });
+            //mugger.interactData = new Entity.Entity.InteractionData(new List<String>() { "I bite my thumb at you, sir!" });
             worlds["main"].manager.AddEntity(mugger);
 
             //LivingEntity civvie = new LivingEntity(new FloatRectangle(384, 247, 32, 32), Sprites.spritesDictionary["player"], 4);
@@ -144,11 +147,15 @@ namespace TheChicagoProject
             // need to fix fleemap lag before renabling the above.
             #endregion
             worldQuests = new QuestLog();
+            spawnDaemon = new SpawnDaemon();
+            spawnThread = new Thread(new ThreadStart(spawnDaemon.startDaemon));
         }
 
         public void Update(GameTime gameTime)
         {
-            //udate quests
+            if (spawnThread.ThreadState == ThreadState.Unstarted)
+                spawnThread.Start();
+            //update quests
             worldQuests.Update(gameTime);
             player.log.Update(gameTime);
 

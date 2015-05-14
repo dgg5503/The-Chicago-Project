@@ -17,9 +17,9 @@ namespace TheChicagoProject.Entity
     {
         public NPC(FloatRectangle rect, Sprite sprite, int health) :
             base(rect, sprite, health, null) {
-            this.ai = new CivilianAI(this);
         }
 
+        // When it moves, don't stare at the player.
         public override void Move() {
             float move = 1.5f;
             switch (direction) {
@@ -57,10 +57,6 @@ namespace TheChicagoProject.Entity
                     this.faceDirection = 1 * (float) Math.PI / 4f;
                     break;
             }
-            //Player player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
-            //float actual = (float) Math.Atan2(this.location.Center.Y - player.location.Center.Y, this.location.Center.X - player.location.Center.X);
-            //actual -= (float) Math.PI / 2f;
-            //this.faceDirection = actual;
         }
     }
 }
