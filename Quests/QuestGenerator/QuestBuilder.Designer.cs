@@ -87,7 +87,7 @@
             this.butCreatItem = new System.Windows.Forms.Button();
             this.lsbEntities = new System.Windows.Forms.ListBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbWorlds = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCash)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQPoints)).BeginInit();
@@ -140,39 +140,39 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.newToolStripMenuItem.Text = "&New Quest";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // newStorylineToolStripMenuItem
             // 
             this.newStorylineToolStripMenuItem.Name = "newStorylineToolStripMenuItem";
-            this.newStorylineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newStorylineToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.newStorylineToolStripMenuItem.Text = "New Story&line";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -533,6 +533,11 @@
             this.nudLivingEntityStartY.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLivingEntityStartY.Location = new System.Drawing.Point(358, 10);
             this.nudLivingEntityStartY.Margin = new System.Windows.Forms.Padding(2);
+            this.nudLivingEntityStartY.Maximum = new decimal(new int[] {
+            410065408,
+            2,
+            0,
+            0});
             this.nudLivingEntityStartY.Name = "nudLivingEntityStartY";
             this.nudLivingEntityStartY.Size = new System.Drawing.Size(73, 24);
             this.nudLivingEntityStartY.TabIndex = 5;
@@ -553,6 +558,11 @@
             this.nudLivingEntityStartX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLivingEntityStartX.Location = new System.Drawing.Point(260, 11);
             this.nudLivingEntityStartX.Margin = new System.Windows.Forms.Padding(2);
+            this.nudLivingEntityStartX.Maximum = new decimal(new int[] {
+            410065408,
+            2,
+            0,
+            0});
             this.nudLivingEntityStartX.Name = "nudLivingEntityStartX";
             this.nudLivingEntityStartX.Size = new System.Drawing.Size(73, 24);
             this.nudLivingEntityStartX.TabIndex = 3;
@@ -716,20 +726,21 @@
             this.label16.TabIndex = 15;
             this.label16.Text = "World:";
             // 
-            // comboBox1
+            // cmbWorlds
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(189, 66);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(146, 21);
-            this.comboBox1.TabIndex = 16;
+            this.cmbWorlds.FormattingEnabled = true;
+            this.cmbWorlds.Location = new System.Drawing.Point(189, 66);
+            this.cmbWorlds.Name = "cmbWorlds";
+            this.cmbWorlds.Size = new System.Drawing.Size(146, 21);
+            this.cmbWorlds.TabIndex = 16;
+            this.cmbWorlds.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // QuestBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 744);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbWorlds);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.lsbEntities);
             this.Controls.Add(this.panItem);
@@ -839,6 +850,6 @@
         private System.Windows.Forms.CheckBox chkDelivery;
         private System.Windows.Forms.ListBox lsbEntities;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbWorlds;
     }
 }

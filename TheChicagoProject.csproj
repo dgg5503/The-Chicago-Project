@@ -258,6 +258,9 @@
     <None Include="Content\Quests\Sniper.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Quests\Speakeasy.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\SaveFiles\default.save">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
