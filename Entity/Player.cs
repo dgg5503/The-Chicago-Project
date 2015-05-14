@@ -150,6 +150,7 @@ namespace TheChicagoProject.Entity
                 location.Y = door.Destination.Y * GUI.Tile.SIDE_LENGTH;
                 Game1.Instance.worldManager.CurrentWorld.manager.AddEntity(this);
                 Game1.Instance.collisionManager.SwitchWorld();
+                Game1.Instance.worldManager.spawnDaemon.ClearSpawning();
             }
 
             if(inventory.GetEquippedPrimary().LoadedAmmo == 0 && !inventory.GetEquippedPrimary().Reloading)

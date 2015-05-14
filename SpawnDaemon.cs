@@ -11,21 +11,26 @@ namespace TheChicagoProject
 {
     public class SpawnDaemon
     {
-        private World world;
-        private Queue<Object[]> pool;
+        private Dictionary<World, Queue<Object[]>> worldPools;
+        private bool setToClear; //Resort the queue based on what world we're in.
 
         public void startDaemon() {
-            pool = new Queue<Object[]>();
+            worldPools = new Dictionary<World, Queue<Object[]>>();
             while (Game1.state == GameState.Game) {
-                world = Game1.Instance.worldManager.CurrentWorld;
-                initalizeMaps();
-                SpawnCivilians();
-                if (pool.Peek() != null) {
+                World world = Game1.Instance.worldManager.CurrentWorld;
+                if (!worldPools.ContainsKey(world))
+                    worldPools.Add(world, new Queue<Object[]>());
+
+
+                Queue<Object[]> pool = worldPools[world];
+                initalizeMaps(world);
+                SpawnCivilians(world);
+                if (pool.Count > 0) {
                     Object[] obj = pool.Dequeue();
                     LivingEntity e = (LivingEntity) obj[0];
                     int[] loc = null;
                     if (obj[1] == null)
-                        loc = getRandomGoals(1)[0];
+                        loc = getRandomGoals(world, 1)[0];
                     else
                         loc = (int[]) obj[1];
                     if (loc[0] == -1 && loc[1] == -1) {
@@ -38,9 +43,10 @@ namespace TheChicagoProject
                 Thread.Sleep(1000);
             }
         }
-        private void initalizeMaps() {
+        private void initalizeMaps(World world) {
             if (world.civilianMaps != null)
                 return;
+            Console.WriteLine("Initalizing map for world #" + world.GetHashCode() + " with goals at: ");
             int[][] goals = new int[world.doors.Length][];
             for (int x = 0; x < goals.Length; x++) {
                 goals[x] = new int[] { (int) world.doors[x].X, (int) world.doors[x].Y };
@@ -50,13 +56,17 @@ namespace TheChicagoProject
             }
             world.civilianMaps = new DijkstraMap[1];
             world.civilianMaps[0] = new DijkstraMap(world, world.worldWidth, world.worldHeight, 0, 0, 1, goals);
-            //world.civilianMaps[0].printMap();
-            //world.civilianMaps[1] = new DijkstraMap(world, world.worldWidth, world.worldHeight, 0, 0,
-            //getRandomGoals(7, true));
+            for (int x = 0; x < 27; x++) {
+                NPC civvie = new NPC(new FloatRectangle(), Sprites.spritesDictionary["player"], 4);
+                civvie.ai = new CivilianAI(civvie);
+                if (!worldPools.ContainsKey(world))
+                    worldPools.Add(world, new Queue<Object[]>());
+                worldPools[world].Enqueue(new Object[] { civvie, null});
+            }
         }
 
         //Let's get a random list of valid goal points for civvies to walk towards!
-        private int[][] getRandomGoals(int baseNum = 7, bool keepTrying = false) {
+        private int[][] getRandomGoals(World world, int baseNum = 7, bool keepTrying = false) {
             if (baseNum < 0)
                 return null;
             Random random = Game1.Instance.random;
@@ -65,7 +75,7 @@ namespace TheChicagoProject
                 int x = random.Next(0, world.worldWidth);
                 int y = random.Next(0, world.worldHeight);
                 int i = 0;
-                while (!isTileValid(x, y) && (keepTrying || i < 500)) {
+                while (!isTileValid(world, x, y) && (keepTrying || i < 500)) {
                     x = random.Next(0, world.worldWidth);
                     y = random.Next(0, world.worldHeight);
                     i++;
@@ -78,7 +88,7 @@ namespace TheChicagoProject
             return list;
         }
 
-        private bool isTileValid(int x, int y) {
+        private bool isTileValid(World world, int x, int y) {
             if (x < 0 || y < 0 || x >= world.tiles.Length || y >= world.tiles[0].Length)
                 return false;
             if (!world.tiles[x][y].IsWalkable)
@@ -112,14 +122,23 @@ namespace TheChicagoProject
             return true;
         }
 
-        public void SpawnCivilians() {
+        private void SpawnCivilians(World world) {
+            if (!Game1.Instance.worldManager.CurrentWorld.canRespawn)
+                return;
             if (world.manager.civilianCount >= 27)
                 return;
+            Console.WriteLine("Respawning Civilians: " + (27 - world.manager.civilianCount) + " for world: " + world.GetHashCode());
             for (int x = 0; x < 27 - world.manager.civilianCount; x++) {
                 NPC civvie = new NPC(new FloatRectangle(), Sprites.spritesDictionary["player"], 4);
                 civvie.ai = new CivilianAI(civvie);
-                pool.Enqueue(new Object[] { civvie, null });
+                if (!worldPools.ContainsKey(world))
+                    worldPools.Add(world, new Queue<Object[]>());
+                worldPools[world].Enqueue(new Object[] { civvie, null});
             }
+        }
+
+        public void ClearSpawning() {
+            setToClear = true;
         }
     }
 }

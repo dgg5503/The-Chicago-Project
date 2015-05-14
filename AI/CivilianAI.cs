@@ -26,9 +26,7 @@ namespace TheChicagoProject.AI
             int y = this.getEntityY();//(int) entity.location.Center.Y / Tile.SIDE_LENGTH;
             if (x < 0 || x >= map.Map.Length || y < 0 || y >= map.Map[0].Length)
                 return;
-            if (!manager.world.tiles[x][y].IsWalkable)
-                entity.markForDelete = true;
-            if (map.Map[x][y] <= 1)
+            if (map.Map[x][y] < 2 || !entity.currentWorld.tiles[x][y].IsWalkable)
                 entity.markForDelete = true;
 
             if (entity.collidingEntites.Count > 0 && flee == null) {
