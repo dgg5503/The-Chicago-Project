@@ -17,6 +17,9 @@ namespace TheChicagoProject.GUI
         // Item to display stats of
         private Item.Item item;
 
+        // get current item
+        public Item.Item Item { get { return item; } }
+
         // Controls to be modified
         private Label headerLabel;
         private Container informationContainer;
