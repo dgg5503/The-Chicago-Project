@@ -98,8 +98,8 @@ namespace TheChicagoProject
                 int tileX = (int) (bullet.X / GUI.Tile.SIDE_LENGTH);
                 int tileY = (int) (bullet.Y / GUI.Tile.SIDE_LENGTH);
 
-                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
-                    return;
+                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY || tileX < 0 || tileY < 0) {
+                    break;
                 }
 
                 if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable && !mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].FileName.Equals("Water.png")) {
