@@ -24,6 +24,7 @@ namespace TheChicagoProject.AI
         private int mapWidth; //Size of the map
         public int modX; //Start X for the miniature DMap
         public int modY; //Start Y for the miniature DMap
+        public int scale = 1;
 
         /// <summary>
         /// Returns the list of goal-points.
@@ -39,18 +40,18 @@ namespace TheChicagoProject.AI
             get { return map; }
         }
 
-        public DijkstraMap(World world, int width, int height, int startX, int startY, params int[][] goals) {
+        public DijkstraMap(World world, int width, int height, int startX, int startY, int scale = 1, params int[][] goals) {
             this.goals = goals;
-            this.mapWidth = width;
-            this.mapHeight = height;
+            this.mapWidth = width * scale;
+            this.mapHeight = height * scale;
             this.modX = startX;
             this.modY = startY;
             this.map = generateMap(world, goals);
+            this.scale = scale;
             // printMap();
         }
 
         private DijkstraMap() {
-
         }
 
         private int[][] generateMap(World world, params int[][] goals) {
@@ -62,19 +63,20 @@ namespace TheChicagoProject.AI
                     grid[x][y] = 100;
             }
             //Sets the goal points to 0
-            foreach (int[] g in goals) {
-                int actualX = g[0];
-                int actualY = g[1];
-                grid[actualX][actualY] = 0;
-                //Console.WriteLine("GOAL: " + actualX + ", " + actualY);
-            }
+            foreach (int[] g in goals)
+                if (g != null) {
+                    int actualX = g[0] * scale;
+                    int actualY = g[1] * scale;
+                    grid[actualX][actualY] = 0;
+                    //Console.WriteLine("GOAL: " + actualX + ", " + actualY);
+                }
 
             scan(world, grid);
 
             for (int x = 0; x < grid.Length; x++)
                 for (int y = 0; y < grid[x].Length; y++)
                     if (valid(world, modX + x, modY + y))
-                        if (!world.tiles[modX + x][modY + y].IsWalkable)
+                        if (!world.tiles[modX + x / scale][modY + y / scale].IsWalkable)
                             grid[x][y] = 100;
 
             return grid;
@@ -87,8 +89,8 @@ namespace TheChicagoProject.AI
                 for (int x = 0; x < grid.Length; x++) {
                     for (int y = 0; y < grid[x].Length; y++)
                         if (valid(world, modX + x, modY + y)) {
-                            if (!world.tiles[modX + x][modY + y].IsWalkable)
-                                continue;
+                            //if (!world.tiles[modX + x][modY + y].IsWalkable)
+                            //    continue;
                             #region Grid Checking
                             if (x - 1 >= 0) {
                                 if (y - 1 >= 0) //top left
@@ -141,7 +143,7 @@ namespace TheChicagoProject.AI
         }
 
         public bool valid(World world, int x, int y) {
-            return x > -1 && y > -1 && x < world.tiles.Length && y < world.tiles[0].Length;
+            return x > -1 && y > -1 && x / scale < world.tiles.Length && y / scale < world.tiles[0].Length;
         }
 
         public DijkstraMap GenerateFleeMap(World world) {

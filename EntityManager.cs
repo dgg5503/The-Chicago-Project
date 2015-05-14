@@ -17,6 +17,7 @@ namespace TheChicagoProject
     public class EntityManager
     {
         private List<Entity.Entity> entities;
+        private List<Entity.Entity> entitiesToAdd;
         private int playerLoc;
         public Game1 mainGame;
         public World world;
@@ -28,6 +29,7 @@ namespace TheChicagoProject
 
         public EntityManager(World world) {
             entities = new List<Entity.Entity>();
+            entitiesToAdd = new List<Entity.Entity>();
             playerLoc = -1;
             this.mainGame = Game1.Instance;
             this.world = world;
@@ -46,7 +48,8 @@ namespace TheChicagoProject
             } else {
                 if (e is NPC)
                     civilianCount++;
-                entities.Add(e);
+                // entities.Add(e);
+                entitiesToAdd.Add(e);
             }
         }
 
@@ -58,6 +61,10 @@ namespace TheChicagoProject
         }
 
         public void Update(GameTime time) {
+            for (int x = 0; x < entitiesToAdd.Count; x++) {
+                entities.Add(entitiesToAdd[x]);
+                entitiesToAdd.Remove(entitiesToAdd[x]);
+            }
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
                 if (e.markForDelete) {
@@ -69,7 +76,7 @@ namespace TheChicagoProject
                         entities.Remove(e);
                     }
                     if (e is NPC)
-                       civilianCount--;
+                        civilianCount--;
 
                 } else
                     e.Update(time, this);

@@ -93,8 +93,8 @@ namespace TheChicagoProject.AI
         /// <param name="hl">-1 (further) to 1 (closer)</param>
         /// <returns></returns>
         protected Direction findPos(DijkstraMap map, int hl) {
-            int ex = getEntityX() - map.modX;
-            int ey = getEntityY() - map.modY;
+            int ex = getEntityX()*map.scale - map.modX;
+            int ey = getEntityY()*map.scale - map.modY;
 
             if (ey - 1 > -1)
                 if (map.Map[ex][ey - 1] == map.Map[ex][ey] - hl) //up
@@ -129,6 +129,49 @@ namespace TheChicagoProject.AI
             }
 
             return entity.direction;
+        }
+
+        public Direction findMinPos(List<DijkstraMap> maps) {
+            int[] dirs = new int[8];
+            foreach (DijkstraMap map in maps) {
+                int ex = getEntityX()*map.scale - map.modX;
+                int ey = getEntityY()*map.scale - map.modY;
+
+                if (ey - 1 > -1)
+                    dirs[0] += map.Map[ex][ey - 1]; //up
+                if (ey + 1 < map.Map[ex].Length)
+                    dirs[1] += map.Map[ex][ey + 1]; //down
+                if (ex - 1 > -1)
+                    dirs[2] += map.Map[ex - 1][ey]; //left
+                if (ex + 1 < map.Map.Length)
+                    dirs[3] += map.Map[ex + 1][ey]; //right
+
+
+                if (ex - 1 > -1) {
+                    if (ey - 1 > -1)
+                        dirs[4] += map.Map[ex - 1][ey - 1]; //upleft
+                    if (ey + 1 < map.Map[ex].Length)
+                        dirs[5] += map.Map[ex - 1][ey + 1]; //downleft
+                }
+
+                if (ex + 1 < map.Map.Length) {
+                    if (ey - 1 > -1)
+                        dirs[6] += map.Map[ex + 1][ey - 1]; //upright
+                    if (ey + 1 < map.Map[ex].Length)
+                        dirs[7] += map.Map[ex + 1][ey + 1]; //downright
+                }
+            }
+            Direction[] directs = new Direction[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right, Direction.UpLeft, Direction.DownLeft, Direction.UpRight, Direction.DownRight };
+            int min = Int32.MaxValue, minIndex = 0;
+            for (int x = 0; x < dirs.Length; x++) {
+                if (dirs[x] < min) {
+                    min = dirs[x];
+                    minIndex = x;
+                }
+                //Console.Write(dirs[x] + "-" + x + ", ");
+            }
+            //Console.WriteLine();
+            return directs[minIndex];
         }
     }
 }

@@ -39,12 +39,12 @@ namespace TheChicagoProject.Entity
             int width = Game1.Instance.GraphicsDevice.Viewport.Width / Tile.SIDE_LENGTH + 40;
             int height = Game1.Instance.GraphicsDevice.Viewport.Height / Tile.SIDE_LENGTH + 40;
             if (playerMap == null) {
-                playerMap = new DijkstraMap(this, width, height, pX - 20, pY - 20, new int[] { 20, 20 });
+                playerMap = new DijkstraMap(this, width, height, pX - 20, pY - 20, 1, new int[] { 20, 20 });
                 fleeMap = playerMap.Clone().GenerateFleeMap(this);
             }
             int[] pLoc = playerMap.Goals[0]; //The player location for AI's.
             if (pX != pLoc[0] || pY != pLoc[1]) {
-                playerMap = new DijkstraMap(this, width, height, pX - 20, pY - 20, new int[] { 20, 20 });
+                playerMap = new DijkstraMap(this, width, height, pX - 20, pY - 20, 1, new int[] { 20, 20 });
                 fleeMap = playerMap.Clone().GenerateFleeMap(this);
             }
 

@@ -41,13 +41,22 @@ namespace TheChicagoProject
         private void initalizeMaps() {
             if (world.civilianMaps != null)
                 return;
-            world.civilianMaps = new DijkstraMap[2];
-            world.civilianMaps[0] = new DijkstraMap(world, world.worldWidth, world.worldHeight, 0, 0, getRandomGoals());
-            world.civilianMaps[1] = new DijkstraMap(world, world.worldWidth, world.worldHeight, 0, 0, getRandomGoals());
+            int[][] goals = new int[world.doors.Length][];
+            for (int x = 0; x < goals.Length; x++) {
+                goals[x] = new int[] { (int) world.doors[x].X, (int) world.doors[x].Y };
+                Console.WriteLine("X: " + goals[x][0] + "\tY: " + goals[x][1]);
+                if (goals[x][0] > world.worldWidth || goals[x][1] > world.worldHeight)
+                    goals[x] = null;
+            }
+            world.civilianMaps = new DijkstraMap[1];
+            world.civilianMaps[0] = new DijkstraMap(world, world.worldWidth, world.worldHeight, 0, 0, 1, goals);
+            //world.civilianMaps[0].printMap();
+            //world.civilianMaps[1] = new DijkstraMap(world, world.worldWidth, world.worldHeight, 0, 0,
+            //getRandomGoals(7, true));
         }
 
         //Let's get a random list of valid goal points for civvies to walk towards!
-        private int[][] getRandomGoals(int baseNum = 7) {
+        private int[][] getRandomGoals(int baseNum = 7, bool keepTrying = false) {
             if (baseNum < 0)
                 return null;
             Random random = Game1.Instance.random;
@@ -56,12 +65,12 @@ namespace TheChicagoProject
                 int x = random.Next(0, world.worldWidth);
                 int y = random.Next(0, world.worldHeight);
                 int i = 0;
-                while (!isTileValid(x, y) && i < 500) {
+                while (!isTileValid(x, y) && (keepTrying || i < 500)) {
                     x = random.Next(0, world.worldWidth);
                     y = random.Next(0, world.worldHeight);
                     i++;
                 }
-                if (i < 500)
+                if (keepTrying || i < 500)
                     list[k] = new int[] { x, y };
                 else
                     list[k] = new int[] { -1, -1 };

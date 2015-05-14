@@ -10,13 +10,14 @@ namespace TheChicagoProject.AI
 {
     class CivilianAI : AI
     {
-        private int mapToUse; //Which map this AI is currently going for.a
+        private int mapToUse; //Which map this AI is currently going for.
+        private DijkstraMap flee;
+        private int fleeCount;
 
         public CivilianAI(LivingEntity entity)
             : base(entity) {
-            mapToUse = Game1.Instance.random.Next(0, 2);
+            mapToUse = Game1.Instance.random.Next(0, 1);
             entity.color = Color.Green;
-            //Console.WriteLine(entity.GetType().FullName + " #" + entity.GetHashCode() + " is using map: " + mapToUse + "!");
         }
 
         public override void Update(GameTime time, EntityManager manager) {
@@ -27,12 +28,24 @@ namespace TheChicagoProject.AI
                 return;
             if (!manager.world.tiles[x][y].IsWalkable)
                 entity.markForDelete = true;
-            if (map.Map[x][y] <= 2) {
-                //mapToUse = (mapToUse == 1 ? 0 : 1);
-                //Console.WriteLine(entity.GetType().FullName + " #" + entity.GetHashCode() + " is dying now!");
+            if (map.Map[x][y] <= 1)
                 entity.markForDelete = true;
+
+            if (entity.collidingEntites.Count > 0 && flee == null) {
+                Entity.Entity e = entity.collidingEntites[0];
+                int modX = (int) e.location.X / Tile.SIDE_LENGTH - x + 3;
+                int modY = (int) e.location.Y / Tile.SIDE_LENGTH - y + 3;
+                flee = new DijkstraMap(entity.currentWorld, 6, 6, x - 3, y - 3, 1, new int[] { modX, modY });
+                flee = flee.GenerateFleeMap(entity.currentWorld);
+                fleeCount = 30;
             }
-            entity.direction = this.findPos(map, 1);
+            if (flee != null) {
+                entity.direction = this.findPos(flee, 1);
+                fleeCount--;
+                if (fleeCount <= 0)
+                    flee = null;
+            } else
+                entity.direction = this.findPos(map, 1);
             entity.Move();
         }
     }
