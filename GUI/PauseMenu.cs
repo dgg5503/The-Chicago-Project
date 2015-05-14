@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 
 //Douglas Gliner
+//Sean Levorse
 namespace TheChicagoProject.GUI
 {
 
@@ -21,6 +22,12 @@ namespace TheChicagoProject.GUI
         // Save button
         private Button saveButton;
 
+        //Quit Button
+        private Button quitButton;
+        
+        //Save and Quit
+        private Button sqButton;
+
         public PauseMenu()
         {
 
@@ -30,7 +37,7 @@ namespace TheChicagoProject.GUI
             resumeButton = new Button();
             resumeButton.Text = "Resume";
             resumeButton.Click += resumeButton_Click;
-            resumeButton.Size = new Vector2(55, 20);
+            resumeButton.Size = new Vector2(110, 20);
             resumeButton.Location = new Vector2((this.Size.X / 2) - (resumeButton.Size.X / 2), (this.Size.Y / 2) + 20);
             //resumeButton.parent = this;
             Add(resumeButton);
@@ -38,10 +45,25 @@ namespace TheChicagoProject.GUI
             saveButton = new Button();
             saveButton.Text = "Save";
             saveButton.Click += saveButton_Click;
-            saveButton.Size = new Vector2(55, 20);
-            saveButton.Location = new Vector2((this.Size.X / 2) - (saveButton.Size.X / 2), (this.Size.Y / 2) + 60);
+            saveButton.Size = new Vector2(110, 20);
+            saveButton.Location = new Vector2((this.Size.X / 2) - (saveButton.Size.X / 2), (this.Size.Y / 2) + 50);
             //saveButton.parent = this;
             Add(saveButton);
+
+            quitButton = new Button();
+            quitButton.Text = "Quit";
+            quitButton.Click += quitButton_Click;
+            quitButton.Size = new Vector2(110, 20);
+            quitButton.Location = new Vector2(this.Size.X / 2 - quitButton.Size.X / 2, this.Size.Y / 2 + 80);
+            Add(quitButton);
+
+            sqButton = new Button();
+            sqButton.Text = "Save and Quit";
+            sqButton.Click += saveButton_Click;
+            sqButton.Click += quitButton_Click;
+            sqButton.Size = new Vector2(110, 20);
+            sqButton.Location = new Vector2(this.Size.X / 2 - quitButton.Size.X / 2, this.Size.Y / 2 + 110);
+            Add(sqButton);
 
             lblHeader = new Label();
             lblHeader.Text = "Paused!";
@@ -80,6 +102,10 @@ namespace TheChicagoProject.GUI
             Game1.state = GameState.Game;
         }
 
+        void quitButton_Click(object sender, EventArgs e)
+        {
+            Game1.state = GameState.Menu;
+        }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -88,5 +114,7 @@ namespace TheChicagoProject.GUI
             
             base.Draw(spriteBatch, gameTime);
         }
+
+        
     }
 }
