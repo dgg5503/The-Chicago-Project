@@ -233,7 +233,7 @@ namespace TheChicagoProject
                     //WorldManager.player.Attack(1, );
                 }
             }
-            if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
+            if ((keyState.IsKeyDown(Keys.Q) && !previousState.IsKeyDown(Keys.Q))|| mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
             {
                 if (Game1.state == GameState.Game)
                 {
