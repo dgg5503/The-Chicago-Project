@@ -27,7 +27,7 @@ namespace TheChicagoProject.GUI
         private static DragableContainer currentDragableContainer;
 
         // Context menu!
-        //private static Container contextMenu;
+        private static ItemStatsUI contextMenu = new ItemStatsUI(new Vector2(150, 150));
 
         /// <summary>
         /// Get the item at this index.
@@ -68,6 +68,11 @@ namespace TheChicagoProject.GUI
             this.maxSlots = maxSlots;
 
             // setup containers relative to loc.
+
+            // if this controls list doesnt have the context menu, add it once!
+            if (!Controls.Contains(contextMenu))
+                Add(contextMenu);
+
             SetupContainers();
 
             mouseOrigin = new Vector2(-1, -1);
@@ -158,7 +163,7 @@ namespace TheChicagoProject.GUI
 
         void tmpContainer_Hover(object sender, EventArgs e)
         {
-            /*
+            
             // if this container does not have an item in it, return
             DragableContainer container = sender as DragableContainer;
 
@@ -168,27 +173,20 @@ namespace TheChicagoProject.GUI
                 return;
             }
 
-            // create contextMenu
-            if (contextMenu == null)
-            {
-                contextMenu = new Container();
-                contextMenu.Size = new Vector2(100, 100);
-                Add(contextMenu);
-            }
+            
 
             // display hovering container showing stats of item.
             Item.Item item = container.ControlContained.Item;
 
-            if (item is Weapon)
-            {
-                contextMenu.Location = new Vector2(CurrentFrameMouseState.Position.X - contextMenu.Size.X, CurrentFrameMouseState.Position.Y - contextMenu.Size.Y);
-                
-                Console.WriteLine(item.name);
-            }
+            // menu location
+            contextMenu.Location = new Vector2(CurrentFrameMouseState.Position.X - contextMenu.Size.X, CurrentFrameMouseState.Position.Y - contextMenu.Size.Y);
 
-            // other items...
-            //if(item is )
-            */
+            // load item info
+            if (contextMenu.Item != item)
+                contextMenu.Load(item);
+                
+            // make sure it updates
+            contextMenu.IsDrawn = true;
         }
 
         void tmpContainer_Pressed(object sender, EventArgs e)
@@ -197,7 +195,7 @@ namespace TheChicagoProject.GUI
             // If the container has a control in it, grab it
             // DONT Clear that control from the container
             DragableContainer clickedOn = sender as DragableContainer;
-
+            contextMenu.IsDrawn = false;
             if (currentDragableControl == null && clickedOn.ControlContained != null)
             {
                 if (currentDragableContainer == null)
@@ -259,6 +257,7 @@ namespace TheChicagoProject.GUI
                     if (hoveringDragableContaner == null && this.RootParent.GlobalRectangle.Contains(this.CurrentFrameMouseState.Position)) // && inside the window.
                     {
                         currentDragableControl.Location = Vector2.Zero;
+                        
                         currentDragableControl = null;
                         currentDragableContainer = null;
                     }
@@ -272,11 +271,13 @@ namespace TheChicagoProject.GUI
 
                 }
             }
-
+            
             // updated every frame so this is fine.
             hoveringDragableContaner = null;
             
             base.Update(gameTime);
+            
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -288,6 +289,10 @@ namespace TheChicagoProject.GUI
             // hack for overlap drawing.
             if (currentDragableControl != null)
                 currentDragableControl.Draw(spriteBatch, gameTime);
+
+            // hack for context menu
+            if (contextMenu != null)
+                contextMenu.Draw(spriteBatch, gameTime);
         }
 
         public override void Clear()

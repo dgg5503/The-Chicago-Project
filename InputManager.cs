@@ -265,11 +265,12 @@ namespace TheChicagoProject
                 {
 
                     // DEBUG DIALOG TEST
-                    /*
-                    DialogBox test = new DialogBox(new Vector2(200, 150), DialogBoxType.OkCancel, "Test dialog!!", "You've opened the quest log!", new Vector2(300, 300));
-                    test.yesEvent += test_yesEvent;
-                    RenderManager.AddDialog(test);
-                     * */
+                    
+                    //DialogBox test = new DialogBox(new Vector2(200, 150), DialogBoxType.OkCancel, "Test dialog!!", "You've opened the quest log!", new Vector2(300, 300));
+                    //test.yesEvent += test_yesEvent;
+                    //test.noEvent += test_noEvent;
+                    //RenderManager.AddDialog(test);
+                     
                     Game1.state = GameState.QuestLog;
                 }
             }
@@ -287,7 +288,7 @@ namespace TheChicagoProject
 
             previousState = keyState;
         }
-
+        
         /*
         void test_yesEvent(object sender, EventArgs e)
         {
