@@ -48,7 +48,7 @@ namespace TheChicagoProject.Entity
 
         
         public void SpawnCivilians() {
-            int[][] spawns = this.getRandomGoals(47 - manager.civilianCount);
+            int[][] spawns = this.getRandomGoals(27 - manager.civilianCount);
             if (spawns == null)
                 return;
             Console.WriteLine("Spawning : " + spawns.Length + " entities!");
