@@ -20,16 +20,12 @@ namespace TheChicagoProject.GUI.Forms
         Ok
     }
 
-    public class DialogBox : Control
+    public class DialogBox : Dialog
     {
         private DialogBoxType type;
 
         public event EventHandler yesEvent; // also ok
         public event EventHandler noEvent; // also cancel
-
-        private bool eventsCompleted;
-
-        public bool EventsCompleted { get { return eventsCompleted; } }
 
         public DialogBox(Vector2 size, DialogBoxType type, string header, string description, Vector2? location = null)
         {
