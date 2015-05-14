@@ -69,7 +69,7 @@ namespace TheChicagoProject
 
             Vector2[] doorLocs = new Vector2[doors.Length];
 
-            int x = 0;
+            int y = 0;
             string line = worldReader.ReadLine();
             int row = 0;
             int doorCntr = 0;
@@ -104,8 +104,8 @@ namespace TheChicagoProject
                             break;
 
                         case '6':
-                            doorLocs[x] = new Vector2(row, col);
-                            x++;
+                            doorLocs[y] = new Vector2(row, col);
+                            y++;
                             tmpWorld.tiles[row][col] = doors[doorCntr];
                             doorCntr++;
                             break;
