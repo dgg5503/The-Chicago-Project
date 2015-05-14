@@ -23,5 +23,14 @@ namespace TheChicagoProject.GUI.Forms
 
 
         // option for word wrap type.
+
+        // things to do before word wrap
+        // - scaling
+        // - decide on line spacing
+        // - word wrap type (by spaces, by letters (add a dash at the end!)
+
+ 
+        // things to do before scaling
+        // -
     }
 }
