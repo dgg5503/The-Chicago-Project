@@ -108,14 +108,15 @@ namespace TheChicagoProject.Quests
         public virtual void StartQuest()
         {
             status = (int)State.InProgress;
+            World world;
+            if (worldManager.worlds.ContainsKey(worldKey))
+                world = worldManager.worlds[worldKey];
+            else
+                world = worldManager.CurrentWorld;
             //initialize each entity
             foreach (Entity.Entity entity in entitites)
             {
-                World world;
-                if (worldManager.worlds.ContainsKey(worldKey))
-                    world = worldManager.worlds[worldKey];
-                else
-                    world = worldManager.CurrentWorld;
+                
                 world.manager.AddEntity(entity); //not entitity
                 Console.WriteLine("Entity Added");
             }
