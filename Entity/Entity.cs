@@ -74,6 +74,7 @@ namespace TheChicagoProject.Entity
             collisionReactionVector = Vector2.Zero;
             movement = Vector2.Zero;
             color = Color.White;
+            collidingEntites = new List<Entity>();
         }
 
         /// <summary>
