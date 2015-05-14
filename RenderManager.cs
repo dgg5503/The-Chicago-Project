@@ -392,6 +392,7 @@ namespace TheChicagoProject
                 // Entities
                 DrawEntities(gameTime);
                 DrawParticles();
+                DrawEntityUI(gameTime);
                 spriteBatch.End();
             }
 
@@ -416,7 +417,8 @@ namespace TheChicagoProject
 
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection, e.color);
+                //e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection, e.color);
+                e.Draw(spriteBatch, gameTime);
             }
 
             // the above used e.Direction
@@ -424,6 +426,11 @@ namespace TheChicagoProject
             // want basic rotation on AI.
         }
 
+        private void DrawEntityUI(GameTime gameTime)
+        {
+            foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
+                e.DrawUI(spriteBatch, gameTime);
+        }
 
         // GUI
         /*

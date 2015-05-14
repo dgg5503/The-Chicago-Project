@@ -124,7 +124,7 @@ namespace TheChicagoProject.GUI
             reloadBar.ProgressColor = Color.Black;
             reloadBar.MaxValue = 100;
             reloadBar.CurrentValue = 0;
-            reloadBar.IncludeText = false;
+            reloadBar.IncludeText = String.Empty;
             reloadBar.Alignment = ControlAlignment.Center;
             //reloadBar.parent = ammoInfoContainer;
             ammoInfoContainer.Add(reloadBar);

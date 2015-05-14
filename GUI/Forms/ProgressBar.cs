@@ -15,7 +15,7 @@ namespace TheChicagoProject.GUI.Forms
         // Graphics
         private Color progressColor;
         private Label text;
-        private bool includeText;
+        private string includeText;
 
         // Progress bar stuff
         private double maxValue;
@@ -29,7 +29,7 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Gets or sets whether or not the current over max is displayed in the center of the bar.
         /// </summary>
-        public bool IncludeText { get { return includeText; } set { includeText = value;  } }
+        public string IncludeText { get { return includeText; } set { includeText = value;  } }
         /// <summary>
         /// Gets or sets the max value for this progress bar.
         /// </summary>
@@ -41,7 +41,7 @@ namespace TheChicagoProject.GUI.Forms
 
         public ProgressBar(Vector2 size)
         {
-            includeText = false;
+            includeText = null;
             progressColor = Color.Green;
             maxValue = 100;
             currentValue = 50;
@@ -63,10 +63,10 @@ namespace TheChicagoProject.GUI.Forms
 
         public override void Update(GameTime gameTime)
         {
-            if (includeText)
+            if (includeText == null && includeText != String.Empty)
                 text.Text = "" + currentValue + " / " + maxValue + "";
             else
-                text.Text = "";
+                text.Text = includeText;
 
             bar.ProgressColor = progressColor;
             bar.Scale = new Vector2(((float)currentValue * Size.X) / (float)maxValue, Size.Y);

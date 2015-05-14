@@ -8,8 +8,10 @@ using TheChicagoProject.Item;
 using TheChicagoProject.AI;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Particles;
+using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Collision;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject.Entity
 {
@@ -32,6 +34,8 @@ namespace TheChicagoProject.Entity
         private int cash;
 
         private float interactRange;
+
+        private ProgressBar healthBar;
 
         /// <summary>
         /// Gets or sets the amount of cash the player has
@@ -72,6 +76,14 @@ namespace TheChicagoProject.Entity
             maxHealth = health;
 
             color = Color.Red;
+
+            healthBar = new ProgressBar(new Vector2(60, 20));
+            healthBar.MaxValue = maxHealth;
+            healthBar.CurrentValue = health;
+            healthBar.IncludeText = Name;
+            healthBar.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
+            controls.Add(healthBar);
+            
         }
 
         /// <summary>
@@ -96,7 +108,32 @@ namespace TheChicagoProject.Entity
                 inventory.GetEquippedPrimary().Reload();
                 inventory.GetEquippedPrimary().Reloading = false;
             }
+
+            
+            healthBar.MaxValue = maxHealth;
+            healthBar.CurrentValue = health;
+            healthBar.IncludeText = Name;
+            healthBar.Location = new Vector2(this.location.Location.X - (healthBar.Size.X / 2) + (this.location.Width / 2), this.location.Location.Y - healthBar.Size.Y);
+            healthBar.Update(time);
+             
         }
+
+        /// <summary>
+        /// Draws the base sprite and a health bar!
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            base.Draw(spriteBatch, gameTime);
+            //healthBar.Draw(spriteBatch, gameTime);
+        }
+
+        /*
+        public override void DrawUI(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            healthBar.Draw(spriteBatch, gameTime);
+        }*/
 
         /// <summary>
         /// The Living Entity attacks
