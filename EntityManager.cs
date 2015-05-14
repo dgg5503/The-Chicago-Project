@@ -98,7 +98,7 @@ namespace TheChicagoProject
                 int tileX = (int) (bullet.X / GUI.Tile.SIDE_LENGTH);
                 int tileY = (int) (bullet.Y / GUI.Tile.SIDE_LENGTH);
 
-                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY || tileX < 0 || tileY < 0) {
+                if (tileX < 0 || tileY < 0 || mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
                     break;
                 }
 
