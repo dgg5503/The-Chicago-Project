@@ -29,6 +29,18 @@ namespace TheChicagoProject.GUI.Forms
         CenterX
     }
 
+    // http://stackoverflow.com/questions/4254636/how-to-create-a-custom-event-handling-class-like-eventargs
+    public class KeysEventArgs : EventArgs
+    {
+        private Keys[] keys;
+        public KeysEventArgs(Keys[] keys)
+        {
+            this.keys = keys;
+        }
+
+        public Keys[] Keys { get { return keys; } }
+    }
+
     public struct BorderInfo
     {
         public int width;
@@ -165,9 +177,15 @@ namespace TheChicagoProject.GUI.Forms
 
         public event EventHandler HoverRelease;
 
-        MouseState lastFrameMouseState;
+        public event EventHandler<KeysEventArgs> KeyClicked;
 
-        MouseState currentFrameMouseState;
+        private MouseState lastFrameMouseState;
+
+        private MouseState currentFrameMouseState;
+
+        private KeyboardState lastFrameKeyboardState;
+
+        private KeyboardState currentFrameKeyboardState;
 
         private Vector2 firstClickLoc;
 
@@ -298,10 +316,9 @@ namespace TheChicagoProject.GUI.Forms
         protected virtual void LoadTextures(GraphicsDevice graphics)
         {
             if(graphics == null)
-            {
                 return;
-            }
-                //throw new Exception("No graphics device defined!");
+
+            //throw new Exception("No graphics device defined!");
 
             // Fill creation
             this.graphics = graphics;
@@ -446,8 +463,15 @@ namespace TheChicagoProject.GUI.Forms
 
                 if (currentFrameMouseState.LeftButton == ButtonState.Released)
                     firstClickLoc = Vector2.Zero;
-
                 lastFrameMouseState = currentFrameMouseState;
+
+                currentFrameKeyboardState = Keyboard.GetState();
+                Keys[] clickedKeys = lastFrameKeyboardState.GetPressedKeys().Except(currentFrameKeyboardState.GetPressedKeys()).ToArray();
+
+                
+                if (KeyClicked != null)
+                    KeyClicked(this, new KeysEventArgs(clickedKeys));
+                
             }
 
             if (!alignApplied)

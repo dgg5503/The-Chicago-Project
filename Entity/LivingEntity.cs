@@ -83,7 +83,7 @@ namespace TheChicagoProject.Entity
             base.Update(time, manager);
 
             if (this.health <= 0) {
-                this.markforDelete = true;
+                this.markForDelete = true;
                 return;
             }
 
@@ -183,7 +183,8 @@ namespace TheChicagoProject.Entity
             if (entityToInteract == null)
                 return;
 
-            entityToInteract.Action(this);
+            //We need to fix this.
+            entityToInteract.Action(this, "");
             
             // do interact method here... (events or method?)
             Game1.Instance.renderManager.EmitParticle(new RectangleOutline(new RotatedRectangle(entityToInteract.location, 0), Color.Purple, 1));

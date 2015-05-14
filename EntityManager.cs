@@ -60,11 +60,11 @@ namespace TheChicagoProject
         public void Update(GameTime time) {
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
-                if (e.markforDelete) {
+                if (e.markForDelete) {
                     if (e is Player) {
                         Game1.state = GameState.Menu;
                         (e as Player).health = (e as Player).maxHealth;
-                        e.markforDelete = false;
+                        e.markForDelete = false;
                     } else {
                         entities.Remove(e);
                     }
@@ -98,8 +98,8 @@ namespace TheChicagoProject
                 int tileX = (int) (bullet.X / GUI.Tile.SIDE_LENGTH);
                 int tileY = (int) (bullet.Y / GUI.Tile.SIDE_LENGTH);
 
-                if (mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
-                    return;
+                if (tileX < 0 || tileY < 0 || mainGame.worldManager.CurrentWorld.tiles.Length <= tileX || mainGame.worldManager.CurrentWorld.tiles[tileX].Length <= tileY) {
+                    break;
                 }
 
                 if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable && !mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].FileName.Equals("Water.png")) {

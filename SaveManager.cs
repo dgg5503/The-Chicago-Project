@@ -67,6 +67,8 @@ namespace TheChicagoProject
                 doors[x] = new Door(worldReader.ReadLine(), int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
             }
 
+            tmpWorld.doors = doors;
+
             string line = worldReader.ReadLine();
             int row = 0;
             int doorCntr = 0;
@@ -103,6 +105,10 @@ namespace TheChicagoProject
                         case '6':
                             tmpWorld.tiles[row][col] = doors[doorCntr];
                             doorCntr++;
+                            break;
+
+                        case '7':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Debris"];
                             break;
                     }
                 }

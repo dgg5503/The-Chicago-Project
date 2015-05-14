@@ -34,7 +34,8 @@ namespace TheChicagoProject
         QuestLog,
         WeaponWheel,
         FastTravel,
-        Shop
+        Shop,
+        Exiting
     }
 
     /// <summary>
@@ -234,6 +235,11 @@ namespace TheChicagoProject
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args) {
+            base.OnExiting(sender, args);
+            state = GameState.Exiting;
         }
     }
 }
