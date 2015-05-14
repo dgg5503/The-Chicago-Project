@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+// Douglas Gliner and answers from StackOverflow (as credited)
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner (usually stuff is taken from stackoverflow / other projects of mine and others)
     static class Utils
     {
         public static Random rand = new Random();
@@ -32,26 +32,8 @@ namespace TheChicagoProject.GUI
             return texture;
         }
 
-        /*
-        public static Texture2D GenColorTexture(GraphicsDevice g, int width, int height, Color color)
-        {
-
-            Texture2D texture = new Texture2D(g, width, height);
-            Color[] colors = new Color[texture.Height * texture.Width];
-
-            for (int i = 0; i < colors.Length; i++)
-            {
-                colors[i] = color;
-            }
-            texture.SetData<Color>(colors);
-
-            return texture;
-        }*/
-
         public static void GenColorTexture(this Texture2D texture, int width, int height, Color color)
         {
-
-            //Texture2D texture = new Texture2D(g, width, height);
             Color[] colors = new Color[texture.Height * texture.Width];
 
             for (int i = 0; i < colors.Length; i++)
@@ -59,8 +41,6 @@ namespace TheChicagoProject.GUI
                 colors[i] = color;
             }
             texture.SetData<Color>(colors);
-
-            //return texture;
         }
 
         //http://stackoverflow.com/questions/13893959/how-to-draw-the-border-of-a-square

@@ -7,9 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Item;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
+    
     /// <summary>
     /// TO-DO:
     /// - Weapon image
@@ -74,22 +75,25 @@ namespace TheChicagoProject.GUI
             Container weaponAmmoContainer = new Container();
             weaponAmmoContainer.Size = new Vector2(this.Size.X - 10, this.Size.Y - 10);
             weaponAmmoContainer.Alignment = ControlAlignment.Center;
-            weaponAmmoContainer.parent = this;
+            //weaponAmmoContainer.parent = this;
             Add(weaponAmmoContainer);
 
             // Holds weapon img and name
             Container weaponImgInfoContainer = new Container();
             weaponImgInfoContainer.Size = new Vector2(100, 90);
-            weaponImgInfoContainer.parent = weaponAmmoContainer;
+            weaponImgInfoContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
+            
+            //weaponImgInfoContainer.parent = weaponAmmoContainer;
             weaponAmmoContainer.Add(weaponImgInfoContainer);
 
             // Weapon image
             weaponImageContainer = new Container();
             weaponImageContainer.Fill = null;
+            weaponImageContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
             weaponImageContainer.Size = new Vector2(64, 64);
             weaponImageContainer.Location = new Vector2(0, -5);
             weaponImageContainer.Alignment = ControlAlignment.Center;
-            weaponImageContainer.parent = weaponImgInfoContainer;
+            //weaponImageContainer.parent = weaponImgInfoContainer;
             weaponImgInfoContainer.Add(weaponImageContainer);
 
             // Weapon name
@@ -97,14 +101,14 @@ namespace TheChicagoProject.GUI
             weaponNameLbl.Location = new Vector2(0, 35);
             //weaponNameLbl.Text = "";
             weaponNameLbl.Alignment = ControlAlignment.Center;
-            weaponNameLbl.parent = weaponImgInfoContainer;
+            //weaponNameLbl.parent = weaponImgInfoContainer;
             weaponImgInfoContainer.Add(weaponNameLbl);
 
             // Ammo container
             Container ammoInfoContainer = new Container();
             ammoInfoContainer.Size = new Vector2(75, 90);
             ammoInfoContainer.Alignment = ControlAlignment.Right;
-            ammoInfoContainer.parent = weaponAmmoContainer;
+            //ammoInfoContainer.parent = weaponAmmoContainer;
             weaponAmmoContainer.Add(ammoInfoContainer);
 
             // Ammo top
@@ -112,7 +116,7 @@ namespace TheChicagoProject.GUI
             ammoCurrentInClipLbl.Location = new Vector2(0, -20);
             ammoCurrentInClipLbl.Text = "";
             ammoCurrentInClipLbl.Alignment = ControlAlignment.Center;
-            ammoCurrentInClipLbl.parent = ammoInfoContainer;
+            //ammoCurrentInClipLbl.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoCurrentInClipLbl);
 
             // Ammo divider
@@ -122,14 +126,14 @@ namespace TheChicagoProject.GUI
             reloadBar.CurrentValue = 0;
             reloadBar.IncludeText = false;
             reloadBar.Alignment = ControlAlignment.Center;
-            reloadBar.parent = ammoInfoContainer;
+            //reloadBar.parent = ammoInfoContainer;
             ammoInfoContainer.Add(reloadBar);
 
             isReloadingLbl = new Label();
             isReloadingLbl.Scale = .5f;
             isReloadingLbl.Alignment = ControlAlignment.Center;
             isReloadingLbl.Text = "";
-            isReloadingLbl.parent = reloadBar;
+            //isReloadingLbl.parent = reloadBar;
             reloadBar.Add(isReloadingLbl);
             /*
             Container ammoDivisorContainer = new Container();
@@ -144,7 +148,7 @@ namespace TheChicagoProject.GUI
             ammoTotalLbl.Location = new Vector2(0, 20);
             ammoTotalLbl.Text = "";
             ammoTotalLbl.Alignment = ControlAlignment.Center;
-            ammoTotalLbl.parent = ammoInfoContainer;
+            //ammoTotalLbl.parent = ammoInfoContainer;
             ammoInfoContainer.Add(ammoTotalLbl);
 
         }

@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Entity;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
     class LivingEntityInfoUI : Control
     {
         // Important GUI controls that will need to be updated
@@ -35,7 +35,9 @@ namespace TheChicagoProject.GUI
                 if (value != null)
                 {
                     moneyLbl.Text = String.Format("${0,5:D8}", value.Cash);
+                    healthBar.MaxValue = value.maxHealth;
                     healthBar.CurrentValue = value.health;
+                    
                 }
                 else
                 {
@@ -58,26 +60,26 @@ namespace TheChicagoProject.GUI
             healthInfoContainer.Size = new Vector2(this.Size.X - 20, 30);
             healthInfoContainer.Location = new Vector2(0, -15);
             healthInfoContainer.Alignment = ControlAlignment.Center;
-            healthInfoContainer.parent = this;
+            //healthInfoContainer.parent = this;
             Add(healthInfoContainer);
 
             Container healthTxtLblContainer = new Container();
             healthTxtLblContainer.Size = new Vector2(50, 30);
             healthTxtLblContainer.Alignment = ControlAlignment.Left;
-            healthTxtLblContainer.parent = healthInfoContainer;
+            //healthTxtLblContainer.parent = healthInfoContainer;
             healthInfoContainer.Add(healthTxtLblContainer);
 
             Label healthTxtLbl = new Label();
             healthTxtLbl.AutoResize = true;
             healthTxtLbl.Text = "Health:";
             healthTxtLbl.Alignment = ControlAlignment.Center;
-            healthTxtLbl.parent = healthTxtLblContainer;
+            //healthTxtLbl.parent = healthTxtLblContainer;
             healthTxtLblContainer.Add(healthTxtLbl);
 
             Container healthLblContainer = new Container();
             healthLblContainer.Size = new Vector2(80, 30);
             healthLblContainer.Alignment = ControlAlignment.Right;
-            healthLblContainer.parent = healthInfoContainer;
+            //healthLblContainer.parent = healthInfoContainer;
             healthInfoContainer.Add(healthLblContainer);
             /*
             healthLbl = new Label();
@@ -93,7 +95,7 @@ namespace TheChicagoProject.GUI
             healthBar.ProgressColor = Color.Green;
             healthBar.IncludeText = true;
             healthBar.MaxValue = 4;
-            healthBar.parent = healthLblContainer;
+            //healthBar.parent = healthLblContainer;
             healthLblContainer.Add(healthBar);
 
             // Holds money label and current money label
@@ -105,30 +107,30 @@ namespace TheChicagoProject.GUI
             Container moneyTxtLblContainer = new Container();
             moneyTxtLblContainer.Size = new Vector2(50, 30);
             moneyTxtLblContainer.Alignment = ControlAlignment.Left;
-            moneyTxtLblContainer.parent = moneyInfoContainer;
+            //moneyTxtLblContainer.parent = moneyInfoContainer;
             moneyInfoContainer.Add(moneyTxtLblContainer);
 
             Label moneyTxtLbl = new Label();
             moneyTxtLbl.AutoResize = true;
             moneyTxtLbl.Text = "Money:";
             moneyTxtLbl.Alignment = ControlAlignment.Center;
-            moneyTxtLbl.parent = moneyTxtLblContainer;
+            //moneyTxtLbl.parent = moneyTxtLblContainer;
             moneyTxtLblContainer.Add(moneyTxtLbl);
 
             Container moneyLblContainer = new Container();
             moneyLblContainer.Size = new Vector2(80, 30);
             moneyLblContainer.Alignment = ControlAlignment.Right;
-            moneyLblContainer.parent = moneyInfoContainer;
+            //moneyLblContainer.parent = moneyInfoContainer;
             moneyInfoContainer.Add(moneyLblContainer);
 
             moneyLbl = new Label();
             moneyLbl.AutoResize = true;
             moneyLbl.Text = "$00000000";
             moneyLbl.Alignment = ControlAlignment.Center;
-            moneyLbl.parent = moneyLblContainer;
+            //moneyLbl.parent = moneyLblContainer;
             moneyLblContainer.Add(moneyLbl);
 
-            moneyInfoContainer.parent = this;
+            //moneyInfoContainer.parent = this;
             Add(moneyInfoContainer);
 
         }

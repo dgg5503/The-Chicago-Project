@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
     /*
@@ -17,48 +18,61 @@ namespace TheChicagoProject.GUI.Forms
      * - CenterLeft, Right, Horizontal, Vertical
      * - resizing (i.e. build with a size and then scale from that...)
      * - dragging of the window.
-     * - 
+     * - Text scaling
+     * - Border/fill offset.
      */
-
-    //Douglas Gliner
     public enum ControlAlignment
     {
         Left,
         Right,
-        Center
+        Center,
+        CenterX
     }
 
     public struct BorderInfo
     {
         public int width;
+        //public float offsetX;
+        //public float offsetY;
         public Color color;
-        public Texture2D texture;
+        public Sprite sprite;
+        //public Texture2D texture;
         public bool isDrawn;
 
         public BorderInfo(int width, Color color)
         {
             this.width = width;
             this.color = color;
-            texture = null;
-            isDrawn = true;
+            this.sprite = null;
+            /*
+            this.offsetX = 0;
+            this.offsetY = 0;
+             * */
+            //texture = null;
+            this.isDrawn = true;
             if (width < 1)
-                width = 1;
+                this.width = 1;
 
             if (color == null)
-                color = Color.Black;
+                this.color = Color.Black;
         }
 
-        public BorderInfo(Texture2D texture)
+        public BorderInfo(Sprite sprite)
         {
-            width = 0;
-            color = Color.White;
-            this.texture = texture;
-            isDrawn = true;
-            if(texture == null)
+            this.width = 1;
+            this.color = Color.White;
+            this.sprite = sprite;
+            /*
+            this.offsetX = 0;
+            this.offsetY = 0;
+            if(sprite.Texture != null)
             {
-                width = 1;
-                color = Color.Black;
-            }
+                this.offsetX = sprite.Texture.Width / 2;
+                this.offsetY = sprite.Texture.Height / 2;
+            }*/
+
+            
+            isDrawn = true;
         }
     }
 
@@ -117,6 +131,9 @@ namespace TheChicagoProject.GUI.Forms
         // Default spriteFont
         private SpriteFont font;
 
+        // Gametime for this control
+        protected GameTime gameTime;
+
         // Font XNB file.
         private string fontFile;
 
@@ -172,7 +189,27 @@ namespace TheChicagoProject.GUI.Forms
         /// The border texture for controls, only shows if borderEnabled is true.
         /// </summary>
         //public Texture2D Border { get { return border; } set { border = value; } }
-        public BorderInfo? Border { get { return borderInfo; } set { if (value == null) { borderInfo.isDrawn = false; } else { borderInfo = (BorderInfo)value; if (borderInfo.texture != null) { border = borderInfo.texture; } } } } // do OTF load...
+        public BorderInfo? Border {
+            get {
+                return borderInfo; 
+            } 
+            set {
+                if (value == null) {
+                    borderInfo.isDrawn = false;
+                } 
+                else {
+                    borderInfo = (BorderInfo)value;
+                    
+                    if (borderInfo.sprite != null && borderInfo.sprite.Texture != null) 
+                    {
+                        border = borderInfo.sprite.Texture;
+                    }
+                    else
+                        if(border != null)
+                            UpdateBorder(); 
+                } 
+            } 
+        } // do OTF load for new border width...
         /// <summary>
         /// Sets the fill of the control to some given Texture2D
         /// </summary>
@@ -237,8 +274,10 @@ namespace TheChicagoProject.GUI.Forms
             foreach (Control c in controls)
                 c.Draw(spriteBatch, gameTime);
 
+            // border offset for placing border outside of control?
             if (borderInfo.isDrawn)
-                spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
+                spriteBatch.Draw(border, this.GlobalLocation(), null, borderInfo.color, 0, Vector2.Zero, new Vector2(Size.X / border.Width, Size.Y / border.Height), SpriteEffects.None, 0);
+                //spriteBatch.Draw(border, this.GlobalLocation(), borderInfo.color);
 
             if (!isActive)
                 spriteBatch.Draw(inactiveAlpha, this.GlobalLocation(), Color.White);
@@ -259,14 +298,30 @@ namespace TheChicagoProject.GUI.Forms
             {
                 fill = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
                 fill.GenColorTexture((int)this.Size.X, (int)this.Size.Y, Color.White);
-            }   
+            }
+            else
+            {
+                fill = fillInfo.texture;
+            }
 
             // Border creation
-            border = borderInfo.texture; // update size?
-            if (borderInfo.texture == null)
+            //border = borderInfo.texture; // update size?
+            
+            if (borderInfo.sprite == null)
             {
                 border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
-                border.CreateBorder(borderInfo.width, Color.White); 
+                border.CreateBorder(borderInfo.width, Color.White);
+            }
+            else
+            {
+
+                if (borderInfo.sprite.Texture == null)
+                {
+                    //borderInfo.sprite.Texture = new Texture2D(graphics, borderInfo.sprite.Width, borderInfo.sprite.Height);
+                    borderInfo.sprite.Texture = contentManager.Load<Texture2D>("./GUI/" + borderInfo.sprite.FileName);
+                }
+
+                border = borderInfo.sprite.Texture;
             }
                 
 
@@ -280,6 +335,31 @@ namespace TheChicagoProject.GUI.Forms
                 c.LoadTextures(graphics);
         }
 
+        private void UpdateBorder()
+        {
+
+            if (borderInfo.sprite == null)
+            {
+                border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+                border.CreateBorder(borderInfo.width, Color.White);
+            }
+            else
+            {
+
+                if (borderInfo.sprite.Texture == null)
+                {
+                    //borderInfo.sprite.Texture = new Texture2D(graphics, borderInfo.sprite.Width, borderInfo.sprite.Height);
+                    borderInfo.sprite.Texture = contentManager.Load<Texture2D>("./GUI/" + borderInfo.sprite.FileName);
+                }
+
+                border = borderInfo.sprite.Texture;
+            }
+            /*
+            border = new Texture2D(graphics, (int)this.Size.X, (int)this.Size.Y);
+            border.CreateBorder(borderInfo.width, Color.White);
+             * */
+        }
+
         // For loading XNB related files...
         protected virtual void LoadContent(ContentManager contentManager)
         {
@@ -289,7 +369,8 @@ namespace TheChicagoProject.GUI.Forms
 
             this.contentManager = contentManager;
 
-            font = contentManager.Load<SpriteFont>("Font/" + fontFile);
+            if(font == null)
+                font = contentManager.Load<SpriteFont>("Font/" + fontFile);
 
             foreach (Control c in controls)
                 c.LoadContent(contentManager);
@@ -314,6 +395,7 @@ namespace TheChicagoProject.GUI.Forms
         // All cases of callbacks are done here.
         public virtual void Update(GameTime gameTime)
         {
+            this.gameTime = gameTime;
             if (isActive)
             {
                 currentFrameMouseState = Mouse.GetState();
@@ -381,6 +463,10 @@ namespace TheChicagoProject.GUI.Forms
                         Location = new Vector2((parent.Size.X / 2 - this.Size.X / 2) + this.Location.X, (parent.Size.Y / 2 - this.Size.Y / 2) + this.Location.Y);
                         break;
 
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2((parent.Size.X / 2 - this.Size.X / 2) + this.Location.X, this.Location.Y);
+                        break;
+
                     case ControlAlignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
@@ -403,6 +489,10 @@ namespace TheChicagoProject.GUI.Forms
                 {
                     case ControlAlignment.Center:
                         Location = new Vector2(((RenderManager.ViewportWidth / 2) - (this.Size.X / 2)) - this.Location.X, ((RenderManager.ViewportHeight / 2) - (this.Size.Y / 2)) - this.Location.Y);
+                        break;
+
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2(((RenderManager.ViewportWidth / 2) - (this.Size.X / 2)) - this.Location.X, this.Location.Y);
                         break;
 
                     case ControlAlignment.Left:
@@ -429,6 +519,11 @@ namespace TheChicagoProject.GUI.Forms
                         Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth / 2, this.Location.Y + RenderManager.ViewportDeltaHeight / 2);
                         break;
 
+                        // needed?
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2(this.Location.X + RenderManager.ViewportDeltaWidth / 2, this.Location.Y);
+                        break;
+
                     case ControlAlignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
                         break;
@@ -452,6 +547,11 @@ namespace TheChicagoProject.GUI.Forms
                     case ControlAlignment.Center:
                         Location = new Vector2(this.Location.X + (int)((oldSize.X - this.Size.X) / 2), this.Location.Y + (int)((oldSize.Y - this.Size.Y) / 2)); // ints required here to preserve centering
                         break;
+
+                    case ControlAlignment.CenterX:
+                        Location = new Vector2(this.Location.X + (int)((oldSize.X - this.Size.X) / 2), this.Location.Y); // ints required here to preserve centering
+                        break;
+
 
                     case ControlAlignment.Left:
                         Location = new Vector2(this.Location.X, this.Location.Y);
@@ -491,7 +591,7 @@ namespace TheChicagoProject.GUI.Forms
                 fill = fillInfo.texture; // update size?
 
             // Border creation
-            if (borderInfo.texture == null)
+            if (borderInfo.sprite == null)
             {
                 if (border != null)
                 {
@@ -500,7 +600,16 @@ namespace TheChicagoProject.GUI.Forms
                 }
             }
             else
-                border = borderInfo.texture; // update size?
+            {
+
+                if (borderInfo.sprite.Texture == null)
+                {
+                    //borderInfo.sprite.Texture = new Texture2D(graphics, borderInfo.sprite.Width, borderInfo.sprite.Height);
+                    borderInfo.sprite.Texture = contentManager.Load<Texture2D>("./GUI/" + borderInfo.sprite.FileName);
+                }
+
+                border = borderInfo.sprite.Texture;
+            }
              
             // REMAKE BORDERS AND STUFF
         }
@@ -544,8 +653,39 @@ namespace TheChicagoProject.GUI.Forms
             if (control == this)
                 throw new InvalidOperationException();
 
+            // set parent to this.
+
+            // get other loaded stuff from root control
+            control.parent = this;
+
+            /*
+            if(control.graphics == null)
+                control.graphics = RootControl(control).graphics;
+
+            if(control.contentManager == null)
+                control.contentManager = RootControl(control).contentManager;
+
+            // get loaded font from root.
+            if(control.font == null)
+                control.font = RootControl(this).font;
+            */
+
+            // see if controls need to have textures loaded.
+            if (RootControl(this).graphics != null && RootControl(this).contentManager != null)
+                control.LoadVisuals();
+
             controls.Add(control);
-        
+
+            if (RootControl(control).gameTime != null)
+                control.Update(RootControl(control).gameTime);
+            
+            /*
+            if(RootControl(this).graphics != null && RootControl(this).contentManager != null)
+                control.LoadVisuals();
+            
+            if(RootControl(this).gameTime != null)
+                control.Update(RootControl(this).gameTime);
+             */
             //controls.Add(control.parent = this);
         }
     }

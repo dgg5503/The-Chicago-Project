@@ -6,10 +6,9 @@ using TheChicagoProject.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
-
     /*
      * FOR ENTTIY COLLISION, GET STUFF IN TILE AND CHECK BETWEEN WHATS IN THAT TILE WITH THE PLAYER....
      */
@@ -23,6 +22,9 @@ namespace TheChicagoProject.GUI
         // Animation information
         // The SpriteSheet
         private Texture2D texture;
+
+        // Sprite tint
+        private Color color;
 
         // Current frame of the animation
         // frame is also an offset for the sprite sheet
@@ -56,6 +58,7 @@ namespace TheChicagoProject.GUI
         // Directory for Sprites.
         public static readonly string Directory = "./Content/Sprites/";
 
+
         // Properties
         public Texture2D Texture { get { return texture; } set { texture = value; } }
 
@@ -73,6 +76,8 @@ namespace TheChicagoProject.GUI
 
         public double TimePerFrame { get { return timePerFrame; } }
 
+        public Color Color { get { return color; } set { color = value; } }
+
         /// <summary>
         /// Basic constructor that draws a static sprite from frame 0
         /// </summary>
@@ -80,12 +85,13 @@ namespace TheChicagoProject.GUI
         /// <param name="width">Width of the sprite in the sprite sheet.</param>
         /// <param name="yOffset">Offset from the top of the sheet.</param>
         /// <param name="fileName">File name of the sprite sheet.</param>
-        public Sprite(int height, int width, int yOffset, string fileName)
+        public Sprite(int height, int width, int yOffset, Color color, string fileName)
         {
             this.height = height;
             this.width = width;
             this.yOffset = yOffset;
             this.fileName = fileName;
+            this.color = color;
             frame = 0;
             fps = 0;
             timePerFrame = 0;
@@ -99,13 +105,14 @@ namespace TheChicagoProject.GUI
         /// <param name="width">Width of the sprite in the sprite sheet.</param>
         /// <param name="yOffset">Offset from the top of the sheet.</param>
         /// <param name="frame">Frame to present.</param>
-        public Sprite(int height, int width, int yOffset, string fileName, int frame)
+        public Sprite(int height, int width, int yOffset, Color color, string fileName, int frame)
         {
             this.height = height;
             this.width = width;
             this.yOffset = yOffset;
             this.frame = frame;
             this.fileName = fileName;
+            this.color = color;
             fps = 0;
             timePerFrame = 0;
             frameCount = 0;
@@ -168,7 +175,7 @@ namespace TheChicagoProject.GUI
             sb.Draw(
                 texture,					    // - The texture to draw
                 new Rectangle(x, y, texture.Width, texture.Height),		// - The location to draw on the screen
-                Color.White					// - The color
+                color					// - The color
             );								// - Layer depth (unused)
         }
 
@@ -191,7 +198,7 @@ namespace TheChicagoProject.GUI
                      yOffset,		            //	   where "inside" the texture
                      width,			            //     to get pixels (We don't want to
                      height),		        	//     draw the whole thing)
-                 Color.White,					// - The color
+                 color,					// - The color
                  DirectionToRadians(dir),								// - Rotation (none currently)
                  new Vector2(width / 2, height / 2),					// - Origin inside the image (top left)
                  SpriteEffects.None,				        // - Can be used to flip the image
@@ -211,7 +218,7 @@ namespace TheChicagoProject.GUI
            
         }
 
-        public void Draw(SpriteBatch sb, int x, int y, float dir)
+        public void Draw(SpriteBatch sb, int x, int y, float dir, Color color)
         {
 
             sb.Draw(
@@ -222,7 +229,7 @@ namespace TheChicagoProject.GUI
                      yOffset,		            //	   where "inside" the texture
                      width,			            //     to get pixels (We don't want to
                      height),		        	//     draw the whole thing)
-                 Color.White,					// - The color
+                 color,					// - The color
                  dir,								// - Rotation (none currently)
                  new Vector2(width / 2, height / 2),					// - Origin inside the image (top left)
                  SpriteEffects.None,				        // - Can be used to flip the image
@@ -260,7 +267,7 @@ namespace TheChicagoProject.GUI
                     yOffset,		            //	   where "inside" the texture
                     width,			            //     to get pixels (We don't want to
                     height),		        	//     draw the whole thing)
-                Color.White,					// - The color
+                color,					// - The color
                 0,								// - Rotation (none currently)
                 Vector2.Zero,					// - Origin inside the image (top left)
                 SpriteEffects.None,				        // - Can be used to flip the image
@@ -286,7 +293,7 @@ namespace TheChicagoProject.GUI
                     yOffset,		            //	   where "inside" the texture
                     width,			            //     to get pixels (We don't want to
                     height),		        	//     draw the whole thing)
-                Color.White,					// - The color
+                color,					// - The color
                 DirectionToRadians(dir),								// - Rotation (none currently)
                 Vector2.Zero,					// - Origin inside the image (top left)
                 SpriteEffects.None,				        // - Can be used to flip the image

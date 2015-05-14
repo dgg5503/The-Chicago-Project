@@ -8,7 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
+using TheChicagoProject.Item;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     class DragableMatrixV2 : Control, IEnumerable<Item.Item>
@@ -23,6 +25,9 @@ namespace TheChicagoProject.GUI
         private static DragableControl currentDragableControl;
         private static DragableContainer hoveringDragableContaner;
         private static DragableContainer currentDragableContainer;
+
+        // Context menu!
+        //private static Container contextMenu;
 
         /// <summary>
         /// Get the item at this index.
@@ -141,6 +146,7 @@ namespace TheChicagoProject.GUI
                     DragableContainer tmpContainer = new DragableContainer(new Vector2(sideLength, sideLength));
                     tmpContainer.Location = new Vector2(x, y);
                     tmpContainer.HoverRelease += tmpContainer_HoverRelease;
+                    tmpContainer.Hover += tmpContainer_Hover;
                     tmpContainer.Pressed += tmpContainer_Pressed;
                     tmpContainer.parent = this;
                     Add(tmpContainer);
@@ -148,6 +154,41 @@ namespace TheChicagoProject.GUI
                     count++;
                 }
             
+        }
+
+        void tmpContainer_Hover(object sender, EventArgs e)
+        {
+            /*
+            // if this container does not have an item in it, return
+            DragableContainer container = sender as DragableContainer;
+
+            if (container == null || container.ControlContained == null || container.ControlContained.Item == null)
+            {
+                Console.WriteLine("nothing");
+                return;
+            }
+
+            // create contextMenu
+            if (contextMenu == null)
+            {
+                contextMenu = new Container();
+                contextMenu.Size = new Vector2(100, 100);
+                Add(contextMenu);
+            }
+
+            // display hovering container showing stats of item.
+            Item.Item item = container.ControlContained.Item;
+
+            if (item is Weapon)
+            {
+                contextMenu.Location = new Vector2(CurrentFrameMouseState.Position.X - contextMenu.Size.X, CurrentFrameMouseState.Position.Y - contextMenu.Size.Y);
+                
+                Console.WriteLine(item.name);
+            }
+
+            // other items...
+            //if(item is )
+            */
         }
 
         void tmpContainer_Pressed(object sender, EventArgs e)

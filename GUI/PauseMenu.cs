@@ -6,9 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
+
     public class PauseMenu : Control
     {
         // Header of the menu
@@ -31,7 +32,7 @@ namespace TheChicagoProject.GUI
             resumeButton.Click += resumeButton_Click;
             resumeButton.Size = new Vector2(55, 20);
             resumeButton.Location = new Vector2((this.Size.X / 2) - (resumeButton.Size.X / 2), (this.Size.Y / 2) + 20);
-            resumeButton.parent = this;
+            //resumeButton.parent = this;
             Add(resumeButton);
 
             saveButton = new Button();
@@ -39,7 +40,7 @@ namespace TheChicagoProject.GUI
             saveButton.Click += saveButton_Click;
             saveButton.Size = new Vector2(55, 20);
             saveButton.Location = new Vector2((this.Size.X / 2) - (saveButton.Size.X / 2), (this.Size.Y / 2) + 60);
-            saveButton.parent = this;
+            //saveButton.parent = this;
             Add(saveButton);
 
             lblHeader = new Label();
@@ -47,7 +48,7 @@ namespace TheChicagoProject.GUI
             lblHeader.AutoResize = true;
             lblHeader.Location = new Vector2(0, -130);
             lblHeader.Alignment = ControlAlignment.Center;
-            lblHeader.parent = this;
+            //lblHeader.parent = this;
             Add(lblHeader);
         }
 

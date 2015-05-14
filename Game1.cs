@@ -50,6 +50,7 @@ namespace TheChicagoProject
         public InputManager inputManager;
         public SaveManager saveManager;
         public CollisionManager collisionManager;
+        public Random random;
         #region debug
         public SpriteFont debugFont;
         public static Texture2D border;
@@ -82,6 +83,7 @@ namespace TheChicagoProject
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             state = GameState.Menu;
+            random = new Random();
             saveManager = new SaveManager();
             worldManager = new WorldManager();
             inputManager = new InputManager();

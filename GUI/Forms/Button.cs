@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
-    // Douglas Gliner
-    class Button : Control
+    
+    public class Button : Control
     {
         // Label on button
         private Label text;
@@ -58,7 +59,7 @@ namespace TheChicagoProject.GUI.Forms
             text.Text = String.Empty;
             text.AutoResize = true;
             text.Alignment = ControlAlignment.Center;
-            text.parent = this;
+            //text.parent = this;
             Add(text);
         }
 

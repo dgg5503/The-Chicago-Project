@@ -20,6 +20,7 @@ namespace TheChicagoProject
         private int playerLoc;
         public Game1 mainGame;
         public World world;
+        public int civilianCount;
 
         public List<Entity.Entity> EntityList {
             get { return entities; }
@@ -34,17 +35,19 @@ namespace TheChicagoProject
 
         public void AddEntity(Entity.Entity e) {
             e.currentWorld = world;
-            Console.WriteLine("Added Entity");
+            Console.WriteLine("Added Entity: " + e.GetType().FullName + " (#" + e.GetHashCode() + ")");
             if (e is Player) {
                 if (playerLoc == -1) {
-                    Console.WriteLine("Added Player");
                     playerLoc = 0;
                     entities.Insert(0, e);
                 } else {
                     entities[playerLoc] = e;
                 }
-            } else
+            } else {
+                if (e is NPC)
+                    civilianCount++;
                 entities.Add(e);
+            }
         }
 
         public Player GetPlayer() {
@@ -57,13 +60,18 @@ namespace TheChicagoProject
         public void Update(GameTime time) {
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
-                if (e.markforDelete)
-                {
-                    if (e is Player)
+                if (e.markforDelete) {
+                    if (e is Player) {
                         Game1.state = GameState.Menu;
-                    entities.Remove(e);
-                }
-                else
+                        (e as Player).health = (e as Player).maxHealth;
+                        e.markforDelete = false;
+                    } else {
+                        entities.Remove(e);
+                    }
+                    if (e is NPC)
+                       civilianCount--;
+
+                } else
                     e.Update(time, this);
             }
         }
@@ -94,7 +102,7 @@ namespace TheChicagoProject
                     return;
                 }
 
-                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable) {
+                if (!mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].IsWalkable && !mainGame.worldManager.CurrentWorld.tiles[tileX][tileY].FileName.Equals("Water.png")) {
                     break;
                 }
 

@@ -41,6 +41,8 @@ namespace TheChicagoProject.Entity
         //Interaction Data for Quests / Action-Interact
         public InteractionData interactData;
 
+        public Color color;
+
         //Remove this entity if true!
         public bool markforDelete;
 
@@ -67,6 +69,7 @@ namespace TheChicagoProject.Entity
             this.sprite = sprite;
             collisionReactionVector = Vector2.Zero;
             movement = Vector2.Zero;
+            color = Color.White;
         }
 
         /// <summary>

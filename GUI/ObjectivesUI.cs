@@ -10,6 +10,7 @@ using TheChicagoProject.Quests;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     class ObjectivesUI : Control
@@ -29,7 +30,7 @@ namespace TheChicagoProject.GUI
             Container topHalfContainer = new Container();
             topHalfContainer.Size = new Vector2(this.Size.X, this.Size.Y / 2);
             topHalfContainer.Alignment = ControlAlignment.Left;
-            topHalfContainer.parent = this;
+            //topHalfContainer.parent = this;
             Add(topHalfContainer);
 
             // win condition label
@@ -37,14 +38,14 @@ namespace TheChicagoProject.GUI
             winConditionLabel.Location = new Vector2(0, -45);
             winConditionLabel.Text = "Win condition";
             winConditionLabel.Alignment = ControlAlignment.Center;
-            winConditionLabel.parent = topHalfContainer;
+            //winConditionLabel.parent = topHalfContainer;
             topHalfContainer.Add(winConditionLabel);
 
             // Image container
             Container actualImageContainer = new Container();
             actualImageContainer.Size = new Vector2(64, 64);
             actualImageContainer.Alignment = ControlAlignment.Center;
-            actualImageContainer.parent = topHalfContainer;
+            //actualImageContainer.parent = topHalfContainer;
             topHalfContainer.Add(actualImageContainer);
 
             // The actual image
@@ -52,7 +53,7 @@ namespace TheChicagoProject.GUI
             objectiveImageContainer.Size = new Vector2(1, 1);
             objectiveImageContainer.Border = null;
             objectiveImageContainer.Alignment = ControlAlignment.Center;
-            objectiveImageContainer.parent = actualImageContainer;
+            //objectiveImageContainer.parent = actualImageContainer;
             actualImageContainer.Add(objectiveImageContainer);
 
             // info container
@@ -60,7 +61,7 @@ namespace TheChicagoProject.GUI
             nameConditionContainer.Size = new Vector2(this.Size.X, this.Size.Y / 2);
             nameConditionContainer.Location = new Vector2(0, this.Size.Y / 2);
             nameConditionContainer.Alignment = ControlAlignment.Left;
-            nameConditionContainer.parent = this;
+            //nameConditionContainer.parent = this;
             Add(nameConditionContainer);
 
             // objective name label
@@ -68,7 +69,7 @@ namespace TheChicagoProject.GUI
             objectiveNameLabel.Text = "NAME";
             objectiveNameLabel.Alignment = ControlAlignment.Center;
             objectiveNameLabel.WordWrap = true;
-            objectiveNameLabel.parent = nameConditionContainer;
+            //objectiveNameLabel.parent = nameConditionContainer;
             nameConditionContainer.Add(objectiveNameLabel);
             
         }
@@ -82,7 +83,7 @@ namespace TheChicagoProject.GUI
             if (image != null)
             {
                 objectiveImageContainer.Size = new Vector2(image.Width, image.Height);
-                objectiveImageContainer.ControlSizeChange(objectiveImageContainer.Size); // possibly un needed work being done here
+                //objectiveImageContainer.ControlSizeChange(objectiveImageContainer.Size); // possibly un needed work being done here
                 objectiveImageContainer.Fill = new FillInfo(image, Color.White);
             }
         }

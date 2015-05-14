@@ -11,11 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
-
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
-
     // Each GUI overlay is its own Form (think of Windows forms, but the desktop being the game and the forms being these menus)
 
 
@@ -62,7 +60,7 @@ namespace TheChicagoProject.GUI
             startButton.Size = new Vector2(95, 20);
             startButton.Alignment = ControlAlignment.Center;
             startButton.Location = new Vector2(0, 20);
-            startButton.parent = this;
+            //startButton.parent = this;
             Add(startButton);
 
             loadButton = new Button();
@@ -71,7 +69,7 @@ namespace TheChicagoProject.GUI
             loadButton.Size = new Vector2(95, 20);
             loadButton.Alignment = ControlAlignment.Center;
             loadButton.Location = new Vector2(0, 45);
-            loadButton.parent = this;
+            //loadButton.parent = this;
             Add(loadButton);
 
             //Quest builder
@@ -82,7 +80,7 @@ namespace TheChicagoProject.GUI
             questBuilderButton.Text = "Quest Builder";
             questBuilderButton.Click += OpenTool;
             //questBuilderButton.Location = new Vector2((this.Size.X / 2) - (questBuilderButton.Size.X / 2), (this.Size.Y / 2) + 120);
-            questBuilderButton.parent = this;
+            //questBuilderButton.parent = this;
             Add(questBuilderButton);
 
             lblHeader = new Label();
@@ -90,7 +88,7 @@ namespace TheChicagoProject.GUI
             lblHeader.AutoResize = true;
             lblHeader.Location = new Vector2(0, -130);
             lblHeader.Alignment = ControlAlignment.Center;
-            lblHeader.parent = this;
+            //lblHeader.parent = this;
             Add(lblHeader);
         }
 
@@ -126,8 +124,8 @@ namespace TheChicagoProject.GUI
         void buttons_Click(object sender, EventArgs e)
         {
             
-            Game1.Instance.saveManager.saveLoc = "./Content/SaveFiles/default.save";
-            Game1.Instance.saveManager.Load();
+            //Game1.Instance.saveManager.saveLoc = "./Content/SaveFiles/default.save";
+            //Game1.Instance.saveManager.Load();
             
             Game1.state = GameState.Game;
         }

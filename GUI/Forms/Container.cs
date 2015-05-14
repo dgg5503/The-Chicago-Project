@@ -6,10 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
 
-    //Douglas Gliner
+    
     class Container : Control
     {
         // Autoresize to fit largest child?

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.GUI.Forms;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    //Douglas Gliner
     public static class Controls
     {
 
@@ -17,7 +17,7 @@ namespace TheChicagoProject.GUI
             {"inventoryMenu", new InventoryMenu()},
             {"weaponInfoUI", new WeaponInfoUI()},
             {"livingEntityInfoUI", new LivingEntityInfoUI()},
-            {"weaponWheel", new WeaponWheelUI()},
+            {"weaponWheel", new WeaponWheelUIV2(400)},
             {"questLog", new QuestLogUI()}
         };
     }

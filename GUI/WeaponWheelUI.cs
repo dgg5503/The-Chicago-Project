@@ -7,9 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Item;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI
 {
-    // Douglas Gliner
+    
     class WeaponWheelUI : Control
     {
         // Inventory stuff
@@ -36,14 +37,14 @@ namespace TheChicagoProject.GUI
             closeButton.Alignment = ControlAlignment.Right;
             closeButton.Text = "X";
             closeButton.Click += closeButton_Click;
-            closeButton.parent = this;
+            //closeButton.parent = this;
             Add(closeButton);
 
             // Weapon Buttons container.
             weaponButtonsContainer = new Container();
             weaponButtonsContainer.Size = new Vector2(450, 150);
             weaponButtonsContainer.Alignment = ControlAlignment.Center;
-            weaponButtonsContainer.parent = this;
+            //weaponButtonsContainer.parent = this;
             Add(weaponButtonsContainer);
             
             
@@ -92,7 +93,7 @@ namespace TheChicagoProject.GUI
                     currentActive = weaponInfoRoot;
                 }
 
-                weaponInfoRoot.parent = weaponButtonsContainer;
+                //weaponInfoRoot.parent = weaponButtonsContainer;
                 weaponButtonsContainer.Add(weaponInfoRoot);
 
                 // image

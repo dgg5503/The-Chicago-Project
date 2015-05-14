@@ -10,6 +10,7 @@ using TheChicagoProject.Quests;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
 
+//Douglas Gliner
 namespace TheChicagoProject.GUI
 {
     class QuestUI : Control
@@ -38,42 +39,42 @@ namespace TheChicagoProject.GUI
             // Name and Reward container
             Container nameRewardContainer = new Container();
             nameRewardContainer.Size = new Vector2(this.Size.X, this.Size.Y / 10);
-            nameRewardContainer.parent = this;
-            this.Add(nameRewardContainer);
+            //nameRewardContainer.parent = this;
+            Add(nameRewardContainer);
 
             // Reward Info Container
             Container rewardInfoContainer = new Container();
             rewardInfoContainer.Size = new Vector2(nameRewardContainer.Size.X / 2, nameRewardContainer.Size.Y);
             rewardInfoContainer.Alignment = ControlAlignment.Right;
-            rewardInfoContainer.parent = nameRewardContainer;
+            //rewardInfoContainer.parent = nameRewardContainer;
             nameRewardContainer.Add(rewardInfoContainer);
 
             // Cash reward container
             Container cashRewardContainer = new Container();
             cashRewardContainer.Size = new Vector2(rewardInfoContainer.Size.X / 2, nameRewardContainer.Size.Y);
             cashRewardContainer.Alignment = ControlAlignment.Right;
-            cashRewardContainer.parent = rewardInfoContainer;
+            //cashRewardContainer.parent = rewardInfoContainer;
             rewardInfoContainer.Add(cashRewardContainer);
 
             // Cash label
             cashReward = new Label();
             cashReward.Alignment = ControlAlignment.Center;
-            cashReward.Text = "$000";
-            cashReward.parent = cashRewardContainer;
+            cashReward.Text = "";
+            //cashReward.parent = cashRewardContainer;
             cashRewardContainer.Add(cashReward);
 
             // Quest point reward container
             Container questPointContainer = new Container();
             questPointContainer.Size = new Vector2(rewardInfoContainer.Size.X / 2, nameRewardContainer.Size.Y);
             questPointContainer.Alignment = ControlAlignment.Left;
-            questPointContainer.parent = rewardInfoContainer;
+            //questPointContainer.parent = rewardInfoContainer;
             rewardInfoContainer.Add(questPointContainer);
 
             // Quest point label
             pointReward = new Label();
             pointReward.Alignment = ControlAlignment.Center;
-            pointReward.Text = "@000";
-            pointReward.parent = questPointContainer;
+            pointReward.Text = "";
+            //pointReward.parent = questPointContainer;
 
             questPointContainer.Add(pointReward);
 
@@ -81,14 +82,14 @@ namespace TheChicagoProject.GUI
             Container nameLabelContainer = new Container();
             nameLabelContainer.Size = new Vector2(nameRewardContainer.Size.X / 2, nameRewardContainer.Size.Y);
             nameLabelContainer.Alignment = ControlAlignment.Left;
-            nameLabelContainer.parent = nameRewardContainer;
+            //nameLabelContainer.parent = nameRewardContainer;
             nameRewardContainer.Add(nameLabelContainer);
 
             // Name Label
             name = new Label();
             name.Alignment = ControlAlignment.Center;
-            name.Text = "Quest Name";
-            name.parent = nameLabelContainer;
+            name.Text = "";
+            //name.parent = nameLabelContainer;
             nameLabelContainer.Add(name);
 
             // DescriptionObjective container
@@ -96,22 +97,23 @@ namespace TheChicagoProject.GUI
             descObjectiveContainer.Size = new Vector2(this.Size.X, this.Size.Y - nameRewardContainer.Size.Y);
             descObjectiveContainer.Location = new Vector2(0, nameRewardContainer.Size.Y);
             descObjectiveContainer.Alignment = ControlAlignment.Left;
-            descObjectiveContainer.parent = this;
+            //descObjectiveContainer.parent = this;
             Add(descObjectiveContainer);
 
             // Description container
             Container descriptionContainer = new Container();
             descriptionContainer.Size = new Vector2((this.Size.X / 8) * 5, this.Size.Y - nameRewardContainer.Size.Y);
             descriptionContainer.Alignment = ControlAlignment.Left;
-            descriptionContainer.parent = descObjectiveContainer;
+            //descriptionContainer.parent = descObjectiveContainer;
             descObjectiveContainer.Add(descriptionContainer);
 
             // Description label
             description = new Label();
             description.Alignment = ControlAlignment.Left;
+            description.Text = "Click on a quest on the left to see information about it here!";
             //description.Text = "Description\nDescription Description Description Description Description Description Description Description Description Description Description Description\nDescription Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description ";
             description.WordWrap = true;
-            description.parent = descriptionContainer;
+            //description.parent = descriptionContainer;
             descriptionContainer.Add(description);
 
             // --- THERE COULD BE MULTIPLE OF THESE (stack them or side by side?) ---
@@ -120,7 +122,7 @@ namespace TheChicagoProject.GUI
             objectivesContainer = new Container();
             objectivesContainer.Size = new Vector2((this.Size.X / 8) * 3, this.Size.Y - nameRewardContainer.Size.Y);
             objectivesContainer.Alignment = ControlAlignment.Right;
-            objectivesContainer.parent = descObjectiveContainer;
+            //objectivesContainer.parent = descObjectiveContainer;
             descObjectiveContainer.Add(objectivesContainer);
             // --- THERE COULD BE MULTIPLE OF THESE ---
         }
@@ -141,15 +143,27 @@ namespace TheChicagoProject.GUI
             pointReward.Text = "@" + currentQuest.Reward + "";
 
             // load objectives
-            ObjectivesUI tmpObjective;
+            ObjectivesUI tmpObjective = null;
             switch(quest.WinCondition)
             {
                 case WinCondition.AllEnemiesDead:
                     // enemies to kill? (not sure about this one)
                     // foreach for #
+
+                    // tmp dict.
+                    /*
+                    Dictionary<string, Entity.LivingEntity> objectiveEntities = new Dictionary<string, Entity.LivingEntity>();
+                    foreach(Entity.Entity ent in quest.entitites)
+                    {
+                        Console.WriteLine(ent.GetType());
+                    }
+                    */
+
+                    // Currently no way to get entity names or group them by types (no mugger class etc...) (?)
+
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
                     tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
-                    tmpObjective.parent = objectivesContainer;
+                    //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;
 
@@ -157,12 +171,12 @@ namespace TheChicagoProject.GUI
                     // deliver some item to some recipient
                     tmpObjective = new ObjectivesUI(new Vector2(objectivesContainer.Size.X, objectivesContainer.Size.Y / 2));
                     tmpObjective.Load("Deliver this", quest.Delivery.name, quest.Delivery.previewSprite.Texture);
-                    tmpObjective.parent = objectivesContainer;
+                    //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
 
                     tmpObjective.Load("Recipient", "RECIP", quest.Recipient.sprite.Texture);
                     tmpObjective.Location = new Vector2(0, objectivesContainer.Size.Y / 2);
-                    tmpObjective.parent = objectivesContainer;
+                    //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;
 
@@ -170,7 +184,7 @@ namespace TheChicagoProject.GUI
                     // kill some enemy
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
                     tmpObjective.Load("Kill this enemy", "mugger", quest.EnemyToKill.sprite.Texture);
-                    tmpObjective.parent = objectivesContainer;
+                    //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;
 
@@ -178,7 +192,7 @@ namespace TheChicagoProject.GUI
                     // find this
                     tmpObjective = new ObjectivesUI(objectivesContainer.Size);
                     tmpObjective.Load("Find this item", quest.FindThis.name, quest.FindThis.previewSprite.Texture);
-                    tmpObjective.parent = objectivesContainer;
+                    //tmpObjective.parent = objectivesContainer;
                     objectivesContainer.Add(tmpObjective);
                     break;
             }

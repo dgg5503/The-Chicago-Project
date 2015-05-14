@@ -8,19 +8,23 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
-    // Douglas Gliner
+    
     enum TextAlignment
     {
         Left,
         Right,
         Center
     }
+    
     /*
      * TO-DO:
-     * - Auto resize the control to fit the text size.
-     * - 
+     * + Auto resize the control to fit the text size.
+     * - Automatic text scaling based on parent
+     * - Wordwrap based on characters, not spaces.
+     * - Text based alignment (justified, centered, etc...)
      */
 
     //Douglas Gliner
@@ -43,8 +47,8 @@ namespace TheChicagoProject.GUI.Forms
         /// <summary>
         /// Gets or sets the text for this label.
         /// </summary>
-        public string Text { get { return text; } set { text = value; } }
-        /// <summary>
+        public string Text { get { return text; } set { text = value; if(gameTime != null){ this.Update(gameTime); } } }
+        /// <summary> 
         /// Autoresize the control to fit the text.
         /// </summary>
         public bool AutoResize { get { return autoResize; } set { autoResize = value; } }
@@ -101,7 +105,7 @@ namespace TheChicagoProject.GUI.Forms
         protected override void LoadContent(ContentManager contentManager)
         {
             base.LoadContent(contentManager);
-
+            
             if (string.IsNullOrWhiteSpace(text))
                 this.Size = this.parent.Size; // target size?
             else
@@ -109,6 +113,7 @@ namespace TheChicagoProject.GUI.Forms
             
             lastSize = this.Size;
             lastText = text;
+             
         }
 
         private Vector2 GetTextSize()

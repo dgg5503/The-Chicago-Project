@@ -49,7 +49,7 @@ namespace TheChicagoProject
                 LoadSave();
             }
 #endif
-            //LoadSave();
+            LoadSave();
         }
 
         #region load world
@@ -304,7 +304,12 @@ namespace TheChicagoProject
                 {
                     string name = items[i];
                     //newItem.image = Sprites.spritesDictionary[newItem.name].Texture;
-                    newItem = LoadItem("./Content/SaveFiles/Inventory/" + name + ".item");
+                    //figure out the save path
+                    int startname = saveLoc.LastIndexOf('/') + 1;
+                    int endname = saveLoc.LastIndexOf('.');
+                    string filename = saveLoc.Substring(startname, endname - startname);
+                    string directory = saveLoc.Substring(0, startname) + "/" + filename;
+                    newItem = LoadItem(directory + "/" + name + ".item");
                     inventory.Add(newItem);
                 }
                 inventory.ActiveWeapon = activeItem;
@@ -551,9 +556,9 @@ namespace TheChicagoProject
 
                         livingEntities[id] = new Entity.LivingEntity(EntityRect, sprite, health, null);
                         //get the ai
-                        index = data.IndexOf("AI:", index) + 7;
-                        end = data.IndexOf('\n', index);
-                        if (index < endEntity)
+                        index = data.IndexOf("AI:", index) + 3;
+                        end = data.IndexOf('\n', index) - 1;
+                        if (index >= 0)
                         {
                             attribute = data.Substring(index, end - index);
                             
@@ -574,6 +579,8 @@ namespace TheChicagoProject
                             }
 
                             livingEntities[id].ai = ai;
+                            livingEntities[id].inventory.Add(new Item.Weapon(50, 1, 10, "Bam", 100, 0.5));
+                            livingEntities[id].inventory.ActiveWeapon = 0;
 
                         }
 
@@ -716,12 +723,18 @@ namespace TheChicagoProject
             bool successful;
             try
             {
-                if (!Directory.Exists("./Content/SaveFiles/Inventory"))
+                //figure out the save path
+                int startname = saveLoc.LastIndexOf('/') + 1;
+                int endname = saveLoc.LastIndexOf('.');
+                string name = saveLoc.Substring(startname, endname - startname);
+                string directory = saveLoc.Substring(0, startname) + "/" + name;
+
+                if (!Directory.Exists(directory))
                 {
-                    Directory.CreateDirectory("./Content/SaveFiles/Inventory");
+                    Directory.CreateDirectory(directory);
                 }
                 //initialize the binary writer
-                outStream = File.OpenWrite("./Content/SaveFiles/Inventory/" + item.name + ".item");
+                outStream = File.OpenWrite(directory+ item.name + ".item");
                 output = new BinaryWriter(outStream);
 
                 //write data

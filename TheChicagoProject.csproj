@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\CivilianAI.cs" />
     <Compile Include="AI\HighAI.cs" />
     <Compile Include="AI\LowAI.cs" />
     <Compile Include="AI\MidAI.cs" />
@@ -44,6 +45,7 @@
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityItem.cs" />
     <Compile Include="Entity\LivingEntity.cs" />
+    <Compile Include="Entity\NPC.cs" />
     <Compile Include="Entity\Player.cs" />
     <Compile Include="FloatRectangle.cs" />
     <Compile Include="Game1.cs" />
@@ -51,16 +53,18 @@
     <Compile Include="GUI\Controls.cs" />
     <Compile Include="GUI\Door.cs" />
     <Compile Include="GUI\DragableContainer.cs" />
-    <Compile Include="GUI\DragableMatrix.cs" />
     <Compile Include="GUI\DragableMatrixV2.cs" />
     <Compile Include="GUI\Forms\Bar.cs" />
     <Compile Include="GUI\Forms\Button.cs" />
+    <Compile Include="GUI\Forms\ButtonContainer.cs" />
     <Compile Include="GUI\Forms\Container.cs" />
     <Compile Include="GUI\Forms\Control.cs" />
     <Compile Include="GUI\DragableControl.cs" />
+    <Compile Include="GUI\Forms\DialogBox.cs" />
     <Compile Include="GUI\Forms\Label.cs" />
     <Compile Include="GUI\Forms\ProgressBar.cs" />
     <Compile Include="GUI\InventoryMenu.cs" />
+    <Compile Include="GUI\ItemStatsUI.cs" />
     <Compile Include="GUI\LivingEntityInfoUI.cs" />
     <Compile Include="GUI\Menu.cs" />
     <Compile Include="GUI\ObjectivesUI.cs" />
@@ -76,6 +80,7 @@
     <Compile Include="GUI\Utils.cs" />
     <Compile Include="GUI\WeaponInfoUI.cs" />
     <Compile Include="GUI\WeaponWheelUI.cs" />
+    <Compile Include="GUI\WeaponWheelUIV2.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Item\Inventory.cs" />
     <Compile Include="AI\DijkstraMap.cs" />
@@ -121,7 +126,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\downtown.txt">
+    <Content Include="Content\GUI\circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\weaponBorder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\weps.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\wepwheel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\wepwheel2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Content\downtown.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\speakeasy.txt">
@@ -180,40 +200,43 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\default.save" />
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\Gun.item">
+    <None Include="bin\Content\SaveFiles\default.save" />
+    <None Include="bin\Content\SaveFiles\Inventory\Gun.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\Knife.item">
+    <None Include="bin\Content\SaveFiles\Inventory\Knife.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\The Screwdriver.item">
+    <None Include="bin\Content\SaveFiles\Inventory\The Screwdriver.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\w.item">
+    <None Include="bin\Content\SaveFiles\Inventory\w.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\ww.item">
+    <None Include="bin\Content\SaveFiles\Inventory\ww.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\www.item">
+    <None Include="bin\Content\SaveFiles\Inventory\www.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwww.item">
+    <None Include="bin\Content\SaveFiles\Inventory\wwww.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwwww.item">
+    <None Include="bin\Content\SaveFiles\Inventory\wwwww.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwwwww.item">
+    <None Include="bin\Content\SaveFiles\Inventory\wwwwww.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Windows\Debug\Content\SaveFiles\Inventory\wwwwwww.item">
+    <None Include="bin\Content\SaveFiles\Inventory\wwwwwww.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Font\TimesNewRoman12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\GUI\sidebar.ai" />
+    <None Include="Content\GUI\weps.ai" />
+    <None Include="Content\GUI\wepwheel.ai" />
     <None Include="Content\Quests\Crazed Gunman.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -221,6 +244,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Quests\Mugging.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Quests\Mugging1.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Quests\Mugging2.quest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Quests\Mugging3.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Quests\Sniper.quest">
@@ -236,6 +268,36 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\SaveFiles\default.save">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\Gun.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\Knife.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\The Screwdriver.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\w.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\ww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\www.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\wwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\wwwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\wwwwww.item">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\SaveFiles\default\wwwwwww.item">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\SaveFiles\save.save">
@@ -255,6 +317,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Windows\Debug\" />
     <Folder Include="Content\Items\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

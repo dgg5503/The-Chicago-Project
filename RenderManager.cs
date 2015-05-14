@@ -11,9 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+// Douglas Gliner
 namespace TheChicagoProject
 {
-    // Douglas Gliner
 
     /*
      * Tile ideas:
@@ -93,7 +93,7 @@ namespace TheChicagoProject
         private GraphicsDevice graphics;
 
         // Last weapon (this is mess)
-        private int lastWep;
+        //private int lastWep;
 
         // The game1 class.
         private Game1 mainGame;
@@ -104,6 +104,9 @@ namespace TheChicagoProject
 
         // Particle list
         private List<Particle> particles;
+
+        // GUI Dialogs. 
+        private static List<DialogBox> dialogs;
 
         // Width and height for everyones use.
         private static int viewportWidth;
@@ -139,6 +142,7 @@ namespace TheChicagoProject
             this.mainGame = Game1.Instance;
 
             particles = new List<Particle>();
+            dialogs = new List<DialogBox>();
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
@@ -148,7 +152,7 @@ namespace TheChicagoProject
 
             mainGame.Window.ClientSizeChanged += Window_ClientSizeChanged;
 
-            lastWep = -1;
+            //lastWep = -1;
 
             // WHAT IF PLAYER CHANGES WORLD (?)
             player = mainGame.worldManager.CurrentWorld.manager.GetPlayer(); 
@@ -211,7 +215,14 @@ namespace TheChicagoProject
             // the game by a little.
 
             // its placed above the loading of textures and content so text aligns properly.
-            (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+            /*foreach (KeyValuePair<string, Sprite> kvp in Sprites.guiSpritesDictionary)
+            {
+                using (Stream imageStream = TitleContainer.OpenStream("./Content/GUI/" + kvp.Value.FileName))
+                {
+                    kvp.Value.Texture = Texture2D.FromStream(graphics, imageStream);
+
+                }
+            }*/
 
             foreach(KeyValuePair<string, Control> c in Controls.guiElements)
                 c.Value.LoadVisuals(mainGame.Content, graphics);
@@ -249,8 +260,8 @@ namespace TheChicagoProject
                     if (!inventoryMenu.IsInventoryLoaded)
                     {
                         inventoryMenu.Load(player.inventory);
-                        inventoryMenu.LoadVisuals(mainGame.Content, graphics);
-                        inventoryMenu.Update(gameTime);
+                        //inventoryMenu.LoadVisuals(mainGame.Content, graphics);
+                        //inventoryMenu.Update(gameTime);
                     }
 
                     //Controls.guiElements["inventoryMenu"].Update(gameTime);
@@ -263,9 +274,13 @@ namespace TheChicagoProject
                     // casting takes a lot of time, a way to check if user changed weapon??
                     // UI (health, current wep, other stuff)
                     //Controls.guiElements["livingEntityInfoUI"].Update(gameTime);
+                    
                     // WHAT IF PLAYER CHANGES WORLD (?) -Fixed?(Sean)
                     player = mainGame.worldManager.CurrentWorld.manager.GetPlayer();
-                    
+
+                    // VV Very Slow VV
+                    (Controls.guiElements["livingEntityInfoUI"] as LivingEntityInfoUI).LivingEntity = player;
+
                     if (player.inventory.ActiveWeapon >= 0)
                     {
                         (Controls.guiElements["weaponInfoUI"] as WeaponInfoUI).Item = player.inventory.EntityInventory[player.inventory.ActiveWeapon];
@@ -296,8 +311,8 @@ namespace TheChicagoProject
                     if (!questLogUI.IsQuestLogLoaded)
                     {
                         questLogUI.Load(player.log);
-                        questLogUI.LoadVisuals(mainGame.Content, graphics);
-                        questLogUI.Update(gameTime);
+                        //questLogUI.LoadVisuals(mainGame.Content, graphics);
+                        //questLogUI.Update(gameTime);
                     }
                     //Controls.guiElements["questLog"]
                     /*
@@ -315,12 +330,13 @@ namespace TheChicagoProject
                     break;
 
                 case GameState.WeaponWheel:
-                    WeaponWheelUI weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUI;
+                   
+                    WeaponWheelUIV2 weaponWheelUI = Controls.guiElements["weaponWheel"] as WeaponWheelUIV2;
                     if (!weaponWheelUI.IsInventoryLoaded)
                     {
                         weaponWheelUI.Load(player.inventory);
-                        weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
-                        weaponWheelUI.Update(gameTime);
+                        //weaponWheelUI.LoadVisuals(mainGame.Content, graphics);
+                        //weaponWheelUI.Update(gameTime);
                     }
                     //Controls.guiElements["weaponWheel"].Update(gameTime);
                     //weapons come from holster
@@ -333,10 +349,13 @@ namespace TheChicagoProject
                 if (c.Value.IsVisible) // or just loaded.
                     c.Value.Update(gameTime);
 
-            
-
-            
-
+            for (int i = 0; i < dialogs.Count; i++)
+            {
+                if (dialogs[i].EventsCompleted == true) // possible problems (?)
+                    dialogs.Remove(dialogs[i]);
+                else
+                    dialogs[i].Update(gameTime);
+            }
            
         }
         
@@ -394,7 +413,7 @@ namespace TheChicagoProject
 
             foreach (Entity.Entity e in worldManager.CurrentWorld.manager.EntityList)
             {
-                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection);
+                e.sprite.Draw(spriteBatch, e.location.IntX, e.location.IntY, e.faceDirection, e.color);
             }
 
             // the above used e.Direction
@@ -453,7 +472,16 @@ namespace TheChicagoProject
                     Controls.guiElements["weaponWheel"].Draw(spriteBatch, gameTime);
                     break;
             }
+
+            foreach (Control dialog in dialogs)
+                 dialog.Draw(spriteBatch, gameTime);
             
+        }
+
+        public static void AddDialog(DialogBox dialogBox)
+        {
+            dialogBox.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
+            dialogs.Add(dialogBox);
         }
 
         public void DrawParticles()

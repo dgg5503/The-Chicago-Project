@@ -32,7 +32,7 @@ namespace TheChicagoProject.Entity
     {
         
         private int questPoints;
-        private int lives;
+        public int lives;
         private Random rand;
         GameTime gameTime;
         public Quests.QuestLog log;
@@ -47,11 +47,13 @@ namespace TheChicagoProject.Entity
         {
             //cash = 40;
             questPoints = 0;
-            lives = 4;
+            lives = 10;
             direction = Direction.Up;
             rand = new Random();
             log = new Quests.QuestLog();
             health = lives;
+
+            color = Color.White;
         }
 
         public Point Cursor
@@ -102,7 +104,7 @@ namespace TheChicagoProject.Entity
         /// <returns>the number of lives that the player should have at max health</returns>
         private int QuestPointsToLives(int qPoints)
         {
-            int newLives = 4 + (int)(2 * System.Math.Sqrt(qPoints));
+            int newLives = 10 + (int)(2 * System.Math.Sqrt(qPoints));
             return newLives;
         }
 

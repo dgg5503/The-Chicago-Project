@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using TheChicagoProject.GUI.Forms;
+
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using TheChicagoProject.Entity;
@@ -244,7 +247,7 @@ namespace TheChicagoProject
             }
             if (keyState.IsKeyDown(Keys.R))    //Reload
             {
-                if (player.inventory.GetEquippedPrimary().LoadedAmmo != player.inventory.GetEquippedPrimary().maxClip && player.inventory.GetEquippedPrimary().Ammo > 0)
+                if (player.inventory.GetEquippedPrimary().LoadedAmmo != player.inventory.GetEquippedPrimary().maxClip && player.inventory.GetEquippedPrimary().Ammo > 0 && !player.inventory.GetEquippedPrimary().Reloading)
                 {
                     player.Reload();
                 }
@@ -259,7 +262,16 @@ namespace TheChicagoProject
             if (keyState.IsKeyDown(Keys.G))    //Quest log
             {
                 if (Game1.state == GameState.Game || Game1.state == GameState.Pause || Game1.state == GameState.Inventory)
+                {
+
+                    // DEBUG DIALOG TEST
+                    /*
+                    DialogBox test = new DialogBox(new Vector2(200, 150), DialogBoxType.OkCancel, "Test dialog!!", "You've opened the quest log!", new Vector2(300, 300));
+                    test.yesEvent += test_yesEvent;
+                    RenderManager.AddDialog(test);
+                     * */
                     Game1.state = GameState.QuestLog;
+                }
             }
             if (keyState.IsKeyDown(Keys.Escape) && !previousState.IsKeyDown(Keys.Escape))    //Escape
             {
@@ -275,6 +287,13 @@ namespace TheChicagoProject
 
             previousState = keyState;
         }
+
+        /*
+        void test_yesEvent(object sender, EventArgs e)
+        {
+            Console.WriteLine("WORKED YES!");
+        }
+        */
 
         public void PauseInput(KeyboardState keyboardState)
         {
