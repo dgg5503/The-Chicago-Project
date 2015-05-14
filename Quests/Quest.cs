@@ -32,6 +32,7 @@ namespace TheChicagoProject.Quests
         private Item.Item delivery;
         private Item.Item findThis; //Why are variable names that mean something so hard.
         public Player player;
+        public string worldKey;
 
         public List<Entity.Entity> entitites;
 
@@ -110,7 +111,12 @@ namespace TheChicagoProject.Quests
             //initialize each entity
             foreach (Entity.Entity entity in entitites)
             {
-                worldManager.CurrentWorld.manager.AddEntity(entity); //not entitity
+                World world;
+                if (worldManager.worlds.ContainsKey(worldKey))
+                    world = worldManager.worlds[worldKey];
+                else
+                    world = worldManager.CurrentWorld;
+                world.manager.AddEntity(entity); //not entitity
                 Console.WriteLine("Entity Added");
             }
         }

@@ -1,5 +1,6 @@
 Type:"Quest"
 Name:"Gang war"
+World:"main"
 Objective:"Stop the fighting by killing all of the combatants involved. "
 Description:"A shootoff has broken out between two gangs on the south western side of town."
 Start:

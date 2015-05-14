@@ -326,6 +326,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
             txtItemName.Text = "";
             chkDelivery.Checked = false;
             chkGoalItem.Checked = false;
+            lsbEntities.Items.Clear();
         }
 
         private void QuestBuilder_FormClosing(object sender, FormClosingEventArgs e)
