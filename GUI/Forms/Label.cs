@@ -38,6 +38,7 @@ namespace TheChicagoProject.GUI.Forms
         private bool autoResize;
         private float scale;
         private Color color;
+        private Vector2 targetSize;
         private Vector2 lastSize;
         
 
@@ -61,6 +62,10 @@ namespace TheChicagoProject.GUI.Forms
         /// </summary>
         public float Scale { get { return scale; } set { if (scale <= 0) scale = 1; else scale = value; } }
         /// <summary>
+        /// Gets or sets the target size of this label.
+        /// </summary>
+        public Vector2 TargetSize { get { return targetSize; } set { targetSize = value; } }
+        /// <summary>
         /// Get or set the color of the text.
         /// </summary>
         public Color Color { get { return color; } set { color = value; } }
@@ -73,7 +78,7 @@ namespace TheChicagoProject.GUI.Forms
 
             // size will always be automatically resized!
             Size = Vector2.Zero;
-
+            targetSize = Vector2.Zero;
             lastSize = Vector2.Zero;
             wordWrap = false;
             autoResize = true;
@@ -105,11 +110,14 @@ namespace TheChicagoProject.GUI.Forms
         protected override void LoadContent(ContentManager contentManager)
         {
             base.LoadContent(contentManager);
-            
-            if (string.IsNullOrWhiteSpace(text))
-                this.Size = this.parent.Size; // target size?
+
+            if (targetSize != Vector2.Zero)
+                this.Size = targetSize;
             else
-                this.Size = GetTextSize();
+                if (string.IsNullOrWhiteSpace(text))
+                    this.Size = this.parent.Size; // target size?
+                else
+                    this.Size = GetTextSize();
             
             lastSize = this.Size;
             lastText = text;

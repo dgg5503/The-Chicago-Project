@@ -65,12 +65,20 @@ namespace TheChicagoProject.Entity
             set 
             { 
                 questPoints = value;
-                this.maxHealth = QuestPointsToLives(questPoints);
-                /****************************************************
-                 *                                                  *
-                 *    Display Message About getting a new heart?    *
-                 *                                                  *
-                 ****************************************************/
+                int newhealth = QuestPointsToLives(questPoints);
+                if (newhealth > maxHealth)
+                {
+                    //display message
+                    GUI.Forms.DialogBox box = new GUI.Forms.DialogBox(
+                        new Vector2(300, 200),
+                        GUI.Forms.DialogBoxType.Ok,
+                        "New Lives",
+                        "Congratulations! You have gained life!");
+                    RenderManager.AddDialog(box);
+                }
+                health += newhealth - maxHealth;
+                maxHealth = newhealth;
+                
             }
         }
 

@@ -106,7 +106,7 @@ namespace TheChicagoProject
         private List<Particle> particles;
 
         // GUI Dialogs. 
-        private static List<DialogBox> dialogs;
+        private static List<Dialog> dialogs;
 
         // Width and height for everyones use.
         private static int viewportWidth;
@@ -142,7 +142,7 @@ namespace TheChicagoProject
             this.mainGame = Game1.Instance;
 
             particles = new List<Particle>();
-            dialogs = new List<DialogBox>();
+            dialogs = new List<Dialog>();
 
             viewportHeight = graphics.Viewport.Height;
             viewportWidth = graphics.Viewport.Width;
@@ -180,6 +180,9 @@ namespace TheChicagoProject
             
             foreach (Control c in Controls.guiElements.Values)
                 c.ScreenSizeChange();
+
+            foreach (Dialog d in dialogs)
+                d.ScreenSizeChange();
 
         }
 
@@ -478,10 +481,10 @@ namespace TheChicagoProject
             
         }
 
-        public static void AddDialog(DialogBox dialogBox)
+        public static void AddDialog(Dialog dialog)
         {
-            dialogBox.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
-            dialogs.Add(dialogBox);
+            dialog.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
+            dialogs.Add(dialog);
         }
 
         public void DrawParticles()
