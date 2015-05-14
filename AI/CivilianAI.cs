@@ -26,11 +26,11 @@ namespace TheChicagoProject.AI
             if (x < 0 || x >= map.Map.Length || y < 0 || y >= map.Map[0].Length)
                 return;
             if (!manager.world.tiles[x][y].IsWalkable)
-                entity.markforDelete = true;
+                entity.markForDelete = true;
             if (map.Map[x][y] <= 2) {
                 //mapToUse = (mapToUse == 1 ? 0 : 1);
                 //Console.WriteLine(entity.GetType().FullName + " #" + entity.GetHashCode() + " is dying now!");
-                entity.markforDelete = true;
+                entity.markForDelete = true;
             }
             entity.direction = this.findPos(map, 1);
             entity.Move();

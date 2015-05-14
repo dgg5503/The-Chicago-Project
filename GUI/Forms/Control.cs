@@ -165,9 +165,15 @@ namespace TheChicagoProject.GUI.Forms
 
         public event EventHandler HoverRelease;
 
-        MouseState lastFrameMouseState;
+        public event EventHandler<TextInputEventArgs> KeyClicked;
 
-        MouseState currentFrameMouseState;
+        private MouseState lastFrameMouseState;
+
+        private MouseState currentFrameMouseState;
+
+        private KeyboardState lastFrameKeyboardState;
+
+        private KeyboardState currentFrameKeyboardState;
 
         private Vector2 firstClickLoc;
 
@@ -298,10 +304,9 @@ namespace TheChicagoProject.GUI.Forms
         protected virtual void LoadTextures(GraphicsDevice graphics)
         {
             if(graphics == null)
-            {
                 return;
-            }
-                //throw new Exception("No graphics device defined!");
+
+            //throw new Exception("No graphics device defined!");
 
             // Fill creation
             this.graphics = graphics;
@@ -446,8 +451,11 @@ namespace TheChicagoProject.GUI.Forms
 
                 if (currentFrameMouseState.LeftButton == ButtonState.Released)
                     firstClickLoc = Vector2.Zero;
-
                 lastFrameMouseState = currentFrameMouseState;
+
+                currentFrameKeyboardState = Keyboard.GetState();
+                Keys[] clickedKeys = currentFrameKeyboardState.GetPressedKeys().Union(lastFrameKeyboardState.GetPressedKeys()).ToArray();
+                
             }
 
             if (!alignApplied)

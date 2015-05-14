@@ -46,7 +46,7 @@ namespace TheChicagoProject.Entity
         public Color color;
 
         //Remove this entity if true!
-        public bool markforDelete;
+        public bool markForDelete;
 
         /// <summary>
         /// The constructor for the base entity.
@@ -301,26 +301,99 @@ namespace TheChicagoProject.Entity
             throw new NotImplementedException();
         }
 
-        public virtual bool Action(LivingEntity interactor) {
-            if (interactData == null || markforDelete)
+        public virtual bool Action(LivingEntity interactor, String interaction) {
+            if (markForDelete || interactData == null || interactData.Dialogue[interaction] == null)
                 return false;
-            foreach(String s in interactData.Dialogue)
-                Console.WriteLine(s);
+            Response r = interactData.Dialogue[interaction];
+            //Send the message to the Render Manager here.
+            switch (r.Action) {
+                case ResponseAction.StartQuest:
+                    //How do we start quests?
+                    break;
+                case ResponseAction.GiveItem:
+                    interactor.inventory.Add((Item.Item) r.Data);
+                    break;
+                case ResponseAction.TakeItem:
+                    if (interactor.inventory.EntityInventory.Contains((Item.Item) r.Data))
+                        interactor.inventory.EntityInventory.Remove(((Item.Item) r.Data));
+                    break;
+                case ResponseAction.Heal:
+                    interactor.health = Math.Min(interactor.health + (int) r.Data, interactor.maxHealth);
+                    break;
+                default:
+                    break;
+            }
+
             return true;
         }
 
         //Ashwin Ganapathiraju
         public class InteractionData
         {
-            private List<String> dialogues;
+            private Dictionary<String, Response> dialogues;
 
-            public List<String> Dialogue {
+            public Dictionary<String, Response> Dialogue {
                 get { return dialogues; }
             }
 
-            public InteractionData(List<String> dialogue) {
+            public InteractionData(Dictionary<String, Response> dialogue) {
                 this.dialogues = dialogue;
             }
+        }
+
+        public class Response
+        {
+            private String text;
+            private ResponseAction action;
+            private Object data;
+
+            public String Text {
+                get { return text; }
+            }
+
+            public ResponseAction Action {
+                get { return action; }
+            }
+
+            public Object Data {
+                get { return data; }
+            }
+            /// <summary>
+            /// A response to being interacted with.
+            /// </summary>
+            /// <param name="text">What the entity in question says.</param>
+            /// <param name="action">The action they subsequently take, if anything.</param>
+            /// <param name="data">Any associated data with said Action.</param>
+            public Response(String text, ResponseAction action = ResponseAction.None, Object data = null) {
+                this.text = text;
+                this.action = action;
+                this.data = data;
+            }
+        }
+
+
+        public enum ResponseAction
+        {
+            /// <summary>
+            /// Starts a Quest. Data should be the quest name.
+            /// </summary>
+            StartQuest,
+            /// <summary>
+            /// Gives the interactor an Item. Data should be the item.
+            /// </summary>
+            GiveItem,
+            /// <summary>
+            /// Takes an item from the interactor. Data should be the item.
+            /// </summary>
+            TakeItem,
+            /// <summary>
+            /// Heals the interactor by some amount. Data should be the amount.
+            /// </summary>
+            Heal,
+            /// <summary>
+            /// No additional actions apart from speech. Data is ignored.
+            /// </summary>
+            None
         }
     }
 }
