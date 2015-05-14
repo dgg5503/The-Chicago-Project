@@ -18,6 +18,7 @@ namespace TheChicagoProject.Entity
         public DijkstraMap playerMap;
         public DijkstraMap fleeMap;
         public DijkstraMap[] civilianMaps;
+        public Door[] doors;
 
         public World(int height, int width) {
             tiles = new Tile[height][];
