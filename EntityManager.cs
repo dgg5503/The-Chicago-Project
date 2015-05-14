@@ -60,11 +60,11 @@ namespace TheChicagoProject
         public void Update(GameTime time) {
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
-                if (e.markforDelete) {
+                if (e.markForDelete) {
                     if (e is Player) {
                         Game1.state = GameState.Menu;
                         (e as Player).health = (e as Player).maxHealth;
-                        e.markforDelete = false;
+                        e.markForDelete = false;
                     } else {
                         entities.Remove(e);
                     }
