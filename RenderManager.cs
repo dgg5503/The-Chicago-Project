@@ -181,6 +181,9 @@ namespace TheChicagoProject
             foreach (Control c in Controls.guiElements.Values)
                 c.ScreenSizeChange();
 
+            foreach (Dialog d in dialogs)
+                d.ScreenSizeChange();
+
         }
 
         // LOAD TEXTURES
