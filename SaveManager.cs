@@ -60,6 +60,8 @@ namespace TheChicagoProject
 
             World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
 
+            tmpWorld.canRespawn = bool.Parse(worldReader.ReadLine());
+
             GUI.Door[] doors = new GUI.Door[int.Parse(worldReader.ReadLine())];
 
             for(int x = 0; x < doors.Length; ++x)
