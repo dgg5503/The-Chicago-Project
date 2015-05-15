@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.Input;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Item;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI
 {
 
-
+    
     class WeaponWheelUIV2 : Control
     {
         //TO-DO:
@@ -149,7 +150,7 @@ namespace TheChicagoProject.GUI
             if(tmpButton != null)
             {
                 currentInventory.ActiveWeapon = currentInventory.EntityInventory.IndexOf(tmpButton.Data);
-                currentWeaponButton.DefaultBorder = new BorderInfo(1, Color.Black);
+                currentWeaponButton.DefaultBorder = new BorderInfo(1, Color.Transparent);
                 tmpButton.DefaultBorder = new BorderInfo(5, Color.Purple);
                 currentWeaponButton = tmpButton;
                 weaponStatsContainer.Load(tmpButton.Data);

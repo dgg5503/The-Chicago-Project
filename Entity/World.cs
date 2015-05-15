@@ -18,8 +18,8 @@ namespace TheChicagoProject.Entity
         public DijkstraMap playerMap;
         public DijkstraMap fleeMap;
         public DijkstraMap[] civilianMaps;
-        public Vector2[] doors;
-        public bool canRespawn;
+        public Vector2[] doors; //Josiah S DeVizia
+        public bool canRespawn; //Josiah S DeVizia
 
         public World(int height, int width) {
             tiles = new Tile[height][];

@@ -150,6 +150,7 @@ namespace TheChicagoProject.Entity
                     // need to get FRONT face, location will not work since that is not rotated, only the sprite is.
                     // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
                     //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
+                    
                     // Douglas Gliner
                     Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 4)) + location.Center.X,
                         ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 4)) + location.Center.Y,
@@ -172,8 +173,10 @@ namespace TheChicagoProject.Entity
          *      - closest to the player or first to find?
          */
 
+        // Douglas Gliner
         // spending too much time on making this versatile, this can only be 32 units away from player.
-        public void Interact() {
+        public void Interact()
+        {
             // ray cast
             RotatedRectangle rayCast = new RotatedRectangle(new FloatRectangle((location.Center.X + (((sprite.Texture.Width) * (float)Math.Cos(faceDirection - Math.PI / 2))) - (sprite.Texture.Width / 2)), (location.Center.Y + (((sprite.Texture.Height) * (float)Math.Sin(faceDirection - Math.PI / 2))) - (interactRange / 2)), sprite.Texture.Width, interactRange), faceDirection);
 
