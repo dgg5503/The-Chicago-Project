@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
 using TheChicagoProject.GUI.Particles;
+using TheChicagoProject.GUI;
 using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject
@@ -73,8 +74,12 @@ namespace TheChicagoProject
                 if (e.markForDelete) {
                     if (e is Player) {
                         Game1.state = GameState.Menu;
+                        (Controls.guiElements["mainMenu"] as Menu).GameOver((e as Player).Cash, (e as Player).QuestPoints);
+
                         (e as Player).health = (e as Player).maxHealth;
+                        Game1.Instance.worldManager.Reset();
                         e.markForDelete = false;
+                        entities.Remove(e);
                     } else {
                         entities.Remove(e);
                     }

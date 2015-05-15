@@ -271,9 +271,12 @@ namespace TheChicagoProject.Entity
                     break;
             }
             Player player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
-            float actual = (float) Math.Atan2(this.location.Center.Y - player.location.Center.Y, this.location.Center.X - player.location.Center.X);
-            actual -= (float) Math.PI / 2f;
-            this.faceDirection = actual;
+            if (player != null)
+            {
+                float actual = (float)Math.Atan2(this.location.Center.Y - player.location.Center.Y, this.location.Center.X - player.location.Center.X);
+                actual -= (float)Math.PI / 2f;
+                this.faceDirection = actual;
+            }
         }
 
         
