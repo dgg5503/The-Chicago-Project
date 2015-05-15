@@ -91,6 +91,7 @@ namespace TheChicagoProject.Entity
             movement = Vector2.Zero;
         }
 
+        // Douglas Gliner
         /// <summary>
         /// Updates the Game Time and the Entity Manager of the Entity
         /// </summary>
