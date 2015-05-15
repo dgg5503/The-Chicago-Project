@@ -258,6 +258,7 @@ namespace TheChicagoProject.GUI
         void closeButton_Click(object sender, EventArgs e)
         {
             Game1.state = GameState.Game;
+            questLog = null;
         }
 
         public override void Update(GameTime gameTime)

@@ -24,7 +24,7 @@ namespace TheChicagoProject.GUI
     class WeaponInfoUI : Control
     {
         // Important GUI controls that will need to be updated
-        private Label weaponNameLbl;
+        private LabelV2 weaponNameLbl;
         private Label ammoCurrentInClipLbl;
         private Label ammoTotalLbl;
         private Label isReloadingLbl;
@@ -81,7 +81,7 @@ namespace TheChicagoProject.GUI
             // Holds weapon img and name
             Container weaponImgInfoContainer = new Container();
             weaponImgInfoContainer.Size = new Vector2(100, 90);
-            weaponImgInfoContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
+            //weaponImgInfoContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
             
             //weaponImgInfoContainer.parent = weaponAmmoContainer;
             weaponAmmoContainer.Add(weaponImgInfoContainer);
@@ -89,7 +89,7 @@ namespace TheChicagoProject.GUI
             // Weapon image
             weaponImageContainer = new Container();
             weaponImageContainer.Fill = null;
-            weaponImageContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
+            //weaponImageContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["circle_border"]);
             weaponImageContainer.Size = new Vector2(64, 64);
             weaponImageContainer.Location = new Vector2(0, -5);
             weaponImageContainer.Alignment = ControlAlignment.Center;
@@ -97,8 +97,8 @@ namespace TheChicagoProject.GUI
             weaponImgInfoContainer.Add(weaponImageContainer);
 
             // Weapon name
-            weaponNameLbl = new Label();
-            weaponNameLbl.Location = new Vector2(0, 35);
+            weaponNameLbl = new LabelV2(new Vector2(weaponImgInfoContainer.Size.X, 17));
+            weaponNameLbl.Location = new Vector2(0, 0);
             //weaponNameLbl.Text = "";
             weaponNameLbl.Alignment = ControlAlignment.Center;
             //weaponNameLbl.parent = weaponImgInfoContainer;

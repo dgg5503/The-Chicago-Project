@@ -38,10 +38,10 @@ namespace TheChicagoProject.GUI.Forms
         private bool autoResize;
         private float scale;
 
-        private Color color;
+        private Color color; 
         //private Vector2 targetSize;
         private Vector2 lastSize;
-        
+       
 
         // word wrap!
         private bool wordWrap;
@@ -70,7 +70,7 @@ namespace TheChicagoProject.GUI.Forms
         /// Get or set the color of the text.
         /// </summary>
         public Color Color { get { return color; } set { color = value; } }
-
+        
         public Label()
         {
             text = String.Empty;
