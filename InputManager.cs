@@ -28,7 +28,6 @@ namespace TheChicagoProject
         /// </summary>
         public InputManager()
         {
-            lastFrameFired = true;
         }
 
         /// <summary>
