@@ -19,7 +19,6 @@ namespace TheChicagoProject
     /// </summary>
     public class InputManager
     {
-        private static bool lastFrameFired;
         private static KeyboardState previousState;
 
         private Player player;
@@ -29,7 +28,6 @@ namespace TheChicagoProject
         /// </summary>
         public InputManager()
         {
-            lastFrameFired = true;
         }
 
         /// <summary>
@@ -217,20 +215,7 @@ namespace TheChicagoProject
                 //handles mouse input
                 if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
                 {
-                    if (!lastFrameFired)
-                    {
-                        player.Attack(0, player.inventory.GetEquippedPrimary());
-                        lastFrameFired = true;
-                    }
-                    else
-                    {
-                        lastFrameFired = false;
-                    }
-                }
-                else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
-                {
-                    //throw new NotImplementedException();
-                    //WorldManager.player.Attack(1, );
+                    player.Attack(0, player.inventory.GetEquippedPrimary());
                 }
             }
             if ((keyState.IsKeyDown(Keys.Q) && !previousState.IsKeyDown(Keys.Q))|| mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
