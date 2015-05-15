@@ -215,9 +215,9 @@ namespace TheChicagoProject
                 //handles mouse input
                 if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
                 {
-                    player.Attack(0, player.inventory.GetEquippedPrimary());
+                        player.Attack(0, player.inventory.GetEquippedPrimary());
+                    }
                 }
-            }
             if ((keyState.IsKeyDown(Keys.Q) && !previousState.IsKeyDown(Keys.Q))|| mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
             {
                 if (Game1.state == GameState.Game)

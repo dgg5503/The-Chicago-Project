@@ -1,0 +1,6 @@
+C:\Users\Sean\Source\Repos\savefilecreator\bin\Debug\savefilecreator.exe.config
+C:\Users\Sean\Source\Repos\savefilecreator\bin\Debug\savefilecreator.exe
+C:\Users\Sean\Source\Repos\savefilecreator\bin\Debug\savefilecreator.pdb
+C:\Users\Sean\Source\Repos\savefilecreator\obj\Debug\savefilecreator.csprojResolveAssemblyReference.cache
+C:\Users\Sean\Source\Repos\savefilecreator\obj\Debug\savefilecreator.exe
+C:\Users\Sean\Source\Repos\savefilecreator\obj\Debug\savefilecreator.pdb
