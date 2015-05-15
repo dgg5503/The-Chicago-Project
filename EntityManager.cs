@@ -71,7 +71,9 @@ namespace TheChicagoProject
                     if (e is Player) {
                         Game1.state = GameState.Menu;
                         (e as Player).health = (e as Player).maxHealth;
+                        Game1.Instance.worldManager.Reset();
                         e.markForDelete = false;
+                        entities.Remove(e);
                     } else {
                         entities.Remove(e);
                     }
