@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Forms;
 
-
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
     public class NPCTalkUI : Dialog

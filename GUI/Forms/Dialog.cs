@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// Douglas Gliner
 namespace TheChicagoProject.GUI.Forms
 {
     public abstract class Dialog : Control
