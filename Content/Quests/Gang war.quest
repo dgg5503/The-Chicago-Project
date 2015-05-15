@@ -14,7 +14,7 @@ Living Entity:
 	ID:Fred
 	Start:
 		X:960
-		Y:4544
+		Y:4424
 	Texture:"mugger"
 	Health:3
 	AI:Low
@@ -24,7 +24,7 @@ Living Entity:
 	ID:Bill
 	Start:
 		X:896
-		Y:4544
+		Y:4360
 	Texture:"mugger"
 	Health:3
 	AI:Low
@@ -34,7 +34,7 @@ Living Entity:
 	ID:Joe
 	Start:
 		X:832
-		Y:4544
+		Y:4424
 	Texture:"mugger"
 	Health:3
 	AI:Low
@@ -44,7 +44,7 @@ Living Entity:
 	ID:Darryl
 	Start:
 		X:1280
-		Y:4608
+		Y:4360
 	Texture:"mugger"
 	Health:3
 	AI:Low
@@ -54,7 +54,7 @@ Living Entity:
 	ID:Mikey
 	Start:
 		X:1344
-		Y:4544
+		Y:4424
 	Texture:"mugger"
 	Health:3
 	AI:Low
@@ -64,7 +64,7 @@ Living Entity:
 	ID:Karl
 	Start:
 		X:1408
-		Y:4608
+		Y:4360
 	Texture:"mugger"
 	Health:3
 	AI:Low

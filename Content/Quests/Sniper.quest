@@ -13,8 +13,8 @@ Reward:
 Living Entity:
 	ID:Gunman
 	Start:
-		X:83
-		Y:92
+		X:4014
+		Y:6310
 	Texture:"mugger"
 	Health:6
 	AI:Mid
@@ -23,8 +23,8 @@ End Living Entity
 Living Entity:
 	ID:Fred
 	Start:
-		X:86
-		Y:55
+		X:4014
+		Y:6820
 	Texture:"mugger"
 	Health:1
 	AI:High

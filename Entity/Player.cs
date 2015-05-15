@@ -152,6 +152,22 @@ namespace TheChicagoProject.Entity
                 Game1.Instance.collisionManager.SwitchWorld();
                 Game1.Instance.worldManager.spawnDaemon.ClearSpawning();
             }
+            
+            if(Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)location.Y / Tile.SIDE_LENGTH] == Tiles.tilesList[8])
+            {
+                this.health = maxHealth;
+            }
+
+            if (Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)location.Y / Tile.SIDE_LENGTH] == Tiles.tilesList[9])
+            {
+                if(Cash > 50)
+                {
+                    foreach(Weapon weapon in inventory)
+                    {
+                        weapon.Ammo = weapon.maxClip * 7;
+                    }
+                }
+            }
 
             if(inventory.GetEquippedPrimary().LoadedAmmo == 0 && !inventory.GetEquippedPrimary().Reloading)
             {
