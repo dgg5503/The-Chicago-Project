@@ -120,6 +120,7 @@ namespace TheChicagoProject.GUI
             startQuestButton.IsActive = false;
             startQuestButton.Text = "Start Quest";
             startQuestButton.Click += startQuestButton_Click;
+            startQuestButton.Click += closeButton_Click;
             //startQuestButton.parent = questActionsContainer;
             questActionsContainer.Add(startQuestButton);
 
@@ -241,8 +242,6 @@ namespace TheChicagoProject.GUI
                 
 
                 questUI.LoadedQuest.StartQuest();
-
-                Game1.state = GameState.Game;
             }
         }
 
