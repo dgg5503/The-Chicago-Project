@@ -60,16 +60,17 @@ namespace TheChicagoProject
 
             World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
 
-            tmpWorld.canRespawn = bool.Parse(worldReader.ReadLine());
+            tmpWorld.canRespawn = bool.Parse(worldReader.ReadLine());   //Josiah S DeVizia
 
-            GUI.Door[] doors = new GUI.Door[int.Parse(worldReader.ReadLine())];
+            GUI.Door[] doors = new GUI.Door[int.Parse(worldReader.ReadLine())]; //Josiah S DeVizia
 
+            //Josiah S DeVizia
             for(int x = 0; x < doors.Length; ++x)
             {
                 doors[x] = new Door(worldReader.ReadLine(), int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
             }
 
-            Vector2[] doorLocs = new Vector2[doors.Length];
+            Vector2[] doorLocs = new Vector2[doors.Length]; //Josiah S DeVizia
 
             int y = 0;
             string line = worldReader.ReadLine();
@@ -105,6 +106,7 @@ namespace TheChicagoProject
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
                             break;
 
+                        //Josiah S DeVizia
                         case '6':
                             doorLocs[y] = new Vector2(row, col);
                             y++;
@@ -112,6 +114,7 @@ namespace TheChicagoProject
                             doorCntr++;
                             break;
 
+                        //Josiah S DeVizia
                         case '7':
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Debris"];
                             break;

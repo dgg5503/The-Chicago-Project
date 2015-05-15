@@ -13,6 +13,7 @@ namespace TheChicagoProject
     /// Collisions, 'ticking', and whatnot.
     /// 
     /// Ashwin Ganapathiraju
+    /// Josiah S DeVizia - FireBullet, made some edits to AddEntity and Update
     /// </summary>
     public class EntityManager
     {
@@ -34,7 +35,9 @@ namespace TheChicagoProject
             this.mainGame = Game1.Instance;
             this.world = world;
         }
-
+        /// <summary>
+        /// Adds the given entity into the list of entities, and adjusts the player location if a player object is added
+        /// </summary>
         public void AddEntity(Entity.Entity e) {
             e.currentWorld = world;
             Console.WriteLine("Added Entity: " + e.GetType().FullName + " (#" + e.GetHashCode() + ")");
