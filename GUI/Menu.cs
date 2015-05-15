@@ -102,15 +102,15 @@ namespace TheChicagoProject.GUI
             lblHeader.Text = "GAME OVER!!";
 
             Label totalMoneylabel = new Label();
-            totalMoneylabel.Text = "Money: " + money;
+            totalMoneylabel.Text = "Money: $" + money;
             totalMoneylabel.Alignment = ControlAlignment.CenterX;
-            totalMoneylabel.Location = new Vector2(0, 30);
+            totalMoneylabel.Location = new Vector2(0, 60);
             Add(totalMoneylabel);
 
             Label totalQuestPointsLabel = new Label();
-            totalQuestPointsLabel.Text = "Quest Points: " + questPoints;
+            totalQuestPointsLabel.Text = "Quest Points: @" + questPoints;
             totalQuestPointsLabel.Alignment = ControlAlignment.CenterX;
-            totalQuestPointsLabel.Location = new Vector2(0, 60);
+            totalQuestPointsLabel.Location = new Vector2(0, 80);
             Add(totalQuestPointsLabel);
         }
 
