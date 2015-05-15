@@ -19,11 +19,10 @@ using TheChicagoProject.GUI;
 
 namespace TheChicagoProject
 {
-
+    //Ashwin Ganapathiraju
+    //Sean Levorse
     /// <summary>
     /// Manages the worlds (maps) of the game.
-    /// 
-    /// Ashwin Ganapathiraju
     /// </summary>
     public class WorldManager
     {

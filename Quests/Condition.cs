@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TheChicagoProject.Quests
 {
+    //Sean Levorse
     //class for converting strings to boolean operations
     class Condition
     {

@@ -1,6 +1,6 @@
 ﻿//Josiah S DeVizia
 //Douglas Gliner (collision reaction in Update)
-
+//Sean Levorse
 using System;
 using System.Collections.Generic;
 using System.Linq;
