@@ -74,7 +74,9 @@ namespace TheChicagoProject
                         (Controls.guiElements["mainMenu"] as Menu).GameOver((e as Player).Cash, (e as Player).QuestPoints);
 
                         (e as Player).health = (e as Player).maxHealth;
+                        Game1.Instance.worldManager.Reset();
                         e.markForDelete = false;
+                        entities.Remove(e);
                     } else {
                         entities.Remove(e);
                     }

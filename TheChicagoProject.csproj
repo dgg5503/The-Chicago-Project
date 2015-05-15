@@ -256,7 +256,7 @@
     <None Include="Content\Quests\Crazed Gunman.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Quests\Gang war.quest">
+    <None Include="Content\Quests\Gang War.quest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Quests\Mugging.quest">

@@ -51,25 +51,16 @@ namespace TheChicagoProject
             current = "main";
 
             player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
-            player.inventory.Add(new Item.Weapon(600, 1, 3D, "The Screwdriver", 30, 0D) { previewSprite = Sprites.spritesDictionary["gatling_gun_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Gun", 30, 5D) { previewSprite = Sprites.spritesDictionary["basic_gun_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 3, 10D, "Knife", 1, 5D) { previewSprite = Sprites.spritesDictionary["knife_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "Uzi", 30, 100D) { previewSprite = Sprites.spritesDictionary["uzi_gun_preview"] });
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "ww", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "www", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwww", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwwww", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwwwww", 30, 5D));
-            player.inventory.Add(new Item.Weapon(400, 1, 3D, "wwwwwww", 30, 5D));
+            
             player.inventory.ActiveWeapon = 0;
-
-            #region debug
-
-
+            
             if(!worlds.ContainsKey(current))
                 worlds.Add(current, Game1.Instance.saveManager.LoadWorld(current));
+
+            worlds["main"].manager.AddEntity(player);
             // DEBUG
-#if DEBUG
+            #region debug
+#if false
 
             LivingEntity mugger = new LivingEntity(new FloatRectangle(384, 150, 32, 32), Sprites.spritesDictionary["player"], 10);
             mugger.ai = new MidAI(mugger);
@@ -160,6 +151,41 @@ namespace TheChicagoProject
             worldQuests.Update(gameTime);
             player.log.Update(gameTime);
 
+        }
+
+        public void Reset()
+        {
+            spawnThread.Abort();
+            worlds = new Dictionary<String, World>();
+            worldQuests = new QuestLog();
+            
+            //reset the worlds
+            foreach(string key in worlds.Keys.ToList())
+            {
+                worlds[key] = Game1.Instance.saveManager.LoadWorld(key);
+            }
+
+            current = "main";
+
+            player = new Player(new FloatRectangle(384, 72, 32, 32), Sprites.spritesDictionary["player"]);
+
+            player.inventory.ActiveWeapon = 0;
+
+            //reset player quest log
+            for (int i = 0; i < player.log.Count; i++)
+            {
+                player.log[i] = SaveManager.ParseQuest(SaveManager.QUEST_DIRECTORY + player.log[i].Name + ".quest");
+            }
+
+            if (!worlds.ContainsKey(current))
+                worlds.Add(current, Game1.Instance.saveManager.LoadWorld(current));
+
+            worlds["main"].manager.AddEntity(player);
+            
+
+            worldQuests = new QuestLog();
+            spawnDaemon = new SpawnDaemon();
+            spawnThread = new Thread(new ThreadStart(spawnDaemon.startDaemon));
         }
     }
 }   

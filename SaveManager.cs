@@ -38,13 +38,13 @@ namespace TheChicagoProject
         /// </summary>
         public void Load()
         {
-#if !DEBUG
+
             if (!MainGame.worldManager.worlds.ContainsKey("main"))
             {
                 World mainworld = LoadWorld("main");
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
-#endif
+
             LoadSave();
         }
 
@@ -295,7 +295,9 @@ namespace TheChicagoProject
                 player.health = pHealth;
                 player.QuestPoints = pQuestPoints;
 
-                
+                MainGame.worldManager.CurrentWorld.manager.AddEntity(player);
+                Game1.Instance.collisionManager.SwitchWorld();
+
                 //load all of the quests in the quest file
                 LoadQuests(MainGame.worldManager.worldQuests);
 
