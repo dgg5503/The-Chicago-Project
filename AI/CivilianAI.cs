@@ -8,6 +8,7 @@ using TheChicagoProject.GUI;
 
 namespace TheChicagoProject.AI
 {
+    //Ashwin Ganapathiraju
     class CivilianAI : AI
     {
         private int mapToUse; //Which map this AI is currently going for.
