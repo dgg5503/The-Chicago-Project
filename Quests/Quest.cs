@@ -33,6 +33,7 @@ namespace TheChicagoProject.Quests
         private Item.Item findThis; //Why are variable names that mean something so hard.
         public Player player;
         public string worldKey;
+        private bool entitiesLoaded;
 
         public List<Entity.Entity> entitites;
 
@@ -89,6 +90,7 @@ namespace TheChicagoProject.Quests
             this.winCondition = winCondition;
             entitites = new List<Entity.Entity>();
             status = 0;
+            entitiesLoaded = false;
         }
 
         /// <summary>
@@ -100,6 +102,7 @@ namespace TheChicagoProject.Quests
             status = (int)State.Completed;
             player.Cash += cashReward;
             player.QuestPoints += reward;
+            entitiesLoaded = false;
         }
 
         /// <summary>
@@ -108,18 +111,6 @@ namespace TheChicagoProject.Quests
         public virtual void StartQuest()
         {
             status = (int)State.InProgress;
-            World world;
-            if (worldManager.worlds.ContainsKey(worldKey))
-                world = worldManager.worlds[worldKey];
-            else
-                world = worldManager.CurrentWorld;
-            //initialize each entity
-            foreach (Entity.Entity entity in entitites)
-            {
-                
-                world.manager.AddEntity(entity); //not entitity
-                Console.WriteLine("Entity Added");
-            }
         }
 
         /// <summary>
@@ -143,8 +134,28 @@ namespace TheChicagoProject.Quests
         /// </summary>
         public virtual void Update()
         {
-            if (this.Status != 2)
+            if (this.Status != (int)State.InProgress)
                 return;
+            if (!entitiesLoaded)
+            {
+                World world = null;
+                if (worldManager.worlds.ContainsKey(worldKey))
+                    world = worldManager.worlds[worldKey];
+                if(world == Game1.Instance.worldManager.CurrentWorld)
+                {
+                    entitiesLoaded = true;
+                    
+                    //initialize each entity
+                    foreach (Entity.Entity entity in entitites)
+                    {
+
+                        world.manager.AddEntity(entity); //not entitity
+                        Console.WriteLine("Entity Added");
+                    }
+                }
+                
+            }
+
             switch (winCondition)
             {
                 case WinCondition.EnemyDies:
