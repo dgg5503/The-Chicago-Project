@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Item;
-
 
 namespace TheChicagoProject.GUI
 {
@@ -69,10 +69,23 @@ namespace TheChicagoProject.GUI
             // Weapon stats container
             weaponStatsContainer = new ItemStatsUI(this.Size * .4f);
             weaponStatsContainer.Border = new BorderInfo(Sprites.guiSpritesDictionary["weapon_wheel_border"]);
+            weaponStatsContainer.Controls[1].Border = null;
             weaponStatsContainer.Alignment = ControlAlignment.Center;
             Add(weaponStatsContainer);
+
+            //KeyClicked += WeaponWheelUIV2_KeyClicked;
+
         }
 
+        /*
+        void WeaponWheelUIV2_KeyClicked(object sender, KeysEventArgs e)
+        {
+            if(e.Keys.Contains(Keys.Q) || e.Keys.Contains(Keys.Escape))
+            {
+                currentInventory = null;
+            }
+        }
+        */
         // <summary>
         /// Load the inventory you want to view.
         /// </summary>
@@ -111,8 +124,13 @@ namespace TheChicagoProject.GUI
                     weaponStatsContainer.Load(weapon);
                     currentWeaponButton = weaponButton;
                 }
+                else
+                {
+                    weaponButton.DefaultBorder = new BorderInfo(1, Color.Transparent);
+                }
                 
                 weaponButton.Fill = new FillInfo(weapon.previewSprite.Texture, Color.White);
+                
                 weaponButton.Text = weapon.name;
                 weaponButton.Click += weaponButton_Click;
                 weaponButton.Alignment = ControlAlignment.Center;

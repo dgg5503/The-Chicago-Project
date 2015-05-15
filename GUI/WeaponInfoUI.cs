@@ -24,7 +24,7 @@ namespace TheChicagoProject.GUI
     class WeaponInfoUI : Control
     {
         // Important GUI controls that will need to be updated
-        private LabelV2 weaponNameLbl;
+        private Label weaponNameLbl;
         private Label ammoCurrentInClipLbl;
         private Label ammoTotalLbl;
         private Label isReloadingLbl;
@@ -97,8 +97,8 @@ namespace TheChicagoProject.GUI
             weaponImgInfoContainer.Add(weaponImageContainer);
 
             // Weapon name
-            weaponNameLbl = new LabelV2(new Vector2(weaponImgInfoContainer.Size.X, 17));
-            weaponNameLbl.Location = new Vector2(0, 0);
+            weaponNameLbl = new Label();
+            weaponNameLbl.Location = new Vector2(0, 35);
             //weaponNameLbl.Text = "";
             weaponNameLbl.Alignment = ControlAlignment.Center;
             //weaponNameLbl.parent = weaponImgInfoContainer;
