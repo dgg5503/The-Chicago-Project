@@ -32,6 +32,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
             this.sprite = sprite;
             this.health = health;
             this.ai = ai;
+            
         }
     }
 
@@ -66,7 +67,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         List<LivingEntityData> livingEntities;
         List<QuestItemData> items;
-
+        List<string> Worlds;
 
         public QuestBuilder()
         {
@@ -119,7 +120,16 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
         private void QuestBuilder_Load(object sender, EventArgs e)
         {
-            
+            //Load worlds in directory
+            string content = Directory.GetCurrentDirectory() + "/Content";
+            string[] files = Directory.GetFiles(content, "*.txt", SearchOption.TopDirectoryOnly);
+            Worlds = new List<string>();
+            foreach(string filename in files)
+            {
+                Worlds.Add(Path.GetFileNameWithoutExtension(filename));
+            }
+            cmbWorlds.DataSource = Worlds;
+
             cmbConditions.DataSource = Enum.GetNames(typeof(Quests.WinCondition));
             List<string> keys = new List<string>();
             foreach (string key in GUI.Sprites.spritesDictionary.Keys)
@@ -129,7 +139,6 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
             livingEntities = new List<LivingEntityData>();
             items = new List<QuestItemData>();
-             
 
         }
 
@@ -148,6 +157,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
             //store this information somewhere
             livingEntities.Add(new LivingEntityData(name, x, y, sprite, health, ai));
+            lsbEntities.Items.Add(name);
 
             if (chkRecipient.Checked)
                 recipient = name;
@@ -162,6 +172,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
             cmbLivingEntityAI.Text = "";
             chkTarget.Checked = false;
             chkRecipient.Checked = false;
+
 
         }
 
@@ -230,6 +241,7 @@ namespace TheChicagoProject.Quests.QuestGenerator
 
                 output.WriteLine("Type:\"Quest\"");
                 output.WriteLine("Name:\"{0}\"", QuestName);
+                output.WriteLine("World:\"{0}\"", cmbWorlds.Text);
                 output.WriteLine("Objective:\"{0}\"", objective);
                 output.WriteLine("Description:\"{0}\"", description);
                 output.WriteLine("Start:\n\tX:{0}\n\tY:{1}", x, y);
@@ -325,11 +337,17 @@ namespace TheChicagoProject.Quests.QuestGenerator
             txtItemName.Text = "";
             chkDelivery.Checked = false;
             chkGoalItem.Checked = false;
+            lsbEntities.Items.Clear();
         }
 
         private void QuestBuilder_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

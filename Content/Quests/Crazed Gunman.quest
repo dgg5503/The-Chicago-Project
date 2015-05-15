@@ -1,7 +1,8 @@
 Type:"Quest"
 Name:"Crazed Gunman"
+World:"downtown"
 Objective:"Kill the crazed gunman"
-Description:"A crazed gunman is attacking the people of Chicago"
+Description:"A crazed gunman is attacking the people of Chicago downtown."
 Start:
 	X:50
 	Y:50
@@ -12,8 +13,8 @@ Reward:
 Living Entity:
 	ID:Gunman
 	Start:
-		X:83
-		Y:92
+		X:2564
+		Y:1174
 	Texture:"mugger"
 	Health:2
 	AI:Mid

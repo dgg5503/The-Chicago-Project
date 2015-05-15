@@ -19,7 +19,6 @@ namespace TheChicagoProject
     /// </summary>
     public class InputManager
     {
-        private static bool lastFrameFired;
         private static KeyboardState previousState;
 
         private Player player;
@@ -29,7 +28,6 @@ namespace TheChicagoProject
         /// </summary>
         public InputManager()
         {
-            lastFrameFired = true;
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace TheChicagoProject
             {
                 //Detects if the player wants to move
                 #region Movement Input
-                int speed = 10;
+                int speed = 4;
 
                 //int deltaX = 0;
                 //int deltaY = 0;
@@ -217,23 +215,10 @@ namespace TheChicagoProject
                 //handles mouse input
                 if (mouseState.LeftButton == ButtonState.Pressed)   //Primary fire
                 {
-                    if (!lastFrameFired)
-                    {
                         player.Attack(0, player.inventory.GetEquippedPrimary());
-                        lastFrameFired = true;
-                    }
-                    else
-                    {
-                        lastFrameFired = false;
                     }
                 }
-                else if (mouseState.RightButton == ButtonState.Pressed)  //grenade
-                {
-                    //throw new NotImplementedException();
-                    //WorldManager.player.Attack(1, );
-                }
-            }
-            if (keyState.IsKeyDown(Keys.Q) || mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
+            if ((keyState.IsKeyDown(Keys.Q) && !previousState.IsKeyDown(Keys.Q))|| mouseState.MiddleButton == ButtonState.Pressed)    //weapon wheel
             {
                 if (Game1.state == GameState.Game)
                 {
@@ -269,6 +254,7 @@ namespace TheChicagoProject
                     //DialogBox test = new DialogBox(new Vector2(200, 150), DialogBoxType.OkCancel, "Test dialog!!", "You've opened the quest log!", new Vector2(300, 300));
                     //test.yesEvent += test_yesEvent;
                     //test.noEvent += test_noEvent;
+                    //NPCTalkUI test = new NPCTalkUI(new Vector2(200, 150), "TESTER", "lololo wow ok hi XD!!");
                     //RenderManager.AddDialog(test);
                      
                     Game1.state = GameState.QuestLog;

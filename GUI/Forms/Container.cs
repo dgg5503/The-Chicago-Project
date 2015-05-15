@@ -11,7 +11,7 @@ namespace TheChicagoProject.GUI.Forms
 {
 
     
-    class Container : Control
+    public class Container : Control
     {
         // Autoresize to fit largest child?
         private bool autoResize;

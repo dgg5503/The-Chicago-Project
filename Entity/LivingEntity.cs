@@ -8,8 +8,10 @@ using TheChicagoProject.Item;
 using TheChicagoProject.AI;
 using TheChicagoProject.GUI;
 using TheChicagoProject.GUI.Particles;
+using TheChicagoProject.GUI.Forms;
 using TheChicagoProject.Collision;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TheChicagoProject.Entity
 {
@@ -32,6 +34,8 @@ namespace TheChicagoProject.Entity
         private int cash;
 
         private float interactRange;
+
+        private ProgressBar healthBar;
 
         /// <summary>
         /// Gets or sets the amount of cash the player has
@@ -72,6 +76,14 @@ namespace TheChicagoProject.Entity
             maxHealth = health;
 
             color = Color.Red;
+
+            healthBar = new ProgressBar(new Vector2(60, 20));
+            healthBar.MaxValue = maxHealth;
+            healthBar.CurrentValue = health;
+            healthBar.IncludeText = Name;
+            healthBar.LoadVisuals(Game1.Instance.Content, Game1.Instance.GraphicsDevice);
+            controls.Add(healthBar);
+            
         }
 
         /// <summary>
@@ -96,7 +108,32 @@ namespace TheChicagoProject.Entity
                 inventory.GetEquippedPrimary().Reload();
                 inventory.GetEquippedPrimary().Reloading = false;
             }
+
+            
+            healthBar.MaxValue = maxHealth;
+            healthBar.CurrentValue = health;
+            healthBar.IncludeText = Name;
+            healthBar.Location = new Vector2(this.location.Location.X - (healthBar.Size.X / 2) + (this.location.Width / 2), this.location.Location.Y - healthBar.Size.Y);
+            healthBar.Update(time);
+             
         }
+
+        /// <summary>
+        /// Draws the base sprite and a health bar!
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            base.Draw(spriteBatch, gameTime);
+            //healthBar.Draw(spriteBatch, gameTime);
+        }
+
+        /*
+        public override void DrawUI(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            healthBar.Draw(spriteBatch, gameTime);
+        }*/
 
         /// <summary>
         /// The Living Entity attacks
@@ -113,6 +150,7 @@ namespace TheChicagoProject.Entity
                     // need to get FRONT face, location will not work since that is not rotated, only the sprite is.
                     // we must utilize facedirection to calculate where on the outside of the sprite the shooting location should be set then apply an offset for weaponry...
                     //Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(location.X, location.Y, (float)System.Math.Cos(trajectory), (float)System.Math.Sin(trajectory), inventory.GetEquippedPrimary().Damage, this);
+                    
                     // Douglas Gliner
                     Game1.Instance.worldManager.CurrentWorld.manager.FireBullet(((int) (sprite.Texture.Width / 2) * (float) Math.Cos(faceDirection - Math.PI / 4)) + location.Center.X,
                         ((int) (sprite.Texture.Height / 2) * (float) Math.Sin(faceDirection - Math.PI / 4)) + location.Center.Y,
@@ -135,8 +173,10 @@ namespace TheChicagoProject.Entity
          *      - closest to the player or first to find?
          */
 
+        // Douglas Gliner
         // spending too much time on making this versatile, this can only be 32 units away from player.
-        public void Interact() {
+        public void Interact()
+        {
             // ray cast
             RotatedRectangle rayCast = new RotatedRectangle(new FloatRectangle((location.Center.X + (((sprite.Texture.Width) * (float)Math.Cos(faceDirection - Math.PI / 2))) - (sprite.Texture.Width / 2)), (location.Center.Y + (((sprite.Texture.Height) * (float)Math.Sin(faceDirection - Math.PI / 2))) - (interactRange / 2)), sprite.Texture.Width, interactRange), faceDirection);
 
@@ -234,9 +274,12 @@ namespace TheChicagoProject.Entity
                     break;
             }
             Player player = Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer();
-            float actual = (float) Math.Atan2(this.location.Center.Y - player.location.Center.Y, this.location.Center.X - player.location.Center.X);
-            actual -= (float) Math.PI / 2f;
-            this.faceDirection = actual;
+            if (player != null)
+            {
+                float actual = (float)Math.Atan2(this.location.Center.Y - player.location.Center.Y, this.location.Center.X - player.location.Center.X);
+                actual -= (float)Math.PI / 2f;
+                this.faceDirection = actual;
+            }
         }
 
         

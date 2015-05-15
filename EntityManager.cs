@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TheChicagoProject.Entity;
 using TheChicagoProject.GUI.Particles;
+using TheChicagoProject.GUI;
 using Microsoft.Xna.Framework;
 
 namespace TheChicagoProject
@@ -13,10 +14,12 @@ namespace TheChicagoProject
     /// Collisions, 'ticking', and whatnot.
     /// 
     /// Ashwin Ganapathiraju
+    /// Josiah S DeVizia - FireBullet, made some edits to AddEntity and Update
     /// </summary>
     public class EntityManager
     {
         private List<Entity.Entity> entities;
+        private List<Entity.Entity> entitiesToAdd;
         private int playerLoc;
         public Game1 mainGame;
         public World world;
@@ -28,11 +31,14 @@ namespace TheChicagoProject
 
         public EntityManager(World world) {
             entities = new List<Entity.Entity>();
+            entitiesToAdd = new List<Entity.Entity>();
             playerLoc = -1;
             this.mainGame = Game1.Instance;
             this.world = world;
         }
-
+        /// <summary>
+        /// Adds the given entity into the list of entities, and adjusts the player location if a player object is added
+        /// </summary>
         public void AddEntity(Entity.Entity e) {
             e.currentWorld = world;
             Console.WriteLine("Added Entity: " + e.GetType().FullName + " (#" + e.GetHashCode() + ")");
@@ -46,7 +52,8 @@ namespace TheChicagoProject
             } else {
                 if (e is NPC)
                     civilianCount++;
-                entities.Add(e);
+                // entities.Add(e);
+                entitiesToAdd.Add(e);
             }
         }
 
@@ -58,18 +65,26 @@ namespace TheChicagoProject
         }
 
         public void Update(GameTime time) {
+            for (int x = 0; x < entitiesToAdd.Count; x++) {
+                entities.Add(entitiesToAdd[x]);
+                entitiesToAdd.Remove(entitiesToAdd[x]);
+            }
             for (int x = 0; x < entities.Count; x++) {
                 Entity.Entity e = entities[x];
                 if (e.markForDelete) {
                     if (e is Player) {
                         Game1.state = GameState.Menu;
+                        (Controls.guiElements["mainMenu"] as Menu).GameOver((e as Player).Cash, (e as Player).QuestPoints);
+
                         (e as Player).health = (e as Player).maxHealth;
+                        Game1.Instance.worldManager.Reset();
                         e.markForDelete = false;
+                        entities.Remove(e);
                     } else {
                         entities.Remove(e);
                     }
                     if (e is NPC)
-                       civilianCount--;
+                        civilianCount--;
 
                 } else
                     e.Update(time, this);

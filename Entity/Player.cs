@@ -65,12 +65,20 @@ namespace TheChicagoProject.Entity
             set 
             { 
                 questPoints = value;
-                this.maxHealth = QuestPointsToLives(questPoints);
-                /****************************************************
-                 *                                                  *
-                 *    Display Message About getting a new heart?    *
-                 *                                                  *
-                 ****************************************************/
+                int newhealth = QuestPointsToLives(questPoints);
+                if (newhealth > maxHealth)
+                {
+                    //display message
+                    GUI.Forms.DialogBox box = new GUI.Forms.DialogBox(
+                        new Vector2(300, 200),
+                        GUI.Forms.DialogBoxType.Ok,
+                        "New Lives",
+                        "Congratulations! You have gained life!");
+                    RenderManager.AddDialog(box);
+                }
+                health += newhealth - maxHealth;
+                maxHealth = newhealth;
+                
             }
         }
 
@@ -83,16 +91,6 @@ namespace TheChicagoProject.Entity
             lastShot = 0D;
             
         }
-
-        /// <summary>
-        /// Interacts with the environment
-        /// </summary>
-        /*
-        public void Interact()
-        {
-            throw new NotImplementedException();
-        }
-         */
 
         //Sean Levorse
         /// <summary>
@@ -142,12 +140,34 @@ namespace TheChicagoProject.Entity
                 location.Y = door.Destination.Y * GUI.Tile.SIDE_LENGTH;
                 Game1.Instance.worldManager.CurrentWorld.manager.AddEntity(this);
                 Game1.Instance.collisionManager.SwitchWorld();
+                Game1.Instance.worldManager.spawnDaemon.ClearSpawning();
+            }
+            
+            if(Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)location.Y / Tile.SIDE_LENGTH] == Tiles.tilesList[8])
+            {
+                this.health = maxHealth;
+            }
+
+            if (Game1.Instance.worldManager.CurrentWorld.tiles[(int)(location.X / Tile.SIDE_LENGTH)][(int)location.Y / Tile.SIDE_LENGTH] == Tiles.tilesList[9])
+            {
+                if(Cash > 50)
+                {
+                    foreach(Weapon weapon in inventory)
+                    {
+                        weapon.Ammo = weapon.maxClip * 7;
+                    }
+                }
             }
 
             if(inventory.GetEquippedPrimary().LoadedAmmo == 0 && !inventory.GetEquippedPrimary().Reloading)
             {
                 Reload();
             }
+        }
+
+        public override void DrawUI(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            //base.DrawUI(spriteBatch, gameTime);
         }
     }
 }

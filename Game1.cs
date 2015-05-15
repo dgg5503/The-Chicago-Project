@@ -35,7 +35,8 @@ namespace TheChicagoProject
         WeaponWheel,
         FastTravel,
         Shop,
-        Exiting
+        Exiting,
+        Dialog
     }
 
     /// <summary>
@@ -105,7 +106,6 @@ namespace TheChicagoProject
             // RenderManager is created here
             // In the constructor for RenderManager, ALL TEXTURES ARE LOADED.
             renderManager = new RenderManager(spriteBatch, GraphicsDevice, worldManager);
-
             this.IsMouseVisible = true;
             
 
@@ -203,15 +203,13 @@ namespace TheChicagoProject
                     break;
                 case GameState.Shop:
                     break;
+               /* case GameState.Dialog:
+                    break;*/
                 default:
                     break;
             }
 
             // For sprite and GUI animations
-            
-
-            
-
             
             renderManager.Update(gameTime);
             base.Update(gameTime);

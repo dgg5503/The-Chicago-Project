@@ -1,5 +1,6 @@
 Type:"Quest"
 Name:"Mugging"
+World:"main"
 Objective:"Kill the mugger"
 Description:"You are being attacked by a mugger."
 Start:

@@ -38,13 +38,13 @@ namespace TheChicagoProject
         /// </summary>
         public void Load()
         {
-#if !DEBUG
+
             if (!MainGame.worldManager.worlds.ContainsKey("main"))
             {
                 World mainworld = LoadWorld("main");
                 MainGame.worldManager.worlds.Add("main", mainworld);
             }
-#endif
+
             LoadSave();
         }
 
@@ -60,14 +60,17 @@ namespace TheChicagoProject
 
             World tmpWorld = new World(int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
 
-            GUI.Door[] doors = new GUI.Door[int.Parse(worldReader.ReadLine())];
+            tmpWorld.canRespawn = bool.Parse(worldReader.ReadLine());   //Josiah S DeVizia
 
+            GUI.Door[] doors = new GUI.Door[int.Parse(worldReader.ReadLine())]; //Josiah S DeVizia
+
+            //Josiah S DeVizia
             for(int x = 0; x < doors.Length; ++x)
             {
                 doors[x] = new Door(worldReader.ReadLine(), int.Parse(worldReader.ReadLine()), int.Parse(worldReader.ReadLine()));
             }
 
-            Vector2[] doorLocs = new Vector2[doors.Length];
+            Vector2[] doorLocs = new Vector2[doors.Length]; //Josiah S DeVizia
 
             int y = 0;
             string line = worldReader.ReadLine();
@@ -103,6 +106,7 @@ namespace TheChicagoProject
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Water"];
                             break;
 
+                        //Josiah S DeVizia
                         case '6':
                             doorLocs[y] = new Vector2(row, col);
                             y++;
@@ -110,8 +114,18 @@ namespace TheChicagoProject
                             doorCntr++;
                             break;
 
+                        //Josiah S DeVizia
                         case '7':
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Debris"];
+                            break;
+                        case '8':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Heal"];
+                            break;
+                        case '9':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Ammo"];
+                            break;
+                        default:
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingEdge"];
                             break;
                     }
                 }
@@ -284,7 +298,9 @@ namespace TheChicagoProject
                 player.health = pHealth;
                 player.QuestPoints = pQuestPoints;
 
-                
+                MainGame.worldManager.CurrentWorld.manager.AddEntity(player);
+                Game1.Instance.collisionManager.SwitchWorld();
+
                 //load all of the quests in the quest file
                 LoadQuests(MainGame.worldManager.worldQuests);
 
@@ -299,6 +315,15 @@ namespace TheChicagoProject
                     {
                         pLog[quest] = log[quest];
                         pLog[quest].Status = (int)quests[i, 1];
+                    }
+                }
+
+                //add new quests to quest log
+                foreach(Quest newQuest in log)
+                {
+                    if(!pLog.ContainsQuest(newQuest))
+                    {
+                        pLog.Add(newQuest);
                     }
                 }
                 
@@ -418,6 +443,11 @@ namespace TheChicagoProject
                     index = data.IndexOf("Name:") + 6;
                     end = data.IndexOf('"', index);
                     string name = data.Substring(index, end - index);
+
+                    //get world key
+                    index = data.IndexOf("World:") + 7;
+                    end = data.IndexOf('"', index);
+                    string key = data.Substring(index, end - index); 
 
                     //get the description
                     index = data.IndexOf("Description:") + 13;
@@ -627,7 +657,8 @@ namespace TheChicagoProject
 
                     //Create the quest
                     quest = new Quest(name, objective, description, start, null, condition, qPoints, cash);
-
+                    quest.worldKey = key;
+                    quest.Status = 1;
                     //add the entities to the quests entitiy list
                     foreach (Entity.LivingEntity entity in livingEntities.Values.ToList())
                     {
