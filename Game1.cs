@@ -35,7 +35,8 @@ namespace TheChicagoProject
         WeaponWheel,
         FastTravel,
         Shop,
-        Exiting
+        Exiting,
+        Dialog
     }
 
     /// <summary>
@@ -202,6 +203,8 @@ namespace TheChicagoProject
                     break;
                 case GameState.Shop:
                     break;
+               /* case GameState.Dialog:
+                    break;*/
                 default:
                     break;
             }
