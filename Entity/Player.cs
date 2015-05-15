@@ -92,16 +92,6 @@ namespace TheChicagoProject.Entity
             
         }
 
-        /// <summary>
-        /// Interacts with the environment
-        /// </summary>
-        /*
-        public void Interact()
-        {
-            throw new NotImplementedException();
-        }
-         */
-
         //Sean Levorse
         /// <summary>
         /// calculates the number of lives the player should have based on the number of quest points
