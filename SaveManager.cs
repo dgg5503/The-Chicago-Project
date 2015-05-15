@@ -115,6 +115,15 @@ namespace TheChicagoProject
                         case '7':
                             tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Debris"];
                             break;
+                        case '8':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Heal"];
+                            break;
+                        case '9':
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["Ammo"];
+                            break;
+                        default:
+                            tmpWorld.tiles[row][col] = Tiles.tilesDictionary["BuildingEdge"];
+                            break;
                     }
                 }
                 row++;

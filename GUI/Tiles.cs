@@ -29,6 +29,8 @@ namespace TheChicagoProject.GUI
             AddTile("Water", new Tile(false, "Water.png")); //5
             AddTile("Door", new Tile(true, "door.png"));    //6
             AddTile("Debris", new Tile(false, "debris.png"));   //7
+            AddTile("Heal", new Tile(true, "Heal.png")); //8
+            AddTile("Ammo", new Tile(true, "BuyAmmo.png")); //9
         }
 
         private static void AddTile(String mapName, Tile tile) {
