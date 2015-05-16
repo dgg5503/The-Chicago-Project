@@ -15,6 +15,7 @@ namespace TheChicagoProject.AI
     /// Ashwin Ganapathiraju
     /// 
     /// Code taken from The Catalyst Project (copyright Serakos Coding 2015, All Rights Reserved).
+    /// Usage of this code requires the explicit permission of Ashwin Ganapathiraju and/or Cameron Ewell.
     /// </summary>
     public class DijkstraMap
     {
