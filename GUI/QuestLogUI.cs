@@ -292,7 +292,7 @@ namespace TheChicagoProject.GUI
         /// <param name="log"></param>
         public void Load(QuestLog log)
         {
-            
+            questInfoBars.Clear();
             int count = 0;
             botIndex = 0;
             foreach(Quest quest in log)

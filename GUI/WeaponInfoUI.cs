@@ -166,7 +166,7 @@ namespace TheChicagoProject.GUI
                         ammoTotalLbl.Text = "" + weapon.Ammo + "";
                     else
                         ammoTotalLbl.Text = "-----";
-                    reloadBar.MaxValue = weapon.ReloadTime * 10000;
+                    reloadBar.MaxValue = weapon.ReloadTime * 1000;
                     reloadBar.CurrentValue = weapon.Reloading ? Game1.Instance.worldManager.CurrentWorld.manager.GetPlayer().LastShot : 0;
 
                     if (weapon.Reloading)
